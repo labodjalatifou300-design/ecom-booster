@@ -357,6 +357,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
     </div>
   </div>
   <div class="sb-bot">
+    <div style="display:flex;gap:.4rem;margin-bottom:.5rem;">
+      <button onclick="window.location.href='index.html'" style="flex:1;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;padding:.38rem .5rem;font-size:.68rem;color:var(--muted);cursor:pointer;font-family:var(--font);transition:all .18s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">🏠 Accueil</button>
+      <button onclick="deconnexion()" style="flex:1;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;padding:.38rem .5rem;font-size:.68rem;color:var(--muted);cursor:pointer;font-family:var(--font);transition:all .18s;" onmouseover="this.style.color='#F87171'" onmouseout="this.style.color='var(--muted)'">⏻ Déconnexion</button>
+    </div>
     <div class="ucard">
       <div class="uav" id="uav">AK</div>
       <div><div class="uname" id="uname">Ama Kofi</div><div class="uplan" id="trial-status">✓ Essai gratuit actif</div></div>
@@ -390,8 +394,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
 <script>
 // ══ CONFIG SUPABASE ══
 // Mets ton URL et clé anon Supabase ici (ces deux sont publiques par conception)
-const SUPABASE_URL='https://jrsqomjwiawzbdsolcjq.supabase.co';
-const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impyc3FvbWp3aWF3emJkc29sY2pxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Nzc5NjYsImV4cCI6MjA4OTM1Mzk2Nn0.5n9njd-gv7Ss9k7bWSzMTRNYO8SwdIUP6C9FVa0c6NY';
+const SUPABASE_URL='METS-TON-URL-SUPABASE-ICI';
+const SUPABASE_KEY='METS-TA-CLE-ANON-ICI';
 // GROK_KEY et CLAUDE_KEY sont maintenant côté serveur dans /api/ai.js
 // Tu les mets dans Vercel → Settings → Environment Variables
 // PAS BESOIN de les mettre ici.
@@ -612,7 +616,7 @@ async function analyze(){
 
 // ══ API ══
 async function callAI(nom,prix,pays,cat,desc,pR){
-  const prompt=`Tu es Ecom Booster 2.0, expert e-commerce africain. Analyse ce produit et réponds UNIQUEMENT en JSON valide, zéro texte ni backticks autour.
+  const prompt=`Tu es un expert en copywriting et e-commerce africain. Analyse ce produit et génère du contenu marketing de haute qualité. Réponds UNIQUEMENT en JSON valide, zéro texte ni backticks autour.
 
 PRODUIT: ${nom}
 PRIX ACHAT: ${prix} FCFA | PAYS: ${pays} | CATÉGORIE: ${cat}
@@ -620,11 +624,11 @@ DESCRIPTION: ${desc}
 PRIX VENTE RECOMMANDÉ: ${pR} FCFA
 
 IMPORTANT pour l'avatar: détecte le genre principal concerné par CE produit spécifique. Si le produit est plutôt masculin, génère un avatar homme en premier. Si féminin, une femme. Si mixte (mainstream), génère les deux.
-IMPORTANT pour voix off: cite le problème PRÉCIS que ce produit résout (basé sur la description). Pas de généralités. Ne mets PAS de prix ni de noms de pays dans les scripts voix off.
-IMPORTANT pour facebook ads: l'accroche doit mentionner le problème PRÉCIS. Limite les mentions de pays.
+IMPORTANT pour voix off: Tu dois identifier le problème EXACT et PRÉCIS que ce produit résout. Exemple - si c'est une crème anti-acné : "les boutons et l'acné qui gâchent ta peau et ta confiance". Si c'est une genouillère : "les douleurs de genou qui t'empêchent de marcher normalement". NE DIS JAMAIS "les problèmes liés à" ou des formules vagues. Dis EXACTEMENT le problème. Écris en français naturel et correct. PAS de prix ni de noms de pays dans les scripts.
+IMPORTANT pour facebook ads: L'accroche doit nommer le problème EXACT (ex: "Tu as des boutons et des imperfections..." ou "Tu souffres de douleurs de genou..."). Jamais de formules vagues. Écris en français naturel et accrocheur avec des emojis. Le texte doit donner envie d'acheter maintenant.
 
 JSON:
-{"score":75,"score_verdict":"5 mots","score_desc":"1 phrase","score_recommandation":"dois-je lancer ce produit ? réponse directe avec raison","criteres":[{"nom":"Popularité en Afrique","score":70,"explication":"pourquoi","conseil":"action concrète"},{"nom":"Facilité à marketer","score":80,"explication":"pourquoi","conseil":"comment"},{"nom":"Concurrence faible","score":60,"explication":"pourquoi","conseil":"stratégie"},{"nom":"Prix abordable","score":85,"explication":"pourquoi","conseil":"conseil prix"},{"nom":"Audience large","score":75,"explication":"pourquoi","conseil":"segmentation"},{"nom":"Tendance actuelle","score":68,"explication":"pourquoi","conseil":"timing"}],"offres":[{"titre":"...","desc":"...","icon":"🚚","pour_qui":"...","comment":"...","impact":"...","recommandee":true},{"titre":"...","desc":"...","icon":"📦","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🎁","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🛡️","pour_qui":"...","comment":"...","impact":"...","recommandee":false}],"shopify_titres":["t1","t2","t3"],"shopify_paragraphes":[{"titre":"...","contenu":"3 phrases neuromarketing bénéfices"},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."}],"fb_ads":[{"angle":"Douleur / Problème","accroche":"première phrase sur le problème PRÉCIS du produit","texte":"texte complet avec emojis, commence par accroche"},{"angle":"Preuve Sociale","accroche":"première phrase témoignages/résultats","texte":"..."},{"angle":"Curiosité / Intrigue","accroche":"première phrase mystérieuse","texte":"..."}],"voix_off":[{"titre":"Script 1 — Émotionnel","script":"paragraphe fluide unique 80-100 mots, cite le problème précis, sans prix ni pays"},{"titre":"Script 2 — Direct & Choc","script":"paragraphe unique 60-70 mots, percutant, sans prix ni pays"},{"titre":"Script 3 — Storytelling","script":"paragraphe narratif unique 90-110 mots, histoire, sans prix ni pays"}],"avatar_principal":{"prenom":"prénom adapté au genre détecté","age":"tranche","sexe":"Homme ou Femme","profession":"...","revenu":"... FCFA/mois","description":"2 phrases portrait","traits":[{"nom":"Impulsivité achat","val":72},{"nom":"Sensibilité au prix","val":80},{"nom":"Confiance en ligne","val":58},{"nom":"Influence réseaux","val":85}],"motivations":["...","...","..."],"peurs":["...","...","..."],"phrases_declencheurs":["...","...","..."],"reseaux":["...","..."],"tags":["t1","t2","t3","t4"],"face":"👨 ou 👩","bg":"linear-gradient(135deg,#1D4ED8,#7C3AED) ou autre"},"avatar_secondaire":null,"concurrence":{"analyse":"2-3 phrases","conseil":"conseil court"}}
+{"score":75,"score_verdict":"5 mots","score_desc":"1 phrase","score_recommandation":"dois-je lancer ce produit ? réponse directe avec raison","criteres":[{"nom":"Popularité en Afrique","score":70,"explication":"pourquoi","conseil":"action concrète"},{"nom":"Facilité à marketer","score":80,"explication":"pourquoi","conseil":"comment"},{"nom":"Concurrence faible","score":60,"explication":"pourquoi","conseil":"stratégie"},{"nom":"Prix abordable","score":85,"explication":"pourquoi","conseil":"conseil prix"},{"nom":"Audience large","score":75,"explication":"pourquoi","conseil":"segmentation"},{"nom":"Tendance actuelle","score":68,"explication":"pourquoi","conseil":"timing"}],"offres":[{"titre":"...","desc":"...","icon":"🚚","pour_qui":"...","comment":"...","impact":"...","recommandee":true},{"titre":"...","desc":"...","icon":"📦","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🎁","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🛡️","pour_qui":"...","comment":"...","impact":"...","recommandee":false}],"shopify_titres":["t1","t2","t3"],"shopify_paragraphes":[{"titre":"...","contenu":"3 phrases CONCRÈTES sur les bénéfices RÉELS du produit (pas les caractéristiques). Utilise des mots émotionnels. En français naturel et correct."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."}],"fb_ads":[{"angle":"Douleur / Problème","accroche":"première phrase sur le problème PRÉCIS du produit","texte":"texte complet avec emojis, commence par accroche"},{"angle":"Preuve Sociale","accroche":"première phrase témoignages/résultats","texte":"..."},{"angle":"Curiosité / Intrigue","accroche":"première phrase mystérieuse","texte":"..."}],"voix_off":[{"titre":"Script 1 — Émotionnel","script":"paragraphe fluide unique 80-100 mots, cite le problème précis, sans prix ni pays"},{"titre":"Script 2 — Direct & Choc","script":"paragraphe unique 60-70 mots, percutant, sans prix ni pays"},{"titre":"Script 3 — Storytelling","script":"paragraphe narratif unique 90-110 mots, histoire, sans prix ni pays"}],"avatar_principal":{"prenom":"prénom adapté au genre détecté","age":"tranche","sexe":"Homme ou Femme","profession":"...","revenu":"... FCFA/mois","description":"2 phrases portrait","traits":[{"nom":"Impulsivité achat","val":72},{"nom":"Sensibilité au prix","val":80},{"nom":"Confiance en ligne","val":58},{"nom":"Influence réseaux","val":85}],"motivations":["...","...","..."],"peurs":["...","...","..."],"phrases_declencheurs":["...","...","..."],"reseaux":["...","..."],"tags":["t1","t2","t3","t4"],"face":"👨 ou 👩","bg":"linear-gradient(135deg,#1D4ED8,#7C3AED) ou autre"},"avatar_secondaire":null,"concurrence":{"analyse":"2-3 phrases","conseil":"conseil court"}}
 
 Note: avatar_secondaire doit être rempli (même structure qu'avatar_principal) uniquement si le produit est clairement mainstream/mixte. Sinon laisse null.`;
 
@@ -651,7 +655,25 @@ function demo(nom,prix,pays,cat,desc,pM,pX,pR,pub,liv,clo){
   const mainBg=isAuto?'linear-gradient(135deg,#1D4ED8,#0F766E)':'linear-gradient(135deg,#8B5CF6,#EC4899)';
   const mainPrenom=isAuto?'Kofi':'Ama';
   const mainProf=isAuto?'Chauffeur / Commerçant / Technicien':'Salariée / Commerçante';
-  const problemePrecis=desc.length>10?`les problèmes liés à : ${desc.split('.')[0]}`:'ce problème du quotidien';
+  // Extraction intelligente du problème depuis la description
+  function extraireProbleme(d){
+    const s=d.trim();
+    // Cherche des patterns courants de problème dans la description
+    const kw=['contre','anti','soulage','soulager','réduit','réduire','efface','corriger','traiter','combat','élimine','répare','améliore','résout','aide','protège','prévient'];
+    for(const k of kw){
+      const i=s.toLowerCase().indexOf(k);
+      if(i>-1){
+        const extract=s.substring(Math.max(0,i-20),Math.min(s.length,i+60));
+        return extract.replace(/^\s*[,.-]\s*/,'').trim();
+      }
+    }
+    // Fallback: prend la 2ème partie après la virgule si elle existe
+    const parts=s.split(/[,;]/);
+    if(parts.length>1) return parts[1].trim();
+    // Dernier recours: description entière nettoyée
+    return s.split('.')[0].trim();
+  }
+  const problemePrecis=desc.length>10?extraireProbleme(desc):'ce problème du quotidien';
   return{
     score:(()=>{let h=0;for(const c of nom+pays)h=((h<<5)-h+c.charCodeAt(0))|0;return 52+Math.abs(h)%40;})(),
     score_verdict:(()=>{let h=0;for(const c of nom+pays)h=((h<<5)-h+c.charCodeAt(0))|0;const s=52+Math.abs(h)%40;return s>=80?"Excellent produit !":s>=70?"Bon potentiel confirmé":s>=62?"Potentiel moyen":"À tester prudemment";})(),
@@ -1046,6 +1068,12 @@ function loadH(i){
   S.results=demo(h.name,h.prix,h.pays,'Autre',h.name,h.prix+8000,h.prix+12000,h.prixReco,2000,2000,1000);
   document.getElementById('sb-pn').textContent=h.name;
   showPage('prix');closeSidebar();
+}
+
+// ══ DÉCONNEXION ══
+async function deconnexion(){
+  if(sb){ try{ await sb.auth.signOut(); }catch(e){} }
+  window.location.href='eb2-login.html';
 }
 
 // INIT
