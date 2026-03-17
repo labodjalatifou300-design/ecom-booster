@@ -236,7 +236,7 @@ async function signup(){
     }
     if(data.user){
       showOk('ok-signup','Compte créé ! Redirection en cours...');
-      setTimeout(()=>{window.location.href='eb2-dashboard-final.html';},1500);
+      setTimeout(()=>{window.location.href='eb2-dashboard.html';},1500);
     }
   }catch(e){showErr('err-signup','Erreur de connexion. Vérifie tes clés Supabase.');}
   finally{setLoading('btn-signup',false);}
@@ -271,7 +271,7 @@ async function login(){
           return;
         }
       }
-      window.location.href='eb2-dashboard-final.html';
+      window.location.href='eb2-dashboard.html';
     }
   }catch(e){showErr('err-login','Erreur. Vérifie tes clés Supabase.');}
   finally{setLoading('btn-login',false);}
