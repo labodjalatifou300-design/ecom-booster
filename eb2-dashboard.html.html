@@ -389,10 +389,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
 
 <script>
 // ══ CONFIG SUPABASE ══
-const SUPABASE_URL='';
-const SUPABASE_KEY='';
-const CLAUDE_KEY='METS-TA-CLE-CLAUDE-ICI';
-const GROK_KEY='';
+// Mets ton URL et clé anon Supabase ici (ces deux sont publiques par conception)
+const SUPABASE_URL='https://jrsqomjwiawzbdsolcjq.supabase.co';
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impyc3FvbWp3aWF3emJkc29sY2pxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Nzc5NjYsImV4cCI6MjA4OTM1Mzk2Nn0.5n9njd-gv7Ss9k7bWSzMTRNYO8SwdIUP6C9FVa0c6NY';
+// GROK_KEY et CLAUDE_KEY sont maintenant côté serveur dans /api/ai.js
+// Tu les mets dans Vercel → Settings → Environment Variables
+// PAS BESOIN de les mettre ici.
 
 // Init Supabase si configuré
 let sb=null;
@@ -626,17 +628,19 @@ JSON:
 
 Note: avatar_secondaire doit être rempli (même structure qu'avatar_principal) uniquement si le produit est clairement mainstream/mixte. Sinon laisse null.`;
 
-  if(S.apiMode==='grok'){
-    const r=await fetch('https://api.x.ai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${GROK_KEY}`},body:JSON.stringify({model:'grok-2-latest',max_tokens:4000,messages:[{role:'user',content:prompt}]})});
-    if(!r.ok)throw new Error(r.status);
-    const d=await r.json();
-    return JSON.parse(d.choices[0].message.content.replace(/```json|```/g,'').trim());
-  }else{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':CLAUDE_KEY,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:4000,messages:[{role:'user',content:prompt}]})});
-    if(!r.ok)throw new Error(r.status);
-    const d=await r.json();
-    return JSON.parse(d.content[0].text.replace(/```json|```/g,'').trim());
+  // Appel sécurisé via /api/ai — les clés restent côté serveur Vercel
+  const r=await fetch('/api/ai',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({prompt:prompt, mode:S.apiMode})
+  });
+  if(!r.ok){
+    const err=await r.json().catch(()=>({error:'Erreur réseau'}));
+    throw new Error(err.error||r.status);
   }
+  const d=await r.json();
+  if(!d.success) throw new Error(d.error||'Erreur API');
+  return d.data;
 }
 
 // ══ DEMO ══
