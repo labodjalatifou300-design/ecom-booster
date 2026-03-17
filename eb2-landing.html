@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ecom Booster 2.0 by Labo — L'IA qui propulse ton e-commerce en Afrique</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07080F;--bg2:#0C0E1C;--bg3:#131628;--or:#FF6B1A;--gold:#FFB800;--green:#22C55E;--text:#EDEAE2;--muted:#7A7E96;--bd:rgba(255,255,255,0.07);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;overflow-x:hidden;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,26,.5)}50%{box-shadow:0 0 0 16px rgba(255,107,26,0)}}
+@keyframes gradMove{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 5%;background:rgba(7,8,15,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--bd);}
+.logo-nav{display:flex;align-items:center;gap:.5rem;}
+.logo-box{width:30px;height:30px;border-radius:7px;background:linear-gradient(135deg,var(--or),var(--gold));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.8rem;color:#fff;}
+.logo-nm{display:flex;flex-direction:column;line-height:1.1;}
+.logo-nm .n1{font-size:.88rem;font-weight:800;color:var(--text);}
+.logo-nm .n2{font-size:.6rem;font-weight:600;color:var(--or);}
+.nav-r{display:flex;gap:.8rem;align-items:center;}
+.nav-r a{color:var(--muted);text-decoration:none;font-size:.84rem;transition:color .2s;}
+.nav-r a:hover{color:var(--text);}
+.btn-nav{background:var(--or);color:#fff;padding:.5rem 1.2rem;border-radius:7px;font-weight:600;font-size:.84rem;text-decoration:none;transition:opacity .2s,transform .2s;}
+.btn-nav:hover{opacity:.9;transform:translateY(-1px);}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:7rem 5% 5rem;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(ellipse,rgba(255,107,26,.12) 0%,transparent 70%);pointer-events:none;}
+.badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,107,26,.1);border:1px solid rgba(255,107,26,.28);padding:.35rem .9rem;border-radius:999px;font-size:.76rem;color:var(--or);font-weight:600;margin-bottom:1.8rem;animation:fadeUp .6s ease both;}
+h1{font-size:clamp(2.4rem,7vw,5rem);font-weight:900;line-height:1.05;letter-spacing:-2px;max-width:780px;animation:fadeUp .7s ease .1s both;}
+h1 .gr{background:linear-gradient(90deg,var(--or),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 200%;animation:gradMove 4s ease infinite;}
+.hero-sub{margin-top:1.3rem;max-width:520px;font-size:1rem;color:var(--muted);line-height:1.8;animation:fadeUp .7s ease .2s both;}
+.ctas{display:flex;gap:.8rem;margin-top:2.2rem;flex-wrap:wrap;justify-content:center;animation:fadeUp .7s ease .3s both;}
+.btn-big{background:linear-gradient(135deg,var(--or),#FF8C42);color:#fff;padding:.95rem 2rem;border-radius:10px;font-size:.96rem;font-weight:700;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:0 8px 28px rgba(255,107,26,.35);animation:pulse 3s ease infinite;}
+.btn-big:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(255,107,26,.5);}
+.btn-out{background:rgba(255,255,255,.05);color:var(--text);padding:.95rem 2rem;border-radius:10px;font-size:.96rem;font-weight:500;text-decoration:none;border:1px solid var(--bd);transition:background .2s;}
+.btn-out:hover{background:rgba(255,255,255,.1);}
+.stats{display:flex;gap:3rem;margin-top:3.5rem;flex-wrap:wrap;justify-content:center;animation:fadeUp .7s ease .4s both;}
+.stat .num{font-size:2rem;font-weight:900;background:linear-gradient(90deg,var(--or),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.stat .lbl{font-size:.76rem;color:var(--muted);margin-top:.15rem;}
+section{padding:5.5rem 5%;}
+.sec-lbl{font-size:.68rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--or);margin-bottom:.7rem;}
+h2{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;line-height:1.1;letter-spacing:-1px;}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.3rem;margin-top:3rem;}
+.step{background:var(--bg2);border:1px solid var(--bd);border-radius:14px;padding:1.8rem;transition:transform .2s,border-color .2s;}
+.step:hover{transform:translateY(-3px);border-color:rgba(255,107,26,.3);}
+.sn{font-size:2.2rem;font-weight:900;color:rgba(255,107,26,.15);line-height:1;margin-bottom:.8rem;}
+.step h3{font-size:.96rem;font-weight:700;margin-bottom:.4rem;}
+.step p{color:var(--muted);font-size:.82rem;line-height:1.65;}
+.modules{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:3rem;}
+.mod{background:var(--bg2);border:1px solid var(--bd);border-radius:14px;padding:1.6rem;transition:transform .2s,border-color .2s;}
+.mod:hover{transform:translateY(-3px);border-color:rgba(255,107,26,.22);}
+.mod-ico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:.8rem;}
+.mod h3{font-size:.9rem;font-weight:700;margin-bottom:.35rem;}
+.mod p{color:var(--muted);font-size:.79rem;line-height:1.6;}
+.mod-tag{display:inline-block;margin-top:.7rem;font-size:.65rem;font-weight:700;background:rgba(255,107,26,.1);color:var(--or);padding:.18rem .5rem;border-radius:999px;}
+.pricing{max-width:900px;margin:0 auto;}
+.price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.3rem;margin-top:3rem;}
+.pc{background:var(--bg2);border:1px solid var(--bd);border-radius:18px;padding:2.2rem 1.8rem;position:relative;transition:border-color .2s;}
+.pc.feat{border-color:var(--or);background:linear-gradient(145deg,rgba(255,107,26,.05),var(--bg2));}
+.pp{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--or);color:#fff;font-size:.7rem;font-weight:700;padding:.28rem .9rem;border-radius:999px;white-space:nowrap;}
+.pc .plan{font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+.pc .amount{font-size:2.8rem;font-weight:900;margin:.7rem 0 .15rem;letter-spacing:-1px;}
+.pc .per{color:var(--muted);font-size:.8rem;}
+.pc hr{border:none;border-top:1px solid var(--bd);margin:1.3rem 0;}
+.pc ul{list-style:none;}
+.pc ul li{font-size:.82rem;padding:.35rem 0;color:var(--muted);display:flex;align-items:center;gap:.55rem;}
+.pc ul li::before{content:'✓';color:var(--green);font-weight:700;}
+.pc ul li.off{text-decoration:line-through;opacity:.35;}
+.pc ul li.off::before{content:'✕';color:var(--muted);}
+.btn-p{display:block;text-align:center;margin-top:1.8rem;padding:.85rem;border-radius:9px;font-weight:600;font-size:.9rem;text-decoration:none;transition:all .2s;}
+.btn-p.ol{border:1px solid var(--bd);color:var(--text);}
+.btn-p.ol:hover{background:rgba(255,255,255,.05);}
+.btn-p.fi{background:var(--or);color:#fff;box-shadow:0 6px 22px rgba(255,107,26,.3);}
+.btn-p.fi:hover{opacity:.9;transform:translateY(-1px);}
+.testis{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-top:2.5rem;}
+.testi{background:var(--bg2);border:1px solid var(--bd);border-radius:14px;padding:1.6rem;}
+.stars{color:var(--gold);font-size:.8rem;letter-spacing:2px;margin-bottom:.7rem;}
+.testi p{font-size:.84rem;color:var(--muted);line-height:1.75;font-style:italic;}
+.tav{display:flex;align-items:center;gap:.7rem;margin-top:1.1rem;}
+.tav-ico{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--or),var(--gold));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.8rem;color:#fff;}
+.tav .tn{font-size:.82rem;font-weight:600;}
+.tav .tl{font-size:.7rem;color:var(--muted);}
+.cta-fin{text-align:center;background:var(--bg2);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:5.5rem 5%;position:relative;overflow:hidden;}
+.cta-fin::before{content:'';position:absolute;bottom:-100px;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(255,184,0,.07) 0%,transparent 70%);pointer-events:none;}
+footer{padding:2.5rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;border-top:1px solid var(--bd);}
+footer p{font-size:.78rem;color:var(--muted);}
+.fl a{color:var(--muted);font-size:.76rem;text-decoration:none;margin-left:1.5rem;}
+@media(max-width:640px){
+  nav .nav-r a:not(.btn-nav){display:none;}
+  .stats{gap:1.5rem;}
+  h1{letter-spacing:-1px;}
+  .ctas{flex-direction:column;align-items:center;}
+  footer{flex-direction:column;text-align:center;}
+  .fl a{margin:0 .5rem;}
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo-nav">
+    <div class="logo-box">EB</div>
+    <div class="logo-nm"><span class="n1">Ecom Booster</span><span class="n2">2.0 by Labo</span></div>
+  </div>
+  <div class="nav-r">
+    <a href="#modules">Modules</a>
+    <a href="#prix">Tarifs</a>
+    <a href="eb2-login.html" class="btn-nav">Commencer →</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="badge">🔥 Conçu pour l'e-commerce africain</div>
+  <h1>Lance des produits<br>gagnants <span class="gr">10x plus vite.</span></h1>
+  <p class="hero-sub">L'intelligence artificielle qui analyse ton produit, génère tes textes, tes publicités, tes scripts vidéo et bien plus — en quelques secondes.</p>
+  <div class="ctas">
+    <a href="eb2-login.html" class="btn-big">Commencer gratuitement — 24h offerts 🚀</a>
+    <a href="#modules" class="btn-out">Voir les modules</a>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="num">11</div><div class="lbl">Modules IA</div></div>
+    <div class="stat"><div class="num">&lt;10s</div><div class="lbl">Par analyse</div></div>
+    <div class="stat"><div class="num">24</div><div class="lbl">Pays africains</div></div>
+    <div class="stat"><div class="num">100%</div><div class="lbl">Adapté Afrique</div></div>
+  </div>
+</div>
+
+<section>
+  <div class="sec-lbl">Comment ça marche</div>
+  <h2>3 étapes.<br>Un produit prêt à vendre.</h2>
+  <div class="steps">
+    <div class="step"><div class="sn">01</div><h3>Décris ton produit</h3><p>Tu entres le nom, le prix d'achat, le pays cible et une courte description. C'est tout.</p></div>
+    <div class="step"><div class="sn">02</div><h3>L'IA analyse tout</h3><p>En moins de 10 secondes, Ecom Booster génère score, prix, textes, scripts et bien plus.</p></div>
+    <div class="step"><div class="sn">03</div><h3>Tu copies et tu vends</h3><p>Tu copies les textes sur Shopify, Facebook Ads ou TikTok. Et tu lances ta campagne.</p></div>
+    <div class="step"><div class="sn">04</div><h3>Tu gardes tout</h3><p>Tous tes produits sont sauvegardés. Reviens les modifier ou relancer à tout moment.</p></div>
+  </div>
+</section>
+
+<section id="modules" style="background:var(--bg2)">
+  <div class="sec-lbl">Les modules</div>
+  <h2>Tout ce dont tu as<br>besoin pour vendre.</h2>
+  <div class="modules">
+    <div class="mod"><div class="mod-ico" style="background:rgba(255,107,26,.12)">💰</div><h3>Prix & Gains</h3><p>Calcule tes prix min, recommandé et max + tableau de bénéfices par scénario de vente.</p><span class="mod-tag">Calcul auto</span></div>
+    <div class="mod"><div class="mod-ico" style="background:rgba(255,184,0,.12)">⭐</div><h3>Score Produit</h3><p>Note sur 100 basée sur 6 critères africains avec explication et conseils pour chaque critère.</p><span class="mod-tag">Analyse IA</span></div>
+    <div class="mod"><div class="mod-ico" style="background:rgba(34,197,94,.12)">🎁</div><h3>Offres Irrésistibles</h3><p>4 stratégies d'offres adaptées à ton produit avec guide d'implémentation et impact estimé.</p><span class="mod-tag">Stratégie offres</span></div>
+    <div class="mod"><div class="mod-ico" style="background:rgba(99,102,241,.12)">🛍️</div><h3>Page Shopify</h3><p>3 titres + 5 paragraphes de vente basés sur le neuromarketing. Copier-coller direct.</p><span class="mod-tag">Neuromarketing</span></div>
+    <div class="mod"><div class="mod-ico" style="background:rgba(59,130,246,.12)">📣</div><h3>Facebook Ads</h3><p>3 textes publicitaires avec 3 angles différents. Chaque texte commence par l'accroche-problème.</p><span class="mod-tag">3 angles marketing</span></div>
+    <div class="mod"><div class="mod-ico" style="background:rgba(236,72,153,.12)">🎙️</div><h3>Voix Off</h3><p>3 scripts paragraphes fluides + liens directs vers ElevenLabs, TTS Maker, Murf et plus.</p><span class="mod-tag">Scripts vidéo</span></div>
+    <div class="mod"><div class="mod-ico" style="background:rgba(20,184,166,.12)">👤</div><h3>Avatar Client</h3><p>Portrait psychologique complet avec traits, motivations, peurs et phrases déclencheurs.</p><span class="mod-tag">Persona IA</span></div>
+    <div class="mod"><div class="mod-ico" style="background:rgba(139,92,246,.12)">🔍</div><h3>Concurrence</h3><p>Bulles cliquables vers Facebook Ads Library (24 pays) + Google, TikTok, Amazon, AliExpress.</p><span class="mod-tag">Intelligence marché</span></div>
+    <div class="mod"><div class="mod-ico" style="background:rgba(245,158,11,.12)">🖼️</div><h3>Images</h3><p>Accès direct Pinterest, Google Images, Alibaba, Temu, AliExpress, Amazon, Jumia.</p><span class="mod-tag">Médiathèque</span></div>
+    <div class="mod"><div class="mod-ico" style="background:rgba(239,68,68,.12)">🎬</div><h3>Vidéos</h3><p>FB Ads Library vidéos par pays + TikTok, YouTube, Pinterest Vidéos, Google Vidéos.</p><span class="mod-tag">Inspiration créatives</span></div>
+    <div class="mod"><div class="mod-ico" style="background:rgba(34,197,94,.12)">📊</div><h3>Historique</h3><p>Tous tes produits sauvegardés. Reviens sur n'importe quelle analyse et modifie à tout moment.</p><span class="mod-tag">Sauvegarde auto</span></div>
+  </div>
+</section>
+
+<section id="prix">
+  <div class="pricing">
+    <div style="text-align:center">
+      <div class="sec-lbl" style="justify-content:center">Tarifs</div>
+      <h2>Simple. Transparent.<br>Fait pour l'Afrique.</h2>
+    </div>
+    <div class="price-grid">
+      <div class="pc">
+        <div class="plan">Gratuit</div>
+        <div class="amount">0 F</div>
+        <div class="per">24h après inscription</div>
+        <hr>
+        <ul><li>Accès complet 24h</li><li>Tous les 11 modules</li><li>3 analyses produits</li><li class="off">Historique illimité</li><li class="off">Support WhatsApp</li></ul>
+        <a href="eb2-login.html" class="btn-p ol">Commencer gratuitement</a>
+      </div>
+      <div class="pc feat">
+        <div class="pp">PLUS POPULAIRE</div>
+        <div class="plan">Pro</div>
+        <div class="amount">9 900 F</div>
+        <div class="per">par mois</div>
+        <hr>
+        <ul><li>Analyses illimitées</li><li>Tous les 11 modules</li><li>Historique complet</li><li>Export des résultats</li><li>Support WhatsApp</li></ul>
+        <a href="eb2-login.html" class="btn-p fi">Démarrer maintenant</a>
+      </div>
+      <div class="pc">
+        <div class="plan">Équipe</div>
+        <div class="amount">24 900 F</div>
+        <div class="per">par mois · 3 comptes</div>
+        <hr>
+        <ul><li>Tout ce qui est dans Pro</li><li>3 comptes utilisateurs</li><li>Formation incluse</li><li>Tableau partagé</li><li>Support prioritaire</li></ul>
+        <a href="eb2-login.html" class="btn-p ol">Contacter</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--bg2)">
+  <div class="sec-lbl">Témoignages</div>
+  <h2>Ils vendent déjà<br>avec Ecom Booster.</h2>
+  <div class="testis">
+    <div class="testi"><div class="stars">★★★★★</div><p>"Avant je passais 2 jours à préparer un lancement. Maintenant 30 minutes. C'est incroyable ce que l'IA peut faire."</p><div class="tav"><div class="tav-ico">AK</div><div><div class="tn">Ama Kofi</div><div class="tl">Lomé, Togo</div></div></div></div>
+    <div class="testi"><div class="stars">★★★★★</div><p>"Le module Facebook Ads a changé ma vie. Mes textes convertissent 3x mieux. Je recommande à tous."</p><div class="tav"><div class="tav-ico">SD</div><div><div class="tn">Seydou Diallo</div><div class="tl">Abidjan, Côte d'Ivoire</div></div></div></div>
+    <div class="testi"><div class="stars">★★★★★</div><p>"Le score produit m'a évité de lancer un mauvais produit. J'ai économisé 50 000 F en pub gaspillée."</p><div class="tav"><div class="tav-ico">FN</div><div><div class="tn">Fatou N'Diaye</div><div class="tl">Dakar, Sénégal</div></div></div></div>
+  </div>
+</section>
+
+<div class="cta-fin">
+  <div class="sec-lbl" style="justify-content:center">Prêt ?</div>
+  <h2 style="max-width:500px;margin:0 auto .9rem">Lance ton premier produit en moins de 10 minutes.</h2>
+  <p style="color:var(--muted);margin-bottom:1.8rem">24h d'essai gratuit. Aucune carte bancaire requise.</p>
+  <a href="eb2-login.html" class="btn-big" style="display:inline-block">Créer mon compte gratuit 🚀</a>
+</div>
+
+<footer>
+  <div class="logo-nav">
+    <div class="logo-box">EB</div>
+    <div class="logo-nm"><span class="n1">Ecom Booster</span><span class="n2">2.0 by Labo</span></div>
+  </div>
+  <p>© 2025 Ecom Booster 2.0 by Labo. Fait en Afrique 🌍</p>
+  <div class="fl"><a href="#">Confidentialité</a><a href="#">Conditions</a><a href="#">Contact</a></div>
+</footer>
+</body>
+</html>

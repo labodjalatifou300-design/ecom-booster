@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Ecom Booster 2.0 by Labo</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07080F;--bg2:#0C0E1C;--bg3:#131628;--bg4:#191D30;
+  --or:#FF6B1A;--gold:#FFB800;--green:#22C55E;--blue:#3B82F6;--purple:#8B5CF6;
+  --text:#EDEAE2;--muted:#7A7E96;--soft:#A8ABBE;
+  --bd:rgba(255,255,255,0.07);--bd2:rgba(255,255,255,0.13);
+  --sw:245px;--font:'Outfit',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;overflow:hidden;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;display:flex;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes floatB{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-7px) scale(1.02)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,26,.4)}50%{box-shadow:0 0 0 10px rgba(255,107,26,0)}}
+@keyframes glow{0%,100%{border-color:rgba(255,107,26,.3)}50%{border-color:rgba(255,184,0,.7)}}
+@keyframes barFill{from{width:0}to{width:var(--w)}}
+.afu{animation:fadeUp .38s ease both}
+.afu2{animation:fadeUp .38s ease .07s both}
+.afu3{animation:fadeUp .38s ease .14s both}
+.afu4{animation:fadeUp .38s ease .21s both}
+
+/* ═══ SIDEBAR ═══ */
+.sb{width:var(--sw);flex-shrink:0;height:100vh;background:var(--bg2);border-right:1px solid var(--bd);display:flex;flex-direction:column;overflow:hidden;transition:transform .28s ease;}
+.sb-top{padding:1.1rem 1rem .85rem;border-bottom:1px solid var(--bd);flex-shrink:0;display:flex;align-items:center;justify-content:space-between;}
+.logo-w{display:flex;align-items:center;gap:.45rem;}
+.logo-b{width:30px;height:30px;border-radius:7px;background:linear-gradient(135deg,var(--or),var(--gold));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.78rem;color:#fff;}
+.logo-t{display:flex;flex-direction:column;line-height:1.1;}
+.logo-t .l1{font-size:.88rem;font-weight:800;color:var(--text);}
+.logo-t .l2{font-size:.58rem;font-weight:600;color:var(--or);}
+.sb-close{display:none;background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;padding:.2rem;}
+.sb-prod{padding:.65rem .9rem;border-bottom:1px solid var(--bd);flex-shrink:0;}
+.sb-pl{font-size:.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:.38rem;}
+.sb-pn{font-size:.78rem;font-weight:600;color:var(--text);background:var(--bg3);border:1px solid var(--bd2);border-radius:7px;padding:.48rem .72rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sb-new{width:100%;margin-top:.38rem;background:rgba(255,107,26,.07);border:1px dashed rgba(255,107,26,.28);color:var(--or);border-radius:7px;padding:.45rem;font-size:.72rem;font-weight:600;cursor:pointer;font-family:var(--font);transition:all .18s;}
+.sb-new:hover{background:rgba(255,107,26,.14);}
+.nav-sc{flex:1;overflow-y:auto;overflow-x:hidden;padding:.35rem 0;}
+.nav-sc::-webkit-scrollbar{width:3px;}
+.nav-sc::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:3px;}
+.nlbl{font-size:.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:.18rem .9rem .35rem;}
+.ni{display:flex;align-items:center;gap:.5rem;padding:.52rem .9rem;font-size:.8rem;font-weight:500;color:var(--muted);cursor:pointer;transition:all .14s;border-left:2px solid transparent;user-select:none;}
+.ni:hover{background:rgba(255,255,255,.03);color:var(--soft);}
+.ni.active{background:rgba(255,107,26,.09);color:var(--text);border-left-color:var(--or);}
+.ni .ico{font-size:.85rem;width:16px;text-align:center;flex-shrink:0;}
+.nbadge{margin-left:auto;font-size:.58rem;font-weight:700;background:var(--or);color:#fff;padding:.08rem .38rem;border-radius:999px;}
+/* API switcher */
+.api-sw{padding:.5rem .9rem;border-top:1px solid var(--bd);}
+.api-lbl{font-size:.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
+.api-btns{display:flex;gap:.35rem;}
+.api-btn{flex:1;padding:.38rem;border-radius:6px;font-size:.68rem;font-weight:700;cursor:pointer;font-family:var(--font);border:1px solid var(--bd);color:var(--muted);background:var(--bg3);transition:all .18s;text-align:center;}
+.api-btn.active-api{background:rgba(255,107,26,.15);color:var(--or);border-color:rgba(255,107,26,.4);}
+/* FIXED BOTTOM */
+.sb-bot{padding:.65rem .8rem;border-top:1px solid var(--bd);flex-shrink:0;background:var(--bg2);}
+.ucard{display:flex;align-items:center;gap:.55rem;background:var(--bg3);border-radius:8px;padding:.55rem .7rem;}
+.uav{width:28px;height:28px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--or),var(--gold));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.68rem;color:#fff;}
+.uname{font-size:.75rem;font-weight:700;}
+.uplan{font-size:.62rem;color:var(--green);}
+.trial-pill{font-size:.58rem;font-weight:700;background:rgba(34,197,94,.12);color:var(--green);border:1px solid rgba(34,197,94,.22);padding:.13rem .42rem;border-radius:999px;margin-left:auto;white-space:nowrap;}
+
+/* ═══ MAIN ═══ */
+.main{flex:1;display:flex;flex-direction:column;height:100vh;overflow:hidden;min-width:0;}
+.topbar{height:50px;flex-shrink:0;background:var(--bg2);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;padding:0 1.2rem;}
+.tb-left{display:flex;align-items:center;gap:.6rem;}
+.hamburger{display:none;background:none;border:none;color:var(--text);font-size:1.2rem;cursor:pointer;padding:.2rem .3rem;}
+.tb-t{font-size:.92rem;font-weight:700;}
+.tb-p{font-size:.7rem;color:var(--muted);background:var(--bg3);border:1px solid var(--bd);padding:.18rem .6rem;border-radius:999px;max-width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tb-right{display:flex;gap:.5rem;}
+.tbbtn{background:var(--bg3);border:1px solid var(--bd);border-radius:7px;padding:.35rem .75rem;font-size:.72rem;color:var(--muted);cursor:pointer;font-family:var(--font);font-weight:500;transition:all .16s;white-space:nowrap;}
+.tbbtn:hover{color:var(--text);border-color:var(--bd2);}
+.content{flex:1;overflow-y:auto;padding:1.5rem;-webkit-overflow-scrolling:touch;}
+.content::-webkit-scrollbar{width:4px;}
+.content::-webkit-scrollbar-thumb{background:rgba(255,255,255,.07);border-radius:4px;}
+
+/* overlay for mobile sidebar */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:49;backdrop-filter:blur(2px);}
+.overlay.show{display:block;}
+
+/* ═══ FORM ═══ */
+.fhero{text-align:center;margin-bottom:1.6rem;}
+.fhero h1{font-size:clamp(1.3rem,4vw,1.55rem);font-weight:900;letter-spacing:-.3px;margin-bottom:.25rem;}
+.fhero p{color:var(--muted);font-size:.82rem;}
+.fcard{background:var(--bg2);border:1px solid var(--bd);border-radius:15px;padding:1.5rem;max-width:800px;margin:0 auto;}
+.fsect{font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--or);margin-bottom:.9rem;display:flex;align-items:center;gap:.35rem;}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1rem;}
+.fg3{grid-template-columns:1fr 1fr 1fr;}
+.ffull{grid-column:1/-1;}
+.fg{display:flex;flex-direction:column;gap:.3rem;}
+.fg label{font-size:.7rem;font-weight:600;color:var(--soft);}
+.fg input,.fg select,.fg textarea{background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:.6rem .82rem;color:var(--text);font-family:var(--font);font-size:.84rem;outline:none;transition:border-color .2s,box-shadow .2s;width:100%;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--or);box-shadow:0 0 0 3px rgba(255,107,26,.1);}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--muted);}
+.fg select option{background:var(--bg3);}
+.fg textarea{resize:vertical;min-height:60px;line-height:1.6;}
+.fdiv{border:none;border-top:1px solid var(--bd);margin:1.1rem 0;}
+.upzone{grid-column:1/-1;border:2px dashed rgba(255,107,26,.24);border-radius:10px;background:rgba(255,107,26,.03);padding:1.2rem;text-align:center;cursor:pointer;transition:all .2s;position:relative;}
+.upzone:hover{border-color:rgba(255,107,26,.5);background:rgba(255,107,26,.06);}
+.upzone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.up-ico{font-size:1.5rem;margin-bottom:.35rem;}
+.up-t{font-size:.78rem;font-weight:600;color:var(--soft);}
+.up-s{font-size:.68rem;color:var(--muted);margin-top:.12rem;}
+.prev-row{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.7rem;justify-content:center;}
+.pw{position:relative;}
+.pi{width:65px;height:65px;border-radius:7px;object-fit:cover;border:1px solid var(--bd2);display:block;}
+.pd{position:absolute;top:-5px;right:-5px;background:#EF4444;color:#fff;border:none;width:15px;height:15px;border-radius:50%;font-size:.55rem;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:var(--font);}
+.btng{width:100%;background:linear-gradient(135deg,var(--or),#FF8C42);color:#fff;border:none;border-radius:10px;padding:.85rem;font-family:var(--font);font-size:.92rem;font-weight:700;cursor:pointer;box-shadow:0 8px 24px rgba(255,107,26,.28);transition:transform .2s,opacity .2s;display:flex;align-items:center;justify-content:center;gap:.5rem;}
+.btng:hover{transform:translateY(-2px);}
+
+/* ═══ RESULT COMMON ═══ */
+.rh{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.4rem;flex-wrap:wrap;gap:.6rem;}
+.rh h2{font-size:1.25rem;font-weight:800;letter-spacing:-.3px;}
+.rh .rp{font-size:.72rem;color:var(--muted);margin-top:.1rem;}
+.cbtn{display:inline-flex;align-items:center;gap:.3rem;background:var(--bg3);border:1px solid var(--bd2);border-radius:7px;padding:.32rem .7rem;font-size:.7rem;font-weight:600;color:var(--soft);cursor:pointer;font-family:var(--font);transition:all .16s;white-space:nowrap;}
+.cbtn:hover{color:var(--text);border-color:var(--or);}
+.cbtn.ok{background:rgba(34,197,94,.1);color:var(--green);border-color:rgba(34,197,94,.28);}
+
+/* stats row */
+.srow{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-bottom:1.1rem;}
+.sc{background:var(--bg2);border:1px solid var(--bd);border-radius:12px;padding:1.1rem;transition:transform .2s,border-color .2s;}
+.sc:hover{transform:translateY(-2px);border-color:var(--bd2);}
+.scl{font-size:.66rem;font-weight:600;color:var(--muted);margin-bottom:.2rem;}
+.scv{font-size:clamp(1.3rem,3vw,1.7rem);font-weight:900;line-height:1;letter-spacing:-.5px;}
+.scn{font-size:.65rem;color:var(--muted);margin-top:.28rem;}
+.ov{color:var(--or)!important;}.gv{color:var(--gold)!important;}.grv{color:var(--green)!important;}
+
+/* gains table */
+.gt{background:var(--bg2);border:1px solid var(--bd);border-radius:12px;overflow:hidden;margin-bottom:1.1rem;overflow-x:auto;}
+.gth{display:grid;grid-template-columns:1.8fr .9fr .8fr .8fr .8fr 1.1fr;background:var(--bg3);padding:.55rem .9rem;font-size:.62rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);min-width:580px;}
+.gtr{display:grid;grid-template-columns:1.8fr .9fr .8fr .8fr .8fr 1.1fr;padding:.72rem .9rem;border-top:1px solid var(--bd);font-size:.78rem;align-items:center;transition:background .12s;min-width:580px;}
+.gtr:hover{background:rgba(255,255,255,.02);}
+.gtr.hl{background:rgba(255,107,26,.05);}
+.brec{font-size:.58rem;font-weight:700;background:rgba(255,107,26,.15);color:var(--or);padding:.08rem .38rem;border-radius:999px;margin-left:.28rem;}
+.prf{color:var(--green);font-weight:700;}
+
+/* info card */
+.ic{background:var(--bg2);border:1px solid var(--bd);border-radius:11px;padding:1.1rem;margin-bottom:.75rem;transition:border-color .2s;}
+.ic:hover{border-color:var(--bd2);}
+.ich{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.65rem;gap:.5rem;}
+.ich h4{font-size:.84rem;font-weight:700;}
+.ic p{font-size:.81rem;color:var(--muted);line-height:1.75;white-space:pre-wrap;}
+.tip{background:linear-gradient(135deg,rgba(59,130,246,.07),rgba(59,130,246,.03));border:1px solid rgba(59,130,246,.17);border-radius:11px;padding:.95rem 1.1rem;display:flex;gap:.8rem;margin-bottom:.85rem;}
+.tip-i{font-size:1.1rem;flex-shrink:0;margin-top:2px;}
+.tip h4{font-size:.82rem;font-weight:700;margin-bottom:.2rem;}
+.tip p{font-size:.77rem;color:var(--muted);line-height:1.6;}
+
+/* score */
+.sbig{background:var(--bg2);border:1px solid var(--bd);border-radius:15px;padding:1.8rem;text-align:center;margin-bottom:1.1rem;animation:fadeIn .4s ease;}
+.sring-w{width:120px;height:120px;border-radius:50%;margin:0 auto .9rem;display:flex;align-items:center;justify-content:center;position:relative;}
+.sring-w svg{position:absolute;top:0;left:0;}
+.snum{font-size:2.5rem;font-weight:900;line-height:1;}
+.sverdict{font-size:1.1rem;font-weight:800;margin-bottom:.25rem;}
+.sdesc{color:var(--muted);font-size:.8rem;max-width:350px;margin:0 auto;}
+.score-verdict-final{background:rgba(255,107,26,.08);border:1px solid rgba(255,107,26,.2);border-radius:11px;padding:1rem 1.2rem;margin-top:1.1rem;text-align:left;}
+.score-verdict-final h4{font-size:.82rem;font-weight:700;color:var(--or);margin-bottom:.4rem;}
+.score-verdict-final p{font-size:.8rem;color:var(--muted);line-height:1.65;}
+.crit-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
+.crit{background:var(--bg2);border:1px solid var(--bd);border-radius:11px;padding:1rem;transition:transform .2s,border-color .2s;animation:fadeUp .38s ease both;}
+.crit:hover{transform:translateY(-2px);border-color:rgba(255,107,26,.2);}
+.crit-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.38rem;}
+.crit-name{font-size:.78rem;font-weight:700;}
+.crit-sc{font-size:.86rem;font-weight:900;}
+.crit-bar{height:4px;background:var(--bg3);border-radius:999px;overflow:hidden;margin-bottom:.5rem;}
+.crit-fill{height:100%;border-radius:999px;transition:width 1.1s ease;}
+.crit-why{font-size:.73rem;color:var(--muted);line-height:1.55;margin-bottom:.38rem;}
+.crit-how{font-size:.7rem;background:rgba(255,107,26,.06);border:1px solid rgba(255,107,26,.14);border-radius:6px;padding:.32rem .55rem;color:var(--or);line-height:1.5;}
+
+/* offres */
+.off-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.85rem;}
+.ofcard{background:var(--bg2);border:1px solid var(--bd);border-radius:13px;padding:1.4rem;cursor:pointer;transition:transform .25s,border-color .25s,box-shadow .25s;animation:fadeUp .38s ease both;user-select:none;}
+.ofcard:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.28);}
+.ofcard.sel{border-color:var(--or);background:rgba(255,107,26,.06);animation:glow 2.5s ease infinite;}
+.off-ico{font-size:1.9rem;margin-bottom:.7rem;}
+.ofcard h4{font-size:.87rem;font-weight:700;margin-bottom:.32rem;}
+.ofcard .desc{font-size:.77rem;color:var(--muted);line-height:1.6;margin-bottom:.65rem;}
+.off-det{background:var(--bg3);border-radius:7px;padding:.52rem .72rem;font-size:.7rem;color:var(--soft);line-height:1.55;margin-bottom:.42rem;}
+.off-det strong{color:var(--text);display:block;font-size:.68rem;margin-bottom:.08rem;}
+.offtag{display:inline-block;font-size:.62rem;font-weight:700;padding:.15rem .48rem;border-radius:999px;}
+.offtag.r{background:rgba(255,184,0,.14);color:var(--gold);}
+.offtag.b{background:rgba(34,197,94,.1);color:var(--green);}
+
+/* fb ads */
+.fb-badge{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.15rem .55rem;border-radius:999px;margin-bottom:.55rem;}
+.fba1{background:rgba(239,68,68,.12);color:#F87171;}
+.fba2{background:rgba(34,197,94,.1);color:var(--green);}
+.fba3{background:rgba(139,92,246,.12);color:#A78BFA;}
+
+/* ═══ GRANDES BULLES FLOTTANTES ═══ */
+.bubbles-section{margin-bottom:1.5rem;}
+.bubble-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.85rem;margin-top:.7rem;}
+.bbl{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:.45rem;padding:1.3rem 1rem;
+  background:var(--bg2);border:1px solid var(--bd2);
+  border-radius:16px;text-decoration:none;color:var(--text);
+  transition:transform .28s,box-shadow .28s,border-color .28s,background .28s;
+  animation:floatB 3.5s ease-in-out infinite;
+  min-height:100px;text-align:center;
+  cursor:pointer;
+}
+.bbl:hover{transform:translateY(-6px) scale(1.04);box-shadow:0 14px 36px rgba(0,0,0,.35);}
+.bbl .bico{font-size:1.8rem;line-height:1;}
+.bbl .bname{font-size:.8rem;font-weight:700;}
+.bbl .bsub{font-size:.65rem;color:var(--muted);}
+/* couleurs par plateforme */
+.bbl-fb{border-color:rgba(24,119,242,.3);animation-delay:0s;}
+.bbl-fb:hover{background:rgba(24,119,242,.1);border-color:rgba(24,119,242,.6);}
+.bbl-gg{border-color:rgba(234,67,53,.25);animation-delay:.25s;}
+.bbl-gg:hover{background:rgba(234,67,53,.08);border-color:rgba(234,67,53,.55);}
+.bbl-tt{border-color:rgba(255,255,255,.12);animation-delay:.5s;}
+.bbl-tt:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.3);}
+.bbl-yt{border-color:rgba(255,0,0,.28);animation-delay:.75s;}
+.bbl-yt:hover{background:rgba(255,0,0,.08);border-color:rgba(255,0,0,.55);}
+.bbl-pt{border-color:rgba(230,0,35,.25);animation-delay:.15s;}
+.bbl-pt:hover{background:rgba(230,0,35,.07);border-color:rgba(230,0,35,.55);}
+.bbl-al{border-color:rgba(255,106,0,.25);animation-delay:.4s;}
+.bbl-al:hover{background:rgba(255,106,0,.07);border-color:rgba(255,106,0,.55);}
+.bbl-am{border-color:rgba(255,184,0,.25);animation-delay:.6s;}
+.bbl-am:hover{background:rgba(255,184,0,.07);border-color:rgba(255,184,0,.55);}
+.bbl-tm{border-color:rgba(255,100,130,.25);animation-delay:.35s;}
+.bbl-tm:hover{background:rgba(255,100,130,.07);border-color:rgba(255,100,130,.55);}
+.bbl-in{border-color:rgba(225,48,108,.25);animation-delay:.55s;}
+.bbl-in:hover{background:rgba(225,48,108,.08);border-color:rgba(225,48,108,.55);}
+.bbl-ju{border-color:rgba(255,107,26,.25);animation-delay:.7s;}
+.bbl-ju:hover{background:rgba(255,107,26,.08);border-color:var(--or);}
+
+/* pays bubbles */
+.pays-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.65rem;margin-top:.7rem;}
+.pbbl{display:flex;align-items:center;gap:.45rem;background:rgba(24,119,242,.07);border:1px solid rgba(24,119,242,.22);border-radius:12px;padding:.6rem .9rem;font-size:.78rem;font-weight:600;color:var(--text);cursor:pointer;text-decoration:none;transition:all .2s;animation:float 3s ease-in-out infinite;}
+.pbbl:hover{background:rgba(24,119,242,.17);border-color:rgba(24,119,242,.5);transform:translateY(-2px);}
+
+/* avatar */
+.av-hero{background:var(--bg2);border:1px solid var(--bd);border-radius:14px;padding:1.3rem;margin-bottom:.9rem;display:flex;align-items:flex-start;gap:1rem;flex-wrap:wrap;animation:fadeUp .38s ease;}
+.av-face{width:58px;height:58px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.4rem;box-shadow:0 6px 20px rgba(139,92,246,.3);}
+.av-info h3{font-size:1rem;font-weight:800;margin-bottom:.18rem;}
+.av-info p{font-size:.77rem;color:var(--muted);}
+.av-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.5rem;}
+.avtag{font-size:.65rem;font-weight:600;padding:.17rem .5rem;border-radius:999px;background:rgba(255,107,26,.1);color:var(--or);}
+.av-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
+.avsec{background:var(--bg2);border:1px solid var(--bd);border-radius:11px;padding:1rem;animation:fadeUp .38s ease both;}
+.avsec h4{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--or);margin-bottom:.65rem;}
+.avli{font-size:.78rem;color:var(--muted);padding:.25rem 0;display:flex;align-items:flex-start;gap:.38rem;line-height:1.5;}
+.avli::before{content:'→';color:var(--or);flex-shrink:0;font-size:.7rem;margin-top:3px;}
+.trait-r{margin-bottom:.45rem;}
+.trait-l{display:flex;justify-content:space-between;font-size:.7rem;margin-bottom:.18rem;}
+.trait-b{height:5px;background:var(--bg3);border-radius:999px;overflow:hidden;}
+.trait-f{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--or),var(--gold));transition:width 1s ease;}
+/* avatar secondaire */
+.av-secondary{background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.2);border-radius:14px;padding:1rem 1.2rem;margin-bottom:.9rem;}
+.av-sec-title{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#A78BFA;margin-bottom:.7rem;}
+
+/* historique */
+.htbl{background:var(--bg2);border:1px solid var(--bd);border-radius:12px;overflow:hidden;overflow-x:auto;}
+.hth{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 80px;background:var(--bg3);padding:.58rem .9rem;font-size:.62rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);min-width:480px;}
+.htr{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 80px;padding:.75rem .9rem;border-top:1px solid var(--bd);font-size:.78rem;align-items:center;cursor:pointer;transition:background .12s;min-width:480px;}
+.htr:hover{background:rgba(255,255,255,.025);}
+.hopn{font-size:.66rem;font-weight:700;background:rgba(255,107,26,.1);color:var(--or);border:none;border-radius:6px;padding:.24rem .52rem;cursor:pointer;font-family:var(--font);}
+.hopn:hover{background:rgba(255,107,26,.2);}
+
+/* loading */
+.lov{position:fixed;inset:0;background:rgba(7,8,15,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(6px);}
+.lov.hidden{display:none;}
+.spin{width:42px;height:42px;border:3px solid rgba(255,107,26,.18);border-top-color:var(--or);border-radius:50%;animation:spin .7s linear infinite;margin-bottom:.8rem;}
+.lt{font-size:.92rem;font-weight:700;}
+.ls{font-size:.74rem;color:var(--muted);margin-top:.2rem;}
+
+/* toast */
+.toast{position:fixed;bottom:1.4rem;right:1.4rem;background:var(--bg2);border:1px solid var(--bd2);border-radius:10px;padding:.65rem 1rem;display:flex;align-items:center;gap:.5rem;font-size:.78rem;font-weight:600;transform:translateY(65px);opacity:0;transition:all .25s;z-index:999;max-width:280px;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.ok{border-color:rgba(34,197,94,.28);}
+
+.section-subtitle{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--or);margin-bottom:.6rem;}
+
+/* ═══ RESPONSIVE MOBILE ═══ */
+@media(max-width:768px){
+  body{overflow:hidden;}
+  .sb{position:fixed;left:0;top:0;bottom:0;z-index:50;transform:translateX(-100%);width:260px;}
+  .sb.open{transform:translateX(0);}
+  .sb-close{display:block;}
+  .hamburger{display:block;}
+  .srow{grid-template-columns:1fr 1fr;}
+  .crit-grid,.av-grid{grid-template-columns:1fr;}
+  .off-grid{grid-template-columns:1fr 1fr;}
+  .bubble-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));}
+  .pays-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr));}
+  .fgrid{grid-template-columns:1fr;}
+  .fg3{grid-template-columns:1fr 1fr;}
+  .ffull{grid-column:1/-1;}
+  .rh{flex-direction:column;}
+}
+@media(max-width:480px){
+  .content{padding:1rem;}
+  .srow{grid-template-columns:1fr;}
+  .off-grid{grid-template-columns:1fr;}
+  .bubble-grid{grid-template-columns:repeat(2,1fr);}
+  .pays-grid{grid-template-columns:repeat(2,1fr);}
+  .fg3{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- OVERLAY MOBILE -->
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sb" id="sb">
+  <div class="sb-top">
+    <div class="logo-w">
+      <div class="logo-b">EB</div>
+      <div class="logo-t"><span class="l1">Ecom Booster</span><span class="l2">2.0 by Labo</span></div>
+    </div>
+    <button class="sb-close" onclick="closeSidebar()">✕</button>
+  </div>
+  <div class="sb-prod">
+    <div class="sb-pl">Produit actif</div>
+    <div class="sb-pn" id="sb-pn">Aucun produit</div>
+    <button class="sb-new" onclick="showPage('form');closeSidebar()">+ Analyser un nouveau produit</button>
+  </div>
+  <div class="nav-sc">
+    <div style="padding:.3rem 0">
+      <div class="nlbl">Analyse</div>
+      <div class="ni active" id="nav-prix" onclick="navTo('prix')"><span class="ico">💰</span>Prix &amp; Gains</div>
+      <div class="ni" id="nav-score" onclick="navTo('score')"><span class="ico">⭐</span>Score Produit</div>
+      <div class="ni" id="nav-offres" onclick="navTo('offres')"><span class="ico">🎁</span>Offres</div>
+    </div>
+    <div style="padding:.3rem 0">
+      <div class="nlbl">Contenu IA</div>
+      <div class="ni" id="nav-shopify" onclick="navTo('shopify')"><span class="ico">🛍️</span>Page Shopify</div>
+      <div class="ni" id="nav-facebook" onclick="navTo('facebook')"><span class="ico">📣</span>Facebook Ads</div>
+      <div class="ni" id="nav-voixoff" onclick="navTo('voixoff')"><span class="ico">🎙️</span>Voix Off</div>
+      <div class="ni" id="nav-avatar" onclick="navTo('avatar')"><span class="ico">👤</span>Avatar Client</div>
+      <div class="ni" id="nav-concurrence" onclick="navTo('concurrence')"><span class="ico">🔍</span>Concurrence</div>
+    </div>
+    <div style="padding:.3rem 0">
+      <div class="nlbl">Médias</div>
+      <div class="ni" id="nav-images" onclick="navTo('images')"><span class="ico">🖼️</span>Images</div>
+      <div class="ni" id="nav-videos" onclick="navTo('videos')"><span class="ico">🎬</span>Vidéos</div>
+    </div>
+    <div style="padding:.3rem 0">
+      <div class="nlbl">Compte</div>
+      <div class="ni" id="nav-historique" onclick="showPage('historique');closeSidebar()"><span class="ico">📊</span>Historique<span class="nbadge" id="hcount">3</span></div>
+    </div>
+  </div>
+  <div class="api-sw">
+    <div class="api-lbl">Moteur IA</div>
+    <div class="api-btns">
+      <div class="api-btn" id="btn-grok" onclick="setAPI('grok')">Grok (gratuit)</div>
+      <div class="api-btn active-api" id="btn-claude" onclick="setAPI('claude')">Claude (pro)</div>
+    </div>
+  </div>
+  <div class="sb-bot">
+    <div class="ucard">
+      <div class="uav" id="uav">AK</div>
+      <div><div class="uname" id="uname">Ama Kofi</div><div class="uplan" id="trial-status">✓ Essai gratuit actif</div></div>
+      <div class="trial-pill">24h</div>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══ MAIN ═══ -->
+<main class="main">
+  <div class="topbar">
+    <div class="tb-left">
+      <button class="hamburger" onclick="openSidebar()">☰</button>
+      <div class="tb-t" id="tbt">Nouveau Produit</div>
+      <div class="tb-p" id="tbp" style="display:none"></div>
+    </div>
+    <div class="tb-right">
+      <button class="tbbtn" onclick="showPage('form');closeSidebar()">+ Nouveau</button>
+    </div>
+  </div>
+  <div class="content" id="content"></div>
+</main>
+
+<div class="lov hidden" id="lov">
+  <div class="spin"></div>
+  <div class="lt" id="lt">Analyse en cours...</div>
+  <div class="ls" id="ls">Environ 5–10 secondes</div>
+</div>
+<div class="toast" id="toast"><span id="ti">✓</span><span id="tm">Copié !</span></div>
+
+<script>
+// ══ CONFIG SUPABASE ══
+const SUPABASE_URL='https://jrsqomjwiawzbdsolcjq.supabase.co';
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impyc3FvbWp3aWF3emJkc29sY2pxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Nzc5NjYsImV4cCI6MjA4OTM1Mzk2Nn0.5n9njd-gv7Ss9k7bWSzMTRNYO8SwdIUP6C9FVa0c6NY';
+const CLAUDE_KEY='METS-TA-CLE-CLAUDE-ICI';
+const GROK_KEY='';
+
+// Init Supabase si configuré
+let sb=null;
+const sbOk=SUPABASE_URL!=='METS-TON-URL-SUPABASE-ICI';
+if(sbOk){
+  const s=document.createElement('script');
+  s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+  s.onload=()=>{sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);initAuth();};
+  document.head.appendChild(s);
+}
+
+async function initAuth(){
+  if(!sb)return;
+  const {data:{session}}=await sb.auth.getSession();
+  if(!session){window.location.href='eb2-login-supabase.html';return;}
+  const u=session.user;
+  const meta=u.user_metadata||{};
+  const initiales=((meta.prenom||'A')[0]+(meta.nom||'K')[0]).toUpperCase();
+  document.getElementById('uav').textContent=initiales;
+  document.getElementById('uname').textContent=(meta.prenom||'')+' '+(meta.nom||'');
+  // Vérifier expiration essai
+  const {data:profil}=await sb.from('profils').select('plan,essai_expire,abonnement_expire').eq('id',u.id).single();
+  if(profil){
+    const now=new Date();const ee=new Date(profil.essai_expire);
+    const ae=profil.abonnement_expire?new Date(profil.abonnement_expire):null;
+    if(!ae&&ee<=now&&profil.plan==='gratuit'){
+      document.getElementById('trial-status').textContent='⚠️ Essai expiré';
+      document.getElementById('trial-status').style.color='#F87171';
+    }else if(ee>now){
+      const heures=Math.max(0,Math.round((ee-now)/3600000));
+      document.getElementById('trial-status').textContent=`⏰ ${heures}h restantes`;
+    }else{
+      document.getElementById('trial-status').textContent='✓ Plan Pro actif';
+    }
+  }
+  // Charger historique
+  await chargerHistoire();
+}
+
+async function chargerHistoire(){
+  if(!sb)return;
+  const {data:{session}}=await sb.auth.getSession();if(!session)return;
+  const {data}=await sb.from('produits').select('*').eq('user_id',session.user.id).order('created_at',{ascending:false}).limit(20);
+  if(data&&data.length>0){
+    S.history=data.map(p=>({name:p.nom,prix:p.prix_achat,pays:p.pays,score:p.score||0,prixReco:p.prix_reco||0,date:new Date(p.created_at).toLocaleDateString('fr-FR'),id:p.id}));
+    document.getElementById('hcount').textContent=S.history.length;
+  }
+}
+
+async function sauvegarderProduit(product,results){
+  if(!sb)return null;
+  const {data:{session}}=await sb.auth.getSession();if(!session)return null;
+  const {data:prod}=await sb.from('produits').insert({
+    user_id:session.user.id,nom:product.nom,prix_achat:product.prix,
+    pays:product.pays,categorie:product.cat,description:product.desc,
+    pub:product.pub,livraison:product.livraison,closing:product.closing,
+    prix_min:results.prixMin,prix_reco:results.prixReco,prix_max:results.prixMax,
+    score:results.score
+  }).select().single();
+  if(prod){
+    await sb.from('analyses').insert({produit_id:prod.id,user_id:session.user.id,resultats:results});
+    return prod.id;
+  }
+  return null;
+}
+
+// ══ STATE ══
+const S={product:null,results:null,imgs:[],apiMode:'claude',
+  history:[
+    {name:'Ceinture chauffante lombaire',prix:5500,pays:'Togo',score:78,prixReco:16000,date:'14 mars 2025'},
+    {name:'Brosse nettoyante visage',prix:3200,pays:"Côte d'Ivoire",score:62,prixReco:12000,date:'10 mars 2025'},
+    {name:'Sac étanche sport',prix:4800,pays:'Sénégal',score:85,prixReco:15000,date:'5 mars 2025'},
+  ]
+};
+
+const PAYS=['Togo','Bénin','Burkina Faso',"Côte d'Ivoire",'Guinée','Guinée-Bissau','Mali','Mauritanie','Niger','Sénégal','Cameroun','Congo (Brazzaville)','RD Congo','Gabon','République Centrafricaine','Tchad','Rwanda','Burundi','Djibouti','Comores','Madagascar','Maurice','Seychelles'];
+const ALL_PAYS_FB=[
+  {pays:'Togo',code:'TG',flag:'🇹🇬'},{pays:"Côte d'Ivoire",code:'CI',flag:'🇨🇮'},
+  {pays:'Sénégal',code:'SN',flag:'🇸🇳'},{pays:'Cameroun',code:'CM',flag:'🇨🇲'},
+  {pays:'Bénin',code:'BJ',flag:'🇧🇯'},{pays:'Burkina Faso',code:'BF',flag:'🇧🇫'},
+  {pays:'Mali',code:'ML',flag:'🇲🇱'},{pays:'Guinée',code:'GN',flag:'🇬🇳'},
+  {pays:'Niger',code:'NE',flag:'🇳🇪'},{pays:'Gabon',code:'GA',flag:'🇬🇦'},
+  {pays:'Congo',code:'CG',flag:'🇨🇬'},{pays:'RD Congo',code:'CD',flag:'🇨🇩'},
+  {pays:'Tchad',code:'TD',flag:'🇹🇩'},{pays:'Centrafrique',code:'CF',flag:'🇨🇫'},
+  {pays:'Madagascar',code:'MG',flag:'🇲🇬'},{pays:'Burundi',code:'BI',flag:'🇧🇮'},
+  {pays:'Rwanda',code:'RW',flag:'🇷🇼'},{pays:'Djibouti',code:'DJ',flag:'🇩🇯'},
+  {pays:'Comores',code:'KM',flag:'🇰🇲'},{pays:'Mauritanie',code:'MR',flag:'🇲🇷'},
+  {pays:'Guinée-Bissau',code:'GW',flag:'🇬🇼'},{pays:'Maurice',code:'MU',flag:'🇲🇺'},
+  {pays:'France',code:'FR',flag:'🇫🇷'},{pays:'Monde entier',code:'ALL',flag:'🌍'},
+];
+const TITLES={form:'Nouveau Produit',prix:'Prix & Gains',score:'Score Produit',offres:'Offres',shopify:'Page Shopify',facebook:'Facebook Ads',voixoff:'Voix Off',avatar:'Avatar Client',concurrence:'Concurrence',images:'Images',videos:'Vidéos',historique:'Historique'};
+
+// ══ MOBILE NAV ══
+function openSidebar(){document.getElementById('sb').classList.add('open');document.getElementById('overlay').classList.add('show');}
+function closeSidebar(){document.getElementById('sb').classList.remove('open');document.getElementById('overlay').classList.remove('show');}
+function setAPI(m){
+  S.apiMode=m;
+  document.getElementById('btn-grok').classList.toggle('active-api',m==='grok');
+  document.getElementById('btn-claude').classList.toggle('active-api',m==='claude');
+}
+
+// ══ NAV ══
+function navTo(p){
+  if(!S.results){toast('⚠️ Analyse un produit d\'abord !',false);showPage('form');return;}
+  closeSidebar();showPage(p);
+}
+function showPage(p){
+  document.querySelectorAll('.ni').forEach(e=>e.classList.remove('active'));
+  const n=document.getElementById('nav-'+p);if(n)n.classList.add('active');
+  document.getElementById('tbt').textContent=TITLES[p]||p;
+  const tp=document.getElementById('tbp');
+  if(S.product&&p!=='form'){tp.textContent=S.product.nom;tp.style.display='block';}
+  else tp.style.display='none';
+  const rs={form:rForm,prix:rPrix,score:rScore,offres:rOffres,shopify:rShopify,
+    facebook:rFacebook,voixoff:rVoixOff,avatar:rAvatar,concurrence:rConc,
+    images:rImages,videos:rVideos,historique:rHist};
+  const c=document.getElementById('content');
+  c.innerHTML=rs[p]?rs[p]():'';
+  c.scrollTop=0;
+  if(p==='form')initUp();
+}
+
+// ══ FORM ══
+function rForm(){
+  const p=S.product||{};
+  const oo=PAYS.map(c=>`<option value="${c}"${p.pays===c?' selected':''}>${c}</option>`).join('');
+  const cats=['Beauté & Soin','Santé & Sport','Maison & Cuisine','Mode & Accessoires','Électronique','Auto & Moto','Enfants & Bébé','Alimentation','Fitness & Musculation','Autre'];
+  const co=cats.map(c=>`<option value="${c}"${p.cat===c?' selected':''}>${c}</option>`).join('');
+  return `
+  <div class="fhero afu"><h1>Analyse ton produit ⚡</h1><p>Quelques informations — Ecom Booster 2.0 fait tout le reste.</p></div>
+  <div class="fcard afu2">
+    <div class="fsect">📦 Le produit</div>
+    <div class="fgrid">
+      <div class="fg ffull"><label>Nom du produit *</label><input id="fn" placeholder="Ex: Genouillère de compression" value="${p.nom||''}"></div>
+      <div class="fg"><label>Pays cible *</label><select id="fp">${oo}</select></div>
+      <div class="fg"><label>Catégorie</label><select id="fc">${co}</select></div>
+      <div class="fg ffull"><label>Ce que fait le produit * <span style="color:var(--muted);font-weight:400">(1-2 phrases courtes)</span></label>
+        <textarea id="fd" placeholder="Ex: Lampe frontale ultra-puissante pour la conduite et les travaux de nuit. Résiste à l'eau, autonomie 8h, portée 200m." style="min-height:58px">${p.desc||''}</textarea></div>
+    </div>
+    <hr class="fdiv">
+    <div class="fsect">💸 Prix &amp; Coûts</div>
+    <div class="fgrid fg3">
+      <div class="fg"><label>Prix d'achat (FCFA) *</label><input type="number" id="fpx" placeholder="5500" value="${p.prix||''}"></div>
+      <div class="fg"><label>Coût pub / vente</label><input type="number" id="fpb" placeholder="2000" value="${p.pub||2000}"></div>
+      <div class="fg"><label>Coût livraison</label><input type="number" id="fl" placeholder="2000" value="${p.livraison||2000}"></div>
+      <div class="fg"><label>Coût closing</label><input type="number" id="fco" placeholder="1000" value="${p.closing||1000}"></div>
+    </div>
+    <hr class="fdiv">
+    <div class="fsect">🖼️ Images <span style="font-size:.58rem;font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted)">(optionnel)</span></div>
+    <div class="fgrid">
+      <div class="upzone ffull" id="upz">
+        <input type="file" id="ufi" accept="image/*" multiple onchange="addFiles(event.target.files)">
+        <div class="up-ico">📷</div>
+        <div class="up-t">Glisse ou clique pour ajouter tes images produit</div>
+        <div class="up-s">JPG · PNG · WEBP</div>
+        <div class="prev-row" id="prv"></div>
+      </div>
+    </div>
+    <button class="btng" onclick="analyze()"><span>⚡</span> Analyser maintenant</button>
+  </div>`;
+}
+function initUp(){
+  const z=document.getElementById('upz');if(!z)return;
+  z.addEventListener('dragover',e=>{e.preventDefault();z.style.borderColor='var(--or)';});
+  z.addEventListener('dragleave',()=>{z.style.borderColor='rgba(255,107,26,.24)';});
+  z.addEventListener('drop',e=>{e.preventDefault();z.style.borderColor='rgba(255,107,26,.24)';addFiles(e.dataTransfer.files);});
+}
+function addFiles(fs){
+  const g=document.getElementById('prv');
+  Array.from(fs).forEach((f,i)=>{
+    if(!f.type.startsWith('image/'))return;
+    S.imgs.push(f);
+    const r=new FileReader();
+    r.onload=ev=>{
+      const w=document.createElement('div');w.className='pw';
+      const idx=S.imgs.length-1;
+      w.innerHTML=`<img class="pi" src="${ev.target.result}"><button class="pd" onclick="S.imgs.splice(${idx},1);this.parentNode.remove()">✕</button>`;
+      g.appendChild(w);
+    };r.readAsDataURL(f);
+  });
+}
+
+// ══ ANALYSE ══
+async function analyze(){
+  const nom=document.getElementById('fn').value.trim();
+  const prix=parseInt(document.getElementById('fpx').value);
+  const pays=document.getElementById('fp').value;
+  const cat=document.getElementById('fc').value;
+  const desc=document.getElementById('fd').value.trim();
+  const pub=parseInt(document.getElementById('fpb').value)||2000;
+  const liv=parseInt(document.getElementById('fl').value)||2000;
+  const clo=parseInt(document.getElementById('fco').value)||1000;
+  if(!nom||!prix||!desc){toast('⚠️ Nom, prix et description sont obligatoires',false);return;}
+  S.product={nom,prix,pays,cat,desc,pub,livraison:liv,closing:clo};
+  document.getElementById('sb-pn').textContent=nom;
+  const pM=prix+8000,pX=prix+12000,pR=Math.round((pM+pX)/2/500)*500;
+  showLov('Analyse en cours...','Génération du score, textes, offres...');
+  try{
+    const ai=await callAI(nom,prix,pays,cat,desc,pR);
+    S.results={...ai,prixMin:pM,prixMax:pX,prixReco:pR,pub,livraison:liv,closing:clo};
+    S.history.unshift({name:nom,prix,pays,score:ai.score,prixReco:pR,date:'Aujourd\'hui'});
+    document.getElementById('hcount').textContent=S.history.length;
+    if(sbOk)sauvegarderProduit(S.product,S.results);
+    hideLov();showPage('prix');toast('✅ Analyse terminée !',true);
+  }catch(e){
+    hideLov();
+    S.results=demo(nom,prix,pays,cat,desc,pM,pX,pR,pub,liv,clo);
+    S.history.unshift({name:nom,prix,pays,score:S.results.score,prixReco:pR,date:'Aujourd\'hui'});
+    document.getElementById('hcount').textContent=S.history.length;
+    // Sauvegarder dans Supabase si configuré
+    if(sbOk)sauvegarderProduit(S.product,S.results);
+    showPage('prix');toast('⚠️ Mode démo — Ajoute ta clé API',false);
+  }
+}
+
+// ══ API ══
+async function callAI(nom,prix,pays,cat,desc,pR){
+  const prompt=`Tu es Ecom Booster 2.0, expert e-commerce africain. Analyse ce produit et réponds UNIQUEMENT en JSON valide, zéro texte ni backticks autour.
+
+PRODUIT: ${nom}
+PRIX ACHAT: ${prix} FCFA | PAYS: ${pays} | CATÉGORIE: ${cat}
+DESCRIPTION: ${desc}
+PRIX VENTE RECOMMANDÉ: ${pR} FCFA
+
+IMPORTANT pour l'avatar: détecte le genre principal concerné par CE produit spécifique. Si le produit est plutôt masculin, génère un avatar homme en premier. Si féminin, une femme. Si mixte (mainstream), génère les deux.
+IMPORTANT pour voix off: cite le problème PRÉCIS que ce produit résout (basé sur la description). Pas de généralités. Ne mets PAS de prix ni de noms de pays dans les scripts voix off.
+IMPORTANT pour facebook ads: l'accroche doit mentionner le problème PRÉCIS. Limite les mentions de pays.
+
+JSON:
+{"score":75,"score_verdict":"5 mots","score_desc":"1 phrase","score_recommandation":"dois-je lancer ce produit ? réponse directe avec raison","criteres":[{"nom":"Popularité en Afrique","score":70,"explication":"pourquoi","conseil":"action concrète"},{"nom":"Facilité à marketer","score":80,"explication":"pourquoi","conseil":"comment"},{"nom":"Concurrence faible","score":60,"explication":"pourquoi","conseil":"stratégie"},{"nom":"Prix abordable","score":85,"explication":"pourquoi","conseil":"conseil prix"},{"nom":"Audience large","score":75,"explication":"pourquoi","conseil":"segmentation"},{"nom":"Tendance actuelle","score":68,"explication":"pourquoi","conseil":"timing"}],"offres":[{"titre":"...","desc":"...","icon":"🚚","pour_qui":"...","comment":"...","impact":"...","recommandee":true},{"titre":"...","desc":"...","icon":"📦","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🎁","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🛡️","pour_qui":"...","comment":"...","impact":"...","recommandee":false}],"shopify_titres":["t1","t2","t3"],"shopify_paragraphes":[{"titre":"...","contenu":"3 phrases neuromarketing bénéfices"},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."}],"fb_ads":[{"angle":"Douleur / Problème","accroche":"première phrase sur le problème PRÉCIS du produit","texte":"texte complet avec emojis, commence par accroche"},{"angle":"Preuve Sociale","accroche":"première phrase témoignages/résultats","texte":"..."},{"angle":"Curiosité / Intrigue","accroche":"première phrase mystérieuse","texte":"..."}],"voix_off":[{"titre":"Script 1 — Émotionnel","script":"paragraphe fluide unique 80-100 mots, cite le problème précis, sans prix ni pays"},{"titre":"Script 2 — Direct & Choc","script":"paragraphe unique 60-70 mots, percutant, sans prix ni pays"},{"titre":"Script 3 — Storytelling","script":"paragraphe narratif unique 90-110 mots, histoire, sans prix ni pays"}],"avatar_principal":{"prenom":"prénom adapté au genre détecté","age":"tranche","sexe":"Homme ou Femme","profession":"...","revenu":"... FCFA/mois","description":"2 phrases portrait","traits":[{"nom":"Impulsivité achat","val":72},{"nom":"Sensibilité au prix","val":80},{"nom":"Confiance en ligne","val":58},{"nom":"Influence réseaux","val":85}],"motivations":["...","...","..."],"peurs":["...","...","..."],"phrases_declencheurs":["...","...","..."],"reseaux":["...","..."],"tags":["t1","t2","t3","t4"],"face":"👨 ou 👩","bg":"linear-gradient(135deg,#1D4ED8,#7C3AED) ou autre"},"avatar_secondaire":null,"concurrence":{"analyse":"2-3 phrases","conseil":"conseil court"}}
+
+Note: avatar_secondaire doit être rempli (même structure qu'avatar_principal) uniquement si le produit est clairement mainstream/mixte. Sinon laisse null.`;
+
+  if(S.apiMode==='grok'){
+    const r=await fetch('https://api.x.ai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${GROK_KEY}`},body:JSON.stringify({model:'grok-2-latest',max_tokens:4000,messages:[{role:'user',content:prompt}]})});
+    if(!r.ok)throw new Error(r.status);
+    const d=await r.json();
+    return JSON.parse(d.choices[0].message.content.replace(/```json|```/g,'').trim());
+  }else{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':CLAUDE_KEY,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:4000,messages:[{role:'user',content:prompt}]})});
+    if(!r.ok)throw new Error(r.status);
+    const d=await r.json();
+    return JSON.parse(d.content[0].text.replace(/```json|```/g,'').trim());
+  }
+}
+
+// ══ DEMO ══
+function demo(nom,prix,pays,cat,desc,pM,pX,pR,pub,liv,clo){
+  const isAuto=cat==='Auto & Moto'||desc.toLowerCase().includes('conduit')||desc.toLowerCase().includes('voiture')||desc.toLowerCase().includes('nuit')||desc.toLowerCase().includes('lampe');
+  const mainGenre=isAuto?'Homme':'Femme';
+  const mainFace=isAuto?'👨':'👩';
+  const mainBg=isAuto?'linear-gradient(135deg,#1D4ED8,#0F766E)':'linear-gradient(135deg,#8B5CF6,#EC4899)';
+  const mainPrenom=isAuto?'Kofi':'Ama';
+  const mainProf=isAuto?'Chauffeur / Commerçant / Technicien':'Salariée / Commerçante';
+  const problemePrecis=desc.length>10?`les problèmes liés à : ${desc.split('.')[0]}`:'ce problème du quotidien';
+  return{
+    score:(()=>{let h=0;for(const c of nom+pays)h=((h<<5)-h+c.charCodeAt(0))|0;return 52+Math.abs(h)%40;})(),
+    score_verdict:(()=>{let h=0;for(const c of nom+pays)h=((h<<5)-h+c.charCodeAt(0))|0;const s=52+Math.abs(h)%40;return s>=80?"Excellent produit !":s>=70?"Bon potentiel confirmé":s>=62?"Potentiel moyen":"À tester prudemment";})(),
+    score_desc:`${nom} a été analysé selon 6 critères clés du marché africain. Ce score reflète le potentiel estimé pour ${pays} et les marchés voisins.`,
+    score_recommandation:(()=>{let h=0;for(const c of nom+pays)h=((h<<5)-h+c.charCodeAt(0))|0;const s=52+Math.abs(h)%40;if(s>=75)return`✅ OUI, lance ce produit. Score ${s}/100 — bon potentiel. Budget test : 5-7$/jour pendant 3 jours pour valider.`;if(s>=62)return`⚠️ PEUT-ÊTRE. Score ${s}/100 — potentiel moyen. Teste d'abord avec 3-5$/jour. Valide la demande avant de scaler.`;return`❌ PRUDENCE. Score ${s}/100 — risque élevé. Affine le ciblage ou cherche un meilleur produit avant de dépenser en publicité.`;})(),
+    criteres:[
+      {nom:"Popularité en Afrique",score:72,explication:`${nom} répond à un besoin présent dans plusieurs pays d'Afrique francophone. La demande est identifiable sur les réseaux sociaux locaux.`,conseil:"Commence par les grandes villes (Lomé, Abidjan, Dakar) avant d'étendre aux villes secondaires."},
+      {nom:"Facilité à marketer",score:80,explication:`Ce produit résout un problème visible et facilement démontrable en vidéo, ce qui rend la création de contenus naturelle.`,conseil:"Mise sur des vidéos démonstration courtes (15-30s). Le format 'avant/après' ou 'problème/solution' convertit très bien en Afrique."},
+      {nom:"Concurrence faible",score:60,explication:"Des vendeurs locaux existent sur ce créneau mais la plupart manquent de professionnalisme dans leur communication.",conseil:"Différencie-toi avec une page Shopify soignée et une garantie claire — la majorité des concurrents n'en ont pas."},
+      {nom:"Prix abordable",score:85,explication:`Au prix de ${pR.toLocaleString()} FCFA, le produit est accessible à la classe moyenne urbaine africaine.`,conseil:"Ne descends pas sous le prix minimum. Maintiens le prix et ajoute de la valeur perçue (garantie, offre bundle)."},
+      {nom:"Audience large",score:75,explication:"Le produit peut toucher plusieurs tranches d'âge et profils, ce qui augmente l'audience publicitaire potentielle.",conseil:"Crée des créatives séparées par persona. Le message doit être adapté même si le produit est le même."},
+      {nom:"Tendance actuelle",score:68,explication:`Ce type de produit est en croissance sur les marchés africains, porté par l'urbanisation et la hausse du pouvoir d'achat des classes moyennes.`,conseil:"Lance maintenant pour capitaliser sur la tendance avant que la concurrence s'intensifie davantage."}
+    ],
+    offres:[
+      {titre:"Livraison Gratuite",desc:"Supprime la principale hésitation à l'achat en incluant la livraison dans le prix.",icon:"🚚",pour_qui:"Clients hésitants, premier achat en ligne",comment:"Augmente ton prix de 1 500-2 000 FCFA et annonce 'LIVRAISON GRATUITE' partout dans ta pub et ta page.",impact:"Augmente le taux de conversion de 25 à 40%",recommandee:true},
+      {titre:"Pack 2 + 1 Offert",desc:"Deux achetés, un troisième offert ou à prix réduit. Augmente la valeur du panier.",icon:"📦",pour_qui:"Clients qui veulent en avoir pour leur argent",comment:"Propose 2 unités au prix de 1,7x le prix unitaire. La marge reste bonne et le client se sent gagnant.",impact:"Augmente le panier moyen de 60 à 80%",recommandee:false},
+      {titre:"Cadeau Surprise",desc:"Un accessoire offert glissé dans le colis. Crée une expérience mémorable.",icon:"🎁",pour_qui:"Tous les clients, surtout pour fidéliser",comment:"Achète un accessoire à 500-800 FCFA en lot. Annonce-le dans ta publicité : 'Cadeau mystère inclus'.",impact:"Fidélisation +50%, recommandations +30%",recommandee:false},
+      {titre:"Garantie 7 Jours",desc:"Remboursement ou remplacement si non satisfait. Élimine la peur de l'arnaque.",icon:"🛡️",pour_qui:"Nouveaux clients qui ne te font pas encore confiance",comment:"Mentionne clairement 'Satisfait ou remboursé 7 jours' dans ta pub et sur ta page produit.",impact:"Augmente la confiance et réduit les refus de livraison",recommandee:false}
+    ],
+    shopify_titres:[`${nom} — La Solution Définitive pour ${desc.split('.')[0]}`,`Découvrez ${nom} : Efficace, Fiable, Livré Rapidement`,`Pourquoi ${nom} Est Devenu Indispensable`],
+    shopify_paragraphes:[
+      {titre:"Fini Ce Problème pour Toujours",contenu:`Tu en as assez de subir ${problemePrecis} sans solution efficace ? ${nom} a été conçu précisément pour ça. Des milliers de clients satisfaits peuvent en témoigner.`},
+      {titre:"Résultats Dès la Première Utilisation",contenu:`Contrairement aux solutions ordinaires, ${nom} agit dès les premières utilisations. Tu remarqueras la différence immédiatement. Simple, rapide, sans effort.`},
+      {titre:"Conçu pour Résister et Durer",contenu:`Qualité premium, matériaux robustes, conçu pour le quotidien africain. ${nom} ne te laissera pas tomber. Un investissement qui vaut vraiment le coup.`},
+      {titre:"Ils L'ont Testé, Ils L'adorent",contenu:`"Exactement ce dont j'avais besoin, ça marche vraiment !" — client satisfait. Rejoins notre communauté de clients qui ont réglé ce problème une bonne fois pour toutes.`},
+      {titre:"Commande Maintenant — Stock Limité",contenu:`La demande est forte et les stocks s'épuisent vite. Ne reporte pas — commande maintenant et reçois ton ${nom} rapidement directement chez toi.`}
+    ],
+    fb_ads:[
+      {angle:"Douleur / Problème",accroche:`Tu souffres de ${problemePrecis} chaque jour ? 😤`,texte:`Tu souffres de ${problemePrecis} chaque jour ? 😤\n\nTu as essayé plein de solutions. Aucune ne marche vraiment.\nJusqu'à ce que des milliers de personnes découvrent ${nom}.\n\n✅ Efficace dès la première utilisation\n🚚 Livraison rapide à domicile\n💯 Satisfait ou remboursé\n\n⏰ Stock limité — Commande maintenant 👇`},
+      {angle:"Preuve Sociale",accroche:`"${nom} a réglé mon problème en 2 jours" — voici ce que disent nos clients 👀`,texte:`"${nom} a réglé mon problème en 2 jours" — voici ce que disent nos clients 👀\n\nDes centaines de personnes ont déjà transformé leur quotidien avec ${nom}.\n"J'avais des doutes, mais maintenant je ne peux plus m'en passer."\n\n✅ Disponible maintenant\n🚚 Livraison rapide\n\nClique sur "En savoir plus" et rejoins-les 👇`},
+      {angle:"Curiosité / Intrigue",accroche:`Ce produit règle ${problemePrecis}... et peu de gens le savent encore 🤫`,texte:`Ce produit règle ${problemePrecis}... et peu de gens le savent encore 🤫\n\nCeux qui l'ont essayé ne veulent pas le dire à tout le monde.\nParce qu'ils ne veulent pas que leurs concurrents le découvrent.\n\n${nom} — essaie-le et tu comprendras pourquoi.\n\n🚚 Livraison rapide · 💯 Satisfait ou remboursé\n👇 Clique pour découvrir`}
+    ],
+    voix_off:[
+      {titre:"Script 1 — Émotionnel",script:`Tu en as vraiment assez de ${problemePrecis} et de ne pas trouver de vraie solution ? Tu as tout essayé et rien ne donne de résultats durables. ${nom} change tout ça. Conçu pour répondre exactement à ce problème, il agit dès les premières utilisations sans effort ni complication. Des milliers de personnes l'ont adopté et disent la même chose : "Je ne savais pas que c'était possible avant d'essayer." Commande maintenant avec livraison rapide à domicile. Clique sur le lien — les stocks s'épuisent vite.`},
+      {titre:"Script 2 — Direct & Choc",script:`${problemePrecis.charAt(0).toUpperCase()+problemePrecis.slice(1)}. C'est exactement pour ça qu'on a créé ${nom}. Rapide. Efficace. Livré directement chez toi. Des centaines de clients l'ont déjà testé et ne regrettent rien. Toi, tu attends quoi ? Clique sur le lien dans la bio et commande maintenant — avant rupture de stock.`},
+      {titre:"Script 3 — Storytelling",script:`Pendant des mois, Aminata cherchait une solution à ${problemePrecis}. Elle avait tout essayé, dépensé des fortunes, rien ne changeait vraiment. Un jour, une amie lui parle de ${nom}. Elle était sceptique — encore une promesse qui ne tiendra pas, pensait-elle. Mais après quelques jours d'utilisation, quelque chose de différent s'est passé. Aujourd'hui, elle le recommande à tout son entourage. Cette histoire peut être la tienne. ${nom} est disponible maintenant, lien dans la bio.`}
+    ],
+    avatar_principal:{
+      prenom:mainPrenom,age:isAuto?'22-45 ans':'25-38 ans',sexe:mainGenre,
+      profession:mainProf,revenu:'80 000–200 000 FCFA/mois',
+      description:isAuto?`${mainPrenom} est un homme actif qui se déplace beaucoup, conducteur ou commerçant, ayant régulièrement besoin d'équipements fiables pour son activité ou ses trajets. Il est pragmatique et cherche des solutions concrètes.`:`${mainPrenom} est une femme active, connectée, qui cherche des solutions pratiques pour améliorer son quotidien sans se ruiner. Elle achète sur recommandation ou après plusieurs expositions publicitaires.`,
+      traits:[{nom:"Impulsivité achat",val:isAuto?60:72},{nom:"Sensibilité au prix",val:80},{nom:"Confiance en ligne",val:isAuto?55:58},{nom:"Influence réseaux",val:isAuto?70:85}],
+      motivations:isAuto?["Trouver des équipements fiables pour son activité","Éviter les pannes et imprévus coûteux","Être plus efficace et professionnel"]:["Améliorer son quotidien sans se ruiner","Trouver un produit qui fonctionne vraiment","Prendre soin d'elle et de sa famille"],
+      peurs:["Gaspiller son argent sur quelque chose d'inutile","Se faire arnaquer par un vendeur","Recevoir un produit différent de la photo"],
+      phrases_declencheurs:["Résultats garantis ou remboursé","Livraison rapide à domicile","Des centaines de clients satisfaits","Prix spécial — aujourd'hui seulement"],
+      reseaux:isAuto?["Facebook","WhatsApp","YouTube"]:["Facebook","WhatsApp","TikTok"],
+      tags:isAuto?["Actif mobile","Pragmatique","Budget conscient","Cherche fiabilité"]:["Urbaine connectée","Budget conscient","Acheteuse sociale","Cherche qualité"],
+      face:mainFace,bg:mainBg
+    },
+    avatar_secondaire:null,
+    concurrence:{
+      analyse:`Sur le marché de ${pays} et d'Afrique francophone, ${nom} opère dans un secteur avec des vendeurs locaux actifs sur Facebook, mais la plupart manquent de professionnalisme. La demande est bien présente mais sous-exploitée par des acteurs sérieux.`,
+      conseil:`Différencie-toi avec une page produit soignée, des témoignages réels et une garantie claire. La confiance est la clé — 90% de tes concurrents ne l'offrent pas.`
+    },
+    prixMin:pM,prixMax:pX,prixReco:pR,pub,livraison:liv,closing:clo
+  };
+}
+
+// ══ RENDERS ══
+// ══ COPY STORE — stockage textes par clé unique ══
+// Toutes les fonctions de rendu utilisent storeCopy() pour stocker
+// les textes et cpk(btn,key) pour les récupérer.
+// JAMAIS de texte brut dans les attributs onclick.
+if(!S.copyStore) S.copyStore = {};
+let _ck = 0;
+function storeCopy(text){
+  const k = 'ck' + (_ck++);
+  S.copyStore[k] = String(text||'');
+  return k;
+}
+function cpk(btn, key){
+  const txt = S.copyStore[key];
+  if(txt === undefined){ toast('Rien à copier',false); return; }
+  _doCopy(btn, txt);
+}
+function _doCopy(btn, txt){
+  const done = ()=>{
+    if(!btn) return;
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copié !';
+    btn.classList.add('ok');
+    setTimeout(()=>{ btn.textContent = orig; btn.classList.remove('ok'); }, 2200);
+    toast('✅ Copié !', true);
+  };
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(txt).then(done).catch(()=>_fbCopy(txt, done));
+  } else {
+    _fbCopy(txt, done);
+  }
+}
+function _fbCopy(txt, cb){
+  const ta = document.createElement('textarea');
+  ta.value = txt;
+  Object.assign(ta.style,{position:'fixed',left:'-9999px',top:'-9999px',opacity:'0'});
+  document.body.appendChild(ta);
+  try{ ta.focus(); ta.select(); document.execCommand('copy'); cb(); }
+  catch(e){ toast('Appuie longuement sur le texte pour copier', false); }
+  document.body.removeChild(ta);
+}
+// compat
+function cp(btn, txt){ _doCopy(btn, txt); }
+function esc(t){ return String(t||''); }
+
+function rPrix(){
+  const r=S.results,p=S.product;if(!r)return'';
+  const dep=p.pub+p.livraison+p.closing;
+  const ben1=r.prixReco-p.prix-dep;
+  const rows=[1,2,3,5,10].map(v=>`<div class="gtr${v===5?' hl':''}">
+    <span>${v} vente${v>1?'s':''}/j${v===5?'<span class="brec">Reco.</span>':''}</span>
+    <span>${(r.prixReco*v).toLocaleString()} F</span>
+    <span>${(p.prix*v).toLocaleString()} F</span>
+    <span>${(p.pub*v).toLocaleString()} F</span>
+    <span>${(p.livraison*v).toLocaleString()} F</span>
+    <span class="prf">+${(ben1*v).toLocaleString()} F</span>
+  </div>`).join('');
+  const kprix = storeCopy(`PRIX & GAINS — ${p.nom}\nPrix min: ${r.prixMin.toLocaleString()} FCFA\nPrix recommandé: ${r.prixReco.toLocaleString()} FCFA\nPrix max: ${r.prixMax.toLocaleString()} FCFA\nBénéfice/vente: ${ben1.toLocaleString()} FCFA\nBénéfice 5v/j: ${(ben1*5).toLocaleString()} FCFA\nBénéfice mensuel (5v/j): ${(ben1*5*30).toLocaleString()} FCFA`);
+  return`<div class="rh afu"><div><h2>💰 Prix &amp; Gains</h2><div class="rp">${p.nom} · ${p.pays}</div></div><button class="cbtn" onclick="cpk(this,'${kprix}')">📋 Copier</button></div>
+  <div class="srow afu2">
+    <div class="sc"><div class="scl">Prix minimum</div><div class="scv ov">${r.prixMin.toLocaleString()} F</div><div class="scn">Achat + 8 000 F</div></div>
+    <div class="sc"><div class="scl">Prix recommandé</div><div class="scv gv">${r.prixReco.toLocaleString()} F</div><div class="scn">Optimal marché africain</div></div>
+    <div class="sc"><div class="scl">Prix maximum</div><div class="scv grv">${r.prixMax.toLocaleString()} F</div><div class="scn">Achat + 12 000 F</div></div>
+  </div>
+  <div class="gt afu3">
+    <div class="gth"><span>Scénario</span><span>CA/jour</span><span>Coût produit</span><span>Coût pub</span><span>Livraison</span><span>Bénéfice net</span></div>
+    ${rows}
+  </div>
+  <div class="tip afu4"><div class="tip-i">💡</div><div><h4>Conseil Budget Pub</h4><p>Commence avec <strong style="color:var(--text)">1–2 créatives</strong> et <strong style="color:var(--text)">5–7$/jour</strong>. Teste 3 jours. Si 0 vente → change la créative. Si 1+ vente → augmente le budget progressivement de 20% tous les 3 jours.</p></div></div>`;
+}
+
+function rScore(){
+  const r=S.results;if(!r)return'';
+  const col=r.score>=75?'var(--green)':r.score>=50?'var(--gold)':'#EF4444';
+  const circ=2*Math.PI*48;const dash=circ*(1-r.score/100);
+  const crits=r.criteres.map((c,i)=>{
+    const cc=c.score>=75?'var(--green)':c.score>=50?'var(--gold)':'#EF4444';
+    return`<div class="crit" style="animation-delay:${i*.06}s">
+      <div class="crit-top"><span class="crit-name">${c.nom}</span><span class="crit-sc" style="color:${cc}">${c.score}/100</span></div>
+      <div class="crit-bar"><div class="crit-fill" style="width:${c.score}%;background:${cc}"></div></div>
+      <div class="crit-why">${c.explication}</div>
+      <div class="crit-how">💡 ${c.conseil}</div>
+    </div>`;
+  }).join('');
+  return`<div class="rh afu"><div><h2>⭐ Score Produit</h2><div class="rp">${S.product.nom}</div></div></div>
+  <div class="sbig">
+    <div class="sring-w" style="width:120px;height:120px;border:5px solid ${col}22;">
+      <svg width="120" height="120" viewBox="0 0 120 120">
+        <circle cx="60" cy="60" r="48" fill="none" stroke="${col}18" stroke-width="9"/>
+        <circle cx="60" cy="60" r="48" fill="none" stroke="${col}" stroke-width="9"
+          stroke-dasharray="${circ}" stroke-dashoffset="${dash}" stroke-linecap="round"
+          transform="rotate(-90 60 60)" style="transition:stroke-dashoffset 1.2s ease"/>
+      </svg>
+      <div><div class="snum" style="color:${col}">${r.score}</div><div style="font-size:.65rem;color:var(--muted)">/100</div></div>
+    </div>
+    <div class="sverdict">${r.score_verdict}</div>
+    <div class="sdesc">${r.score_desc}</div>
+  </div>
+  <div class="score-verdict-final afu2"><h4>🎯 Dois-je lancer ce produit ?</h4><p>${r.score_recommandation}</p></div>
+  <div class="crit-grid">${crits}</div>`;
+}
+
+function rOffres(){
+  const r=S.results;if(!r)return'';
+  const cards=r.offres.map((o,i)=>`
+    <div class="ofcard" id="ofc${i}" style="animation-delay:${i*.07}s" onclick="toggleOff(${i})">
+      <div class="off-ico">${o.icon}</div>
+      <h4>${o.titre}</h4>
+      <div class="desc">${o.desc}</div>
+      <div class="off-det"><strong>Pour qui ?</strong>${o.pour_qui}</div>
+      <div class="off-det"><strong>Comment faire ?</strong>${o.comment}</div>
+      <div class="off-det"><strong>Impact estimé</strong>${o.impact}</div>
+      <span class="offtag ${o.recommandee?'r':'b'}">${o.recommandee?'⭐ Recommandée':'Bonne option'}</span>
+    </div>`).join('');
+  return`<div class="rh afu"><div><h2>🎁 Offres Irrésistibles</h2><div class="rp">${S.product.nom}</div></div></div>
+  <p style="font-size:.76rem;color:var(--muted);margin-bottom:1rem">Clique sur une offre pour la sélectionner 👆</p>
+  <div class="off-grid">${cards}</div>`;
+}
+function toggleOff(i){document.querySelectorAll('.ofcard').forEach((c,j)=>c.classList.toggle('sel',j===i));}
+
+function rShopify(){
+  const r=S.results;if(!r)return'';
+  const ts=r.shopify_titres.map((t,i)=>{
+    const k=storeCopy(t);
+    return`<div class="ic afu" style="animation-delay:${i*.05}s">
+      <div class="ich"><h4>Titre ${i+1}</h4><button class="cbtn" onclick="cpk(this,'${k}')">📋 Copier</button></div>
+      <p style="color:var(--text);font-weight:600;font-size:.91rem">${t}</p>
+    </div>`;
+  }).join('');
+  const ps=r.shopify_paragraphes.map((p,i)=>{
+    const k=storeCopy(p.contenu);
+    return`<div class="ic" style="animation:fadeUp .35s ease ${.08+i*.06}s both">
+      <div class="ich"><h4>§${i+1} — ${p.titre}</h4><button class="cbtn" onclick="cpk(this,'${k}')">📋 Copier</button></div>
+      <p>${p.contenu}</p>
+    </div>`;
+  }).join('');
+  return`<div class="rh afu"><div><h2>🛍️ Page Shopify</h2><div class="rp">${S.product.nom}</div></div></div>
+  <div class="section-subtitle">3 titres accrocheurs</div>${ts}
+  <div class="section-subtitle" style="margin-top:1.2rem">5 paragraphes neuromarketing</div>${ps}`;
+}
+
+function rFacebook(){
+  const r=S.results;if(!r)return'';
+  const ads=r.fb_ads.map((a,i)=>{
+    const cls=['fba1','fba2','fba3'][i];
+    const k=storeCopy(a.texte);
+    return`<div class="ic" style="animation:fadeUp .35s ease ${i*.07}s both">
+      <div class="ich"><div><span class="fb-badge ${cls}">${a.angle}</span><h4 style="margin-top:.28rem">${a.accroche}</h4></div>
+      <button class="cbtn" onclick="cpk(this,'${k}')">📋 Copier</button></div>
+      <p style="margin-top:.2rem">${a.texte}</p>
+    </div>`;
+  }).join('');
+  return`<div class="rh afu"><div><h2>📣 Facebook Ads</h2><div class="rp">${S.product.nom} · 3 angles</div></div></div>
+  ${ads}
+  <div class="tip"><div class="tip-i">💡</div><div><h4>Comment tester ces textes</h4><p>Lance les 3 textes avec <strong style="color:var(--text)">5$/jour chacun</strong> pendant 3 jours. Celui qui génère le plus de clics — garde-le, coupe les autres. Scale à 10-15$/jour.</p></div></div>`;
+}
+
+function rVoixOff(){
+  const r=S.results;if(!r)return'';
+  const scripts=r.voix_off.map((v,i)=>{
+    const k=storeCopy(v.script);
+    return`<div class="ic" style="animation:fadeUp .35s ease ${i*.07}s both">
+      <div class="ich"><h4>${v.titre}</h4><button class="cbtn" onclick="cpk(this,'${k}')">📋 Copier</button></div>
+      <p style="font-size:.82rem;font-style:italic;line-height:1.8">"${v.script}"</p>
+    </div>`;
+  }).join('');
+  const tts=[['🎙️','ElevenLabs','Qualité pro','https://elevenlabs.io','bbl-fb'],['🔊','TTS Maker','Gratuit','https://ttsmaker.com','bbl-gg'],['🎤','Murf.ai','Voix africaines','https://murf.ai','bbl-pt'],['🤖','AI Studio','Google gratuit','https://aistudio.google.com','bbl-gg'],['⚡','MiniMax','Ultra rapide','https://minimax.io','bbl-tt'],['🎵','Suno','IA musicale','https://suno.com','bbl-yt']];
+  const tlinks=tts.map(([ic,n,t,u,cls],i)=>`<a class="bbl ${cls}" href="${u}" target="_blank" style="animation-delay:${i*.1}s"><span class="bico">${ic}</span><span class="bname">${n}</span><span class="bsub">${t}</span></a>`).join('');
+  return`<div class="rh afu"><div><h2>🎙️ Voix Off</h2><div class="rp">${S.product.nom}</div></div></div>
+  ${scripts}
+  <div class="section-subtitle" style="margin-top:1.4rem">Créer ta voix off sur</div>
+  <div class="bubble-grid">${tlinks}</div>`;
+}
+
+function rAvatar(){
+  const r=S.results;if(!r)return'';
+  const av=r.avatar_principal;
+  const renderAvatarCard=(a,title)=>{
+    const tags=a.tags.map(t=>`<span class="avtag">${t}</span>`).join('');
+    const traits=a.traits.map(t=>`<div class="trait-r"><div class="trait-l"><span>${t.nom}</span><span style="font-weight:700">${t.val}%</span></div><div class="trait-b"><div class="trait-f" style="width:${t.val}%"></div></div></div>`).join('');
+    const mo=a.motivations.map(m=>`<div class="avli">${m}</div>`).join('');
+    const pe=a.peurs.map(p=>`<div class="avli">${p}</div>`).join('');
+    const ph=a.phrases_declencheurs.map(p=>`<div class="avli">${p}</div>`).join('');
+    const txt=`AVATAR ${title} — ${S.product.nom}\n${a.prenom} · ${a.age} · ${a.sexe}\n${a.profession} · ${a.revenu}\n\n${a.description}\n\nMotivations:\n${a.motivations.join('\n')}\n\nPeurs:\n${a.peurs.join('\n')}\n\nPhrases:\n${a.phrases_declencheurs.join('\n')}`;
+    const kav=storeCopy(txt);
+    return`
+      <div class="av-hero">
+        <div class="av-face" style="background:${a.bg}">${a.face}</div>
+        <div class="av-info">
+          <h3>${a.prenom} · ${a.age} · ${a.sexe}</h3>
+          <p>${a.profession} · ${a.revenu}</p>
+          <p style="font-size:.74rem;color:var(--muted);margin-top:.25rem">${a.description}</p>
+          <div class="av-tags">${tags}</div>
+        </div>
+        <button class="cbtn" style="margin-left:auto;align-self:flex-start" onclick="cpk(this,'${kav}')">📋 Copier</button>
+      </div>
+      <div class="av-grid">
+        <div class="avsec" style="animation-delay:.05s"><h4>Traits psychologiques</h4>${traits}</div>
+        <div class="avsec" style="animation-delay:.1s">
+          <h4>Réseaux actifs</h4>
+          <div style="display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.7rem">${a.reseaux.map(rr=>`<span class="avtag">${rr}</span>`).join('')}</div>
+          <h4>Motivations</h4>${mo}
+        </div>
+        <div class="avsec" style="animation-delay:.15s"><h4>Peurs &amp; Freins</h4>${pe}</div>
+        <div class="avsec" style="animation-delay:.2s"><h4>Phrases Déclencheurs</h4>${ph}</div>
+      </div>`;
+  };
+  let html=`<div class="rh afu"><div><h2>👤 Avatar Client</h2><div class="rp">${S.product.nom}</div></div></div>`;
+  if(r.avatar_secondaire){
+    html+=`<div class="av-secondary"><div class="av-sec-title">Avatar Principal — ${av.sexe}</div>${renderAvatarCard(av,'PRINCIPAL')}</div>`;
+    html+=`<div class="av-secondary" style="margin-top:.8rem"><div class="av-sec-title">Avatar Secondaire — ${r.avatar_secondaire.sexe}</div>${renderAvatarCard(r.avatar_secondaire,'SECONDAIRE')}</div>`;
+  }else{
+    html+=renderAvatarCard(av,'PRINCIPAL');
+  }
+  return html;
+}
+
+function rConc(){
+  const r=S.results,p=S.product;if(!r)return'';
+  const q=encodeURIComponent(p.nom);
+  const fbBubbles=ALL_PAYS_FB.map(({pays,code,flag},i)=>{
+    const url=code==='ALL'?`https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=${q}`:`https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=${code}&q=${q}&search_type=keyword_unordered`;
+    return`<a class="pbbl" href="${url}" target="_blank" style="animation-delay:${i*.04}s">${flag} ${pays}</a>`;
+  }).join('');
+  const shopBubbles=[
+    {n:'Google Shopping',ic:'🛒',u:`https://www.google.com/search?tbm=shop&q=${q}`,cls:'bbl-gg'},
+    {n:'Google Search',ic:'🔎',u:`https://www.google.com/search?q=${q}+acheter`,cls:'bbl-gg'},
+    {n:'TikTok',ic:'🎵',u:`https://www.tiktok.com/search?q=${q}`,cls:'bbl-tt'},
+    {n:'YouTube',ic:'▶️',u:`https://www.youtube.com/results?search_query=${q}`,cls:'bbl-yt'},
+    {n:'Pinterest',ic:'📌',u:`https://www.pinterest.com/search/pins/?q=${q}`,cls:'bbl-pt'},
+    {n:'AliExpress',ic:'🏷️',u:`https://www.aliexpress.com/wholesale?SearchText=${q}`,cls:'bbl-al'},
+    {n:'Amazon',ic:'📦',u:`https://www.amazon.fr/s?k=${q}`,cls:'bbl-am'},
+    {n:'Jumia',ic:'🛍️',u:`https://www.jumia.com.gh/catalog/?q=${q}`,cls:'bbl-ju'},
+  ].map((b,i)=>`<a class="bbl ${b.cls}" href="${b.u}" target="_blank" style="animation-delay:${i*.08}s"><span class="bico">${b.ic}</span><span class="bname">${b.n}</span></a>`).join('');
+  return`<div class="rh afu"><div><h2>🔍 Concurrence</h2><div class="rp">${p.nom} · ${p.pays}</div></div></div>
+  <div class="ic afu2"><div class="ich"><h4>Analyse du marché</h4></div><p>${r.concurrence.analyse}</p></div>
+  <div class="tip afu3"><div class="tip-i">💡</div><div><h4>Conseil stratégique</h4><p>${r.concurrence.conseil}</p></div></div>
+  <div class="bubbles-section">
+    <div class="section-subtitle">🔵 Facebook Ads Library — Voir les pubs actives par pays</div>
+    <p style="font-size:.73rem;color:var(--muted);margin-bottom:.65rem">Clique sur un pays pour voir qui vend "<strong style="color:var(--text)">${p.nom}</strong>"</p>
+    <div class="pays-grid">${fbBubbles}</div>
+  </div>
+  <div class="bubbles-section">
+    <div class="section-subtitle">🌐 Chercher les concurrents sur d'autres plateformes</div>
+    <div class="bubble-grid">${shopBubbles}</div>
+  </div>`;
+}
+
+function rImages(){
+  const p=S.product;const q=encodeURIComponent(p?.nom||'');
+  const srcs=[
+    {n:'Pinterest',ic:'📌',u:`https://www.pinterest.com/search/pins/?q=${q}`,cls:'bbl-pt',sub:'Photos produit'},
+    {n:'Google Images',ic:'🔎',u:`https://www.google.com/search?tbm=isch&q=${q}`,cls:'bbl-gg',sub:'Toutes images'},
+    {n:'AliExpress',ic:'🏷️',u:`https://www.aliexpress.com/wholesale?SearchText=${q}`,cls:'bbl-al',sub:'Fournisseur'},
+    {n:'Alibaba',ic:'🏭',u:`https://www.alibaba.com/trade/search?SearchText=${q}`,cls:'bbl-al',sub:'Grossiste'},
+    {n:'Temu',ic:'🛍️',u:`https://www.temu.com/search_result.html?search_key=${q}`,cls:'bbl-tm',sub:'Marketplace'},
+    {n:'Amazon',ic:'📦',u:`https://www.amazon.fr/s?k=${q}`,cls:'bbl-am',sub:'E-commerce'},
+    {n:'Jumia',ic:'🛒',u:`https://www.jumia.com.gh/catalog/?q=${q}`,cls:'bbl-ju',sub:'Afrique'},
+    {n:'Pexels',ic:'🖼️',u:`https://www.pexels.com/search/${q}/`,cls:'bbl-gg',sub:'Libres droits'},
+    {n:'Unsplash',ic:'✨',u:`https://unsplash.com/s/photos/${q}`,cls:'bbl-gg',sub:'Haute qualité'},
+  ].map((s,i)=>`<a class="bbl ${s.cls}" href="${s.u}" target="_blank" style="animation-delay:${i*.07}s"><span class="bico">${s.ic}</span><span class="bname">${s.n}</span><span class="bsub">${s.sub}</span></a>`).join('');
+  return`<div class="rh afu"><div><h2>🖼️ Images</h2><div class="rp">${p?.nom||''}</div></div></div>
+  <p style="font-size:.76rem;color:var(--muted);margin-bottom:1rem">Clique sur une plateforme pour trouver des images de "<strong style="color:var(--text)">${p?.nom||''}</strong>"</p>
+  <div class="bubble-grid">${srcs}</div>
+  <div class="tip" style="margin-top:1.2rem"><div class="tip-i">💡</div><div><h4>Conseil images créatives</h4><p>Mix idéal : <strong style="color:var(--text)">fond blanc</strong> (AliExpress/Alibaba) + <strong style="color:var(--text)">personne qui utilise</strong> (Pinterest/Google). Ce mix "produit + personne" convertit mieux que les photos produit seules.</p></div></div>`;
+}
+
+function rVideos(){
+  const p=S.product;const q=encodeURIComponent(p?.nom||'');
+  const fbVids=ALL_PAYS_FB.map(({pays,code,flag},i)=>`<a class="pbbl" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=video&country=${code}&q=${q}&search_type=keyword_unordered" target="_blank" style="animation-delay:${i*.04}s">${flag} ${pays}</a>`).join('');
+  const vidSrcs=[
+    {n:'TikTok',ic:'🎵',u:`https://www.tiktok.com/search?q=${q}`,cls:'bbl-tt',sub:'Vidéos virales'},
+    {n:'YouTube',ic:'▶️',u:`https://www.youtube.com/results?search_query=${q}+review`,cls:'bbl-yt',sub:'Reviews'},
+    {n:'Pinterest Vidéos',ic:'📌',u:`https://www.pinterest.com/search/videos/?q=${q}`,cls:'bbl-pt',sub:'Inspiration'},
+    {n:'Google Vidéos',ic:'🔎',u:`https://www.google.com/search?tbm=vid&q=${q}`,cls:'bbl-gg',sub:'Tous résultats'},
+    {n:'Instagram',ic:'📸',u:`https://www.instagram.com/explore/tags/${(p?.nom||'').replace(/\s/g,'')}/`,cls:'bbl-in',sub:'Reels & posts'},
+    {n:'Snapchat',ic:'👻',u:`https://www.snapchat.com/search?q=${q}`,cls:'bbl-gg',sub:'Stories'},
+  ].map((s,i)=>`<a class="bbl ${s.cls}" href="${s.u}" target="_blank" style="animation-delay:${i*.08}s"><span class="bico">${s.ic}</span><span class="bname">${s.n}</span><span class="bsub">${s.sub}</span></a>`).join('');
+  return`<div class="rh afu"><div><h2>🎬 Vidéos</h2><div class="rp">${p?.nom||''}</div></div></div>
+  <div class="bubbles-section">
+    <div class="section-subtitle">🔵 FB Ads Library — Vidéos publicitaires actives par pays</div>
+    <p style="font-size:.73rem;color:var(--muted);margin-bottom:.65rem">Vois les vidéos publicitaires actives pour ce produit, pays par pays</p>
+    <div class="pays-grid afu2">${fbVids}</div>
+  </div>
+  <div class="bubbles-section">
+    <div class="section-subtitle">📹 Trouver des vidéos de référence</div>
+    <div class="bubble-grid afu3">${vidSrcs}</div>
+  </div>
+  <div class="tip"><div class="tip-i">💡</div><div><h4>Comment utiliser ces vidéos</h4><p>Les vidéos Facebook Ads Library montrent ce qui <strong style="color:var(--text)">tourne déjà</strong> chez tes concurrents. Note les angles, les accroches, les musiques récurrentes — c'est ce que le marché achète. Inspire-toi sans copier.</p></div></div>`;
+}
+
+function rHist(){
+  const rows=S.history.map((h,i)=>{
+    const col=h.score>=75?'var(--green)':h.score>=50?'var(--gold)':'#EF4444';
+    return`<div class="htr" onclick="loadH(${i})"><span style="font-weight:600">${h.name}</span><span style="color:var(--muted)">${h.date}</span><span style="font-weight:800;color:${col}">${h.score}/100</span><span style="color:var(--gold)">${h.prixReco.toLocaleString()} F</span><button class="hopn">→</button></div>`;
+  }).join('');
+  return`<div class="rh afu"><div><h2>📊 Historique</h2><div class="rp">${S.history.length} produit${S.history.length>1?'s':''} analysé${S.history.length>1?'s':''}</div></div></div>
+  <div class="htbl afu2"><div class="hth"><span>Produit</span><span>Date</span><span>Score</span><span>Prix reco.</span><span></span></div>${rows}</div>`;
+}
+
+// ══ UTILITIES ══
+function esc(t){return(t||'').replace(/`/g,'\\`').replace(/\$/g,'\\$');}
+function cp(btn,txt){
+  const ok=()=>{
+    if(!btn)return;
+    const o=btn.textContent;
+    btn.textContent='✓ Copié !';btn.classList.add('ok');
+    setTimeout(()=>{btn.textContent=o;btn.classList.remove('ok');},2200);
+    toast('✅ Copié dans le presse-papiers !',true);
+  };
+  if(navigator.clipboard&&window.isSecureContext){
+    navigator.clipboard.writeText(txt).then(ok).catch(()=>fbCopy(txt,ok));
+  }else{fbCopy(txt,ok);}
+}
+function fbCopy(txt,cb){
+  const t=document.createElement('textarea');
+  t.value=txt;Object.assign(t.style,{position:'fixed',left:'-9999px',top:'-9999px',opacity:'0'});
+  document.body.appendChild(t);
+  try{t.focus();t.select();document.execCommand('copy');cb();}
+  catch(e){toast('Sélectionne le texte manuellement (appui long)',false);}
+  document.body.removeChild(t);
+}
+function showLov(t,s){document.getElementById('lov').classList.remove('hidden');document.getElementById('lt').textContent=t;document.getElementById('ls').textContent=s;}
+function hideLov(){document.getElementById('lov').classList.add('hidden');}
+function toast(msg,ok=true){
+  const e=document.getElementById('toast');
+  document.getElementById('tm').textContent=msg;
+  e.className='toast show'+(ok?' ok':'');
+  setTimeout(()=>e.className='toast',3800);
+}
+function loadH(i){
+  const h=S.history[i];
+  S.product={nom:h.name,prix:h.prix,pays:h.pays,pub:2000,livraison:2000,closing:1000,cat:'Autre',desc:h.name};
+  S.results=demo(h.name,h.prix,h.pays,'Autre',h.name,h.prix+8000,h.prix+12000,h.prixReco,2000,2000,1000);
+  document.getElementById('sb-pn').textContent=h.name;
+  showPage('prix');closeSidebar();
+}
+
+// INIT
+showPage('form');
+</script>
+</body>
+</html>

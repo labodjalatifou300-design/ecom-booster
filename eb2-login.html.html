@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ecom Booster 2.0 — Connexion</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<!-- SUPABASE SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#07080F;--bg2:#0C0E1C;--bg3:#131628;--or:#FF6B1A;--gold:#FFB800;--green:#22C55E;--red:#EF4444;--text:#EDEAE2;--muted:#7A7E96;--soft:#A8ABBE;--bd:rgba(255,255,255,0.07);--bd2:rgba(255,255,255,0.13);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh;display:flex;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.left{width:45%;background:var(--bg2);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:4rem 3rem;border-right:1px solid var(--bd);position:relative;overflow:hidden;}
+.left::before{content:'';position:absolute;top:-150px;left:-100px;width:500px;height:500px;background:radial-gradient(ellipse,rgba(255,107,26,.1) 0%,transparent 65%);pointer-events:none;}
+.left-inner{position:relative;z-index:1;max-width:380px;width:100%;}
+.logo-wrap{display:flex;align-items:center;gap:.5rem;margin-bottom:2.5rem;text-decoration:none;}
+.logo-box{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--or),var(--gold));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.85rem;color:#fff;}
+.logo-nm{margin-left:.3rem;}.l1{font-size:1rem;font-weight:800;color:var(--text);display:block;line-height:1.1;}.l2{font-size:.62rem;font-weight:600;color:var(--or);display:block;}
+.left h2{font-size:1.9rem;font-weight:900;line-height:1.15;letter-spacing:-.7px;margin-bottom:.9rem;animation:fadeUp .5s ease both;}
+.left p{color:var(--muted);font-size:.87rem;line-height:1.75;margin-bottom:2rem;animation:fadeUp .5s ease .08s both;}
+.feat-list{list-style:none;animation:fadeUp .5s ease .16s both;}
+.feat-list li{display:flex;align-items:center;gap:.7rem;font-size:.83rem;padding:.42rem 0;color:var(--muted);}
+.feat-ico{width:30px;height:30px;border-radius:7px;background:rgba(255,107,26,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.82rem;}
+.free-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.22);color:var(--green);font-size:.75rem;font-weight:600;padding:.38rem .88rem;border-radius:999px;margin-top:1.8rem;}
+.right{flex:1;display:flex;align-items:center;justify-content:center;padding:3rem 2rem;}
+.auth-card{width:100%;max-width:420px;}
+.tabs{display:flex;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:3px;margin-bottom:2.1rem;}
+.tab{flex:1;text-align:center;padding:.52rem;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;color:var(--muted);transition:all .2s;user-select:none;}
+.tab.active{background:var(--bg3);color:var(--text);}
+h3{font-size:1.38rem;font-weight:800;letter-spacing:-.3px;margin-bottom:.32rem;}
+.sub{color:var(--muted);font-size:.83rem;margin-bottom:1.7rem;}
+.fg{margin-bottom:1rem;}
+.fg label{display:block;font-size:.7rem;font-weight:600;color:var(--soft);margin-bottom:.35rem;}
+.fg input,.fg select{width:100%;background:var(--bg3);border:1px solid var(--bd);border-radius:9px;padding:.65rem .88rem;color:var(--text);font-family:'Outfit',sans-serif;font-size:.87rem;outline:none;transition:border-color .2s,box-shadow .2s;}
+.fg input:focus,.fg select:focus{border-color:var(--or);box-shadow:0 0 0 3px rgba(255,107,26,.1);}
+.fg input::placeholder{color:var(--muted);}
+.fg select option{background:var(--bg3);}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
+.trial-box{background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.18);border-radius:10px;padding:.82rem .95rem;display:flex;gap:.65rem;margin-bottom:1.4rem;}
+.trial-ico{font-size:1rem;flex-shrink:0;margin-top:2px;}
+.trial-box strong{color:var(--green);display:block;font-size:.78rem;margin-bottom:.12rem;}
+.trial-box p{font-size:.74rem;color:var(--muted);line-height:1.6;}
+.btn-s{width:100%;background:linear-gradient(135deg,var(--or),#FF8C42);color:#fff;border:none;border-radius:10px;padding:.88rem;font-family:'Outfit',sans-serif;font-size:.93rem;font-weight:700;cursor:pointer;box-shadow:0 6px 22px rgba(255,107,26,.28);transition:transform .2s,opacity .2s;margin-top:.25rem;display:flex;align-items:center;justify-content:center;gap:.5rem;}
+.btn-s:hover{transform:translateY(-1px);opacity:.92;}
+.btn-s:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.btn-spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;display:none;}
+.btn-s.loading .btn-spinner{display:block;}
+.btn-s.loading .btn-text{display:none;}
+.sw{text-align:center;font-size:.8rem;color:var(--muted);margin-top:1.2rem;}
+.sw a{color:var(--or);text-decoration:none;font-weight:600;}
+.forgot{text-align:right;margin-top:-.55rem;margin-bottom:.85rem;}
+.forgot a{font-size:.74rem;color:var(--or);text-decoration:none;}
+/* Alerts */
+.alert{border-radius:9px;padding:.72rem .95rem;font-size:.78rem;font-weight:600;margin-bottom:1rem;display:none;}
+.alert.show{display:flex;align-items:center;gap:.5rem;}
+.alert.err{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);color:#F87171;}
+.alert.ok{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.22);color:var(--green);}
+/* Trial expired modal */
+.modal-over{position:fixed;inset:0;background:rgba(7,8,15,.9);display:none;align-items:center;justify-content:center;z-index:100;padding:1rem;}
+.modal-over.show{display:flex;}
+.modal{background:var(--bg2);border:1px solid var(--bd2);border-radius:18px;padding:2.5rem 2rem;max-width:420px;width:100%;text-align:center;}
+.modal h3{font-size:1.3rem;font-weight:800;margin-bottom:.6rem;}
+.modal p{color:var(--muted);font-size:.86rem;line-height:1.7;margin-bottom:1.5rem;}
+.modal-plans{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1.2rem;}
+.modal-plan{background:var(--bg3);border:1px solid var(--bd);border-radius:12px;padding:1.2rem;text-align:left;cursor:pointer;transition:border-color .2s;}
+.modal-plan:hover,.modal-plan.sel{border-color:var(--or);}
+.modal-plan .mp-price{font-size:1.4rem;font-weight:900;color:var(--or);}
+.modal-plan .mp-name{font-size:.72rem;font-weight:600;color:var(--muted);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:1px;}
+.modal-plan .mp-feat{font-size:.75rem;color:var(--muted);line-height:1.6;}
+.btn-modal{width:100%;background:var(--or);color:#fff;border:none;border-radius:9px;padding:.85rem;font-family:'Outfit',sans-serif;font-size:.92rem;font-weight:700;cursor:pointer;}
+#p-login{display:none;}
+#p-login.active,#p-signup.active{display:block;}
+@media(max-width:768px){
+  .left{display:none;}
+  .right{padding:2rem 1.5rem;align-items:flex-start;padding-top:3rem;}
+  body{display:block;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ MODAL ESSAI EXPIRÉ ══ -->
+<div class="modal-over" id="modal-expired">
+  <div class="modal">
+    <div style="font-size:2rem;margin-bottom:.8rem">⏰</div>
+    <h3>Ton essai gratuit a expiré</h3>
+    <p>Tu as utilisé tes 24h d'essai gratuit. Choisis un plan pour continuer à analyser tes produits et lancer des campagnes gagnantes.</p>
+    <div class="modal-plans">
+      <div class="modal-plan sel" onclick="selectPlan(this,'pro')">
+        <div class="mp-name">Pro</div>
+        <div class="mp-price">9 900 F<span style="font-size:.75rem;font-weight:400;color:var(--muted)">/mois</span></div>
+        <div class="mp-feat">Analyses illimitées · Tous les modules · Historique complet</div>
+      </div>
+      <div class="modal-plan" onclick="selectPlan(this,'equipe')">
+        <div class="mp-name">Équipe</div>
+        <div class="mp-price">24 900 F<span style="font-size:.75rem;font-weight:400;color:var(--muted)">/mois</span></div>
+        <div class="mp-feat">3 comptes · Formation · Support prioritaire</div>
+      </div>
+    </div>
+    <button class="btn-modal" onclick="goToPay()">Continuer avec ce plan →</button>
+    <p style="font-size:.72rem;margin-top:.8rem;color:var(--muted)">Paiement par Flooz, Orange Money, Wave, MTN Mobile Money</p>
+  </div>
+</div>
+
+<div class="left">
+  <div class="left-inner">
+    <a href="eb2-landing.html" class="logo-wrap">
+      <div class="logo-box">EB</div>
+      <div class="logo-nm"><span class="l1">Ecom Booster</span><span class="l2">2.0 by Labo</span></div>
+    </a>
+    <h2>Lance ton produit gagnant en 10 minutes.</h2>
+    <p>L'IA qui analyse ton produit et génère tout ce dont tu as besoin pour vendre en Afrique.</p>
+    <ul class="feat-list">
+      <li><div class="feat-ico">💰</div>Prix & Gains calculés automatiquement</li>
+      <li><div class="feat-ico">⭐</div>Score produit basé sur 6 critères africains</li>
+      <li><div class="feat-ico">📣</div>3 textes Facebook Ads prêts à l'emploi</li>
+      <li><div class="feat-ico">🎙️</div>Scripts voix off pour tes vidéos</li>
+      <li><div class="feat-ico">🔍</div>Concurrence 24 pays africains</li>
+    </ul>
+    <div class="free-badge">✓ 24h d'essai gratuit — Sans carte bancaire</div>
+  </div>
+</div>
+
+<div class="right">
+  <div class="auth-card">
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('signup')">Créer un compte</div>
+      <div class="tab" onclick="switchTab('login')">Se connecter</div>
+    </div>
+
+    <!-- SIGNUP -->
+    <div id="p-signup" class="active">
+      <h3>Commence gratuitement 🚀</h3>
+      <p class="sub">24h d'accès complet. Aucune carte requise.</p>
+      <div class="alert err" id="err-signup"></div>
+      <div class="alert ok" id="ok-signup"></div>
+      <div class="trial-box">
+        <div class="trial-ico">🎁</div>
+        <div><strong>Essai gratuit 24h inclus</strong><p>Accès à tous les modules dès ton inscription. Après 24h, choisis ton plan.</p></div>
+      </div>
+      <div class="row2">
+        <div class="fg"><label>Prénom *</label><input type="text" id="s-fn" placeholder="Kofi"></div>
+        <div class="fg"><label>Nom *</label><input type="text" id="s-ln" placeholder="Mensah"></div>
+      </div>
+      <div class="fg"><label>Email *</label><input type="email" id="s-em" placeholder="kofi@exemple.com"></div>
+      <div class="fg"><label>Mot de passe * (min. 8 caractères)</label><input type="password" id="s-pw" placeholder="••••••••"></div>
+      <div class="fg">
+        <label>Pays</label>
+        <select id="s-py">
+          <option>Togo</option><option>Bénin</option><option>Burkina Faso</option>
+          <option>Côte d'Ivoire</option><option>Guinée</option><option>Mali</option>
+          <option>Niger</option><option>Sénégal</option><option>Cameroun</option>
+          <option>Congo (Brazzaville)</option><option>RD Congo</option><option>Gabon</option>
+          <option>Madagascar</option><option>Autre</option>
+        </select>
+      </div>
+      <button class="btn-s" id="btn-signup" onclick="signup()">
+        <div class="btn-spinner"></div>
+        <span class="btn-text">Créer mon compte gratuit</span>
+      </button>
+      <div class="sw">Déjà un compte ? <a href="#" onclick="switchTab('login')">Se connecter</a></div>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="p-login">
+      <h3>Bon retour ! 👋</h3>
+      <p class="sub">Connecte-toi pour accéder à ton dashboard.</p>
+      <div class="alert err" id="err-login"></div>
+      <div class="fg"><label>Email</label><input type="email" id="l-em" placeholder="ton@email.com"></div>
+      <div class="fg"><label>Mot de passe</label><input type="password" id="l-pw" placeholder="••••••••"></div>
+      <div class="forgot"><a href="#" onclick="resetPassword()">Mot de passe oublié ?</a></div>
+      <button class="btn-s" id="btn-login" onclick="login()">
+        <div class="btn-spinner"></div>
+        <span class="btn-text">Se connecter</span>
+      </button>
+      <div class="sw">Pas encore de compte ? <a href="#" onclick="switchTab('signup')">Créer un compte gratuit</a></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══ CONFIG SUPABASE ══
+// Remplace ces deux valeurs par tes vraies clés Supabase
+const SUPABASE_URL = 'https://jrsqomjwiawzbdsolcjq.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impyc3FvbWp3aWF3emJkc29sY2pxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Nzc5NjYsImV4cCI6MjA4OTM1Mzk2Nn0.5n9njd-gv7Ss9k7bWSzMTRNYO8SwdIUP6C9FVa0c6NY';
+
+// Initialise Supabase
+const { createClient } = supabase;
+const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let selectedPlan = 'pro';
+
+// ══ TAB SWITCH ══
+function switchTab(t){
+  document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('active',(t==='signup'&&i===0)||(t==='login'&&i===1)));
+  document.getElementById('p-signup').classList.toggle('active',t==='signup');
+  document.getElementById('p-login').classList.toggle('active',t==='login');
+}
+
+// ══ SHOW/HIDE ALERTS ══
+function showErr(id,msg){const el=document.getElementById(id);el.textContent='⚠️ '+msg;el.classList.add('show');el.classList.remove('ok');el.className='alert err show';}
+function showOk(id,msg){const el=document.getElementById(id);el.textContent='✓ '+msg;el.className='alert ok show';}
+function hideAlert(id){document.getElementById(id).classList.remove('show');}
+
+// ══ LOADING STATE ══
+function setLoading(btnId,loading){
+  const btn=document.getElementById(btnId);
+  btn.disabled=loading;
+  btn.classList.toggle('loading',loading);
+}
+
+// ══ SIGNUP ══
+async function signup(){
+  const fn=document.getElementById('s-fn').value.trim();
+  const ln=document.getElementById('s-ln').value.trim();
+  const em=document.getElementById('s-em').value.trim();
+  const pw=document.getElementById('s-pw').value;
+  const pays=document.getElementById('s-py').value;
+  hideAlert('err-signup');hideAlert('ok-signup');
+  if(!fn||!em||!pw){showErr('err-signup','Prénom, email et mot de passe sont obligatoires.');return;}
+  if(pw.length<8){showErr('err-signup','Le mot de passe doit faire au moins 8 caractères.');return;}
+  if(!em.includes('@')){showErr('err-signup','Adresse email invalide.');return;}
+  setLoading('btn-signup',true);
+  try{
+    const {data,error}=await sb.auth.signUp({
+      email:em,password:pw,
+      options:{data:{prenom:fn,nom:ln,pays:pays}}
+    });
+    if(error){
+      if(error.message.includes('already registered')){showErr('err-signup','Cet email est déjà utilisé. Connecte-toi.');}
+      else{showErr('err-signup',error.message);}
+      return;
+    }
+    if(data.user){
+      showOk('ok-signup','Compte créé ! Redirection en cours...');
+      setTimeout(()=>{window.location.href='eb2-dashboard-final.html';},1500);
+    }
+  }catch(e){showErr('err-signup','Erreur de connexion. Vérifie tes clés Supabase.');}
+  finally{setLoading('btn-signup',false);}
+}
+
+// ══ LOGIN ══
+async function login(){
+  const em=document.getElementById('l-em').value.trim();
+  const pw=document.getElementById('l-pw').value;
+  hideAlert('err-login');
+  if(!em||!pw){showErr('err-login','Email et mot de passe obligatoires.');return;}
+  setLoading('btn-login',true);
+  try{
+    const {data,error}=await sb.auth.signInWithPassword({email:em,password:pw});
+    if(error){
+      if(error.message.includes('Invalid login')){showErr('err-login','Email ou mot de passe incorrect.');}
+      else{showErr('err-login',error.message);}
+      return;
+    }
+    if(data.user){
+      // Vérifier si l'essai est expiré
+      const {data:profil}=await sb.from('profils').select('plan,essai_expire,abonnement_expire').eq('id',data.user.id).single();
+      if(profil){
+        const now=new Date();
+        const essaiExp=new Date(profil.essai_expire);
+        const aboExp=profil.abonnement_expire?new Date(profil.abonnement_expire):null;
+        const aActif=aboExp&&aboExp>now;
+        const eActif=essaiExp>now;
+        if(!eActif&&!aActif&&profil.plan==='gratuit'){
+          // Essai expiré, pas d'abonnement
+          document.getElementById('modal-expired').classList.add('show');
+          return;
+        }
+      }
+      window.location.href='eb2-dashboard-final.html';
+    }
+  }catch(e){showErr('err-login','Erreur. Vérifie tes clés Supabase.');}
+  finally{setLoading('btn-login',false);}
+}
+
+// ══ RESET PASSWORD ══
+async function resetPassword(){
+  const em=document.getElementById('l-em').value.trim();
+  if(!em){showErr('err-login','Entre d\'abord ton email puis clique sur "Mot de passe oublié".');return;}
+  const {error}=await sb.auth.resetPasswordForEmail(em,{redirectTo:window.location.origin+'/eb2-login.html'});
+  if(error){showErr('err-login',error.message);}
+  else{showOk('err-login','Email de réinitialisation envoyé ! Vérifie ta boîte mail.');}
+}
+
+// ══ PLAN SELECTION ══
+function selectPlan(el,plan){
+  document.querySelectorAll('.modal-plan').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');selectedPlan=plan;
+}
+function goToPay(){
+  // TODO: Rediriger vers CinetPay avec le plan sélectionné
+  alert('Paiement '+selectedPlan+' — Intégration CinetPay à configurer.\nContacte-nous sur WhatsApp pour activer ton plan.');
+}
+
+// ══ VÉRIFIER SI DÉJÀ CONNECTÉ ══
+async function checkSession(){
+  const {data:{session}}=await sb.auth.getSession();
+  if(session){
+    // Déjà connecté → aller au dashboard
+    window.location.href='eb2-dashboard-final.html';
+  }
+}
+
+// Mode dégradé si Supabase pas configuré
+if(SUPABASE_URL==='METS-TON-URL-SUPABASE-ICI'){
+  console.log('Mode local — Supabase non configuré');
+  document.getElementById('btn-signup').onclick=()=>{window.location.href='eb2-dashboard-final.html';};
+  document.getElementById('btn-login').onclick=()=>{window.location.href='eb2-dashboard-final.html';};
+}else{
+  checkSession();
+}
+
+// Enter key support
+document.addEventListener('keydown',e=>{
+  if(e.key==='Enter'){
+    if(document.getElementById('p-signup').classList.contains('active'))signup();
+    else login();
+  }
+});
+</script>
+</body>
+</html>
