@@ -398,8 +398,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
 <script>
 // ══ CONFIG SUPABASE ══
 // Mets ton URL et clé anon Supabase ici (ces deux sont publiques par conception)
-const SUPABASE_URL='METS-TON-URL-SUPABASE-ICI';
-const SUPABASE_KEY='METS-TA-CLE-ANON-ICI';
+const SUPABASE_URL='https://jrsqomjwiawzbdsolcjq.supabase.co';
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impyc3FvbWp3aWF3emJkc29sY2pxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Nzc5NjYsImV4cCI6MjA4OTM1Mzk2Nn0.5n9njd-gv7Ss9k7bWSzMTRNYO8SwdIUP6C9FVa0c6NY';
 // GROK_KEY et CLAUDE_KEY sont maintenant côté serveur dans /api/ai.js
 // Tu les mets dans Vercel → Settings → Environment Variables
 // PAS BESOIN de les mettre ici.
@@ -737,7 +737,7 @@ function demo(nom,prix,pays,cat,desc,pM,pX,pR,pub,liv,clo){
         motivations:isAuto?["Équipements fiables pour son activité","Éviter les imprévus coûteux","Être plus efficace et professionnel"]:["Améliorer son apparence et sa confiance","Trouver un produit qui fonctionne vraiment","Prendre soin d'elle"],
         frustrations:isAuto?["Produits qui tombent en panne trop vite","Solutions chères qui ne durent pas","Vendeurs peu fiables"]:["Les produits qui promettent mais ne tiennent pas","Gaspiller de l'argent sur des produits inefficaces","Les réactions allergiques aux mauvais cosmétiques"],
         desirs:isAuto?["Un équipement qui dure et performe","Gagner plus de temps et d'efficacité","Être reconnu comme professionnel"]:["Une peau belle et lumineuse","Se sentir confiante et attirante","Recevoir des compliments de son entourage"],
-        langage:isAuto?['"Je veux que ça marche, pas que ça brille"','"Bon rapport qualité-prix"','"Fiable et durable"']:['"C'est la beauté qui sauve le monde"','"Une femme belle est une femme heureuse"','"Je veux briller comme une étoile"'],
+        langage:isAuto?['"Je veux que ça marche, pas que ça brille"','"Bon rapport qualité-prix"','"Fiable et durable"']:['"La beauté, c\'est ma priorité"','"Une femme belle est une femme heureuse"','"Je veux briller comme une étoile"'],
         objections:isAuto?["C'est trop cher pour moi","Est-ce que ça va vraiment durer ?"]:["C'est trop cher pour moi","Je ne sais pas si ça va fonctionner pour moi"],
         reponses:isAuto?["Qualité premium avec garantie 7 jours — vous ne serez pas déçu","Des centaines de clients utilisent ce produit depuis plus de 6 mois"]:["C'est un investissement pour votre beauté avec garantie satisfaction","Des centaines de femmes comme vous ont déjà vu des résultats remarquables"],
         phrase_declenchante:isAuto?`Découvrez comment ${nom} peut transformer votre activité et vous faire gagner en efficacité dès aujourd'hui`:`Découvrez comment ${nom} peut vous aider à atteindre la peau parfaite dont vous rêvez`,
