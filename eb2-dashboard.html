@@ -306,6 +306,35 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
   .pays-grid{grid-template-columns:repeat(2,1fr);}
   .fg3{grid-template-columns:1fr;}
 }
+/* ── AVATAR V3 STYLE ── */
+.av3-card{background:var(--bg2);border:1px solid var(--bd);border-radius:18px;overflow:hidden;margin-bottom:1rem;}
+.av3-banner{height:80px;position:relative;display:flex;align-items:flex-end;padding:0 1.3rem 0;}
+.av3-face{width:72px;height:72px;border-radius:50%;border:3px solid var(--bg2);display:flex;align-items:center;justify-content:center;font-size:2rem;position:relative;z-index:1;margin-bottom:-36px;box-shadow:0 8px 24px rgba(0,0,0,.4);}
+.av3-body{padding:2.8rem 1.3rem 1.3rem;}
+.av3-name{font-size:1.15rem;font-weight:900;margin-bottom:.15rem;}
+.av3-role{font-size:.78rem;color:var(--muted);margin-bottom:.8rem;}
+.av3-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1.2rem;}
+.av3-tag{font-size:.65rem;font-weight:700;padding:.2rem .6rem;border-radius:999px;background:rgba(255,107,26,.1);color:var(--or);}
+.av3-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.8rem;}
+.av3-stat{background:var(--bg3);border-radius:10px;padding:.8rem;}
+.av3-stat-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:.25rem;}
+.av3-stat-val{font-size:.85rem;font-weight:700;color:var(--text);}
+.av3-section{margin-bottom:1.1rem;}
+.av3-section-title{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:.7rem;display:flex;align-items:center;gap:.4rem;}
+.av3-item{display:flex;align-items:flex-start;gap:.5rem;padding:.3rem 0;border-bottom:1px solid var(--bd);}
+.av3-item:last-child{border-bottom:none;}
+.av3-item-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.av3-item-text{font-size:.8rem;color:var(--muted);line-height:1.5;}
+.av3-quote-box{background:var(--bg3);border-radius:10px;padding:.9rem 1rem;margin-bottom:.5rem;border-left:3px solid var(--or);}
+.av3-quote-text{font-size:.82rem;color:var(--soft);font-style:italic;line-height:1.6;}
+.av3-networks{display:flex;gap:.4rem;flex-wrap:wrap;}
+.av3-net{font-size:.72rem;font-weight:700;padding:.28rem .7rem;border-radius:999px;background:var(--bg3);color:var(--text);border:1px solid var(--bd2);}
+.av3-phrase-box{background:linear-gradient(135deg,rgba(255,107,26,.1),rgba(255,184,0,.06));border:1px solid rgba(255,107,26,.25);border-radius:14px;padding:1.3rem;margin-top:.8rem;text-align:center;}
+.av3-phrase-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--or);margin-bottom:.65rem;}
+.av3-phrase-text{font-size:.96rem;font-weight:600;color:var(--text);line-height:1.65;font-style:italic;}
+.av3-3cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;}
+.av3-col-title{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:.6rem;}
+@media(max-width:640px){.av3-grid{grid-template-columns:1fr;}.av3-3cols{grid-template-columns:1fr;}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -398,8 +427,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
 <script>
 // ══ CONFIG SUPABASE ══
 // Mets ton URL et clé anon Supabase ici (ces deux sont publiques par conception)
-const SUPABASE_URL='https://jrsqomjwiawzbdsolcjq.supabase.co';
-const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impyc3FvbWp3aWF3emJkc29sY2pxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Nzc5NjYsImV4cCI6MjA4OTM1Mzk2Nn0.5n9njd-gv7Ss9k7bWSzMTRNYO8SwdIUP6C9FVa0c6NY';
+const SUPABASE_URL='METS-TON-URL-SUPABASE-ICI';
+const SUPABASE_KEY='METS-TA-CLE-ANON-ICI';
 // GROK_KEY et CLAUDE_KEY sont maintenant côté serveur dans /api/ai.js
 // Tu les mets dans Vercel → Settings → Environment Variables
 // PAS BESOIN de les mettre ici.
@@ -932,79 +961,97 @@ function rVoixOff(){
 function rAvatar(){
   const r=S.results;if(!r)return'';
   const av=r.avatar_principal;
-  const renderAv=(a,label)=>{
-    const kav=storeCopy(
-      `AVATAR ${label} — ${S.product.nom}\n${a.prenom} · ${a.age} · ${a.sexe}\n${a.profession||''}\n\n${a.description||''}\n\nFrustrations: ${(a.frustrations||a.peurs||[]).join(', ')}\nDésirs: ${(a.desirs||[]).join(', ')}\nMotivations: ${(a.motivations||[]).join(', ')}\nLanguage: ${(a.langage||a.phrases_declencheurs||[]).join(', ')}`
-    );
-    const frList=(a.frustrations||a.peurs||[]).map(f=>`<div class="av-row"><span class="av-dot" style="background:#EF4444"></span>${f}</div>`).join('');
-    const dsList=(a.desirs||[]).map(d=>`<div class="av-row"><span class="av-dot" style="background:var(--green)"></span>${d}</div>`).join('');
-    const motList=(a.motivations||[]).map(m=>`<div class="av-row"><span class="av-dot" style="background:var(--gold)"></span>${m}</div>`).join('');
-    const langList=(a.langage||a.phrases_declencheurs||[]).map(l=>`<div class="av-quote">"${l}"</div>`).join('');
-    const objList=(a.objections||[]).map(o=>`<div class="av-row"><span class="av-dot" style="background:#F87171"></span>${o}</div>`).join('');
-    const repList=(a.reponses||[]).map(r=>`<div class="av-row"><span class="av-dot" style="background:var(--green)"></span>${r}</div>`).join('');
+
+  const buildCard=(a,label)=>{
+    const kav=storeCopy(`AVATAR ${label} — ${S.product.nom}\n${a.prenom}·${a.age}·${a.sexe}\n${a.profession||''}\n${a.description||''}\n\nFrustrations: ${(a.frustrations||a.peurs||[]).join(', ')}\nDésirs: ${(a.desirs||[]).join(', ')}\nMotivations: ${(a.motivations||[]).join(', ')}`);
+    const kph=storeCopy(a.phrase_declenchante||a.phrases_declencheurs?.[0]||'');
+
+    const tags=(a.tags||[]).map(t=>`<span class="av3-tag">${t}</span>`).join('');
+    const nets=(a.reseaux||[]).map(n=>`<span class="av3-net">${n}</span>`).join('');
+
+    const frItems=(a.frustrations||a.peurs||[]).map(f=>`<div class="av3-item"><div class="av3-item-dot" style="background:#EF4444"></div><div class="av3-item-text">${f}</div></div>`).join('');
+    const dsItems=(a.desirs||[]).map(d=>`<div class="av3-item"><div class="av3-item-dot" style="background:var(--green)"></div><div class="av3-item-text">${d}</div></div>`).join('');
+    const moItems=(a.motivations||[]).map(m=>`<div class="av3-item"><div class="av3-item-dot" style="background:var(--gold)"></div><div class="av3-item-text">${m}</div></div>`).join('');
+    const lgItems=(a.langage||a.phrases_declencheurs||[]).map(l=>`<div class="av3-quote-box"><div class="av3-quote-text">${l}</div></div>`).join('');
+    const objItems=(a.objections||[]).map(o=>`<div class="av3-item"><div class="av3-item-dot" style="background:#F87171"></div><div class="av3-item-text">${o}</div></div>`).join('');
+    const repItems=(a.reponses||[]).map(r=>`<div class="av3-item"><div class="av3-item-dot" style="background:var(--green)"></div><div class="av3-item-text">${r}</div></div>`).join('');
+
     const phrase=a.phrase_declenchante||a.phrases_declencheurs?.[0]||'';
-    const kphrase=storeCopy(phrase);
+
     return `
-    <div class="av2-hero">
-      <div class="av2-face" style="background:${a.bg||'linear-gradient(135deg,#8B5CF6,#EC4899)'}">${a.face||'👤'}</div>
-      <div class="av2-name">
-        <h3>${a.prenom} — Avatar Client Idéal</h3>
-        <p>${a.profession||''} · ${a.ville||a.pays||S.product.pays}</p>
+    <div class="av3-card" style="animation:fadeUp .4s ease both">
+      <div class="av3-banner" style="background:${a.bg||'linear-gradient(135deg,#8B5CF6,#EC4899)'}">
+        <div class="av3-face">${a.face||'👤'}</div>
       </div>
-      <button class="cbtn" style="margin-left:auto;align-self:flex-start" onclick="cpk(this,'${kav}')">📋 Copier</button>
-    </div>
-    <div class="av2-grid">
-      <div class="av2-block">
-        <div class="av2-block-title">👤 PROFIL DÉMOGRAPHIQUE</div>
-        <table class="av2-table">
-          <tr><td>SEXE</td><td>${a.sexe}</td></tr>
-          <tr><td>ÂGE</td><td>${a.age}</td></tr>
-          <tr><td>SITUATION</td><td>${a.situation||'Célibataire ou en couple'}</td></tr>
-          <tr><td>REVENUS</td><td>${a.revenu}</td></tr>
-          <tr><td>PROFESSION</td><td>${a.profession||''}</td></tr>
-          <tr><td>EN LIGNE</td><td>${a.en_ligne||'18h-22h'}</td></tr>
-          <tr><td>BUDGET MAX</td><td>${a.budget_max||S.results.prixReco.toLocaleString()+' FCFA'}</td></tr>
-          <tr><td>RÉSEAUX</td><td><div style="display:flex;gap:.3rem;flex-wrap:wrap">${(a.reseaux||[]).map(r=>`<span class="avtag">${r}</span>`).join('')}</div></td></tr>
-        </table>
+      <div class="av3-body">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.5rem;margin-bottom:.3rem">
+          <div>
+            <div class="av3-name">${a.prenom} — Avatar Client Idéal</div>
+            <div class="av3-role">${a.profession||''} · ${a.ville||S.product.pays}</div>
+          </div>
+          <button class="cbtn" onclick="cpk(this,'${kav}')">📋 Copier</button>
+        </div>
+        <div class="av3-tags">${tags}</div>
+
+        <div class="av3-grid" style="margin-bottom:1rem">
+          <div class="av3-stat"><div class="av3-stat-label">Sexe</div><div class="av3-stat-val">${a.sexe}</div></div>
+          <div class="av3-stat"><div class="av3-stat-label">Âge</div><div class="av3-stat-val">${a.age}</div></div>
+          <div class="av3-stat"><div class="av3-stat-label">Revenus</div><div class="av3-stat-val">${a.revenu}</div></div>
+          <div class="av3-stat"><div class="av3-stat-label">Budget max</div><div class="av3-stat-val">${a.budget_max||''}</div></div>
+          <div class="av3-stat"><div class="av3-stat-label">Situation</div><div class="av3-stat-val">${a.situation||'—'}</div></div>
+          <div class="av3-stat"><div class="av3-stat-label">En ligne</div><div class="av3-stat-val">${a.en_ligne||'18h-22h'}</div></div>
+        </div>
+
+        <div class="av3-section">
+          <div class="av3-section-title"><span style="color:#F87171">😰</span> <span style="color:#F87171">Peurs & Frustrations</span></div>
+          ${frItems}
+        </div>
+        <div class="av3-section">
+          <div class="av3-section-title"><span style="color:var(--green)">✨</span> <span style="color:var(--green)">Désirs</span></div>
+          ${dsItems}
+        </div>
+        <div class="av3-section">
+          <div class="av3-section-title"><span style="color:var(--gold)">⚡</span> <span style="color:var(--gold)">Motivations</span></div>
+          ${moItems}
+        </div>
+
+        <div class="av3-3cols" style="margin-bottom:1rem">
+          <div>
+            <div class="av3-col-title" style="color:#A78BFA">💬 Langage</div>
+            ${lgItems||'<div style="color:var(--muted);font-size:.78rem">—</div>'}
+          </div>
+          <div>
+            <div class="av3-col-title" style="color:#F87171">❓ Objections</div>
+            ${objItems||'<div style="color:var(--muted);font-size:.78rem">—</div>'}
+          </div>
+          <div>
+            <div class="av3-col-title" style="color:var(--green)">✅ Tes réponses</div>
+            ${repItems||'<div style="color:var(--muted);font-size:.78rem">—</div>'}
+          </div>
+        </div>
+
+        <div style="margin-bottom:.8rem">
+          <div class="av3-section-title"><span>📱</span> Réseaux actifs</div>
+          <div class="av3-networks">${nets}</div>
+        </div>
+
+        <div class="av3-phrase-box">
+          <div class="av3-phrase-label">🎯 Phrase déclenchante — ce que tu dis au client</div>
+          <div class="av3-phrase-text">"${phrase}"</div>
+          <button class="cbtn" style="margin-top:.9rem" onclick="cpk(this,'${kph}')">📋 Copier la phrase</button>
+        </div>
       </div>
-      <div class="av2-block">
-        <div class="av2-block-title" style="color:#F87171">😰 PROFIL PSYCHOLOGIQUE</div>
-        <div class="av2-sub-title">PEURS & FRUSTRATIONS</div>
-        ${frList}
-        <div class="av2-sub-title" style="margin-top:.8rem;color:var(--green)">✨ DÉSIRS</div>
-        ${dsList}
-        <div class="av2-sub-title" style="margin-top:.8rem;color:var(--gold)">⚡ MOTIVATIONS</div>
-        ${motList}
-      </div>
-    </div>
-    <div class="av2-grid" style="margin-top:.8rem">
-      <div class="av2-block">
-        <div class="av2-block-title" style="color:#A78BFA">💬 LANGAGE UTILISÉ</div>
-        ${langList||'<div class="av2-row" style="color:var(--muted)">Données non disponibles</div>'}
-      </div>
-      <div class="av2-block">
-        <div class="av2-block-title" style="color:#F87171">❓ OBJECTIONS</div>
-        ${objList||'<div class="av-row" style="color:var(--muted)">Données non disponibles</div>'}
-      </div>
-      <div class="av2-block">
-        <div class="av2-block-title" style="color:var(--green)">✅ VOS RÉPONSES</div>
-        ${repList||'<div class="av-row" style="color:var(--muted)">Données non disponibles</div>'}
-      </div>
-    </div>
-    <div class="av2-phrase">
-      <div class="av2-phrase-label">🎯 PHRASE DÉCLENCHANTE (CE QUE VOUS DITES AU CLIENT)</div>
-      <div class="av2-phrase-text">"${phrase}"</div>
-      <button class="cbtn" style="margin-top:.8rem" onclick="cpk(this,'${kphrase}')">📋 Copier la phrase</button>
     </div>`;
   };
+
   let html=`<div class="rh afu"><div><h2>👤 Avatar Client</h2><div class="rp">${S.product.nom}</div></div></div>`;
   if(r.avatar_secondaire){
-    html+=`<div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--or);margin-bottom:.7rem">AVATAR PRINCIPAL — ${r.avatar_principal.sexe}</div>`;
-    html+=renderAv(r.avatar_principal,'PRINCIPAL');
-    html+=`<div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--purple);margin:1.2rem 0 .7rem">AVATAR SECONDAIRE — ${r.avatar_secondaire.sexe}</div>`;
-    html+=renderAv(r.avatar_secondaire,'SECONDAIRE');
+    html+=`<div style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--or);margin-bottom:.5rem">AVATAR PRINCIPAL — ${av.sexe}</div>`;
+    html+=buildCard(av,'PRINCIPAL');
+    html+=`<div style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#A78BFA;margin:.8rem 0 .5rem">AVATAR SECONDAIRE — ${r.avatar_secondaire.sexe}</div>`;
+    html+=buildCard(r.avatar_secondaire,'SECONDAIRE');
   }else{
-    html+=renderAv(r.avatar_principal,'PRINCIPAL');
+    html+=buildCard(av,'PRINCIPAL');
   }
   return html;
 }
