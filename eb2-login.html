@@ -107,7 +107,7 @@ h3{font-size:1.38rem;font-weight:800;letter-spacing:-.3px;margin-bottom:.32rem;}
 
 <div class="left">
   <div class="left-inner">
-    <a href="eb2-landing.html" class="logo-wrap">
+    <a href="/" class="logo-wrap">
       <div class="logo-box">EB</div>
       <div class="logo-nm"><span class="l1">Ecom Booster</span><span class="l2">2.0 by Labo</span></div>
     </a>
@@ -184,8 +184,8 @@ h3{font-size:1.38rem;font-weight:800;letter-spacing:-.3px;margin-bottom:.32rem;}
 <script>
 // ══ CONFIG SUPABASE ══
 // Remplace ces deux valeurs par tes vraies clés Supabase
-const SUPABASE_URL = 'https://jrsqomjwiawzbdsolcjq.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impyc3FvbWp3aWF3emJkc29sY2pxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Nzc5NjYsImV4cCI6MjA4OTM1Mzk2Nn0.5n9njd-gv7Ss9k7bWSzMTRNYO8SwdIUP6C9FVa0c6NY';
+const SUPABASE_URL = 'METS-TON-URL-SUPABASE-ICI';
+const SUPABASE_KEY = 'METS-TA-CLE-ANON-ICI';
 
 // Initialise Supabase
 const { createClient } = supabase;
@@ -236,7 +236,7 @@ async function signup(){
     }
     if(data.user){
       showOk('ok-signup','Compte créé ! Redirection en cours...');
-      setTimeout(()=>{window.location.href='eb2-dashboard.html';},1500);
+      setTimeout(()=>{window.location.href='/eb2-dashboard.html';},1500);
     }
   }catch(e){showErr('err-signup','Erreur de connexion. Vérifie tes clés Supabase.');}
   finally{setLoading('btn-signup',false);}
@@ -271,7 +271,7 @@ async function login(){
           return;
         }
       }
-      window.location.href='eb2-dashboard.html';
+      window.location.href='/eb2-dashboard.html';
     }
   }catch(e){showErr('err-login','Erreur. Vérifie tes clés Supabase.');}
   finally{setLoading('btn-login',false);}
@@ -301,17 +301,25 @@ async function checkSession(){
   const {data:{session}}=await sb.auth.getSession();
   if(session){
     // Déjà connecté → aller au dashboard
-    window.location.href='eb2-dashboard-final.html';
+    window.location.href='/eb2-dashboard.html';
   }
 }
 
-// Mode dégradé si Supabase pas configuré
+// Si Supabase pas configuré → mode local direct
 if(SUPABASE_URL==='METS-TON-URL-SUPABASE-ICI'){
-  console.log('Mode local — Supabase non configuré');
-  document.getElementById('btn-signup').onclick=()=>{window.location.href='eb2-dashboard-final.html';};
-  document.getElementById('btn-login').onclick=()=>{window.location.href='eb2-dashboard-final.html';};
+  console.log('Mode local');
+  document.getElementById('btn-signup').onclick=()=>{window.location.href='/eb2-dashboard.html';};
+  document.getElementById('btn-login').onclick=()=>{window.location.href='/eb2-dashboard.html';};
 }else{
-  checkSession();
+  // Vérifier que Supabase SDK est bien chargé
+  if(typeof supabase !== 'undefined'){
+    checkSession();
+  } else {
+    console.log('SDK Supabase pas encore chargé');
+    window.addEventListener('load', ()=>{
+      if(typeof supabase !== 'undefined') checkSession();
+    });
+  }
 }
 
 // Enter key support
