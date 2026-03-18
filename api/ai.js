@@ -1,4 +1,5 @@
 // api/ai.js — Vercel Serverless Function
+// Utilise GROQ (groq.com) — clé commence par gsk_
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -13,20 +14,28 @@ module.exports = async function handler(req, res) {
     let rawText = '';
 
     if (mode === 'grok') {
-      const GROK_KEY = process.env.GROK_KEY || '';
-      if (!GROK_KEY) return res.status(500).json({ error: 'GROK_KEY manquante dans Vercel Environment Variables' });
+      // GROQ API — endpoint correct
+      const GROQ_KEY = process.env.GROK_KEY || '';
+      if (!GROQ_KEY) return res.status(500).json({ error: 'GROK_KEY manquante dans Vercel Environment Variables' });
 
-      // Noms de modèles Grok VÉRIFIÉS - dans l'ordre du plus récent
-      const models = ['grok-4-0709', 'grok-3-beta', 'grok-2-1212'];
+      // Modèles Groq disponibles gratuitement
+      const models = [
+        'llama-3.3-70b-versatile',
+        'llama3-70b-8192',
+        'mixtral-8x7b-32768',
+        'llama3-8b-8192'
+      ];
+
       let succeeded = false;
 
       for (const model of models) {
         try {
-          const response = await fetch('https://api.x.ai/v1/chat/completions', {
+          console.log('Trying Groq model:', model);
+          const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + GROK_KEY
+              'Authorization': 'Bearer ' + GROQ_KEY
             },
             body: JSON.stringify({
               model: model,
@@ -45,20 +54,22 @@ module.exports = async function handler(req, res) {
           if (response.ok) {
             const data = await response.json();
             rawText = data.choices[0].message.content;
-            console.log('Grok model used:', model);
+            console.log('SUCCESS with Groq model:', model);
             succeeded = true;
             break;
           } else {
             const errText = await response.text();
-            console.log('Model', model, 'failed:', response.status, errText.substring(0, 150));
+            console.log('FAILED Groq model:', model, '| Status:', response.status, '|', errText.substring(0, 200));
           }
         } catch(e) {
-          console.log('Model', model, 'error:', e.message);
+          console.log('ERROR Groq model:', model, '|', e.message);
         }
       }
 
       if (!succeeded) {
-        return res.status(500).json({ error: 'Tous les modèles Grok ont échoué. Vérifie ta clé GROK_KEY dans Vercel Environment Variables.' });
+        return res.status(500).json({
+          error: 'Tous les modèles Groq ont échoué. Vérifie ta clé GROK_KEY dans Vercel (elle doit commencer par gsk_).'
+        });
       }
 
     } else {
@@ -94,7 +105,7 @@ module.exports = async function handler(req, res) {
     try {
       parsed = JSON.parse(clean);
     } catch (e) {
-      console.error('JSON parse error. Début reçu:', clean.substring(0, 300));
+      console.error('JSON parse error. Début:', clean.substring(0, 300));
       return res.status(500).json({ error: 'Réponse IA invalide. Réessaie.' });
     }
 
