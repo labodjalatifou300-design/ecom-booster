@@ -55,9 +55,7 @@ body{
 }
 .tab.on{background:var(--bg2);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.3);}
 
-/* Panel — UN SEUL visible à la fois */
-.panel{display:none;}
-.panel.on{display:block;}
+/* Panels gérés par JS inline styles */
 
 h3{font-size:1.35rem;font-weight:800;letter-spacing:-.3px;margin-bottom:.3rem;}
 .sub{color:var(--muted);font-size:.84rem;margin-bottom:1.5rem;}
@@ -199,7 +197,7 @@ h3{font-size:1.35rem;font-weight:800;letter-spacing:-.3px;margin-bottom:.3rem;}
   </div>
 
   <!-- INSCRIPTION -->
-  <div class="panel on" id="panel-signup">
+  <div id="panel-signup" style="display:block">
     <h3>Commence gratuitement 🚀</h3>
     <p class="sub">24h d'accès complet. Aucune carte requise.</p>
     <div class="alert" id="err-s"></div>
@@ -235,7 +233,7 @@ h3{font-size:1.35rem;font-weight:800;letter-spacing:-.3px;margin-bottom:.3rem;}
   </div>
 
   <!-- CONNEXION -->
-  <div class="panel" id="panel-login">
+  <div id="panel-login" style="display:none">
     <h3>Bon retour ! 👋</h3>
     <p class="sub">Connecte-toi pour accéder à ton dashboard.</p>
     <div class="alert" id="err-l"></div>
@@ -264,9 +262,22 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 let sb = null;
 const sbOk = SUPABASE_URL !== 'METS-TON-URL-SUPABASE-ICI';
 
-if(sbOk && typeof supabase !== 'undefined'){
-  sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-  checkSession();
+// Init Supabase seulement si configuré
+if(sbOk){
+  try{
+    if(typeof supabase !== 'undefined'){
+      sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+      checkSession();
+    } else {
+      // SDK pas encore chargé - attendre
+      window.addEventListener('load', ()=>{
+        if(typeof supabase !== 'undefined'){
+          sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+          checkSession();
+        }
+      });
+    }
+  }catch(e){ console.log('Supabase init:', e.message); }
 }
 
 async function checkSession(){
@@ -295,18 +306,21 @@ async function checkSession(){
 // SWITCH PANELS
 // ══════════════════════════════
 function show(panel){
-  // Panels
-  document.getElementById('panel-signup').classList.toggle('on', panel === 'signup');
-  document.getElementById('panel-login').classList.toggle('on', panel === 'login');
+  // Panels - inline style, 100% fiable
+  document.getElementById('panel-signup').style.display = panel==='signup' ? 'block' : 'none';
+  document.getElementById('panel-login').style.display  = panel==='login'  ? 'block' : 'none';
   // Tabs
   const ts = document.getElementById('tab-s');
   const tl = document.getElementById('tab-l');
-  ts.classList.toggle('on', panel === 'signup');
-  tl.classList.toggle('on', panel === 'login');
+  if(panel==='signup'){
+    ts.classList.add('on');    tl.classList.remove('on');
+  } else {
+    tl.classList.add('on');    ts.classList.remove('on');
+  }
   // Clear alerts
-  ['err-s','ok-s','err-l'].forEach(id => {
-    const el = document.getElementById(id);
-    if(el){ el.classList.remove('show'); el.textContent = ''; }
+  ['err-s','ok-s','err-l'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){el.className='alert';el.textContent='';}
   });
 }
 
