@@ -16,45 +16,49 @@ module.exports = async function handler(req, res) {
       const GROK_KEY = process.env.GROK_KEY || '';
       if (!GROK_KEY) return res.status(500).json({ error: 'GROK_KEY manquante dans Vercel Environment Variables' });
 
-      // Noms de modèles Grok vérifiés et dans l'ordre du plus récent
-      const models = ['grok-3', 'grok-3-mini-beta', 'grok-2-1212', 'grok-beta'];
+      // Noms de modèles Grok VÉRIFIÉS - dans l'ordre du plus récent
+      const models = ['grok-4-0709', 'grok-3-beta', 'grok-2-1212'];
       let succeeded = false;
 
       for (const model of models) {
-        const response = await fetch('https://api.x.ai/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + GROK_KEY
-          },
-          body: JSON.stringify({
-            model: model,
-            max_tokens: 4000,
-            temperature: 0.7,
-            messages: [
-              {
-                role: 'system',
-                content: 'Tu es un expert en copywriting et marketing e-commerce africain. Tu génères du contenu de haute qualité en français correct et naturel, adapté au marché africain francophone. Tu réponds UNIQUEMENT en JSON valide, sans texte avant ni après, sans backticks.'
-              },
-              { role: 'user', content: prompt }
-            ]
-          })
-        });
+        try {
+          const response = await fetch('https://api.x.ai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + GROK_KEY
+            },
+            body: JSON.stringify({
+              model: model,
+              max_tokens: 4000,
+              temperature: 0.7,
+              messages: [
+                {
+                  role: 'system',
+                  content: 'Tu es un expert en copywriting et marketing e-commerce africain. Tu génères du contenu marketing de haute qualité en français correct et naturel, adapté au marché africain francophone. Tu réponds UNIQUEMENT en JSON valide, sans texte avant ni après, sans backticks markdown.'
+                },
+                { role: 'user', content: prompt }
+              ]
+            })
+          });
 
-        if (response.ok) {
-          const data = await response.json();
-          rawText = data.choices[0].message.content;
-          console.log('Grok model used successfully:', model);
-          succeeded = true;
-          break;
-        } else {
-          const errText = await response.text();
-          console.log(`Model ${model} failed:`, response.status, errText.substring(0, 200));
+          if (response.ok) {
+            const data = await response.json();
+            rawText = data.choices[0].message.content;
+            console.log('Grok model used:', model);
+            succeeded = true;
+            break;
+          } else {
+            const errText = await response.text();
+            console.log('Model', model, 'failed:', response.status, errText.substring(0, 150));
+          }
+        } catch(e) {
+          console.log('Model', model, 'error:', e.message);
         }
       }
 
       if (!succeeded) {
-        return res.status(500).json({ error: 'Tous les modèles Grok ont échoué. Vérifie ta clé API dans Vercel.' });
+        return res.status(500).json({ error: 'Tous les modèles Grok ont échoué. Vérifie ta clé GROK_KEY dans Vercel Environment Variables.' });
       }
 
     } else {
@@ -77,7 +81,6 @@ module.exports = async function handler(req, res) {
       });
 
       if (!response.ok) {
-        const errText = await response.text();
         return res.status(500).json({ error: 'Erreur Claude: ' + response.status });
       }
       const data = await response.json();
@@ -85,23 +88,20 @@ module.exports = async function handler(req, res) {
     }
 
     // Nettoyer le JSON
-    const clean = rawText
-      .replace(/```json/gi, '')
-      .replace(/```/g, '')
-      .trim();
+    const clean = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
 
     let parsed;
     try {
       parsed = JSON.parse(clean);
     } catch (e) {
-      console.error('JSON parse error. Raw text (300 chars):', clean.substring(0, 300));
+      console.error('JSON parse error. Début reçu:', clean.substring(0, 300));
       return res.status(500).json({ error: 'Réponse IA invalide. Réessaie.' });
     }
 
     return res.status(200).json({ success: true, data: parsed });
 
   } catch (err) {
-    console.error('Erreur serveur:', err.message);
+    console.error('Erreur:', err.message);
     return res.status(500).json({ error: 'Erreur: ' + err.message });
   }
 };
