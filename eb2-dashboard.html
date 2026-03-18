@@ -194,21 +194,23 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
 
 /* ═══ GRANDES BULLES FLOTTANTES ═══ */
 .bubbles-section{margin-bottom:1.5rem;}
-.bubble-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.85rem;margin-top:.7rem;}
+.bubble-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem;margin-top:.8rem;}
 .bbl{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:.45rem;padding:1.3rem 1rem;
-  background:var(--bg2);border:1px solid var(--bd2);
-  border-radius:16px;text-decoration:none;color:var(--text);
-  transition:transform .28s,box-shadow .28s,border-color .28s,background .28s;
+  gap:.6rem;padding:1.8rem 1.2rem;
+  background:var(--bg2);border:2px solid var(--bd2);
+  border-radius:20px;text-decoration:none;color:var(--text);
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s,border-color .3s,background .3s;
   animation:floatB 3.5s ease-in-out infinite;
-  min-height:100px;text-align:center;
-  cursor:pointer;
+  min-height:130px;text-align:center;cursor:pointer;
+  position:relative;overflow:hidden;
 }
-.bbl:hover{transform:translateY(-6px) scale(1.04);box-shadow:0 14px 36px rgba(0,0,0,.35);}
-.bbl .bico{font-size:1.8rem;line-height:1;}
-.bbl .bname{font-size:.8rem;font-weight:700;}
-.bbl .bsub{font-size:.65rem;color:var(--muted);}
+.bbl::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .3s;border-radius:18px;}
+.bbl:hover{transform:translateY(-8px) scale(1.06);box-shadow:0 20px 48px rgba(0,0,0,.4);}
+.bbl:hover::before{opacity:1;}
+.bbl .bico{font-size:2.4rem;line-height:1;filter:drop-shadow(0 4px 8px rgba(0,0,0,.3));}
+.bbl .bname{font-size:.92rem;font-weight:800;letter-spacing:-.2px;}
+.bbl .bsub{font-size:.72rem;color:var(--muted);font-weight:500;}
 /* couleurs par plateforme */
 .bbl-fb{border-color:rgba(24,119,242,.3);animation-delay:0s;}
 .bbl-fb:hover{background:rgba(24,119,242,.1);border-color:rgba(24,119,242,.6);}
@@ -232,9 +234,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
 .bbl-ju:hover{background:rgba(255,107,26,.08);border-color:var(--or);}
 
 /* pays bubbles */
-.pays-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.65rem;margin-top:.7rem;}
-.pbbl{display:flex;align-items:center;gap:.45rem;background:rgba(24,119,242,.07);border:1px solid rgba(24,119,242,.22);border-radius:12px;padding:.6rem .9rem;font-size:.78rem;font-weight:600;color:var(--text);cursor:pointer;text-decoration:none;transition:all .2s;animation:float 3s ease-in-out infinite;}
-.pbbl:hover{background:rgba(24,119,242,.17);border-color:rgba(24,119,242,.5);transform:translateY(-2px);}
+.pays-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.85rem;margin-top:.8rem;}
+.pbbl{display:flex;align-items:center;gap:.6rem;background:rgba(24,119,242,.07);border:2px solid rgba(24,119,242,.22);border-radius:14px;padding:.85rem 1rem;font-size:.84rem;font-weight:700;color:var(--text);cursor:pointer;text-decoration:none;transition:all .25s cubic-bezier(.34,1.56,.64,1);animation:float 3s ease-in-out infinite;}
+.pbbl:hover{background:rgba(24,119,242,.2);border-color:rgba(24,119,242,.6);transform:translateY(-4px) scale(1.04);box-shadow:0 10px 28px rgba(24,119,242,.2);}
+.pbbl .flag{font-size:1.3rem;}
 
 /* avatar */
 .av-hero{background:var(--bg2);border:1px solid var(--bd);border-radius:14px;padding:1.3rem;margin-bottom:.9rem;display:flex;align-items:flex-start;gap:1rem;flex-wrap:wrap;animation:fadeUp .38s ease;}
@@ -358,7 +361,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
   </div>
   <div class="sb-bot">
     <div style="display:flex;gap:.4rem;margin-bottom:.5rem;">
-      <button onclick="window.location.href='index.html'" style="flex:1;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;padding:.38rem .5rem;font-size:.68rem;color:var(--muted);cursor:pointer;font-family:var(--font);transition:all .18s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">🏠 Accueil</button>
+      <button onclick="allerAccueil()" style="flex:1;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;padding:.38rem .5rem;font-size:.68rem;color:var(--muted);cursor:pointer;font-family:var(--font);transition:all .18s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">🏠 Accueil</button>
       <button onclick="deconnexion()" style="flex:1;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;padding:.38rem .5rem;font-size:.68rem;color:var(--muted);cursor:pointer;font-family:var(--font);transition:all .18s;" onmouseover="this.style.color='#F87171'" onmouseout="this.style.color='var(--muted)'">⏻ Déconnexion</button>
     </div>
     <div class="ucard">
@@ -532,19 +535,17 @@ function rForm(){
   <div class="fcard afu2">
     <div class="fsect">📦 Le produit</div>
     <div class="fgrid">
-      <div class="fg ffull"><label>Nom du produit *</label><input id="fn" placeholder="Ex: Genouillère de compression" value="${p.nom||''}"></div>
+      <div class="fg ffull"><label>Nom du produit *</label><input id="fn" placeholder="Ex: Beauty Milk, Genouillère, Lampe LED..." value="${p.nom||''}"></div>
       <div class="fg"><label>Pays cible *</label><select id="fp">${oo}</select></div>
       <div class="fg"><label>Catégorie</label><select id="fc">${co}</select></div>
-      <div class="fg ffull"><label>Ce que fait le produit * <span style="color:var(--muted);font-weight:400">(1-2 phrases courtes)</span></label>
-        <textarea id="fd" placeholder="Ex: Lampe frontale ultra-puissante pour la conduite et les travaux de nuit. Résiste à l'eau, autonomie 8h, portée 200m." style="min-height:58px">${p.desc||''}</textarea></div>
     </div>
     <hr class="fdiv">
     <div class="fsect">💸 Prix &amp; Coûts</div>
     <div class="fgrid fg3">
-      <div class="fg"><label>Prix d'achat (FCFA) *</label><input type="number" id="fpx" placeholder="5500" value="${p.prix||''}"></div>
-      <div class="fg"><label>Coût pub / vente</label><input type="number" id="fpb" placeholder="2000" value="${p.pub||2000}"></div>
-      <div class="fg"><label>Coût livraison</label><input type="number" id="fl" placeholder="2000" value="${p.livraison||2000}"></div>
-      <div class="fg"><label>Coût closing</label><input type="number" id="fco" placeholder="1000" value="${p.closing||1000}"></div>
+      <div class="fg"><label>Prix d'achat (FCFA) *</label><input type="number" id="fpx" placeholder="2500" step="500" value="${p.prix||''}"></div>
+      <div class="fg"><label>Coût pub / vente</label><input type="number" id="fpb" placeholder="2000" step="500" value="${p.pub||2000}"></div>
+      <div class="fg"><label>Coût livraison</label><input type="number" id="fl" placeholder="2000" step="500" value="${p.livraison||2000}"></div>
+      <div class="fg"><label>Coût closing</label><input type="number" id="fco" placeholder="1000" step="500" value="${p.closing||1000}"></div>
     </div>
     <hr class="fdiv">
     <div class="fsect">🖼️ Images <span style="font-size:.58rem;font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted)">(optionnel)</span></div>
@@ -587,11 +588,11 @@ async function analyze(){
   const prix=parseInt(document.getElementById('fpx').value);
   const pays=document.getElementById('fp').value;
   const cat=document.getElementById('fc').value;
-  const desc=document.getElementById('fd').value.trim();
+  const desc=nom; // L'IA recherche elle-même les infos à partir du nom
   const pub=parseInt(document.getElementById('fpb').value)||2000;
   const liv=parseInt(document.getElementById('fl').value)||2000;
   const clo=parseInt(document.getElementById('fco').value)||1000;
-  if(!nom||!prix||!desc){toast('⚠️ Nom, prix et description sont obligatoires',false);return;}
+  if(!nom||!prix){toast('⚠️ Nom et prix sont obligatoires',false);return;}
   S.product={nom,prix,pays,cat,desc,pub,livraison:liv,closing:clo};
   document.getElementById('sb-pn').textContent=nom;
   const pM=prix+8000,pX=prix+12000,pR=Math.round((pM+pX)/2/500)*500;
@@ -620,15 +621,20 @@ async function callAI(nom,prix,pays,cat,desc,pR){
 
 PRODUIT: ${nom}
 PRIX ACHAT: ${prix} FCFA | PAYS: ${pays} | CATÉGORIE: ${cat}
-DESCRIPTION: ${desc}
 PRIX VENTE RECOMMANDÉ: ${pR} FCFA
+
+Tu connais ce produit. Fais des recherches mentales approfondies sur ce produit :
+- Quel problème PRÉCIS il résout (sois spécifique, pas vague)
+- Qui l'utilise vraiment en Afrique
+- Ce qui se vend déjà pour ce type de produit en Afrique francophone
+Ne mets JAMAIS le nom du produit là où doit être le problème.
 
 IMPORTANT pour l'avatar: détecte le genre principal concerné par CE produit spécifique. Si le produit est plutôt masculin, génère un avatar homme en premier. Si féminin, une femme. Si mixte (mainstream), génère les deux.
 IMPORTANT pour voix off: Tu dois identifier le problème EXACT et PRÉCIS que ce produit résout. Exemple - si c'est une crème anti-acné : "les boutons et l'acné qui gâchent ta peau et ta confiance". Si c'est une genouillère : "les douleurs de genou qui t'empêchent de marcher normalement". NE DIS JAMAIS "les problèmes liés à" ou des formules vagues. Dis EXACTEMENT le problème. Écris en français naturel et correct. PAS de prix ni de noms de pays dans les scripts.
 IMPORTANT pour facebook ads: L'accroche doit nommer le problème EXACT (ex: "Tu as des boutons et des imperfections..." ou "Tu souffres de douleurs de genou..."). Jamais de formules vagues. Écris en français naturel et accrocheur avec des emojis. Le texte doit donner envie d'acheter maintenant.
 
 JSON:
-{"score":75,"score_verdict":"5 mots","score_desc":"1 phrase","score_recommandation":"dois-je lancer ce produit ? réponse directe avec raison","criteres":[{"nom":"Popularité en Afrique","score":70,"explication":"pourquoi","conseil":"action concrète"},{"nom":"Facilité à marketer","score":80,"explication":"pourquoi","conseil":"comment"},{"nom":"Concurrence faible","score":60,"explication":"pourquoi","conseil":"stratégie"},{"nom":"Prix abordable","score":85,"explication":"pourquoi","conseil":"conseil prix"},{"nom":"Audience large","score":75,"explication":"pourquoi","conseil":"segmentation"},{"nom":"Tendance actuelle","score":68,"explication":"pourquoi","conseil":"timing"}],"offres":[{"titre":"...","desc":"...","icon":"🚚","pour_qui":"...","comment":"...","impact":"...","recommandee":true},{"titre":"...","desc":"...","icon":"📦","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🎁","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🛡️","pour_qui":"...","comment":"...","impact":"...","recommandee":false}],"shopify_titres":["t1","t2","t3"],"shopify_paragraphes":[{"titre":"...","contenu":"3 phrases CONCRÈTES sur les bénéfices RÉELS du produit (pas les caractéristiques). Utilise des mots émotionnels. En français naturel et correct."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."}],"fb_ads":[{"angle":"Douleur / Problème","accroche":"première phrase sur le problème PRÉCIS du produit","texte":"texte complet avec emojis, commence par accroche"},{"angle":"Preuve Sociale","accroche":"première phrase témoignages/résultats","texte":"..."},{"angle":"Curiosité / Intrigue","accroche":"première phrase mystérieuse","texte":"..."}],"voix_off":[{"titre":"Script 1 — Émotionnel","script":"paragraphe fluide unique 80-100 mots, cite le problème précis, sans prix ni pays"},{"titre":"Script 2 — Direct & Choc","script":"paragraphe unique 60-70 mots, percutant, sans prix ni pays"},{"titre":"Script 3 — Storytelling","script":"paragraphe narratif unique 90-110 mots, histoire, sans prix ni pays"}],"avatar_principal":{"prenom":"prénom adapté au genre détecté","age":"tranche","sexe":"Homme ou Femme","profession":"...","revenu":"... FCFA/mois","description":"2 phrases portrait","traits":[{"nom":"Impulsivité achat","val":72},{"nom":"Sensibilité au prix","val":80},{"nom":"Confiance en ligne","val":58},{"nom":"Influence réseaux","val":85}],"motivations":["...","...","..."],"peurs":["...","...","..."],"phrases_declencheurs":["...","...","..."],"reseaux":["...","..."],"tags":["t1","t2","t3","t4"],"face":"👨 ou 👩","bg":"linear-gradient(135deg,#1D4ED8,#7C3AED) ou autre"},"avatar_secondaire":null,"concurrence":{"analyse":"2-3 phrases","conseil":"conseil court"}}
+{"score":75,"score_verdict":"5 mots","score_desc":"1 phrase","score_recommandation":"dois-je lancer ce produit ? réponse directe avec raison","criteres":[{"nom":"Popularité en Afrique","score":70,"explication":"pourquoi","conseil":"action concrète"},{"nom":"Facilité à marketer","score":80,"explication":"pourquoi","conseil":"comment"},{"nom":"Concurrence faible","score":60,"explication":"pourquoi","conseil":"stratégie"},{"nom":"Prix abordable","score":85,"explication":"pourquoi","conseil":"conseil prix"},{"nom":"Audience large","score":75,"explication":"pourquoi","conseil":"segmentation"},{"nom":"Tendance actuelle","score":68,"explication":"pourquoi","conseil":"timing"}],"offres":[{"titre":"...","desc":"...","icon":"🚚","pour_qui":"...","comment":"...","impact":"...","recommandee":true},{"titre":"...","desc":"...","icon":"📦","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🎁","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🛡️","pour_qui":"...","comment":"...","impact":"...","recommandee":false}],"shopify_titres":["t1","t2","t3"],"shopify_paragraphes":[{"titre":"...","contenu":"3 phrases CONCRÈTES sur les bénéfices RÉELS du produit (pas les caractéristiques). Utilise des mots émotionnels. En français naturel et correct."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."}],"fb_ads":[{"angle":"Douleur / Problème","accroche":"première phrase sur le problème PRÉCIS du produit","texte":"texte complet avec emojis, commence par accroche"},{"angle":"Preuve Sociale","accroche":"première phrase témoignages/résultats","texte":"..."},{"angle":"Curiosité / Intrigue","accroche":"première phrase mystérieuse","texte":"..."}],"voix_off":[{"titre":"Script 1 — Émotionnel","script":"paragraphe fluide unique 80-100 mots, cite le problème précis, sans prix ni pays"},{"titre":"Script 2 — Direct & Choc","script":"paragraphe unique 60-70 mots, percutant, sans prix ni pays"},{"titre":"Script 3 — Storytelling","script":"paragraphe narratif unique 90-110 mots, histoire, sans prix ni pays"}],"avatar_principal":{"prenom":"prénom VARIÉ adapté au genre et pays (jamais Ama ni Aminata)","age":"tranche d'âge","sexe":"Homme ou Femme","profession":"profession précise","revenu":"revenu en FCFA","situation":"état civil et famille","ville":"ville type du pays cible","en_ligne":"horaires en ligne typiques","budget_max":"budget max en FCFA","description":"2 phrases portrait psychologique","motivations":["motiv1","motiv2","motiv3"],"frustrations":["frustration liée au problème du produit","frustration2","frustration3"],"desirs":["désir1 lié au bénéfice produit","désir2","désir3"],"langage":["expression typique qu'elle utilise","expression2","expression3"],"objections":["objection1 à l'achat","objection2"],"reponses":["réponse vendeur à objection1","réponse à objection2"],"phrase_declenchante":"phrase marketing percutante pour ce persona spécifique","reseaux":["réseau1","réseau2","réseau3"],"tags":["tag1","tag2","tag3"],"face":"👨 ou 👩 ou 🧑","bg":"linear-gradient(135deg,couleur1,couleur2) — couleurs variées"},"avatar_secondaire":null,"concurrence":{"analyse":"2-3 phrases","conseil":"conseil court"}}
 
 Note: avatar_secondaire doit être rempli (même structure qu'avatar_principal) uniquement si le produit est clairement mainstream/mixte. Sinon laisse null.`;
 
@@ -648,6 +654,8 @@ Note: avatar_secondaire doit être rempli (même structure qu'avatar_principal) 
 }
 
 // ══ DEMO ══
+function hashCode(s){let h=0;for(const ch of s)h=((h<<5)-h+ch.charCodeAt(0))|0;return h;}
+
 function demo(nom,prix,pays,cat,desc,pM,pX,pR,pub,liv,clo){
   const isAuto=cat==='Auto & Moto'||desc.toLowerCase().includes('conduit')||desc.toLowerCase().includes('voiture')||desc.toLowerCase().includes('nuit')||desc.toLowerCase().includes('lampe');
   const mainGenre=isAuto?'Homme':'Femme';
@@ -711,18 +719,32 @@ function demo(nom,prix,pays,cat,desc,pM,pX,pR,pub,liv,clo){
       {titre:"Script 2 — Direct & Choc",script:`${problemePrecis.charAt(0).toUpperCase()+problemePrecis.slice(1)}. C'est exactement pour ça qu'on a créé ${nom}. Rapide. Efficace. Livré directement chez toi. Des centaines de clients l'ont déjà testé et ne regrettent rien. Toi, tu attends quoi ? Clique sur le lien dans la bio et commande maintenant — avant rupture de stock.`},
       {titre:"Script 3 — Storytelling",script:`Pendant des mois, Aminata cherchait une solution à ${problemePrecis}. Elle avait tout essayé, dépensé des fortunes, rien ne changeait vraiment. Un jour, une amie lui parle de ${nom}. Elle était sceptique — encore une promesse qui ne tiendra pas, pensait-elle. Mais après quelques jours d'utilisation, quelque chose de différent s'est passé. Aujourd'hui, elle le recommande à tout son entourage. Cette histoire peut être la tienne. ${nom} est disponible maintenant, lien dans la bio.`}
     ],
-    avatar_principal:{
-      prenom:mainPrenom,age:isAuto?'22-45 ans':'25-38 ans',sexe:mainGenre,
-      profession:mainProf,revenu:'80 000–200 000 FCFA/mois',
-      description:isAuto?`${mainPrenom} est un homme actif qui se déplace beaucoup, conducteur ou commerçant, ayant régulièrement besoin d'équipements fiables pour son activité ou ses trajets. Il est pragmatique et cherche des solutions concrètes.`:`${mainPrenom} est une femme active, connectée, qui cherche des solutions pratiques pour améliorer son quotidien sans se ruiner. Elle achète sur recommandation ou après plusieurs expositions publicitaires.`,
-      traits:[{nom:"Impulsivité achat",val:isAuto?60:72},{nom:"Sensibilité au prix",val:80},{nom:"Confiance en ligne",val:isAuto?55:58},{nom:"Influence réseaux",val:isAuto?70:85}],
-      motivations:isAuto?["Trouver des équipements fiables pour son activité","Éviter les pannes et imprévus coûteux","Être plus efficace et professionnel"]:["Améliorer son quotidien sans se ruiner","Trouver un produit qui fonctionne vraiment","Prendre soin d'elle et de sa famille"],
-      peurs:["Gaspiller son argent sur quelque chose d'inutile","Se faire arnaquer par un vendeur","Recevoir un produit différent de la photo"],
-      phrases_declencheurs:["Résultats garantis ou remboursé","Livraison rapide à domicile","Des centaines de clients satisfaits","Prix spécial — aujourd'hui seulement"],
-      reseaux:isAuto?["Facebook","WhatsApp","YouTube"]:["Facebook","WhatsApp","TikTok"],
-      tags:isAuto?["Actif mobile","Pragmatique","Budget conscient","Cherche fiabilité"]:["Urbaine connectée","Budget conscient","Acheteuse sociale","Cherche qualité"],
-      face:mainFace,bg:mainBg
-    },
+    avatar_principal:(()=>{
+      const prenomsMasc=['Kofi','Kwame','Seydou','Ibrahim','Moussa','Thierno','Abdou','Cheikh','Alain','Junior'];
+      const prenomsFem=['Nafissatou','Fatoumata','Aïssatou','Mariama','Khadija','Bintou','Coumba','Salimata','Eunice','Grâce'];
+      const prenom=isAuto?prenomsMasc[Math.abs(hashCode(nom))%prenomsMasc.length]:prenomsFem[Math.abs(hashCode(nom))%prenomsFem.length];
+      const villes={'Togo':'Lomé, Kpalimé, Sokodé',"Côte d'Ivoire":'Abidjan, Bouaké, San-Pédro','Sénégal':'Dakar, Thiès, Saint-Louis','Cameroun':'Douala, Yaoundé, Bafoussam'};
+      const ville=villes[pays]||pays;
+      return{
+        prenom,age:isAuto?'22-45 ans':'25-38 ans',sexe:mainGenre,
+        profession:isAuto?'Commerçant / Conducteur / Technicien':'Commerçante / Salariée / Esthéticienne',
+        revenu:'80 000–200 000 FCFA/mois',
+        situation:isAuto?'Marié, père de famille':'Célibataire ou en couple',
+        ville,en_ligne:'18h-22h',
+        budget_max:pR.toLocaleString()+' FCFA maximum',
+        description:isAuto?`${prenom} est un homme actif, pragmatique, qui recherche des équipements fiables pour son activité quotidienne. Il achète sur recommandation et est sensible à la qualité/prix.`:`${prenom} est une femme active et connectée, qui cherche des solutions pratiques et efficaces pour améliorer son quotidien. Elle achète sur recommandation et après plusieurs expositions publicitaires.`,
+        motivations:isAuto?["Équipements fiables pour son activité","Éviter les imprévus coûteux","Être plus efficace et professionnel"]:["Améliorer son apparence et sa confiance","Trouver un produit qui fonctionne vraiment","Prendre soin d'elle"],
+        frustrations:isAuto?["Produits qui tombent en panne trop vite","Solutions chères qui ne durent pas","Vendeurs peu fiables"]:["Les produits qui promettent mais ne tiennent pas","Gaspiller de l'argent sur des produits inefficaces","Les réactions allergiques aux mauvais cosmétiques"],
+        desirs:isAuto?["Un équipement qui dure et performe","Gagner plus de temps et d'efficacité","Être reconnu comme professionnel"]:["Une peau belle et lumineuse","Se sentir confiante et attirante","Recevoir des compliments de son entourage"],
+        langage:isAuto?['"Je veux que ça marche, pas que ça brille"','"Bon rapport qualité-prix"','"Fiable et durable"']:['"C'est la beauté qui sauve le monde"','"Une femme belle est une femme heureuse"','"Je veux briller comme une étoile"'],
+        objections:isAuto?["C'est trop cher pour moi","Est-ce que ça va vraiment durer ?"]:["C'est trop cher pour moi","Je ne sais pas si ça va fonctionner pour moi"],
+        reponses:isAuto?["Qualité premium avec garantie 7 jours — vous ne serez pas déçu","Des centaines de clients utilisent ce produit depuis plus de 6 mois"]:["C'est un investissement pour votre beauté avec garantie satisfaction","Des centaines de femmes comme vous ont déjà vu des résultats remarquables"],
+        phrase_declenchante:isAuto?`Découvrez comment ${nom} peut transformer votre activité et vous faire gagner en efficacité dès aujourd'hui`:`Découvrez comment ${nom} peut vous aider à atteindre la peau parfaite dont vous rêvez`,
+        reseaux:isAuto?["Facebook","WhatsApp","YouTube"]:["Facebook","WhatsApp","TikTok","Instagram"],
+        tags:isAuto?["Actif mobile","Pragmatique","Budget conscient"]:["Urbaine connectée","Beauté consciente","Acheteuse sociale"],
+        face:mainFace,bg:mainBg
+      };
+    })(),
     avatar_secondaire:null,
     concurrence:{
       analyse:`Sur le marché de ${pays} et d'Afrique francophone, ${nom} opère dans un secteur avec des vendeurs locaux actifs sur Facebook, mais la plupart manquent de professionnalisme. La demande est bien présente mais sous-exploitée par des acteurs sérieux.`,
@@ -909,52 +931,90 @@ function rVoixOff(){
 function rAvatar(){
   const r=S.results;if(!r)return'';
   const av=r.avatar_principal;
-  const renderAvatarCard=(a,title)=>{
-    const tags=a.tags.map(t=>`<span class="avtag">${t}</span>`).join('');
-    const traits=a.traits.map(t=>`<div class="trait-r"><div class="trait-l"><span>${t.nom}</span><span style="font-weight:700">${t.val}%</span></div><div class="trait-b"><div class="trait-f" style="width:${t.val}%"></div></div></div>`).join('');
-    const mo=a.motivations.map(m=>`<div class="avli">${m}</div>`).join('');
-    const pe=a.peurs.map(p=>`<div class="avli">${p}</div>`).join('');
-    const ph=a.phrases_declencheurs.map(p=>`<div class="avli">${p}</div>`).join('');
-    const txt=`AVATAR ${title} — ${S.product.nom}\n${a.prenom} · ${a.age} · ${a.sexe}\n${a.profession} · ${a.revenu}\n\n${a.description}\n\nMotivations:\n${a.motivations.join('\n')}\n\nPeurs:\n${a.peurs.join('\n')}\n\nPhrases:\n${a.phrases_declencheurs.join('\n')}`;
-    const kav=storeCopy(txt);
-    return`
-      <div class="av-hero">
-        <div class="av-face" style="background:${a.bg}">${a.face}</div>
-        <div class="av-info">
-          <h3>${a.prenom} · ${a.age} · ${a.sexe}</h3>
-          <p>${a.profession} · ${a.revenu}</p>
-          <p style="font-size:.74rem;color:var(--muted);margin-top:.25rem">${a.description}</p>
-          <div class="av-tags">${tags}</div>
-        </div>
-        <button class="cbtn" style="margin-left:auto;align-self:flex-start" onclick="cpk(this,'${kav}')">📋 Copier</button>
+  const renderAv=(a,label)=>{
+    const kav=storeCopy(
+      `AVATAR ${label} — ${S.product.nom}\n${a.prenom} · ${a.age} · ${a.sexe}\n${a.profession||''}\n\n${a.description||''}\n\nFrustrations: ${(a.frustrations||a.peurs||[]).join(', ')}\nDésirs: ${(a.desirs||[]).join(', ')}\nMotivations: ${(a.motivations||[]).join(', ')}\nLanguage: ${(a.langage||a.phrases_declencheurs||[]).join(', ')}`
+    );
+    const frList=(a.frustrations||a.peurs||[]).map(f=>`<div class="av-row"><span class="av-dot" style="background:#EF4444"></span>${f}</div>`).join('');
+    const dsList=(a.desirs||[]).map(d=>`<div class="av-row"><span class="av-dot" style="background:var(--green)"></span>${d}</div>`).join('');
+    const motList=(a.motivations||[]).map(m=>`<div class="av-row"><span class="av-dot" style="background:var(--gold)"></span>${m}</div>`).join('');
+    const langList=(a.langage||a.phrases_declencheurs||[]).map(l=>`<div class="av-quote">"${l}"</div>`).join('');
+    const objList=(a.objections||[]).map(o=>`<div class="av-row"><span class="av-dot" style="background:#F87171"></span>${o}</div>`).join('');
+    const repList=(a.reponses||[]).map(r=>`<div class="av-row"><span class="av-dot" style="background:var(--green)"></span>${r}</div>`).join('');
+    const phrase=a.phrase_declenchante||a.phrases_declencheurs?.[0]||'';
+    const kphrase=storeCopy(phrase);
+    return `
+    <div class="av2-hero">
+      <div class="av2-face" style="background:${a.bg||'linear-gradient(135deg,#8B5CF6,#EC4899)'}">${a.face||'👤'}</div>
+      <div class="av2-name">
+        <h3>${a.prenom} — Avatar Client Idéal</h3>
+        <p>${a.profession||''} · ${a.ville||a.pays||S.product.pays}</p>
       </div>
-      <div class="av-grid">
-        <div class="avsec" style="animation-delay:.05s"><h4>Traits psychologiques</h4>${traits}</div>
-        <div class="avsec" style="animation-delay:.1s">
-          <h4>Réseaux actifs</h4>
-          <div style="display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.7rem">${a.reseaux.map(rr=>`<span class="avtag">${rr}</span>`).join('')}</div>
-          <h4>Motivations</h4>${mo}
-        </div>
-        <div class="avsec" style="animation-delay:.15s"><h4>Peurs &amp; Freins</h4>${pe}</div>
-        <div class="avsec" style="animation-delay:.2s"><h4>Phrases Déclencheurs</h4>${ph}</div>
-      </div>`;
+      <button class="cbtn" style="margin-left:auto;align-self:flex-start" onclick="cpk(this,'${kav}')">📋 Copier</button>
+    </div>
+    <div class="av2-grid">
+      <div class="av2-block">
+        <div class="av2-block-title">👤 PROFIL DÉMOGRAPHIQUE</div>
+        <table class="av2-table">
+          <tr><td>SEXE</td><td>${a.sexe}</td></tr>
+          <tr><td>ÂGE</td><td>${a.age}</td></tr>
+          <tr><td>SITUATION</td><td>${a.situation||'Célibataire ou en couple'}</td></tr>
+          <tr><td>REVENUS</td><td>${a.revenu}</td></tr>
+          <tr><td>PROFESSION</td><td>${a.profession||''}</td></tr>
+          <tr><td>EN LIGNE</td><td>${a.en_ligne||'18h-22h'}</td></tr>
+          <tr><td>BUDGET MAX</td><td>${a.budget_max||S.results.prixReco.toLocaleString()+' FCFA'}</td></tr>
+          <tr><td>RÉSEAUX</td><td><div style="display:flex;gap:.3rem;flex-wrap:wrap">${(a.reseaux||[]).map(r=>`<span class="avtag">${r}</span>`).join('')}</div></td></tr>
+        </table>
+      </div>
+      <div class="av2-block">
+        <div class="av2-block-title" style="color:#F87171">😰 PROFIL PSYCHOLOGIQUE</div>
+        <div class="av2-sub-title">PEURS & FRUSTRATIONS</div>
+        ${frList}
+        <div class="av2-sub-title" style="margin-top:.8rem;color:var(--green)">✨ DÉSIRS</div>
+        ${dsList}
+        <div class="av2-sub-title" style="margin-top:.8rem;color:var(--gold)">⚡ MOTIVATIONS</div>
+        ${motList}
+      </div>
+    </div>
+    <div class="av2-grid" style="margin-top:.8rem">
+      <div class="av2-block">
+        <div class="av2-block-title" style="color:#A78BFA">💬 LANGAGE UTILISÉ</div>
+        ${langList||'<div class="av2-row" style="color:var(--muted)">Données non disponibles</div>'}
+      </div>
+      <div class="av2-block">
+        <div class="av2-block-title" style="color:#F87171">❓ OBJECTIONS</div>
+        ${objList||'<div class="av-row" style="color:var(--muted)">Données non disponibles</div>'}
+      </div>
+      <div class="av2-block">
+        <div class="av2-block-title" style="color:var(--green)">✅ VOS RÉPONSES</div>
+        ${repList||'<div class="av-row" style="color:var(--muted)">Données non disponibles</div>'}
+      </div>
+    </div>
+    <div class="av2-phrase">
+      <div class="av2-phrase-label">🎯 PHRASE DÉCLENCHANTE (CE QUE VOUS DITES AU CLIENT)</div>
+      <div class="av2-phrase-text">"${phrase}"</div>
+      <button class="cbtn" style="margin-top:.8rem" onclick="cpk(this,'${kphrase}')">📋 Copier la phrase</button>
+    </div>`;
   };
   let html=`<div class="rh afu"><div><h2>👤 Avatar Client</h2><div class="rp">${S.product.nom}</div></div></div>`;
   if(r.avatar_secondaire){
-    html+=`<div class="av-secondary"><div class="av-sec-title">Avatar Principal — ${av.sexe}</div>${renderAvatarCard(av,'PRINCIPAL')}</div>`;
-    html+=`<div class="av-secondary" style="margin-top:.8rem"><div class="av-sec-title">Avatar Secondaire — ${r.avatar_secondaire.sexe}</div>${renderAvatarCard(r.avatar_secondaire,'SECONDAIRE')}</div>`;
+    html+=`<div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--or);margin-bottom:.7rem">AVATAR PRINCIPAL — ${r.avatar_principal.sexe}</div>`;
+    html+=renderAv(r.avatar_principal,'PRINCIPAL');
+    html+=`<div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--purple);margin:1.2rem 0 .7rem">AVATAR SECONDAIRE — ${r.avatar_secondaire.sexe}</div>`;
+    html+=renderAv(r.avatar_secondaire,'SECONDAIRE');
   }else{
-    html+=renderAvatarCard(av,'PRINCIPAL');
+    html+=renderAv(r.avatar_principal,'PRINCIPAL');
   }
   return html;
 }
+
 
 function rConc(){
   const r=S.results,p=S.product;if(!r)return'';
   const q=encodeURIComponent(p.nom);
   const fbBubbles=ALL_PAYS_FB.map(({pays,code,flag},i)=>{
     const url=code==='ALL'?`https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=${q}`:`https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=${code}&q=${q}&search_type=keyword_unordered`;
-    return`<a class="pbbl" href="${url}" target="_blank" style="animation-delay:${i*.04}s">${flag} ${pays}</a>`;
+    return`<a class="pbbl" href="${url}" target="_blank" style="animation-delay:${i*.04}s"><span class="flag">${flag}</span><span>${pays}</span></a>`;
   }).join('');
   const shopBubbles=[
     {n:'Google Shopping',ic:'🛒',u:`https://www.google.com/search?tbm=shop&q=${q}`,cls:'bbl-gg'},
@@ -1001,7 +1061,7 @@ function rImages(){
 
 function rVideos(){
   const p=S.product;const q=encodeURIComponent(p?.nom||'');
-  const fbVids=ALL_PAYS_FB.map(({pays,code,flag},i)=>`<a class="pbbl" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=video&country=${code}&q=${q}&search_type=keyword_unordered" target="_blank" style="animation-delay:${i*.04}s">${flag} ${pays}</a>`).join('');
+  const fbVids=ALL_PAYS_FB.map(({pays,code,flag},i)=>`<a class="pbbl" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=video&country=${code}&q=${q}&search_type=keyword_unordered" target="_blank" style="animation-delay:${i*.04}s"><span class="flag">${flag}</span><span>${pays}</span></a>`).join('');
   const vidSrcs=[
     {n:'TikTok',ic:'🎵',u:`https://www.tiktok.com/search?q=${q}`,cls:'bbl-tt',sub:'Vidéos virales'},
     {n:'YouTube',ic:'▶️',u:`https://www.youtube.com/results?search_query=${q}+review`,cls:'bbl-yt',sub:'Reviews'},
@@ -1070,10 +1130,16 @@ function loadH(i){
   showPage('prix');closeSidebar();
 }
 
-// ══ DÉCONNEXION ══
+// ══ NAVIGATION ══
+function allerAccueil(){
+  // Ouvre la landing dans un nouvel onglet pour ne pas perdre la session
+  window.open('/index.html','_blank');
+}
+
 async function deconnexion(){
   if(sb){ try{ await sb.auth.signOut(); }catch(e){} }
- window.location.href='/eb2-login.html';
+  // Redirection absolue pour éviter les 404 sur Vercel
+  window.location.replace('/eb2-login.html');
 }
 
 // INIT
