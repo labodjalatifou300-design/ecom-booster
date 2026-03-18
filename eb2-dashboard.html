@@ -427,8 +427,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
 <script>
 // ══ CONFIG SUPABASE ══
 // Mets ton URL et clé anon Supabase ici (ces deux sont publiques par conception)
-const SUPABASE_URL='METS-TON-URL-SUPABASE-ICI';
-const SUPABASE_KEY='METS-TA-CLE-ANON-ICI';
+const SUPABASE_URL='https://jrsqomjwiawzbdsolcjq.supabase.co';
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impyc3FvbWp3aWF3emJkc29sY2pxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Nzc5NjYsImV4cCI6MjA4OTM1Mzk2Nn0.5n9njd-gv7Ss9k7bWSzMTRNYO8SwdIUP6C9FVa0c6NY';
 // GROK_KEY et CLAUDE_KEY sont maintenant côté serveur dans /api/ai.js
 // Tu les mets dans Vercel → Settings → Environment Variables
 // PAS BESOIN de les mettre ici.
@@ -446,12 +446,14 @@ try{
 async function initAuth(){
   if(!sb)return;
   const {data:{session}}=await sb.auth.getSession();
-  if(!session){window.location.href='eb2-login-supabase.html';return;}
+  if(!session){window.location.href='/eb2-login.html';return;}
   const u=session.user;
   const meta=u.user_metadata||{};
-  const initiales=((meta.prenom||'A')[0]+(meta.nom||'K')[0]).toUpperCase();
+  const prenom=meta.prenom||meta.full_name?.split(' ')[0]||u.email?.split('@')[0]||'';
+  const nom=meta.nom||meta.full_name?.split(' ')[1]||'';
+  const initiales=((prenom[0]||'U')+(nom[0]||prenom[1]||'S')).toUpperCase();
   document.getElementById('uav').textContent=initiales;
-  document.getElementById('uname').textContent=(meta.prenom||'')+' '+(meta.nom||'');
+  document.getElementById('uname').textContent=(prenom+' '+nom).trim();
   // Vérifier expiration essai
   const {data:profil}=await sb.from('profils').select('plan,essai_expire,abonnement_expire').eq('id',u.id).single();
   if(profil){
@@ -565,9 +567,12 @@ function rForm(){
   <div class="fcard afu2">
     <div class="fsect">📦 Le produit</div>
     <div class="fgrid">
-      <div class="fg ffull"><label>Nom du produit *</label><input id="fn" placeholder="Ex: Beauty Milk, Genouillère, Lampe LED..." value="${p.nom||''}"></div>
+      <div class="fg ffull"><label>Nom du produit *</label><input id="fn" placeholder="Ex: Beauty Milk, Genouillère de compression, Lampe LED frontale..." value="${p.nom||''}"></div>
       <div class="fg"><label>Pays cible *</label><select id="fp">${oo}</select></div>
       <div class="fg"><label>Catégorie</label><select id="fc">${co}</select></div>
+      <div class="fg ffull"><label>Décris le produit en 1 phrase * <span style="color:var(--muted);font-weight:400">(ce que c'est vraiment — ex: boisson au lait pour blanchir la peau, ou genouillère pour soulager les douleurs)</span></label>
+        <input id="fd" placeholder="Ex: Boisson lactée à boire pour éclaircir et hydrater la peau de l'intérieur" value="${p.desc||''}">
+      </div>
     </div>
     <hr class="fdiv">
     <div class="fsect">💸 Prix &amp; Coûts</div>
@@ -618,17 +623,31 @@ async function analyze(){
   const prix=parseInt(document.getElementById('fpx').value);
   const pays=document.getElementById('fp').value;
   const cat=document.getElementById('fc').value;
-  const desc=nom; // L'IA recherche elle-même les infos à partir du nom
+  const descEl=document.getElementById('fd');
+  const desc=descEl?(descEl.value.trim()||nom):nom;
   const pub=parseInt(document.getElementById('fpb').value)||2000;
   const liv=parseInt(document.getElementById('fl').value)||2000;
   const clo=parseInt(document.getElementById('fco').value)||1000;
   if(!nom||!prix){toast('⚠️ Nom et prix sont obligatoires',false);return;}
-  S.product={nom,prix,pays,cat,desc,pub,livraison:liv,closing:clo};
+  // Convertir la première image en base64 si disponible
+  let imageBase64 = null;
+  if(S.imgs && S.imgs.length > 0){
+    try{
+      imageBase64 = await new Promise((resolve, reject)=>{
+        const reader = new FileReader();
+        reader.onload = e => resolve(e.target.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(S.imgs[0]);
+      });
+    }catch(e){ imageBase64 = null; }
+  }
+
+  S.product={nom,prix,pays,cat,desc,pub,livraison:liv,closing:clo,imageBase64};
   document.getElementById('sb-pn').textContent=nom;
   const pM=prix+8000,pX=prix+12000,pR=Math.round((pM+pX)/2/500)*500;
   showLov('Analyse en cours...','Génération du score, textes, offres...');
   try{
-    const ai=await callAI(nom,prix,pays,cat,desc,pR);
+    const ai=await callAI(nom,prix,pays,cat,desc,pR,imageBase64);
     S.results={...ai,prixMin:pM,prixMax:pX,prixReco:pR,pub,livraison:liv,closing:clo};
     S.history.unshift({name:nom,prix,pays,score:ai.score,prixReco:pR,date:'Aujourd\'hui'});
     document.getElementById('hcount').textContent=S.history.length;
@@ -636,7 +655,7 @@ async function analyze(){
     hideLov();showPage('prix');toast('✅ Analyse terminée !',true);
   }catch(e){
     hideLov();
-    S.results=demo(nom,prix,pays,cat,desc,pM,pX,pR,pub,liv,clo);
+    S.results=demo(nom,prix,pays,cat,desc,pM,pX,pR,pub,liv,clo,imageBase64);
     S.history.unshift({name:nom,prix,pays,score:S.results.score,prixReco:pR,date:'Aujourd\'hui'});
     document.getElementById('hcount').textContent=S.history.length;
     // Sauvegarder dans Supabase si configuré
@@ -646,21 +665,29 @@ async function analyze(){
 }
 
 // ══ API ══
-async function callAI(nom,prix,pays,cat,desc,pR){
-  const prompt=`Tu es un expert en copywriting et e-commerce africain. Analyse ce produit et génère du contenu marketing de haute qualité. Réponds UNIQUEMENT en JSON valide, zéro texte ni backticks autour.
+async function callAI(nom,prix,pays,cat,desc,pR,imageBase64=null){
+  const prompt=`Tu es un expert en copywriting et marketing e-commerce africain. Génère du contenu marketing de haute qualité. Réponds UNIQUEMENT en JSON valide, zéro texte ni backticks.
 
 PRODUIT: ${nom}
+DESCRIPTION DU PRODUIT: ${desc}
 PRIX ACHAT: ${prix} FCFA | PAYS: ${pays} | CATÉGORIE: ${cat}
 PRIX VENTE RECOMMANDÉ: ${pR} FCFA
 
-Tu connais ce produit. Fais des recherches mentales approfondies sur ce produit :
-- Quel problème PRÉCIS il résout (sois spécifique, pas vague)
-- Qui l'utilise vraiment en Afrique
-- Ce qui se vend déjà pour ce type de produit en Afrique francophone
-Ne mets JAMAIS le nom du produit là où doit être le problème.
+RÈGLES ABSOLUES À RESPECTER:
+1. Lis attentivement la DESCRIPTION pour comprendre CE QU'EST ce produit et COMMENT il s'utilise
+2. Si c'est une boisson → on la BOIT (ne jamais dire "appliquer"). Si c'est une crème → on l'applique. Toujours respecter le vrai mode d'utilisation.
+3. Le problème que tu cites = le vrai problème que résout ce produit (déduit de la description)
+4. Ne jamais mettre le NOM du produit là où doit être le problème
+5. Tout le contenu doit être en français naturel et correct, adapté à l'Afrique francophone
 
 IMPORTANT pour l'avatar: détecte le genre principal concerné par CE produit spécifique. Si le produit est plutôt masculin, génère un avatar homme en premier. Si féminin, une femme. Si mixte (mainstream), génère les deux.
-IMPORTANT pour voix off: Tu dois identifier le problème EXACT et PRÉCIS que ce produit résout. Exemple - si c'est une crème anti-acné : "les boutons et l'acné qui gâchent ta peau et ta confiance". Si c'est une genouillère : "les douleurs de genou qui t'empêchent de marcher normalement". NE DIS JAMAIS "les problèmes liés à" ou des formules vagues. Dis EXACTEMENT le problème. Écris en français naturel et correct. PAS de prix ni de noms de pays dans les scripts.
+IMPORTANT pour voix off: Chaque script doit suivre EXACTEMENT cette structure en UN SEUL paragraphe de 120-150 mots minimum :
+1. PROBLÈME (2-3 phrases): cite le problème précis et douloureux que le client vit, avec émotion
+2. SOLUTION (1-2 phrases): présente le produit comme LA solution
+3. FONCTIONNEMENT (2-3 phrases): explique comment le produit agit concrètement, les bénéfices réels
+4. TÉMOIGNAGE (1-2 phrases): un micro-témoignage client naturel et crédible
+5. APPEL À L'ACTION (1-2 phrases): urgence et lien dans la bio
+Le tout doit être fluide, naturel, sans labels visibles. PAS de prix ni de noms de pays. Minimum 120 mots par script.
 IMPORTANT pour facebook ads: L'accroche doit nommer le problème EXACT (ex: "Tu as des boutons et des imperfections..." ou "Tu souffres de douleurs de genou..."). Jamais de formules vagues. Écris en français naturel et accrocheur avec des emojis. Le texte doit donner envie d'acheter maintenant.
 
 JSON:
@@ -672,7 +699,7 @@ Note: avatar_secondaire doit être rempli (même structure qu'avatar_principal) 
   const r=await fetch('/api/ai',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({prompt:prompt, mode:S.apiMode})
+    body:JSON.stringify({prompt:prompt, mode:S.apiMode, image:imageBase64})
   });
   if(!r.ok){
     const err=await r.json().catch(()=>({error:'Erreur réseau'}));
