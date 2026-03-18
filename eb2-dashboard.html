@@ -307,6 +307,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
   .fg3{grid-template-columns:1fr;}
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -403,15 +404,15 @@ const SUPABASE_KEY='METS-TA-CLE-ANON-ICI';
 // Tu les mets dans Vercel → Settings → Environment Variables
 // PAS BESOIN de les mettre ici.
 
-// Init Supabase si configuré
+// Init Supabase (SDK chargé dans <head>)
 let sb=null;
 const sbOk=SUPABASE_URL!=='METS-TON-URL-SUPABASE-ICI';
-if(sbOk){
-  const s=document.createElement('script');
-  s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
-  s.onload=()=>{sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);initAuth();};
-  document.head.appendChild(s);
-}
+try{
+  if(sbOk && typeof supabase!=='undefined'){
+    sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+    initAuth();
+  }
+}catch(e){ console.log('Supabase init error:',e.message); }
 
 async function initAuth(){
   if(!sb)return;
@@ -1143,7 +1144,12 @@ async function deconnexion(){
 }
 
 // INIT
-showPage('form');
+try{
+  showPage('form');
+}catch(e){
+  console.error('Erreur init dashboard:', e);
+  document.getElementById('content').innerHTML = '<div style="padding:2rem;color:#F87171;font-family:Outfit,sans-serif"><h3>⚠️ Erreur de chargement</h3><p style="margin-top:.5rem;color:#7A7E96">'+e.message+'</p></div>';
+}
 </script>
 </body>
 </html>
