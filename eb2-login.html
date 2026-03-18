@@ -71,8 +71,10 @@ h3{font-size:1.38rem;font-weight:800;letter-spacing:-.3px;margin-bottom:.32rem;}
 .modal-plan .mp-name{font-size:.72rem;font-weight:600;color:var(--muted);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:1px;}
 .modal-plan .mp-feat{font-size:.75rem;color:var(--muted);line-height:1.6;}
 .btn-modal{width:100%;background:var(--or);color:#fff;border:none;border-radius:9px;padding:.85rem;font-family:'Outfit',sans-serif;font-size:.92rem;font-weight:700;cursor:pointer;}
+#p-signup{display:none;}
 #p-login{display:none;}
-#p-login.active,#p-signup.active{display:block;}
+#p-signup.active{display:block;}
+#p-login.active{display:block;}
 @media(max-width:768px){
   .left{display:none;}
   .right{padding:2rem 1.5rem;align-items:flex-start;padding-top:3rem;}
@@ -126,13 +128,16 @@ h3{font-size:1.38rem;font-weight:800;letter-spacing:-.3px;margin-bottom:.32rem;}
 
 <div class="right">
   <div class="auth-card">
-    <div class="tabs">
-      <div class="tab active" onclick="switchTab('signup')">Créer un compte</div>
-      <div class="tab" onclick="switchTab('login')">Se connecter</div>
+    <!-- Indicateur de page -->
+    <div id="page-indicator" style="text-align:center;margin-bottom:1.8rem;">
+      <div style="display:inline-flex;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:3px;">
+        <div id="tab-signup" onclick="switchTab('signup')" style="padding:.52rem 1.4rem;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;background:var(--bg3);color:var(--text);transition:all .2s;user-select:none;">Inscription</div>
+        <div id="tab-login" onclick="switchTab('login')" style="padding:.52rem 1.4rem;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;color:var(--muted);transition:all .2s;user-select:none;">Connexion</div>
+      </div>
     </div>
 
     <!-- SIGNUP -->
-    <div id="p-signup" class="active">
+    <div id="p-signup" class="active" style="display:block">
       <h3>Commence gratuitement 🚀</h3>
       <p class="sub">24h d'accès complet. Aucune carte requise.</p>
       <div class="alert err" id="err-signup"></div>
@@ -195,9 +200,28 @@ let selectedPlan = 'pro';
 
 // ══ TAB SWITCH ══
 function switchTab(t){
-  document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('active',(t==='signup'&&i===0)||(t==='login'&&i===1)));
-  document.getElementById('p-signup').classList.toggle('active',t==='signup');
-  document.getElementById('p-login').classList.toggle('active',t==='login');
+  // Panels
+  const ps=document.getElementById('p-signup');
+  const pl=document.getElementById('p-login');
+  if(t==='signup'){
+    ps.classList.add('active');
+    pl.classList.remove('active');
+  }else{
+    pl.classList.add('active');
+    ps.classList.remove('active');
+  }
+  // Tab indicators
+  const ts=document.getElementById('tab-signup');
+  const tl=document.getElementById('tab-login');
+  if(ts&&tl){
+    if(t==='signup'){
+      ts.style.background='var(--bg3)';ts.style.color='var(--text)';
+      tl.style.background='transparent';tl.style.color='var(--muted)';
+    }else{
+      tl.style.background='var(--bg3)';tl.style.color='var(--text)';
+      ts.style.background='transparent';ts.style.color='var(--muted)';
+    }
+  }
 }
 
 // ══ SHOW/HIDE ALERTS ══
