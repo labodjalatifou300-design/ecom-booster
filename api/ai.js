@@ -1,5 +1,4 @@
 // api/ai.js — Vercel Serverless Function
-// Supporte la VISION : analyse la photo du produit avant de générer
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -17,79 +16,54 @@ module.exports = async function handler(req, res) {
       const GROQ_KEY = process.env.GROK_KEY || '';
       if (!GROQ_KEY) return res.status(500).json({ error: 'GROK_KEY manquante dans Vercel Environment Variables' });
 
-      // ÉTAPE 1 : Si une image est fournie, l'analyser d'abord avec un modèle vision
+      // Analyse image si fournie
       let imageDescription = '';
       if (image && image.startsWith('data:image')) {
         try {
-          console.log('Analyzing product image with vision...');
           const visionRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + GROQ_KEY
-            },
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + GROQ_KEY },
             body: JSON.stringify({
               model: 'meta-llama/llama-4-scout-17b-16e-instruct',
-              max_tokens: 500,
+              max_tokens: 300,
               messages: [{
                 role: 'user',
                 content: [
-                  {
-                    type: 'image_url',
-                    image_url: { url: image }
-                  },
-                  {
-                    type: 'text',
-                    text: 'Décris ce produit en détail : qu\'est-ce que c\'est exactement, comment s\'utilise-t-il (se boit, s\'applique, se porte...), à quoi sert-il, quels problèmes résout-il ? Sois précis et factuel. Réponds en français.'
-                  }
+                  { type: 'image_url', image_url: { url: image } },
+                  { type: 'text', text: 'Décris ce produit en 2-3 phrases : qu\'est-ce que c\'est, comment s\'utilise-t-il (se boit, s\'applique, etc.), à quoi sert-il. Sois factuel et précis. Réponds en français.' }
                 ]
               }]
             })
           });
-
           if (visionRes.ok) {
-            const visionData = await visionRes.json();
-            imageDescription = visionData.choices[0].message.content;
-            console.log('Image analyzed successfully:', imageDescription.substring(0, 100));
-          } else {
-            console.log('Vision model failed, continuing without image analysis');
+            const vd = await visionRes.json();
+            imageDescription = vd.choices[0].message.content;
           }
-        } catch(e) {
-          console.log('Vision error:', e.message);
-        }
+        } catch(e) { console.log('Vision skip:', e.message); }
       }
 
-      // ÉTAPE 2 : Construire le prompt final avec la description de l'image
       const finalPrompt = imageDescription
-        ? `ANALYSE DE LA PHOTO DU PRODUIT:\n${imageDescription}\n\n${prompt}`
+        ? `ANALYSE PHOTO DU PRODUIT:\n${imageDescription}\n\n${prompt}`
         : prompt;
 
-      // ÉTAPE 3 : Générer le contenu marketing avec un modèle texte
-      const textModels = [
-        'llama-3.3-70b-versatile',
-        'llama3-70b-8192',
-        'mixtral-8x7b-32768'
-      ];
-
+      // Modèles texte Groq - du plus rapide au plus puissant
+      const textModels = ['llama-3.3-70b-versatile', 'llama3-70b-8192', 'mixtral-8x7b-32768'];
       let succeeded = false;
 
       for (const model of textModels) {
         try {
-          console.log('Generating content with:', model);
+          console.log('Trying:', model);
           const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + GROQ_KEY
-            },
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + GROQ_KEY },
             body: JSON.stringify({
               model: model,
-              max_tokens: 4000,
+              max_tokens: 8000,  // Augmenté pour éviter la coupure JSON
               temperature: 0.7,
               messages: [
                 {
                   role: 'system',
-                  content: 'Tu es un expert en copywriting et marketing e-commerce africain. Tu génères du contenu marketing de haute qualité en français correct et naturel, adapté au marché africain francophone. Tu réponds UNIQUEMENT en JSON valide, sans texte avant ni après, sans backticks markdown.'
+                  content: 'Tu es un expert en copywriting et marketing e-commerce africain. Tu génères du contenu marketing de haute qualité en français correct et naturel. RÈGLE ABSOLUE: Tu réponds UNIQUEMENT avec un objet JSON valide et complet. Commence directement par { et termine par }. Aucun texte avant ou après. Aucun backtick. Le JSON doit être 100% complet et valide.'
                 },
                 { role: 'user', content: finalPrompt }
               ]
@@ -99,22 +73,33 @@ module.exports = async function handler(req, res) {
           if (response.ok) {
             const data = await response.json();
             rawText = data.choices[0].message.content;
-            console.log('SUCCESS with model:', model);
+            const finishReason = data.choices[0].finish_reason;
+            console.log('Model:', model, '| Finish:', finishReason, '| Length:', rawText.length);
+
+            // Si coupé (finish_reason=length), essayer le modèle suivant
+            if (finishReason === 'length') {
+              console.log('Response truncated, trying next model...');
+              continue;
+            }
             succeeded = true;
             break;
           } else {
             const errText = await response.text();
-            console.log('FAILED model:', model, '| Status:', response.status, '|', errText.substring(0, 150));
+            console.log('FAILED:', model, response.status, errText.substring(0, 150));
           }
         } catch(e) {
-          console.log('ERROR model:', model, '|', e.message);
+          console.log('ERROR:', model, e.message);
         }
       }
 
+      if (!succeeded && rawText) {
+        // On a une réponse mais peut-être coupée - essayer de la réparer
+        console.log('Trying to repair truncated JSON...');
+        succeeded = true; // On essaie quand même de parser
+      }
+
       if (!succeeded) {
-        return res.status(500).json({
-          error: 'Génération échouée. Vérifie ta clé GROK_KEY dans Vercel (elle doit commencer par gsk_).'
-        });
+        return res.status(500).json({ error: 'Génération échouée. Réessaie.' });
       }
 
     } else {
@@ -122,7 +107,6 @@ module.exports = async function handler(req, res) {
       const CLAUDE_KEY = process.env.CLAUDE_KEY || '';
       if (!CLAUDE_KEY) return res.status(500).json({ error: 'CLAUDE_KEY manquante dans Vercel Environment Variables' });
 
-      // Claude supporte aussi la vision
       const messages = [];
       if (image && image.startsWith('data:image')) {
         const mediaType = image.split(';')[0].split(':')[1] || 'image/jpeg';
@@ -146,33 +130,74 @@ module.exports = async function handler(req, res) {
           'anthropic-version': '2023-06-01'
         },
         body: JSON.stringify({
-          model: 'claude-haiku-4-5-20251001',
-          max_tokens: 4000,
+          model: 'claude-sonnet-4-5',
+          max_tokens: 8000,
           messages
         })
       });
 
       if (!response.ok) {
-        return res.status(500).json({ error: 'Erreur Claude: ' + response.status });
+        const err = await response.text();
+        return res.status(500).json({ error: 'Erreur Claude: ' + response.status + ' - ' + err.substring(0, 200) });
       }
       const data = await response.json();
       rawText = data.content[0].text;
     }
 
-    // Nettoyer le JSON
-    const clean = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
+    // Nettoyer et réparer le JSON
+    let clean = rawText
+      .replace(/```json/gi, '')
+      .replace(/```/g, '')
+      .trim();
+
+    // Extraire le JSON si entouré d'autre texte
+    const jsonStart = clean.indexOf('{');
+    const jsonEnd = clean.lastIndexOf('}');
+    if (jsonStart > 0 || jsonEnd < clean.length - 1) {
+      clean = clean.substring(jsonStart, jsonEnd + 1);
+    }
+
     let parsed;
     try {
       parsed = JSON.parse(clean);
     } catch (e) {
-      console.error('JSON parse error. Début:', clean.substring(0, 300));
-      return res.status(500).json({ error: 'Réponse IA invalide. Réessaie.' });
+      console.error('JSON parse error:', e.message);
+      console.error('Raw length:', rawText.length, '| Début:', clean.substring(0, 200));
+
+      // Tentative de réparation : compléter le JSON coupé
+      try {
+        // Compter les accolades ouvertes vs fermées
+        let openBraces = (clean.match(/{/g) || []).length;
+        let closeBraces = (clean.match(/}/g) || []).length;
+        let missingBraces = openBraces - closeBraces;
+
+        // Compter les crochets ouverts vs fermés
+        let openBrackets = (clean.match(/\[/g) || []).length;
+        let closeBrackets = (clean.match(/\]/g) || []).length;
+        let missingBrackets = openBrackets - closeBrackets;
+
+        let repaired = clean;
+        // Fermer les éventuelles chaînes ouvertes
+        if (repaired.match(/"[^"]*$/)) repaired += '"';
+        // Fermer les tableaux manquants
+        for (let i = 0; i < missingBrackets; i++) repaired += ']';
+        // Fermer les objets manquants
+        for (let i = 0; i < missingBraces; i++) repaired += '}';
+
+        parsed = JSON.parse(repaired);
+        console.log('JSON repaired successfully!');
+      } catch(repairErr) {
+        return res.status(500).json({
+          error: 'Réponse IA invalide. Clique sur "Analyser" pour réessayer.',
+          debug: clean.substring(0, 100)
+        });
+      }
     }
 
     return res.status(200).json({ success: true, data: parsed });
 
   } catch (err) {
-    console.error('Erreur:', err.message);
+    console.error('Erreur serveur:', err.message);
     return res.status(500).json({ error: 'Erreur: ' + err.message });
   }
 };
