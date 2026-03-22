@@ -485,8 +485,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
 <script>
 // ══ CONFIG SUPABASE ══
 // Mets ton URL et clé anon Supabase ici (ces deux sont publiques par conception)
-const SUPABASE_URL='https://jrsqomjwiawzbdsolcjq.supabase.co';
-const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impyc3FvbWp3aWF3emJkc29sY2pxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Nzc5NjYsImV4cCI6MjA4OTM1Mzk2Nn0.5n9njd-gv7Ss9k7bWSzMTRNYO8SwdIUP6C9FVa0c6NY';
+const SUPABASE_URL='METS-TON-URL-SUPABASE-ICI';
+const SUPABASE_KEY='METS-TA-CLE-ANON-ICI';
 // GROK_KEY et CLAUDE_KEY sont maintenant côté serveur dans /api/ai.js
 // Tu les mets dans Vercel → Settings → Environment Variables
 // PAS BESOIN de les mettre ici.
@@ -737,9 +737,8 @@ async function callAI(nom,prix,pays,cat,desc,pR,imageBase64=null){
   // Détecter si le produit est mainstream (tout le monde peut l'utiliser)
   const isMainstream = cat === 'Maison & Cuisine' || cat === 'Alimentation' || cat === 'Électronique' || cat === 'Enfants & Bébé' || (desc && (desc.toLowerCase().includes('tout') || desc.toLowerCase().includes('famille') || desc.toLowerCase().includes('homme') && desc.toLowerCase().includes('femme')));
   
-  // Adapter la durée voix off selon la complexité du produit
-  const isComplex = desc && desc.length > 80;
-  const voixDuree = isComplex ? '150-180 mots (environ 60 secondes)' : '100-130 mots (environ 35-45 secondes)';
+  // Voix off toujours courte et minimaliste
+  const voixDuree = '60-80 mots maximum (environ 25-30 secondes)';
 
   const prompt=`Tu es un expert en neuromarketing et e-commerce africain. Tu dois analyser ce produit et générer du contenu marketing qui touche l'ÉMOTION des africains. Réponds UNIQUEMENT en JSON valide, zéro texte ni backticks.
 
@@ -781,6 +780,7 @@ Le score doit refléter la RÉALITÉ du marché africain pour ce produit spécif
 - Un score de 90+ = vraiment exceptionnel, rare
 - Un score de 40-50 = produit risqué, être honnête
 N'invente pas des bons scores pour rassurer. La vérité aide plus.
+BUDGET PUB : Toujours recommander entre 3$ et 7$/jour (jamais en FCFA, jamais plus de 7$/jour pour démarrer). Exemple : "Lance avec 5$/jour pendant 3 jours pour tester."
 
 ═══ OFFRES — ADAPTER AU PRIX ═══
 Prix de vente: ${pR} FCFA
@@ -791,22 +791,25 @@ Toujours dans le neuromarketing : l'offre doit enlever la peur d'acheter.
 
 ═══ VOIX OFF — STRUCTURE OBLIGATOIRE ═══
 Durée cible: ${voixDuree}
-Structure en 5 parties EN UN SEUL PARAGRAPHE FLUIDE (sans labels) :
-1. ACCROCHE (1 phrase) : interpelle immédiatement — une question ou affirmation qui reflète le problème. La personne doit s'identifier en moins de 2 secondes.
-2. PROBLÈME (2-3 phrases) : décris la douleur avec émotion. Le quotidien difficile, la honte, la frustration. Situations africaines concrètes.
-3. SOLUTION (1-2 phrases) : présente le produit naturellement comme LA réponse.
-4. FONCTIONNEMENT (2-3 phrases) : comment ça marche concrètement, bénéfices réels et visibles.
-5. TÉMOIGNAGE (1-2 phrases) : un vrai son de voix africain — naturel, crédible, pas trop parfait.
-6. CTA (1-2 phrases) : urgence réelle + action simple. "Lien dans la bio" ou "Message-nous maintenant".
-Ton : chaleureux, direct, émotionnel. Comme si c'était une amie qui parle à une amie.
-PAS de prix. PAS de noms de pays. PAS de labels visibles dans le texte.
+RÈGLE : Court, simple, direct. Pas de fioritures. Chaque phrase doit être utile.
+Structure EN UN SEUL PARAGRAPHE FLUIDE (sans labels) :
+1. ACCROCHE (1 phrase) : le problème en 1 question ou affirmation. La personne s'identifie en 2 secondes.
+2. DOULEUR (1 phrase) : une situation concrète africaine, courte.
+3. SOLUTION (1 phrase) : le produit comme réponse naturelle.
+4. RÉSULTAT (1 phrase) : ce que ça change concrètement.
+5. CTA (1 phrase) : simple et direct. "Lien dans la bio" ou "Message-nous maintenant".
+Ton : naturel, comme une amie qui parle. PAS de prix. PAS de noms de pays. PAS de labels.
 
 ═══ FACEBOOK ADS ═══
-La première phrase = l'accroche. Elle doit :
-- Nommer le problème EXACT en 1 phrase percutante
-- Provoquer une émotion immédiate (honte, désir, jalousie, espoir)
-- Être si juste que la personne arrête de scroller
-Exemples de style : "Tu souris mais tu caches tes dents depuis 2 ans 😔" / "Ta voisine a changé quelque chose et maintenant tout le monde lui fait des compliments 👀" / "Ça fait combien de temps que tu évites les photos en groupe ?"
+RÈGLE ABSOLUE : Texte court, compact, percutant. Maximum 6-8 lignes en tout.
+Structure obligatoire :
+- Ligne 1 : Accroche choc (1 phrase — le problème EXACT)
+- Ligne 2-3 : Agitation (2 phrases max — la douleur, l'émotion)
+- Ligne 4 : Solution (1 phrase — le produit comme réponse)
+- Ligne 5 : 2-3 bénéfices avec emojis (puces courtes)
+- Ligne 6 : CTA court ("Commande maintenant 👇" ou "Lien dans la bio")
+PAS de longs paragraphes. PAS de répétitions. Chaque mot doit servir.
+Exemples d'accroche : "Tu souris mais tu caches tes dents depuis 2 ans 😔" / "Ta voisine a changé quelque chose et maintenant tout le monde lui fait des compliments 👀"
 
 ═══ AVATAR CLIENT ═══
 PRODUIT MAINSTREAM (${isMainstream ? 'OUI' : 'NON'}) :
@@ -819,7 +822,7 @@ La PHRASE DÉCLENCHANTE doit être 100% cohérente avec CE produit.
 JAMAIS mélanger les domaines.
 
 JSON:
-{"nom_reel":"vrai nom commercial du produit en français","nom_reel_en":"real product name in english","score":75,"score_verdict":"5 mots honnêtes","score_desc":"1 phrase honnête sur le potentiel réel","score_recommandation":"réponse directe et honnête : dois-je lancer ? avec les vraies raisons (avantages ET risques)","criteres":[{"nom":"Popularité en Afrique","score":70,"explication":"réalité du marché","conseil":"action concrète immédiate"},{"nom":"Facilité à marketer","score":80,"explication":"réalité","conseil":"comment"},{"nom":"Concurrence","score":60,"explication":"réalité de la concurrence","conseil":"comment se différencier"},{"nom":"Prix adapté au marché","score":85,"explication":"avis honnête sur le prix","conseil":"conseil prix"},{"nom":"Audience cible","score":75,"explication":"qui achète vraiment","conseil":"comment cibler"},{"nom":"Tendance marché","score":68,"explication":"tendance réelle","conseil":"timing"}],"offres":[{"titre":"offre adaptée au prix ${pR}","desc":"...","icon":"🚚","pour_qui":"...","comment":"...","impact":"...","recommandee":true},{"titre":"...","desc":"...","icon":"📦","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🎁","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🛡️","pour_qui":"...","comment":"...","impact":"...","recommandee":false}],"shopify_titres":["titre accrocheur 1","titre accrocheur 2","titre accrocheur 3"],"shopify_paragraphes":[{"titre":"...","contenu":"3-4 phrases qui vendent la TRANSFORMATION, pas les caractéristiques. Émotionnel, africain, concret."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."}],"fb_ads":[{"angle":"Douleur / Problème","accroche":"1 phrase choc qui nomme le problème EXACT — style africain percutant","texte":"texte complet 150-200 mots avec emojis, commence par accroche, neuromarketing africain"},{"angle":"Preuve Sociale","accroche":"1 phrase témoignage ou résultat réel","texte":"..."},{"angle":"Curiosité / Intrigue","accroche":"1 phrase qui pique la curiosité","texte":"..."}],"voix_off":[{"titre":"Script 1 — Émotionnel","script":"paragraphe fluide ${voixDuree} — structure accroche+problème+solution+fonctionnement+témoignage+CTA. Style africain chaleureux."},{"titre":"Script 2 — Direct & Choc","script":"paragraphe percutant et direct ${voixDuree}"},{"titre":"Script 3 — Storytelling","script":"paragraphe narratif ${voixDuree} — histoire d'une vraie personne africaine avant/après"}],"avatar_principal":{"prenom":"prénom africain varié selon pays et genre","age":"tranche d'âge réelle","sexe":"Homme ou Femme","profession":"profession réelle et courante en Afrique","revenu":"revenu réaliste en FCFA","situation":"situation familiale réelle","ville":"vraie ville du pays cible","en_ligne":"horaires réels","budget_max":"budget max réaliste pour CE produit","description":"2 phrases portrait psychologique réel et précis","motivations":["motivation réelle liée au produit","...","..."],"frustrations":["frustration réelle vécue avant d'acheter","...","..."],"desirs":["désir concret que le produit peut accomplir","...","..."],"langage":["expression typique africaine qu'il/elle utilise vraiment","...","..."],"objections":["vraie objection à l'achat","..."],"reponses":["réponse vendeur efficace","..."],"phrase_declenchante":"phrase 100% cohérente avec CE produit spécifique — jamais hors sujet","reseaux":["...","..."],"tags":["...","...","..."],"face":"👨 ou 👩","bg":"linear-gradient(135deg,couleur1,couleur2)"},"avatar_secondaire":null,"concurrence":{"analyse":"2-3 phrases sur la realite de la concurrence pour ce produit en Afrique","conseil":"conseil stratégique concret pour se différencier"}}`;
+{"nom_reel":"vrai nom commercial du produit en français","nom_reel_en":"real product name in english","score":75,"score_verdict":"5 mots honnêtes","score_desc":"1 phrase honnête sur le potentiel réel","score_recommandation":"réponse directe et honnête : dois-je lancer ? avec les vraies raisons (avantages ET risques)","criteres":[{"nom":"Popularité en Afrique","score":70,"explication":"réalité du marché","conseil":"action concrète immédiate"},{"nom":"Facilité à marketer","score":80,"explication":"réalité","conseil":"comment"},{"nom":"Concurrence","score":60,"explication":"réalité de la concurrence","conseil":"comment se différencier"},{"nom":"Prix adapté au marché","score":85,"explication":"avis honnête sur le prix","conseil":"conseil prix"},{"nom":"Audience cible","score":75,"explication":"qui achète vraiment","conseil":"comment cibler"},{"nom":"Tendance marché","score":68,"explication":"tendance réelle","conseil":"timing"}],"offres":[{"titre":"offre adaptée au prix ${pR}","desc":"...","icon":"🚚","pour_qui":"...","comment":"...","impact":"...","recommandee":true},{"titre":"...","desc":"...","icon":"📦","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🎁","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🛡️","pour_qui":"...","comment":"...","impact":"...","recommandee":false}],"shopify_titres":["titre accrocheur 1","titre accrocheur 2","titre accrocheur 3"],"shopify_paragraphes":[{"titre":"...","contenu":"3-4 phrases qui vendent la TRANSFORMATION, pas les caractéristiques. Émotionnel, africain, concret."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."}],"fb_ads":[{"angle":"Douleur / Problème","accroche":"1 phrase choc qui nomme le problème EXACT — style africain percutant","texte":"texte COURT 6-8 lignes max avec emojis, structure accroche+douleur+solution+bénéfices+CTA"},{"angle":"Preuve Sociale","accroche":"1 phrase témoignage ou résultat réel court","texte":"texte COURT 6-8 lignes max"},{"angle":"Curiosité / Intrigue","accroche":"1 phrase courte qui pique la curiosité","texte":"texte COURT 6-8 lignes max"}],"voix_off":[{"titre":"Script 1 — Émotionnel","script":"paragraphe COURT ${voixDuree} — 5 phrases max, style africain naturel et chaleureux"},{"titre":"Script 2 — Direct & Choc","script":"paragraphe COURT ${voixDuree} — 5 phrases max, direct et percutant"},{"titre":"Script 3 — Storytelling","script":"paragraphe COURT ${voixDuree} — 5 phrases max, mini histoire avant/après"}],"avatar_principal":{"prenom":"prénom africain varié selon pays et genre","age":"tranche d'âge réelle","sexe":"Homme ou Femme","profession":"profession réelle et courante en Afrique","revenu":"revenu réaliste en FCFA","situation":"situation familiale réelle","ville":"vraie ville du pays cible","en_ligne":"horaires réels","budget_max":"budget max réaliste pour CE produit","description":"2 phrases portrait psychologique réel et précis","motivations":["motivation réelle liée au produit","...","..."],"frustrations":["frustration réelle vécue avant d'acheter","...","..."],"desirs":["désir concret que le produit peut accomplir","...","..."],"langage":["expression typique africaine qu'il/elle utilise vraiment","...","..."],"objections":["vraie objection à l'achat","..."],"reponses":["réponse vendeur efficace","..."],"phrase_declenchante":"phrase 100% cohérente avec CE produit spécifique — jamais hors sujet","reseaux":["...","..."],"tags":["...","...","..."],"face":"👨 ou 👩","bg":"linear-gradient(135deg,couleur1,couleur2)"},"avatar_secondaire":null,"concurrence":{"analyse":"2-3 phrases sur la realite de la concurrence pour ce produit en Afrique","conseil":"conseil stratégique concret pour se différencier"}}`;
 
   // Appel sécurisé via /api/ai — les clés restent côté serveur Vercel
   const r=await fetch('/api/ai',{
@@ -940,68 +943,66 @@ function demo(nom,prix,pays,cat,desc,pM,pX,pR,pub,liv,clo,imageBase64){
 // ══ RENDERS ══
 
 // ══ SHOPIFY CONNECTION ══
-S.shopifyStore = S.shopifyStore || localStorage.getItem('eb2_shopify_store') || '';
-S.shopifyToken = S.shopifyToken || localStorage.getItem('eb2_shopify_token') || '';
 S.shopifySelected = S.shopifySelected || {titres:[], paragraphes:[]};
 
 function rShopifyConnect(){
-  const connected = S.shopifyStore && S.shopifyToken;
+  if(!S.results){
+    return `
+    <div class="rh afu"><div><h2>🛍️ Exporter sur Shopify</h2><div class="rp">Crée ton produit en 1 clic</div></div></div>
+    <div class="tip afu2"><div class="tip-i">ℹ️</div><div><h4>Analyse un produit d'abord</h4><p>Lance une analyse depuis le formulaire pour pouvoir exporter sur Shopify.</p></div></div>`;
+  }
+
+  const titres = S.results.shopify_titres || [];
+  const paras = S.results.shopify_paragraphes || [];
+
+  const titreCards = titres.map((t,i)=>{
+    const kt = storeCopy(t);
+    return `
+    <div class="shopify-item" id="sh-t-${i}" onclick="toggleShopifyItemByKey('titre',${i},'${kt}')" style="margin-bottom:.5rem;cursor:pointer">
+      <span class="sh-check" id="sh-check-t-${i}" style="font-size:1.1rem;color:var(--or)">☐</span>
+      <span style="font-size:.85rem;font-weight:600">${t}</span>
+    </div>`;
+  }).join('');
+
+  const paraCards = paras.map((p,i)=>{
+    const kp = storeCopy(`<h3>${p.titre}</h3><p>${p.contenu}</p>`);
+    return `
+    <div class="shopify-item" id="sh-p-${i}" onclick="toggleShopifyItemByKey('para',${i},'${kp}')" style="margin-bottom:.5rem;cursor:pointer">
+      <span class="sh-check" id="sh-check-p-${i}" style="font-size:1.1rem;color:var(--or)">☐</span>
+      <div>
+        <div style="font-size:.82rem;font-weight:700">${p.titre}</div>
+        <div style="font-size:.75rem;color:var(--muted);margin-top:.15rem">${p.contenu.substring(0,80)}...</div>
+      </div>
+    </div>`;
+  }).join('');
+
   return `
-  <div class="rh afu"><div><h2>🛍️ Connecter Shopify</h2><div class="rp">Export en 1 clic vers ta boutique</div></div></div>
+  <div class="rh afu"><div><h2>🛍️ Exporter sur Shopify</h2><div class="rp">${S.product.nom}</div></div></div>
 
-  <div class="shopify-card afu2">
-    <div class="shopify-status ${connected ? 'connected' : 'disconnected'}">
-      ${connected ? '✅ Boutique connectée : '+S.shopifyStore : '⚠️ Aucune boutique connectée'}
-    </div>
-
-    <div class="shopify-form">
-      <div class="fg">
-        <label>URL de ta boutique Shopify</label>
-        <input type="text" id="sh-store" class="fg input" placeholder="ma-boutique.myshopify.com" value="${S.shopifyStore}" style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:.6rem .82rem;color:var(--text);font-family:var(--font);font-size:.84rem;width:100%;outline:none">
-      </div>
-      <div class="fg" style="margin-top:.7rem">
-        <label>Token d'accès Admin Shopify</label>
-        <input type="password" id="sh-token" placeholder="shpat_xxxxxxxxxx" value="${S.shopifyToken}" style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:.6rem .82rem;color:var(--text);font-family:var(--font);font-size:.84rem;width:100%;outline:none">
-      </div>
-      <div class="tip" style="margin-top:.8rem">
-        <div class="tip-i">💡</div>
-        <div>
-          <h4>Comment trouver ton token Shopify</h4>
-          <p>Shopify Admin → Settings → Apps and sales channels → Develop apps → Create app → Configure Admin API → Génère un token. Coche "write_products".</p>
-        </div>
-      </div>
-      <div style="display:flex;gap:.6rem;margin-top:1rem;flex-wrap:wrap">
-        <button class="btng" onclick="saveShopify()" style="flex:1">💾 Connecter la boutique</button>
-        ${connected ? '<button class="cbtn" onclick="disconnectShopify()" style="color:#F87171;border-color:#F87171">🗑️ Déconnecter</button>' : ''}
-      </div>
+  <div class="tip afu2" style="margin-bottom:1.2rem">
+    <div class="tip-i">💡</div>
+    <div>
+      <h4>Comment ça marche</h4>
+      <p>Sélectionne 1 titre + les paragraphes que tu veux → clique "Créer sur Shopify" → le produit est créé automatiquement dans ta boutique en statut brouillon.</p>
     </div>
   </div>
 
-  ${connected && S.results ? `
-  <div class="shopify-export afu3">
-    <div class="section-subtitle">📦 Créer un nouveau produit sur Shopify</div>
-    <p style="font-size:.76rem;color:var(--muted);margin-bottom:1rem">Sélectionne les éléments à exporter puis clique "Créer sur Shopify"</p>
+  <div class="shopify-card afu2">
+    <div class="section-subtitle" style="margin-bottom:.8rem">📝 Choisis un titre</div>
+    ${titreCards}
+  </div>
 
-    <div style="margin-bottom:.8rem">
-      <div class="section-subtitle">Titre du produit</div>
-      ${(S.results.shopify_titres||[]).map((t,i)=>{const kt=storeCopy(t);return`
-        <div class="shopify-item" id="sh-t-${i}" onclick="toggleShopifyItemByKey('titre',${i},'${kt}')" style="margin-bottom:.4rem">
-          <span class="sh-check" id="sh-check-t-${i}">☐</span>
-          <span>${t}</span>
-        </div>`;}).join('')}
-    </div>
+  <div class="shopify-card afu3">
+    <div class="section-subtitle" style="margin-bottom:.8rem">📄 Choisis tes paragraphes (plusieurs possibles)</div>
+    ${paraCards}
+  </div>
 
-    <div style="margin-bottom:.8rem">
-      <div class="section-subtitle">Paragraphes description</div>
-      ${(S.results.shopify_paragraphes||[]).map((p,i)=>{const kp=storeCopy(p.titre+': '+p.contenu);return`
-        <div class="shopify-item" id="sh-p-${i}" onclick="toggleShopifyItemByKey('para',${i},'${kp}')" style="margin-bottom:.4rem">
-          <span class="sh-check" id="sh-check-p-${i}">☐</span>
-          <span><strong>${p.titre}</strong> — ${p.contenu.substring(0,60)}...</span>
-        </div>`;}).join('')}
-    </div>
-
-    <button class="btng" onclick="exportToShopify()" style="margin-top:.5rem">🚀 Créer sur Shopify</button>
-  </div>` : connected ? '<div class="tip"><div class="tip-i">ℹ️</div><div><p>Analyse un produit d\'abord pour pouvoir l\'exporter.</p></div></div>' : ''}`;
+  <div style="margin-top:.5rem" class="afu4">
+    <button class="btng" onclick="exportToShopify()" style="width:100%">
+      🚀 Créer ce produit sur Shopify
+    </button>
+    <p style="font-size:.7rem;color:var(--muted);text-align:center;margin-top:.5rem">Le produit sera créé en brouillon dans ta boutique Nuveria Store</p>
+  </div>`;
 }
 
 function saveShopify(){
@@ -1050,37 +1051,50 @@ function toggleShopifyItem(type, idx, text){
 }
 
 async function exportToShopify(){
-  if(!S.shopifyStore || !S.shopifyToken){ toast('⚠️ Connecte ta boutique d\'abord', false); return; }
   const sel = S.shopifySelected || {titres:[], paragraphes:[]};
-  
-  const titre = sel.titres.length > 0 ? sel.titres[0].text : (S.results?.shopify_titres?.[0] || S.product?.nom || '');
-  const paras = sel.paragraphes.length > 0 ? sel.paragraphes.map(p=>p.text).join('\n\n') : (S.results?.shopify_paragraphes||[]).map(p=>`**${p.titre}**\n${p.contenu}`).join('\n\n');
-  
-  if(!titre){ toast('⚠️ Sélectionne au moins un titre', false); return; }
-  
-  toast('⏳ Envoi vers Shopify...', true);
-  
+
+  // Vérifier qu'un titre est sélectionné
+  if(sel.titres.length === 0){
+    toast('⚠️ Sélectionne au moins un titre', false);
+    return;
+  }
+
+  const titre = sel.titres[0].text;
+  const paras = sel.paragraphes.length > 0
+    ? sel.paragraphes.map(p=>p.text).join('\n\n')
+    : '';
+
+  // Construire la description HTML
+  const bodyHtml = paras
+    ? paras.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>')
+    : '';
+
+  showLov('Création sur Shopify...', 'Le produit est en cours d\'envoi...');
+
   try {
     const r = await fetch('/api/shopify', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-        store: S.shopifyStore,
-        token: S.shopifyToken,
         title: titre,
-        body_html: paras.replace(/\n/g, '<br>'),
+        body_html: bodyHtml,
         price: S.results?.prixReco?.toString() || '0',
         vendor: 'Ecom Booster'
       })
     });
+    hideLov();
     const d = await r.json();
     if(d.success){
       toast('✅ Produit créé sur Shopify !', true);
-      if(d.url) window.open(d.url, '_blank');
+      // Réinitialiser la sélection
+      S.shopifySelected = {titres:[], paragraphes:[]};
+      // Ouvrir le produit dans Shopify
+      if(d.url) setTimeout(()=>window.open(d.url, '_blank'), 800);
     } else {
       toast('❌ ' + (d.error||'Erreur Shopify'), false);
     }
   } catch(e) {
+    hideLov();
     toast('❌ Erreur réseau: ' + e.message, false);
   }
 }
