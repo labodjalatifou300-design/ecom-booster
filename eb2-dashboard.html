@@ -836,7 +836,7 @@ JSON:
 // ══ DEMO ══
 function hashCode(s){let h=0;for(const ch of s)h=((h<<5)-h+ch.charCodeAt(0))|0;return h;}
 
-function demo(nom,prix,pays,cat,desc,pM,pX,pR,pub,liv,clo){
+function demo(nom,prix,pays,cat,desc,pM,pX,pR,pub,liv,clo,imageBase64){
   const isAuto=cat==='Auto & Moto'||desc.toLowerCase().includes('conduit')||desc.toLowerCase().includes('voiture')||desc.toLowerCase().includes('nuit')||desc.toLowerCase().includes('lampe');
   const mainGenre=isAuto?'Homme':'Femme';
   const mainFace=isAuto?'👨':'👩';
@@ -930,7 +930,7 @@ function demo(nom,prix,pays,cat,desc,pM,pX,pR,pub,liv,clo){
       analyse:`Sur le marché de ${pays} et d'Afrique francophone, ${nom} opère dans un secteur avec des vendeurs locaux actifs sur Facebook, mais la plupart manquent de professionnalisme. La demande est bien présente mais sous-exploitée par des acteurs sérieux.`,
       conseil:`Différencie-toi avec une page produit soignée, des témoignages réels et une garantie claire. La confiance est la clé — 90% de tes concurrents ne l'offrent pas.`
     },
-    prixMin:pM,prixMax:pX,prixReco:pR,pub,livraison:liv,closing:clo
+    prixMin:pM,prixMax:pX,prixReco:pR,pub,livraison:liv,closing:clo,nom_reel:nom,nom_reel_en:nom
   };
 }
 
@@ -981,24 +981,24 @@ function rShopifyConnect(){
 
     <div style="margin-bottom:.8rem">
       <div class="section-subtitle">Titre du produit</div>
-      ${(S.results.shopify_titres||[]).map((t,i)=>`
-        <div class="shopify-item" id="sh-t-${i}" onclick="toggleShopifyItem('titre',${i},'${t.replace(/'/g,'\'')}')" style="margin-bottom:.4rem">
+      ${(S.results.shopify_titres||[]).map((t,i)=>{const kt=storeCopy(t);return`
+        <div class="shopify-item" id="sh-t-${i}" onclick="toggleShopifyItemByKey('titre',${i},'${kt}')" style="margin-bottom:.4rem">
           <span class="sh-check" id="sh-check-t-${i}">☐</span>
           <span>${t}</span>
-        </div>`).join('')}
+        </div>`;}).join('')}
     </div>
 
     <div style="margin-bottom:.8rem">
       <div class="section-subtitle">Paragraphes description</div>
-      ${(S.results.shopify_paragraphes||[]).map((p,i)=>`
-        <div class="shopify-item" id="sh-p-${i}" onclick="toggleShopifyItem('para',${i},\`${p.titre}: ${p.contenu}\`)" style="margin-bottom:.4rem">
+      ${(S.results.shopify_paragraphes||[]).map((p,i)=>{const kp=storeCopy(p.titre+': '+p.contenu);return`
+        <div class="shopify-item" id="sh-p-${i}" onclick="toggleShopifyItemByKey('para',${i},'${kp}')" style="margin-bottom:.4rem">
           <span class="sh-check" id="sh-check-p-${i}">☐</span>
           <span><strong>${p.titre}</strong> — ${p.contenu.substring(0,60)}...</span>
-        </div>`).join('')}
+        </div>`;}).join('')}
     </div>
 
     <button class="btng" onclick="exportToShopify()" style="margin-top:.5rem">🚀 Créer sur Shopify</button>
-  </div>` : connected ? '<div class="tip"><div class="tip-i">ℹ️</div><div><p>Analyse un produit d'abord pour pouvoir l'exporter.</p></div></div>' : ''}`;
+  </div>` : connected ? '<div class="tip"><div class="tip-i">ℹ️</div><div><p>Analyse un produit d\'abord pour pouvoir l\'exporter.</p></div></div>' : ''}`;
 }
 
 function saveShopify(){
@@ -1019,6 +1019,11 @@ function disconnectShopify(){
   localStorage.removeItem('eb2_shopify_token');
   showPage('shopify_connect');
   toast('🗑️ Boutique déconnectée', true);
+}
+
+function toggleShopifyItemByKey(type, idx, key){
+  const text = S.copyStore[key] || '';
+  toggleShopifyItem(type, idx, text);
 }
 
 function toggleShopifyItem(type, idx, text){
@@ -1042,7 +1047,7 @@ function toggleShopifyItem(type, idx, text){
 }
 
 async function exportToShopify(){
-  if(!S.shopifyStore || !S.shopifyToken){ toast('⚠️ Connecte ta boutique d'abord', false); return; }
+  if(!S.shopifyStore || !S.shopifyToken){ toast('⚠️ Connecte ta boutique d\'abord', false); return; }
   const sel = S.shopifySelected || {titres:[], paragraphes:[]};
   
   const titre = sel.titres.length > 0 ? sel.titres[0].text : (S.results?.shopify_titres?.[0] || S.product?.nom || '');
@@ -1386,25 +1391,6 @@ function rConc(){
   </div>`;
 }
 
-function rImages(){
-  const p=S.product;const q=encodeURIComponent(p?.nom||'');
-  const srcs=[
-    {n:'Pinterest',ic:'📌',u:`https://www.pinterest.com/search/pins/?q=${q}`,cls:'bbl-pt',sub:'Photos produit'},
-    {n:'Google Images',ic:'🔎',u:`https://www.google.com/search?tbm=isch&q=${q}`,cls:'bbl-gg',sub:'Toutes images'},
-    {n:'AliExpress',ic:'🏷️',u:`https://www.aliexpress.com/wholesale?SearchText=${q}`,cls:'bbl-al',sub:'Fournisseur'},
-    {n:'Alibaba',ic:'🏭',u:`https://www.alibaba.com/trade/search?SearchText=${q}`,cls:'bbl-al',sub:'Grossiste'},
-    {n:'Temu',ic:'🛍️',u:`https://www.temu.com/search_result.html?search_key=${q}`,cls:'bbl-tm',sub:'Marketplace'},
-    {n:'Amazon',ic:'📦',u:`https://www.amazon.fr/s?k=${q}`,cls:'bbl-am',sub:'E-commerce'},
-    {n:'Jumia',ic:'🛒',u:`https://www.jumia.com.gh/catalog/?q=${q}`,cls:'bbl-ju',sub:'Afrique'},
-    {n:'Pexels',ic:'🖼️',u:`https://www.pexels.com/search/${q}/`,cls:'bbl-gg',sub:'Libres droits'},
-    {n:'Unsplash',ic:'✨',u:`https://unsplash.com/s/photos/${q}`,cls:'bbl-gg',sub:'Haute qualité'},
-  ].map((s,i)=>`<a class="bbl ${s.cls}" href="${s.u}" target="_blank" style="animation-delay:${i*.07}s"><span class="bico">${s.ic}</span><span class="bname">${s.n}</span><span class="bsub">${s.sub}</span></a>`).join('');
-  return`<div class="rh afu"><div><h2>🖼️ Images</h2><div class="rp">${p?.nom||''}</div></div></div>
-  <p style="font-size:.76rem;color:var(--muted);margin-bottom:1rem">Clique sur une plateforme pour trouver des images de "<strong style="color:var(--text)">${p?.nom||''}</strong>"</p>
-  <div class="bubble-grid">${srcs}</div>
-  <div class="tip" style="margin-top:1.2rem"><div class="tip-i">💡</div><div><h4>Conseil images créatives</h4><p>Mix idéal : <strong style="color:var(--text)">fond blanc</strong> (AliExpress/Alibaba) + <strong style="color:var(--text)">personne qui utilise</strong> (Pinterest/Google). Ce mix "produit + personne" convertit mieux que les photos produit seules.</p></div></div>`;
-}
-
 function rVideos(){
   const p=S.product;
   const nomReel = S.results?.nom_reel || p?.nom || '';
@@ -1507,7 +1493,7 @@ async function genImage(type, extraData={}) {
 }
 
 function modifyImage(type, imageUrl) {
-  const prompt = prompt('Dis à l\'IA comment modifier cette image :\n(ex: "change le fond en doré", "ajoute un texte NOUVEAU en haut")');
+  const modPrompt = window.prompt('Dis à l\'IA comment modifier cette image :\n(ex: "change le fond en doré", "ajoute un texte NOUVEAU en haut")');
   if(!modPrompt) return;
   genImage('modify', { imageUrl, modifyPrompt: modPrompt + ' for product ' + (S.product?.nom || '') });
 }
