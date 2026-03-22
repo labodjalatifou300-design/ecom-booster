@@ -335,6 +335,62 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
 .av3-3cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;}
 .av3-col-title{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:.6rem;}
 @media(max-width:640px){.av3-grid{grid-template-columns:1fr;}.av3-3cols{grid-template-columns:1fr;}}
+
+/* ── IMAGES IA ── */
+.img-ai-section{background:var(--bg2);border:1px solid var(--bd);border-radius:14px;padding:1.3rem;margin-bottom:.85rem;}
+.img-ai-title{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--or);margin-bottom:.3rem;}
+.img-ai-subtitle{font-size:.75rem;color:var(--muted);margin-bottom:1rem;}
+.img-gen-grid{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;}
+.img-gen-card{background:var(--bg3);border:1px solid var(--bd);border-radius:12px;padding:1rem;animation:fadeUp .38s ease both;}
+.img-gen-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.75rem;}
+.img-gen-label{font-size:.84rem;font-weight:700;}
+.img-gen-desc{font-size:.7rem;color:var(--muted);margin-top:.1rem;}
+.img-gen-preview{min-height:140px;background:var(--bg2);border-radius:9px;border:1px dashed var(--bd2);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.img-gen-empty{text-align:center;font-size:.75rem;color:var(--muted);padding:1rem;}
+.btn-gen{background:linear-gradient(135deg,var(--or),#FF8C42);color:#fff;border:none;border-radius:8px;padding:.4rem .85rem;font-size:.74rem;font-weight:700;cursor:pointer;font-family:var(--font);transition:transform .18s,opacity .18s;white-space:nowrap;}
+.btn-gen:hover{transform:translateY(-1px);opacity:.9;}
+.btn-gen:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+@media(max-width:640px){.img-gen-grid{grid-template-columns:1fr;}}
+
+/* ── COMPTABILITÉ ── */
+.compta-wrap{background:#F8F9FF;border-radius:18px;padding:1.5rem;min-height:100%;}
+.compta-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.3rem;flex-wrap:wrap;gap:.5rem;}
+.compta-header h2{color:#1a1a2e;}
+.compta-date{font-size:.78rem;font-weight:600;color:#6B7280;background:#E5E7EB;padding:.35rem .8rem;border-radius:20px;}
+.compta-form-card{background:#fff;border-radius:14px;padding:1.3rem;margin-bottom:1rem;box-shadow:0 2px 12px rgba(0,0,0,.06);}
+.compta-form-title{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#6B7280;margin-bottom:.9rem;}
+.compta-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin-bottom:1rem;}
+.compta-field label{display:block;font-size:.68rem;font-weight:600;color:#6B7280;margin-bottom:.3rem;}
+.compta-input{width:100%;border:1.5px solid #E5E7EB;border-radius:8px;padding:.58rem .8rem;font-size:.84rem;font-family:var(--font);outline:none;transition:border-color .2s;background:#F9FAFB;color:#1a1a2e;}
+.compta-input:focus{border-color:#6366F1;background:#fff;}
+.compta-btn{background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;border:none;border-radius:9px;padding:.72rem 1.4rem;font-size:.86rem;font-weight:700;cursor:pointer;font-family:var(--font);transition:transform .18s;box-shadow:0 4px 15px rgba(99,102,241,.3);}
+.compta-btn:hover{transform:translateY(-1px);}
+.compta-btn-sec{background:#F3F4F6;color:#374151;border:1.5px solid #E5E7EB;border-radius:9px;padding:.6rem 1.2rem;font-size:.82rem;font-weight:600;cursor:pointer;font-family:var(--font);}
+.compta-btn-danger{background:#FEF2F2;color:#EF4444;border:1.5px solid #FECACA;border-radius:9px;padding:.6rem 1.2rem;font-size:.82rem;font-weight:600;cursor:pointer;font-family:var(--font);}
+.cr-result{background:#fff;border-radius:14px;padding:1.3rem;margin-bottom:1rem;border:2px solid;box-shadow:0 2px 12px rgba(0,0,0,.06);}
+.cr-badge{display:inline-block;font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:999px;margin-bottom:.8rem;}
+.cr-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
+.cr-stat{background:#F9FAFB;border-radius:10px;padding:.8rem;}
+.cr-sl{font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:#9CA3AF;margin-bottom:.25rem;}
+.cr-sv{font-size:1.1rem;font-weight:900;}
+.compta-chart-card{background:#fff;border-radius:14px;padding:1.3rem;margin-bottom:1rem;box-shadow:0 2px 12px rgba(0,0,0,.06);}
+.cbar-chart{display:flex;align-items:flex-end;gap:.5rem;height:120px;padding-top:1.5rem;position:relative;}
+.cbar-col{display:flex;flex-direction:column;align-items:center;flex:1;gap:.3rem;}
+.cbar-val{font-size:.6rem;font-weight:700;color:#374151;}
+.cbar{width:100%;border-radius:4px 4px 0 0;min-height:4px;transition:height .5s ease;}
+.cbar-date{font-size:.58rem;color:#9CA3AF;white-space:nowrap;}
+.compta-gsheet-card{background:#fff;border-radius:14px;padding:1.3rem;box-shadow:0 2px 12px rgba(0,0,0,.06);}
+@media(max-width:640px){.compta-grid{grid-template-columns:1fr 1fr;}.cr-grid{grid-template-columns:1fr;}}
+
+/* ── SHOPIFY ── */
+.shopify-card{background:var(--bg2);border:1px solid var(--bd);border-radius:14px;padding:1.3rem;margin-bottom:1rem;}
+.shopify-status{font-size:.8rem;font-weight:700;padding:.5rem .9rem;border-radius:8px;margin-bottom:1rem;}
+.shopify-status.connected{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2);}
+.shopify-status.disconnected{background:rgba(239,68,68,.07);color:#F87171;border:1px solid rgba(239,68,68,.15);}
+.shopify-export{background:var(--bg2);border:1px solid var(--bd);border-radius:14px;padding:1.3rem;margin-top:.8rem;}
+.shopify-item{background:var(--bg3);border:1px solid var(--bd);border-radius:9px;padding:.65rem .9rem;cursor:pointer;transition:border-color .2s;display:flex;align-items:flex-start;gap:.6rem;font-size:.8rem;}
+.shopify-item:hover{border-color:var(--bd2);}
+.sh-check{font-size:1rem;flex-shrink:0;color:var(--or);}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -379,6 +435,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
     </div>
     <div style="padding:.3rem 0">
       <div class="nlbl">Compte</div>
+      <div class="ni" id="nav-shopify-connect" onclick="showPage('shopify_connect');closeSidebar()"><span class="ico">🛍️</span>Connecter Shopify</div>
+      <div class="ni" id="nav-comptabilite" onclick="showPage('comptabilite');closeSidebar()"><span class="ico">📈</span>Comptabilité</div>
       <div class="ni" id="nav-historique" onclick="showPage('historique');closeSidebar()"><span class="ico">📊</span>Historique<span class="nbadge" id="hcount">3</span></div>
     </div>
   </div>
@@ -511,20 +569,27 @@ const S={product:null,results:null,imgs:[],apiMode:'claude',
 
 const PAYS=['Togo','Bénin','Burkina Faso',"Côte d'Ivoire",'Guinée','Guinée-Bissau','Mali','Mauritanie','Niger','Sénégal','Cameroun','Congo (Brazzaville)','RD Congo','Gabon','République Centrafricaine','Tchad','Rwanda','Burundi','Djibouti','Comores','Madagascar','Maurice','Seychelles'];
 const ALL_PAYS_FB=[
-  {pays:'Togo',code:'TG',flag:'🇹🇬'},{pays:"Côte d'Ivoire",code:'CI',flag:'🇨🇮'},
-  {pays:'Sénégal',code:'SN',flag:'🇸🇳'},{pays:'Cameroun',code:'CM',flag:'🇨🇲'},
-  {pays:'Bénin',code:'BJ',flag:'🇧🇯'},{pays:'Burkina Faso',code:'BF',flag:'🇧🇫'},
-  {pays:'Mali',code:'ML',flag:'🇲🇱'},{pays:'Guinée',code:'GN',flag:'🇬🇳'},
-  {pays:'Niger',code:'NE',flag:'🇳🇪'},{pays:'Gabon',code:'GA',flag:'🇬🇦'},
-  {pays:'Congo',code:'CG',flag:'🇨🇬'},{pays:'RD Congo',code:'CD',flag:'🇨🇩'},
-  {pays:'Tchad',code:'TD',flag:'🇹🇩'},{pays:'Centrafrique',code:'CF',flag:'🇨🇫'},
-  {pays:'Madagascar',code:'MG',flag:'🇲🇬'},{pays:'Burundi',code:'BI',flag:'🇧🇮'},
-  {pays:'Rwanda',code:'RW',flag:'🇷🇼'},{pays:'Djibouti',code:'DJ',flag:'🇩🇯'},
-  {pays:'Comores',code:'KM',flag:'🇰🇲'},{pays:'Mauritanie',code:'MR',flag:'🇲🇷'},
-  {pays:'Guinée-Bissau',code:'GW',flag:'🇬🇼'},{pays:'Maurice',code:'MU',flag:'🇲🇺'},
-  {pays:'France',code:'FR',flag:'🇫🇷'},{pays:'Monde entier',code:'ALL',flag:'🌍'},
+  // ── PAYS FRANCOPHONES ──
+  {pays:'Togo',code:'TG',flag:'🇹🇬',lang:'fr'},{pays:"Côte d'Ivoire",code:'CI',flag:'🇨🇮',lang:'fr'},
+  {pays:'Sénégal',code:'SN',flag:'🇸🇳',lang:'fr'},{pays:'Cameroun',code:'CM',flag:'🇨🇲',lang:'fr'},
+  {pays:'Bénin',code:'BJ',flag:'🇧🇯',lang:'fr'},{pays:'Burkina Faso',code:'BF',flag:'🇧🇫',lang:'fr'},
+  {pays:'Mali',code:'ML',flag:'🇲🇱',lang:'fr'},{pays:'Guinée',code:'GN',flag:'🇬🇳',lang:'fr'},
+  {pays:'Niger',code:'NE',flag:'🇳🇪',lang:'fr'},{pays:'Gabon',code:'GA',flag:'🇬🇦',lang:'fr'},
+  {pays:'Congo',code:'CG',flag:'🇨🇬',lang:'fr'},{pays:'RD Congo',code:'CD',flag:'🇨🇩',lang:'fr'},
+  {pays:'Tchad',code:'TD',flag:'🇹🇩',lang:'fr'},{pays:'Centrafrique',code:'CF',flag:'🇨🇫',lang:'fr'},
+  {pays:'Madagascar',code:'MG',flag:'🇲🇬',lang:'fr'},{pays:'Burundi',code:'BI',flag:'🇧🇮',lang:'fr'},
+  {pays:'Rwanda',code:'RW',flag:'🇷🇼',lang:'fr'},{pays:'Djibouti',code:'DJ',flag:'🇩🇯',lang:'fr'},
+  {pays:'Comores',code:'KM',flag:'🇰🇲',lang:'fr'},{pays:'Maurice',code:'MU',flag:'🇲🇺',lang:'fr'},
+  {pays:'Guinée-Bissau',code:'GW',flag:'🇬🇼',lang:'fr'},{pays:'Mauritanie',code:'MR',flag:'🇲🇷',lang:'fr'},
+  {pays:'France',code:'FR',flag:'🇫🇷',lang:'fr'},{pays:'Monde entier FR',code:'ALL',flag:'🌍',lang:'fr'},
+  // ── PAYS ANGLOPHONES ──
+  {pays:'Nigeria 🇬🇧',code:'NG',flag:'🇳🇬',lang:'en'},{pays:'Ghana 🇬🇧',code:'GH',flag:'🇬🇭',lang:'en'},
+  {pays:'Kenya 🇬🇧',code:'KE',flag:'🇰🇪',lang:'en'},{pays:'South Africa 🇬🇧',code:'ZA',flag:'🇿🇦',lang:'en'},
+  {pays:'Tanzania 🇬🇧',code:'TZ',flag:'🇹🇿',lang:'en'},{pays:'Uganda 🇬🇧',code:'UG',flag:'🇺🇬',lang:'en'},
+  {pays:'Ethiopia 🇬🇧',code:'ET',flag:'🇪🇹',lang:'en'},{pays:'Zambia 🇬🇧',code:'ZM',flag:'🇿🇲',lang:'en'},
+  {pays:'World EN 🇬🇧',code:'ALL',flag:'🌍',lang:'en'},
 ];
-const TITLES={form:'Nouveau Produit',prix:'Prix & Gains',score:'Score Produit',offres:'Offres',shopify:'Page Shopify',facebook:'Facebook Ads',voixoff:'Voix Off',avatar:'Avatar Client',concurrence:'Concurrence',images:'Images',videos:'Vidéos',historique:'Historique'};
+const TITLES={form:'Nouveau Produit',prix:'Prix & Gains',score:'Score Produit',offres:'Offres',shopify:'Page Shopify',facebook:'Facebook Ads',voixoff:'Voix Off',avatar:'Avatar Client',concurrence:'Concurrence',images:'Images',videos:'Vidéos',historique:'Historique',comptabilite:'Comptabilité',shopify_connect:'Connecter Shopify'};
 
 // ══ MOBILE NAV ══
 function openSidebar(){document.getElementById('sb').classList.add('open');document.getElementById('overlay').classList.add('show');}
@@ -549,7 +614,7 @@ function showPage(p){
   else tp.style.display='none';
   const rs={form:rForm,prix:rPrix,score:rScore,offres:rOffres,shopify:rShopify,
     facebook:rFacebook,voixoff:rVoixOff,avatar:rAvatar,concurrence:rConc,
-    images:rImages,videos:rVideos,historique:rHist};
+    images:rImages,videos:rVideos,historique:rHist,comptabilite:rCompta,shopify_connect:rShopifyConnect};
   const c=document.getElementById('content');
   c.innerHTML=rs[p]?rs[p]():'';
   c.scrollTop=0;
@@ -666,34 +731,92 @@ async function analyze(){
 
 // ══ API ══
 async function callAI(nom,prix,pays,cat,desc,pR,imageBase64=null){
-  const prompt=`Tu es un expert en copywriting et marketing e-commerce africain. Génère du contenu marketing de haute qualité. Réponds UNIQUEMENT en JSON valide, zéro texte ni backticks.
+  // Détecter si le produit est mainstream (tout le monde peut l'utiliser)
+  const isMainstream = cat === 'Maison & Cuisine' || cat === 'Alimentation' || cat === 'Électronique' || cat === 'Enfants & Bébé' || (desc && (desc.toLowerCase().includes('tout') || desc.toLowerCase().includes('famille') || desc.toLowerCase().includes('homme') && desc.toLowerCase().includes('femme')));
+  
+  // Adapter la durée voix off selon la complexité du produit
+  const isComplex = desc && desc.length > 80;
+  const voixDuree = isComplex ? '150-180 mots (environ 60 secondes)' : '100-130 mots (environ 35-45 secondes)';
+
+  const prompt=`Tu es un expert en neuromarketing et e-commerce africain. Tu dois analyser ce produit et générer du contenu marketing qui touche l'ÉMOTION des africains. Réponds UNIQUEMENT en JSON valide, zéro texte ni backticks.
 
 PRODUIT: ${nom}
-DESCRIPTION DU PRODUIT: ${desc}
-PRIX ACHAT: ${prix} FCFA | PAYS: ${pays} | CATÉGORIE: ${cat}
-PRIX VENTE RECOMMANDÉ: ${pR} FCFA
+DESCRIPTION: ${desc}
+PRIX ACHAT: ${prix} FCFA | PRIX VENTE: ${pR} FCFA | PAYS: ${pays} | CATÉGORIE: ${cat}
+PRODUIT MAINSTREAM: ${isMainstream ? 'OUI — hommes ET femmes peuvent l\'acheter' : 'NON — cible spécifique'}
 
-RÈGLES ABSOLUES À RESPECTER:
-1. Lis attentivement la DESCRIPTION pour comprendre CE QU'EST ce produit et COMMENT il s'utilise
-2. Si c'est une boisson → on la BOIT (ne jamais dire "appliquer"). Si c'est une crème → on l'applique. Toujours respecter le vrai mode d'utilisation.
-3. Le problème que tu cites = le vrai problème que résout ce produit (déduit de la description)
-4. Ne jamais mettre le NOM du produit là où doit être le problème
-5. Tout le contenu doit être en français naturel et correct, adapté à l'Afrique francophone
+═══ ÉTAPE 1 — IDENTIFIER LE VRAI PRODUIT ═══
+Avant tout, identifie le vrai nom commercial de ce produit à partir du nom et de la description.
+- Si c'est une poudre dentaire → nom réel = poudre de blanchiment dentaire / dental powder
+- Si c'est Beauty Milk → c'est une boisson lactée à boire pour la peau
+- Si le nom donné n'est pas clair → trouve le vrai nom et travaille avec
+Stocke ce vrai nom dans "nom_reel" et "nom_reel_en" (en anglais) dans le JSON.
 
-IMPORTANT pour l'avatar: détecte le genre principal concerné par CE produit spécifique. Si le produit est plutôt masculin, génère un avatar homme en premier. Si féminin, une femme. Si mixte (mainstream), génère les deux.
-IMPORTANT pour voix off: Chaque script doit suivre EXACTEMENT cette structure en UN SEUL paragraphe de 120-150 mots minimum :
-1. PROBLÈME (2-3 phrases): cite le problème précis et douloureux que le client vit, avec émotion
-2. SOLUTION (1-2 phrases): présente le produit comme LA solution
-3. FONCTIONNEMENT (2-3 phrases): explique comment le produit agit concrètement, les bénéfices réels
-4. TÉMOIGNAGE (1-2 phrases): un micro-témoignage client naturel et crédible
-5. APPEL À L'ACTION (1-2 phrases): urgence et lien dans la bio
-Le tout doit être fluide, naturel, sans labels visibles. PAS de prix ni de noms de pays. Minimum 120 mots par script.
-IMPORTANT pour facebook ads: L'accroche doit nommer le problème EXACT (ex: "Tu as des boutons et des imperfections..." ou "Tu souffres de douleurs de genou..."). Jamais de formules vagues. Écris en français naturel et accrocheur avec des emojis. Le texte doit donner envie d'acheter maintenant.
+═══ ÉTAPE 2 — IDENTIFIER LES VRAIES FRUSTRATIONS ═══
+Base-toi sur ce que les vrais clients africains disent de ce type de produit :
+- Quels problèmes concrets ils vivent AVANT d'acheter
+- Ce qui les empêche de dormir la nuit
+- Ce qui les rend complexés ou frustrés dans leur quotidien
+- Ce qu'ils ont essayé avant sans succès
+Ces frustrations réelles serviront pour TOUT le contenu.
+
+═══ RÈGLES DE STYLE AFRICAIN OBLIGATOIRES ═══
+1. Parle comme un vendeur africain qui connaît SA clientèle — pas comme une pub européenne
+2. Situations du quotidien africain : la belle-mère, les voisines, les collègues du bureau, le marché
+3. Humour, pique l'ego ou la jalousie quand c'est approprié
+4. Tutoiement direct et chaleureux
+5. Phrases courtes, percutantes — le cerveau africain défile vite
+6. VENDS LA TRANSFORMATION, pas le produit. VENDS LE DÉSIR, pas les caractéristiques.
+7. Jamais de français corporate ou publicitaire européen
+8. Ne JAMAIS mettre le nom du produit là où doit être le problème
+
+═══ SCORE — SOIS HONNÊTE ═══
+Le score doit refléter la RÉALITÉ du marché africain pour ce produit spécifique.
+- Si la concurrence est forte → score bas sur ce critère, dis-le clairement
+- Si le produit est cher pour le marché → dis-le
+- Si le produit est difficile à marketer → dis-le
+- Un score de 90+ = vraiment exceptionnel, rare
+- Un score de 40-50 = produit risqué, être honnête
+N'invente pas des bons scores pour rassurer. La vérité aide plus.
+
+═══ OFFRES — ADAPTER AU PRIX ═══
+Prix de vente: ${pR} FCFA
+- Si prix > 10 000 FCFA → PAS de "pack 2+1" (trop cher). Propose : garantie satisfait ou remboursé, paiement en 2 fois, cadeau surprise, consultation gratuite...
+- Si prix < 5 000 FCFA → les packs et bundles marchent bien
+- Si prix entre 5 000-10 000 FCFA → offre de fidélité, bonus livraison, cadeau
+Toujours dans le neuromarketing : l'offre doit enlever la peur d'acheter.
+
+═══ VOIX OFF — STRUCTURE OBLIGATOIRE ═══
+Durée cible: ${voixDuree}
+Structure en 5 parties EN UN SEUL PARAGRAPHE FLUIDE (sans labels) :
+1. ACCROCHE (1 phrase) : interpelle immédiatement — une question ou affirmation qui reflète le problème. La personne doit s'identifier en moins de 2 secondes.
+2. PROBLÈME (2-3 phrases) : décris la douleur avec émotion. Le quotidien difficile, la honte, la frustration. Situations africaines concrètes.
+3. SOLUTION (1-2 phrases) : présente le produit naturellement comme LA réponse.
+4. FONCTIONNEMENT (2-3 phrases) : comment ça marche concrètement, bénéfices réels et visibles.
+5. TÉMOIGNAGE (1-2 phrases) : un vrai son de voix africain — naturel, crédible, pas trop parfait.
+6. CTA (1-2 phrases) : urgence réelle + action simple. "Lien dans la bio" ou "Message-nous maintenant".
+Ton : chaleureux, direct, émotionnel. Comme si c'était une amie qui parle à une amie.
+PAS de prix. PAS de noms de pays. PAS de labels visibles dans le texte.
+
+═══ FACEBOOK ADS ═══
+La première phrase = l'accroche. Elle doit :
+- Nommer le problème EXACT en 1 phrase percutante
+- Provoquer une émotion immédiate (honte, désir, jalousie, espoir)
+- Être si juste que la personne arrête de scroller
+Exemples de style : "Tu souris mais tu caches tes dents depuis 2 ans 😔" / "Ta voisine a changé quelque chose et maintenant tout le monde lui fait des compliments 👀" / "Ça fait combien de temps que tu évites les photos en groupe ?"
+
+═══ AVATAR CLIENT ═══
+PRODUIT MAINSTREAM (${isMainstream ? 'OUI' : 'NON'}) :
+${isMainstream ? '→ Génère DEUX avatars distincts : un homme ET une femme. avatar_secondaire OBLIGATOIRE rempli.' : '→ Un seul avatar adapté au genre du produit. avatar_secondaire = null.'}
+
+La PHRASE DÉCLENCHANTE doit être 100% cohérente avec CE produit.
+- Poudre dentaire → parler des dents, sourire, confiance
+- Boisson beauté → parler de la peau, éclat, compliments
+- Produit sport → parler de performance, corps, énergie
+JAMAIS mélanger les domaines.
 
 JSON:
-{"score":75,"score_verdict":"5 mots","score_desc":"1 phrase","score_recommandation":"dois-je lancer ce produit ? réponse directe avec raison","criteres":[{"nom":"Popularité en Afrique","score":70,"explication":"pourquoi","conseil":"action concrète"},{"nom":"Facilité à marketer","score":80,"explication":"pourquoi","conseil":"comment"},{"nom":"Concurrence faible","score":60,"explication":"pourquoi","conseil":"stratégie"},{"nom":"Prix abordable","score":85,"explication":"pourquoi","conseil":"conseil prix"},{"nom":"Audience large","score":75,"explication":"pourquoi","conseil":"segmentation"},{"nom":"Tendance actuelle","score":68,"explication":"pourquoi","conseil":"timing"}],"offres":[{"titre":"...","desc":"...","icon":"🚚","pour_qui":"...","comment":"...","impact":"...","recommandee":true},{"titre":"...","desc":"...","icon":"📦","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🎁","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🛡️","pour_qui":"...","comment":"...","impact":"...","recommandee":false}],"shopify_titres":["t1","t2","t3"],"shopify_paragraphes":[{"titre":"...","contenu":"3 phrases CONCRÈTES sur les bénéfices RÉELS du produit (pas les caractéristiques). Utilise des mots émotionnels. En français naturel et correct."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."}],"fb_ads":[{"angle":"Douleur / Problème","accroche":"première phrase sur le problème PRÉCIS du produit","texte":"texte complet avec emojis, commence par accroche"},{"angle":"Preuve Sociale","accroche":"première phrase témoignages/résultats","texte":"..."},{"angle":"Curiosité / Intrigue","accroche":"première phrase mystérieuse","texte":"..."}],"voix_off":[{"titre":"Script 1 — Émotionnel","script":"paragraphe fluide unique 80-100 mots, cite le problème précis, sans prix ni pays"},{"titre":"Script 2 — Direct & Choc","script":"paragraphe unique 60-70 mots, percutant, sans prix ni pays"},{"titre":"Script 3 — Storytelling","script":"paragraphe narratif unique 90-110 mots, histoire, sans prix ni pays"}],"avatar_principal":{"prenom":"prénom VARIÉ adapté au genre et pays (jamais Ama ni Aminata)","age":"tranche d'âge","sexe":"Homme ou Femme","profession":"profession précise","revenu":"revenu en FCFA","situation":"état civil et famille","ville":"ville type du pays cible","en_ligne":"horaires en ligne typiques","budget_max":"budget max en FCFA","description":"2 phrases portrait psychologique","motivations":["motiv1","motiv2","motiv3"],"frustrations":["frustration liée au problème du produit","frustration2","frustration3"],"desirs":["désir1 lié au bénéfice produit","désir2","désir3"],"langage":["expression typique qu'elle utilise","expression2","expression3"],"objections":["objection1 à l'achat","objection2"],"reponses":["réponse vendeur à objection1","réponse à objection2"],"phrase_declenchante":"phrase marketing percutante pour ce persona spécifique","reseaux":["réseau1","réseau2","réseau3"],"tags":["tag1","tag2","tag3"],"face":"👨 ou 👩 ou 🧑","bg":"linear-gradient(135deg,couleur1,couleur2) — couleurs variées"},"avatar_secondaire":null,"concurrence":{"analyse":"2-3 phrases","conseil":"conseil court"}}
-
-Note: avatar_secondaire doit être rempli (même structure qu'avatar_principal) uniquement si le produit est clairement mainstream/mixte. Sinon laisse null.`;
+{"nom_reel":"vrai nom commercial du produit en français","nom_reel_en":"real product name in english","score":75,"score_verdict":"5 mots honnêtes","score_desc":"1 phrase honnête sur le potentiel réel","score_recommandation":"réponse directe et honnête : dois-je lancer ? avec les vraies raisons (avantages ET risques)","criteres":[{"nom":"Popularité en Afrique","score":70,"explication":"réalité du marché","conseil":"action concrète immédiate"},{"nom":"Facilité à marketer","score":80,"explication":"réalité","conseil":"comment"},{"nom":"Concurrence","score":60,"explication":"réalité de la concurrence","conseil":"comment se différencier"},{"nom":"Prix adapté au marché","score":85,"explication":"avis honnête sur le prix","conseil":"conseil prix"},{"nom":"Audience cible","score":75,"explication":"qui achète vraiment","conseil":"comment cibler"},{"nom":"Tendance marché","score":68,"explication":"tendance réelle","conseil":"timing"}],"offres":[{"titre":"offre adaptée au prix ${pR}","desc":"...","icon":"🚚","pour_qui":"...","comment":"...","impact":"...","recommandee":true},{"titre":"...","desc":"...","icon":"📦","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🎁","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🛡️","pour_qui":"...","comment":"...","impact":"...","recommandee":false}],"shopify_titres":["titre accrocheur 1","titre accrocheur 2","titre accrocheur 3"],"shopify_paragraphes":[{"titre":"...","contenu":"3-4 phrases qui vendent la TRANSFORMATION, pas les caractéristiques. Émotionnel, africain, concret."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."}],"fb_ads":[{"angle":"Douleur / Problème","accroche":"1 phrase choc qui nomme le problème EXACT — style africain percutant","texte":"texte complet 150-200 mots avec emojis, commence par accroche, neuromarketing africain"},{"angle":"Preuve Sociale","accroche":"1 phrase témoignage ou résultat réel","texte":"..."},{"angle":"Curiosité / Intrigue","accroche":"1 phrase qui pique la curiosité","texte":"..."}],"voix_off":[{"titre":"Script 1 — Émotionnel","script":"paragraphe fluide ${voixDuree} — structure accroche+problème+solution+fonctionnement+témoignage+CTA. Style africain chaleureux."},{"titre":"Script 2 — Direct & Choc","script":"paragraphe percutant et direct ${voixDuree}"},{"titre":"Script 3 — Storytelling","script":"paragraphe narratif ${voixDuree} — histoire d'une vraie personne africaine avant/après"}],"avatar_principal":{"prenom":"prénom africain varié selon pays et genre","age":"tranche d'âge réelle","sexe":"Homme ou Femme","profession":"profession réelle et courante en Afrique","revenu":"revenu réaliste en FCFA","situation":"situation familiale réelle","ville":"vraie ville du pays cible","en_ligne":"horaires réels","budget_max":"budget max réaliste pour CE produit","description":"2 phrases portrait psychologique réel et précis","motivations":["motivation réelle liée au produit","...","..."],"frustrations":["frustration réelle vécue avant d'acheter","...","..."],"desirs":["désir concret que le produit peut accomplir","...","..."],"langage":["expression typique africaine qu'il/elle utilise vraiment","...","..."],"objections":["vraie objection à l'achat","..."],"reponses":["réponse vendeur efficace","..."],"phrase_declenchante":"phrase 100% cohérente avec CE produit spécifique — jamais hors sujet","reseaux":["...","..."],"tags":["...","...","..."],"face":"👨 ou 👩","bg":"linear-gradient(135deg,couleur1,couleur2)"},"avatar_secondaire":${isMainstream ? '{"prenom":"...","age":"...","sexe":"...","profession":"...","revenu":"...","situation":"...","ville":"...","en_ligne":"...","budget_max":"...","description":"...","motivations":["...","...","..."],"frustrations":["...","...","..."],"desirs":["...","...","..."],"langage":["...","...","..."],"objections":["...","..."],"reponses":["...","..."],"phrase_declenchante":"...","reseaux":["...","..."],"tags":["...","...","..."],"face":"👨 ou 👩","bg":"linear-gradient(135deg,...)"}' : 'null'},"concurrence":{"analyse":"2-3 phrases sur la réalité de la concurrence pour CE produit en Afrique","conseil":"conseil stratégique concret pour se différencier"}}`;
 
   // Appel sécurisé via /api/ai — les clés restent côté serveur Vercel
   const r=await fetch('/api/ai',{
@@ -812,6 +935,148 @@ function demo(nom,prix,pays,cat,desc,pM,pX,pR,pub,liv,clo){
 }
 
 // ══ RENDERS ══
+
+// ══ SHOPIFY CONNECTION ══
+S.shopifyStore = S.shopifyStore || localStorage.getItem('eb2_shopify_store') || '';
+S.shopifyToken = S.shopifyToken || localStorage.getItem('eb2_shopify_token') || '';
+S.shopifySelected = S.shopifySelected || {titres:[], paragraphes:[]};
+
+function rShopifyConnect(){
+  const connected = S.shopifyStore && S.shopifyToken;
+  return `
+  <div class="rh afu"><div><h2>🛍️ Connecter Shopify</h2><div class="rp">Export en 1 clic vers ta boutique</div></div></div>
+
+  <div class="shopify-card afu2">
+    <div class="shopify-status ${connected ? 'connected' : 'disconnected'}">
+      ${connected ? '✅ Boutique connectée : '+S.shopifyStore : '⚠️ Aucune boutique connectée'}
+    </div>
+
+    <div class="shopify-form">
+      <div class="fg">
+        <label>URL de ta boutique Shopify</label>
+        <input type="text" id="sh-store" class="fg input" placeholder="ma-boutique.myshopify.com" value="${S.shopifyStore}" style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:.6rem .82rem;color:var(--text);font-family:var(--font);font-size:.84rem;width:100%;outline:none">
+      </div>
+      <div class="fg" style="margin-top:.7rem">
+        <label>Token d'accès Admin Shopify</label>
+        <input type="password" id="sh-token" placeholder="shpat_xxxxxxxxxx" value="${S.shopifyToken}" style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:.6rem .82rem;color:var(--text);font-family:var(--font);font-size:.84rem;width:100%;outline:none">
+      </div>
+      <div class="tip" style="margin-top:.8rem">
+        <div class="tip-i">💡</div>
+        <div>
+          <h4>Comment trouver ton token Shopify</h4>
+          <p>Shopify Admin → Settings → Apps and sales channels → Develop apps → Create app → Configure Admin API → Génère un token. Coche "write_products".</p>
+        </div>
+      </div>
+      <div style="display:flex;gap:.6rem;margin-top:1rem;flex-wrap:wrap">
+        <button class="btng" onclick="saveShopify()" style="flex:1">💾 Connecter la boutique</button>
+        ${connected ? '<button class="cbtn" onclick="disconnectShopify()" style="color:#F87171;border-color:#F87171">🗑️ Déconnecter</button>' : ''}
+      </div>
+    </div>
+  </div>
+
+  ${connected && S.results ? `
+  <div class="shopify-export afu3">
+    <div class="section-subtitle">📦 Créer un nouveau produit sur Shopify</div>
+    <p style="font-size:.76rem;color:var(--muted);margin-bottom:1rem">Sélectionne les éléments à exporter puis clique "Créer sur Shopify"</p>
+
+    <div style="margin-bottom:.8rem">
+      <div class="section-subtitle">Titre du produit</div>
+      ${(S.results.shopify_titres||[]).map((t,i)=>`
+        <div class="shopify-item" id="sh-t-${i}" onclick="toggleShopifyItem('titre',${i},'${t.replace(/'/g,'\'')}')" style="margin-bottom:.4rem">
+          <span class="sh-check" id="sh-check-t-${i}">☐</span>
+          <span>${t}</span>
+        </div>`).join('')}
+    </div>
+
+    <div style="margin-bottom:.8rem">
+      <div class="section-subtitle">Paragraphes description</div>
+      ${(S.results.shopify_paragraphes||[]).map((p,i)=>`
+        <div class="shopify-item" id="sh-p-${i}" onclick="toggleShopifyItem('para',${i},\`${p.titre}: ${p.contenu}\`)" style="margin-bottom:.4rem">
+          <span class="sh-check" id="sh-check-p-${i}">☐</span>
+          <span><strong>${p.titre}</strong> — ${p.contenu.substring(0,60)}...</span>
+        </div>`).join('')}
+    </div>
+
+    <button class="btng" onclick="exportToShopify()" style="margin-top:.5rem">🚀 Créer sur Shopify</button>
+  </div>` : connected ? '<div class="tip"><div class="tip-i">ℹ️</div><div><p>Analyse un produit d'abord pour pouvoir l'exporter.</p></div></div>' : ''}`;
+}
+
+function saveShopify(){
+  const store = document.getElementById('sh-store')?.value?.trim().replace('https://','').replace('/','');
+  const token = document.getElementById('sh-token')?.value?.trim();
+  if(!store || !token){ toast('⚠️ Remplis les deux champs', false); return; }
+  S.shopifyStore = store;
+  S.shopifyToken = token;
+  localStorage.setItem('eb2_shopify_store', store);
+  localStorage.setItem('eb2_shopify_token', token);
+  showPage('shopify_connect');
+  toast('✅ Boutique Shopify connectée !', true);
+}
+
+function disconnectShopify(){
+  S.shopifyStore = ''; S.shopifyToken = '';
+  localStorage.removeItem('eb2_shopify_store');
+  localStorage.removeItem('eb2_shopify_token');
+  showPage('shopify_connect');
+  toast('🗑️ Boutique déconnectée', true);
+}
+
+function toggleShopifyItem(type, idx, text){
+  const key = type + idx;
+  const checkEl = document.getElementById(`sh-check-${type==='titre'?'t':'p'}-${idx}`);
+  const itemEl = document.getElementById(`sh-${type==='titre'?'t':'p'}-${idx}`);
+  
+  if(!S.shopifySelected) S.shopifySelected = {titres:[], paragraphes:[]};
+  const arr = type === 'titre' ? S.shopifySelected.titres : S.shopifySelected.paragraphes;
+  const existing = arr.findIndex(i=>i.idx===idx);
+  
+  if(existing > -1){
+    arr.splice(existing, 1);
+    if(checkEl) checkEl.textContent = '☐';
+    if(itemEl) itemEl.style.borderColor = 'var(--bd)';
+  } else {
+    arr.push({idx, text});
+    if(checkEl) checkEl.textContent = '☑';
+    if(itemEl) itemEl.style.borderColor = 'var(--or)';
+  }
+}
+
+async function exportToShopify(){
+  if(!S.shopifyStore || !S.shopifyToken){ toast('⚠️ Connecte ta boutique d'abord', false); return; }
+  const sel = S.shopifySelected || {titres:[], paragraphes:[]};
+  
+  const titre = sel.titres.length > 0 ? sel.titres[0].text : (S.results?.shopify_titres?.[0] || S.product?.nom || '');
+  const paras = sel.paragraphes.length > 0 ? sel.paragraphes.map(p=>p.text).join('\n\n') : (S.results?.shopify_paragraphes||[]).map(p=>`**${p.titre}**\n${p.contenu}`).join('\n\n');
+  
+  if(!titre){ toast('⚠️ Sélectionne au moins un titre', false); return; }
+  
+  toast('⏳ Envoi vers Shopify...', true);
+  
+  try {
+    const r = await fetch('/api/shopify', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        store: S.shopifyStore,
+        token: S.shopifyToken,
+        title: titre,
+        body_html: paras.replace(/\n/g, '<br>'),
+        price: S.results?.prixReco?.toString() || '0',
+        vendor: 'Ecom Booster'
+      })
+    });
+    const d = await r.json();
+    if(d.success){
+      toast('✅ Produit créé sur Shopify !', true);
+      if(d.url) window.open(d.url, '_blank');
+    } else {
+      toast('❌ ' + (d.error||'Erreur Shopify'), false);
+    }
+  } catch(e) {
+    toast('❌ Erreur réseau: ' + e.message, false);
+  }
+}
+
 // ══ COPY STORE — stockage textes par clé unique ══
 // Toutes les fonctions de rendu utilisent storeCopy() pour stocker
 // les textes et cpk(btn,key) pour les récupérer.
@@ -1086,10 +1351,16 @@ function rAvatar(){
 
 function rConc(){
   const r=S.results,p=S.product;if(!r)return'';
-  const q=encodeURIComponent(p.nom);
-  const fbBubbles=ALL_PAYS_FB.map(({pays,code,flag},i)=>{
-    const url=code==='ALL'?`https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=${q}`:`https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=${code}&q=${q}&search_type=keyword_unordered`;
-    return`<a class="pbbl" href="${url}" target="_blank" style="animation-delay:${i*.04}s"><span class="flag">${flag}</span><span>${pays}</span></a>`;
+  // Utiliser le vrai nom du produit si Claude l'a trouvé
+  const nomReel = r.nom_reel || p.nom;
+  const nomReelEn = r.nom_reel_en || nomReel;
+  const q=encodeURIComponent(nomReel);
+  const fbBubbles=ALL_PAYS_FB.map(({pays,code,flag,lang},i)=>{
+    // Pour les pays anglophones, utiliser le nom anglais du produit
+    const qLang = lang==='en' ? encodeURIComponent(nomReelEn) : q;
+    const url=code==='ALL'?`https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=${code}&q=${qLang}`:`https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=${code}&q=${qLang}&search_type=keyword_unordered`;
+    const langBadge = lang==='en' ? '<span style="font-size:.55rem;background:rgba(59,130,246,.2);color:#60A5FA;padding:.06rem .25rem;border-radius:3px;margin-left:.2rem">EN</span>' : '';
+    return`<a class="pbbl" href="${url}" target="_blank" style="animation-delay:${i*.04}s"><span class="flag">${flag}</span><span>${pays}${langBadge}</span></a>`;
   }).join('');
   const shopBubbles=[
     {n:'Google Shopping',ic:'🛒',u:`https://www.google.com/search?tbm=shop&q=${q}`,cls:'bbl-gg'},
@@ -1135,8 +1406,15 @@ function rImages(){
 }
 
 function rVideos(){
-  const p=S.product;const q=encodeURIComponent(p?.nom||'');
-  const fbVids=ALL_PAYS_FB.map(({pays,code,flag},i)=>`<a class="pbbl" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=video&country=${code}&q=${q}&search_type=keyword_unordered" target="_blank" style="animation-delay:${i*.04}s"><span class="flag">${flag}</span><span>${pays}</span></a>`).join('');
+  const p=S.product;
+  const nomReel = S.results?.nom_reel || p?.nom || '';
+  const nomReelEn = S.results?.nom_reel_en || nomReel;
+  const q=encodeURIComponent(nomReel);
+  const fbVids=ALL_PAYS_FB.map(({pays,code,flag,lang},i)=>{
+    const qLang = lang==='en' ? encodeURIComponent(nomReelEn) : q;
+    const langBadge = lang==='en' ? '<span style="font-size:.55rem;background:rgba(59,130,246,.2);color:#60A5FA;padding:.06rem .25rem;border-radius:3px;margin-left:.2rem">EN</span>' : '';
+    return`<a class="pbbl" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=video&country=${code}&q=${qLang}&search_type=keyword_unordered" target="_blank" style="animation-delay:${i*.04}s"><span class="flag">${flag}</span><span>${pays}${langBadge}</span></a>`;
+  }).join('');
   const vidSrcs=[
     {n:'TikTok',ic:'🎵',u:`https://www.tiktok.com/search?q=${q}`,cls:'bbl-tt',sub:'Vidéos virales'},
     {n:'YouTube',ic:'▶️',u:`https://www.youtube.com/results?search_query=${q}+review`,cls:'bbl-yt',sub:'Reviews'},
@@ -1166,6 +1444,316 @@ function rHist(){
   return`<div class="rh afu"><div><h2>📊 Historique</h2><div class="rp">${S.history.length} produit${S.history.length>1?'s':''} analysé${S.history.length>1?'s':''}</div></div></div>
   <div class="htbl afu2"><div class="hth"><span>Produit</span><span>Date</span><span>Score</span><span>Prix reco.</span><span></span></div>${rows}</div>`;
 }
+
+// ══ IMAGES IA ══
+// État des images générées
+if(!window.S) window.S = {};
+S.generatedImages = S.generatedImages || [];
+
+async function genImage(type, extraData={}) {
+  const p = S.product;
+  if(!p) { toast('⚠️ Analyse un produit d\'abord', false); return; }
+
+  const FAL_KEY_SET = true; // La clé est dans Vercel
+
+  const btn = document.getElementById('gen-btn-' + type);
+  const card = document.getElementById('gen-card-' + type);
+  if(btn) { btn.disabled = true; btn.textContent = '⏳ Génération...'; }
+  if(card) card.style.opacity = '0.5';
+
+  try {
+    const body = {
+      type,
+      productName: p.nom,
+      imageBase64: p.imageBase64 || null,
+      benefits: S.results?.criteres?.slice(0,3).map(c=>c.nom) || [],
+      reviewText: S.results?.avatar_principal?.phrase_declenchante || 'Excellent produit, vraiment efficace !',
+      reviewerName: S.results?.avatar_principal?.prenom || 'Kofi M.',
+      ...extraData
+    };
+
+    const r = await fetch('/api/images', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body)
+    });
+
+    const d = await r.json();
+    if(!d.success) throw new Error(d.error || 'Échec génération');
+
+    // Stocker l'image générée
+    S.generatedImages.push({ type, url: d.url, name: p.nom });
+
+    // Afficher dans la carte
+    if(card) {
+      card.innerHTML = `
+        <img src="${d.url}" style="width:100%;border-radius:10px;display:block" alt="${type}">
+        <div style="display:flex;gap:.5rem;margin-top:.6rem;flex-wrap:wrap">
+          <a href="${d.url}" download="eb2-${type}.jpg" class="cbtn" style="text-decoration:none">⬇️ Télécharger</a>
+          <button class="cbtn" onclick="modifyImage('${type}','${d.url}')">✏️ Modifier</button>
+        </div>`;
+      card.style.opacity = '1';
+    }
+    toast('✅ Image générée !', true);
+  } catch(e) {
+    toast('❌ ' + e.message, false);
+    if(card) {
+      card.innerHTML = `<div style="color:#F87171;font-size:.78rem;padding:1rem">❌ Erreur: ${e.message}<br><button class="cbtn" style="margin-top:.5rem" onclick="genImage('${type}')">Réessayer</button></div>`;
+      card.style.opacity = '1';
+    }
+  } finally {
+    if(btn) { btn.disabled = false; btn.textContent = '🎨 Générer'; }
+  }
+}
+
+function modifyImage(type, imageUrl) {
+  const prompt = prompt('Dis à l\'IA comment modifier cette image :\n(ex: "change le fond en doré", "ajoute un texte NOUVEAU en haut")');
+  if(!prompt) return;
+  genImage('modify', { imageUrl, modifyPrompt: prompt + ' for product ' + (S.product?.nom || '') });
+}
+
+function rImages() {
+  const p = S.product;
+  const q = encodeURIComponent(p?.nom || '');
+  const hasImage = p?.imageBase64 || false;
+
+  // Section génération IA
+  const imgTypes = [
+    { id: 'clean_background', label: '📸 Fond Blanc Pro', desc: 'Produit sur fond propre' },
+    { id: 'lifestyle', label: '✨ Photo Lifestyle', desc: 'Produit dans une scène' },
+    { id: 'benefits', label: '💎 Bénéfices Produit', desc: 'Produit + atouts clés' },
+    { id: 'review', label: '⭐ Avis Client Africain', desc: 'Style commentaire Amazon' },
+  ];
+
+  const genCards = imgTypes.map((t,i) => `
+    <div class="img-gen-card" style="animation-delay:${i*.08}s">
+      <div class="img-gen-header">
+        <div>
+          <div class="img-gen-label">${t.label}</div>
+          <div class="img-gen-desc">${t.desc}</div>
+        </div>
+        <button class="btn-gen" id="gen-btn-${t.id}" onclick="genImage('${t.id}')">🎨 Générer</button>
+      </div>
+      <div class="img-gen-preview" id="gen-card-${t.id}">
+        <div class="img-gen-empty">
+          ${hasImage ? `<div style="font-size:1.8rem;margin-bottom:.4rem">🎨</div><div>Clique "Générer" pour créer cette image</div>` : `<div style="font-size:1.8rem;margin-bottom:.4rem">📷</div><div style="color:#F87171">Uploade une photo produit dans le formulaire d'abord</div>`}
+        </div>
+      </div>
+    </div>`).join('');
+
+  // Section liens existants
+  const srcs = [
+    {n:'Pinterest',ic:'📌',u:`https://www.pinterest.com/search/pins/?q=${q}`,cls:'bbl-pt',sub:'Photos produit'},
+    {n:'Google Images',ic:'🔎',u:`https://www.google.com/search?tbm=isch&q=${q}`,cls:'bbl-gg',sub:'Toutes images'},
+    {n:'AliExpress',ic:'🏷️',u:`https://www.aliexpress.com/wholesale?SearchText=${q}`,cls:'bbl-al',sub:'Fournisseur'},
+    {n:'Alibaba',ic:'🏭',u:`https://www.alibaba.com/trade/search?SearchText=${q}`,cls:'bbl-al',sub:'Grossiste'},
+    {n:'Temu',ic:'🛍️',u:`https://www.temu.com/search_result.html?search_key=${q}`,cls:'bbl-tm',sub:'Marketplace'},
+    {n:'Amazon',ic:'📦',u:`https://www.amazon.fr/s?k=${q}`,cls:'bbl-am',sub:'E-commerce'},
+    {n:'Jumia',ic:'🛒',u:`https://www.jumia.com.gh/catalog/?q=${q}`,cls:'bbl-ju',sub:'Afrique'},
+    {n:'Pexels',ic:'🖼️',u:`https://www.pexels.com/search/${q}/`,cls:'bbl-gg',sub:'Libres droits'},
+    {n:'Unsplash',ic:'✨',u:`https://unsplash.com/s/photos/${q}`,cls:'bbl-gg',sub:'Haute qualité'},
+  ].map((s,i)=>`<a class="bbl ${s.cls}" href="${s.u}" target="_blank" style="animation-delay:${i*.07}s"><span class="bico">${s.ic}</span><span class="bname">${s.n}</span><span class="bsub">${s.sub}</span></a>`).join('');
+
+  return `
+  <div class="rh afu"><div><h2>🖼️ Images</h2><div class="rp">${p?.nom||'Ton produit'}</div></div></div>
+
+  <div class="img-ai-section afu2">
+    <div class="img-ai-title">🤖 Génération IA — Images professionnelles</div>
+    <div class="img-ai-subtitle">${hasImage ? '✅ Photo produit détectée — prêt à générer' : '⚠️ Uploade une photo dans le formulaire pour de meilleurs résultats'}</div>
+    <div class="img-gen-grid">${genCards}</div>
+  </div>
+
+  <div class="img-ai-section" style="margin-top:1.2rem">
+    <div class="img-ai-title">🌐 Trouver des images de référence</div>
+    <p style="font-size:.73rem;color:var(--muted);margin-bottom:.75rem">Clique pour chercher des images de "<strong style="color:var(--text)">${p?.nom||''}</strong>" sur ces plateformes</p>
+    <div class="bubble-grid">${srcs}</div>
+    <div class="tip" style="margin-top:1.2rem"><div class="tip-i">💡</div><div><h4>Mix gagnant</h4><p>Génère 2-3 images IA + complète avec des photos de AliExpress ou Pexels. Ce mix "IA + réaliste" convertit mieux que l'un ou l'autre seul.</p></div></div>
+  </div>`;
+}
+
+// ══ COMPTABILITÉ ══
+// Données stockées localement par date
+if(!S.compta) S.compta = {};
+if(!S.comptaGSheet) S.comptaGSheet = localStorage.getItem('eb2_gsheet') || '';
+
+function rCompta() {
+  const today = new Date().toISOString().split('T')[0];
+  const data = S.compta[today] || {};
+
+  // Calcul si données présentes
+  let resultat = null;
+  if(data.prix_vente && data.commandes) {
+    const ca = data.prix_vente * data.commandes;
+    const couts = (data.prix_achat * data.commandes) + (data.livraison * data.commandes) + (data.closing * data.commandes) + (data.pub || 0);
+    const benefice = ca - couts;
+    const roas = data.pub > 0 ? (ca / data.pub).toFixed(2) : 'N/A';
+    resultat = { ca, couts, benefice, roas };
+  }
+
+  // Historique des 7 derniers jours pour graphique
+  const hist = Object.keys(S.compta).sort().slice(-7).map(date => ({
+    date: date.split('-').slice(1).join('/'),
+    benefice: S.compta[date]._benefice || 0
+  }));
+
+  const maxB = Math.max(...hist.map(h=>Math.abs(h.benefice)), 1);
+
+  const bars = hist.map(h => {
+    const color = h.benefice >= 0 ? '#22C55E' : '#EF4444';
+    const height = Math.round((Math.abs(h.benefice) / maxB) * 80);
+    return `<div class="cbar-col">
+      <div class="cbar-val" style="color:${color}">${h.benefice >= 0 ? '+' : ''}${(h.benefice/1000).toFixed(0)}k</div>
+      <div class="cbar" style="height:${height}px;background:${color}"></div>
+      <div class="cbar-date">${h.date}</div>
+    </div>`;
+  }).join('');
+
+  let resHtml = '';
+  if(resultat) {
+    const col = resultat.benefice > 0 ? '#22C55E' : resultat.benefice > -5000 ? '#FFB800' : '#EF4444';
+    const badge = resultat.benefice > 0 ? '🟢 RENTABLE' : resultat.benefice > -5000 ? '🟡 ATTENTION' : '🔴 PERTE';
+    resHtml = `
+    <div class="cr-result" style="border-color:${col}">
+      <div class="cr-badge" style="background:${col}22;color:${col}">${badge}</div>
+      <div class="cr-grid">
+        <div class="cr-stat"><div class="cr-sl">Chiffre d'affaires</div><div class="cr-sv" style="color:var(--text)">${resultat.ca.toLocaleString()} FCFA</div></div>
+        <div class="cr-stat"><div class="cr-sl">Coûts totaux</div><div class="cr-sv" style="color:#F87171">${resultat.couts.toLocaleString()} FCFA</div></div>
+        <div class="cr-stat"><div class="cr-sl">Bénéfice net</div><div class="cr-sv" style="color:${col}">${resultat.benefice >= 0 ? '+' : ''}${resultat.benefice.toLocaleString()} FCFA</div></div>
+        <div class="cr-stat"><div class="cr-sl">ROAS</div><div class="cr-sv" style="color:var(--gold)">${resultat.roas}x</div></div>
+      </div>
+    </div>`;
+  }
+
+  return `
+  <div class="compta-wrap">
+
+    <div class="compta-header">
+      <div>
+        <h2 style="font-size:1.3rem;font-weight:900">📈 Comptabilité</h2>
+        <div style="font-size:.78rem;color:#666;margin-top:.15rem">Suivi quotidien de rentabilité</div>
+      </div>
+      <div class="compta-date">${new Date().toLocaleDateString('fr-FR', {weekday:'long', day:'numeric', month:'long'})}</div>
+    </div>
+
+    <div class="compta-form-card">
+      <div class="compta-form-title">📝 Données du jour</div>
+      <div class="compta-grid">
+        <div class="compta-field">
+          <label>Prix d'achat (FCFA)</label>
+          <input type="number" id="c-achat" step="500" placeholder="2500" value="${data.prix_achat||''}" class="compta-input">
+        </div>
+        <div class="compta-field">
+          <label>Prix de vente (FCFA)</label>
+          <input type="number" id="c-vente" step="500" placeholder="12500" value="${data.prix_vente||''}" class="compta-input">
+        </div>
+        <div class="compta-field">
+          <label>Nb de commandes</label>
+          <input type="number" id="c-cmd" placeholder="5" value="${data.commandes||''}" class="compta-input">
+        </div>
+        <div class="compta-field">
+          <label>Budget pub Facebook (FCFA)</label>
+          <input type="number" id="c-pub" step="500" placeholder="5000" value="${data.pub||''}" class="compta-input">
+        </div>
+        <div class="compta-field">
+          <label>Livraison / commande (FCFA)</label>
+          <input type="number" id="c-liv" step="500" placeholder="2000" value="${data.livraison||''}" class="compta-input">
+        </div>
+        <div class="compta-field">
+          <label>Closing / commande (FCFA)</label>
+          <input type="number" id="c-clo" step="500" placeholder="1000" value="${data.closing||''}" class="compta-input">
+        </div>
+      </div>
+      <button class="compta-btn" onclick="calculerCompta()">⚡ Calculer maintenant</button>
+    </div>
+
+    ${resHtml}
+
+    ${hist.length > 0 ? `
+    <div class="compta-chart-card">
+      <div class="compta-form-title">📊 Bénéfice des 7 derniers jours</div>
+      <div class="cbar-chart">${bars}</div>
+    </div>` : ''}
+
+    <div class="compta-gsheet-card">
+      <div class="compta-form-title">📤 Export Google Sheets</div>
+      <div style="font-size:.78rem;color:#666;margin-bottom:.75rem">Colle le lien de ton Google Sheet pour exporter tes données automatiquement</div>
+      <input type="url" id="gsheet-url" class="compta-input" placeholder="https://docs.google.com/spreadsheets/d/..." value="${S.comptaGSheet}" style="margin-bottom:.6rem">
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+        <button class="compta-btn-sec" onclick="saveGSheet()">💾 Enregistrer le lien</button>
+        ${S.comptaGSheet ? `<button class="compta-btn" onclick="exporterGSheet()">📤 Exporter aujourd'hui</button>` : ''}
+        ${S.comptaGSheet ? `<button class="compta-btn-danger" onclick="supprimerGSheet()">🗑️ Supprimer le lien</button>` : ''}
+      </div>
+    </div>
+
+  </div>`;
+}
+
+function calculerCompta() {
+  const today = new Date().toISOString().split('T')[0];
+  const achat = parseFloat(document.getElementById('c-achat')?.value) || 0;
+  const vente = parseFloat(document.getElementById('c-vente')?.value) || 0;
+  const cmd = parseFloat(document.getElementById('c-cmd')?.value) || 0;
+  const pub = parseFloat(document.getElementById('c-pub')?.value) || 0;
+  const liv = parseFloat(document.getElementById('c-liv')?.value) || 0;
+  const clo = parseFloat(document.getElementById('c-clo')?.value) || 0;
+
+  if(!vente || !cmd) { toast('⚠️ Mets au moins le prix de vente et le nombre de commandes', false); return; }
+
+  const benefice = (vente * cmd) - (achat * cmd) - (pub) - (liv * cmd) - (clo * cmd);
+
+  S.compta[today] = { prix_achat: achat, prix_vente: vente, commandes: cmd, pub, livraison: liv, closing: clo, _benefice: benefice };
+
+  showPage('comptabilite');
+  toast('✅ Calcul enregistré !', true);
+}
+
+function saveGSheet() {
+  const url = document.getElementById('gsheet-url')?.value?.trim();
+  S.comptaGSheet = url;
+  localStorage.setItem('eb2_gsheet', url);
+  showPage('comptabilite');
+  toast(url ? '✅ Lien Google Sheet enregistré !' : '✅ Lien supprimé', true);
+}
+
+function supprimerGSheet() {
+  S.comptaGSheet = '';
+  localStorage.removeItem('eb2_gsheet');
+  showPage('comptabilite');
+  toast('🗑️ Lien supprimé', true);
+}
+
+async function exporterGSheet() {
+  const today = new Date().toISOString().split('T')[0];
+  const data = S.compta[today];
+  if(!data) { toast('⚠️ Calcule d\'abord les données du jour', false); return; }
+
+  const sheetUrl = S.comptaGSheet;
+  if(!sheetUrl) { toast('⚠️ Ajoute d\'abord le lien de ton Google Sheet', false); return; }
+
+  // Extraire l'ID du Google Sheet depuis l'URL
+  const match = sheetUrl.match(/\/d\/([a-zA-Z0-9-_]+)/);
+  if(!match) { toast('⚠️ Lien Google Sheet invalide', false); return; }
+
+  // Pour exporter vers Google Sheets sans OAuth (méthode simple via Apps Script)
+  // L'utilisateur doit avoir configuré un Apps Script sur son Sheet
+  const ca = data.prix_vente * data.commandes;
+  const couts = (data.prix_achat * data.commandes) + (data.pub || 0) + (data.livraison * data.commandes) + (data.closing * data.commandes);
+
+  // Créer un CSV de la ligne du jour
+  const row = [today, data.commandes, data.prix_vente, ca, couts, data._benefice, data.pub || 0].join(',');
+
+  // Télécharger en CSV pour copier-coller dans le Sheet
+  const csv = 'Date,Commandes,Prix Vente,CA,Coûts,Bénéfice Net,Budget Pub\n' + row;
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `compta-${today}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+
+  toast('✅ Fichier CSV téléchargé — importe-le dans ton Google Sheet', true);
+}
+
 
 // ══ UTILITIES ══
 function esc(t){return(t||'').replace(/`/g,'\\`').replace(/\$/g,'\\$');}
