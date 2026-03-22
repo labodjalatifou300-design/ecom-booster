@@ -435,7 +435,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
     </div>
     <div style="padding:.3rem 0">
       <div class="nlbl">Compte</div>
-      <div class="ni" id="nav-shopify-connect" onclick="showPage('shopify_connect');closeSidebar()"><span class="ico">🛍️</span>Connecter Shopify</div>
+      <div class="ni" id="nav-shopify_connect" onclick="showPage('shopify_connect');closeSidebar()"><span class="ico">🛍️</span>Connecter Shopify</div>
       <div class="ni" id="nav-comptabilite" onclick="showPage('comptabilite');closeSidebar()"><span class="ico">📈</span>Comptabilité</div>
       <div class="ni" id="nav-historique" onclick="showPage('historique');closeSidebar()"><span class="ico">📊</span>Historique<span class="nbadge" id="hcount">3</span></div>
     </div>
@@ -618,7 +618,7 @@ function showPage(p){
   const c=document.getElementById('content');
   c.innerHTML=rs[p]?rs[p]():'';
   c.scrollTop=0;
-  if(p==='form')initUp();
+  if(p==='form'){S.imgs=[];initUp();}
 }
 
 // ══ FORM ══
@@ -684,6 +684,8 @@ function addFiles(fs){
 
 // ══ ANALYSE ══
 async function analyze(){
+  if(S._analyzing){toast('⏳ Analyse déjà en cours...',false);return;}
+  S._analyzing=true;
   const nom=document.getElementById('fn').value.trim();
   const prix=parseInt(document.getElementById('fpx').value);
   const pays=document.getElementById('fp').value;
@@ -717,9 +719,10 @@ async function analyze(){
     S.history.unshift({name:nom,prix,pays,score:ai.score,prixReco:pR,date:'Aujourd\'hui'});
     document.getElementById('hcount').textContent=S.history.length;
     if(sbOk)sauvegarderProduit(S.product,S.results);
-    hideLov();showPage('prix');toast('✅ Analyse terminée !',true);
+    hideLov();S._analyzing=false;showPage('prix');toast('✅ Analyse terminée !',true);
   }catch(e){
     hideLov();
+    S._analyzing=false;
     S.results=demo(nom,prix,pays,cat,desc,pM,pX,pR,pub,liv,clo,imageBase64);
     S.history.unshift({name:nom,prix,pays,score:S.results.score,prixReco:pR,date:'Aujourd\'hui'});
     document.getElementById('hcount').textContent=S.history.length;
