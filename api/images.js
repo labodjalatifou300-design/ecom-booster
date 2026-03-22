@@ -1,4 +1,4 @@
-// api/images.js — Génération d'images via Fal.ai (FLUX)
+// api/images.js — Génération d'images via Together AI (FLUX Schnell - Gratuit 3 mois)
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -6,183 +6,66 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Méthode non autorisée' });
 
-  const FAL_KEY = process.env.FAL_KEY || '';
-  if (!FAL_KEY) return res.status(500).json({ error: 'FAL_KEY manquante dans Vercel Environment Variables' });
+  const TOGETHER_KEY = process.env.TOGETHER_API_KEY || '';
+  if (!TOGETHER_KEY) return res.status(500).json({ error: 'TOGETHER_API_KEY manquante dans Vercel Environment Variables' });
 
-  const { type, imageBase64, productName, benefits, reviewText, reviewerName, modifyPrompt, imageUrl } = req.body || {};
+  const { type, productName, benefits, reviewText, reviewerName, modifyPrompt, imageUrl } = req.body || {};
   if (!type) return res.status(400).json({ error: 'Type de génération manquant' });
 
   try {
-    let result = null;
+    let prompt = '';
 
-    // ── ÉTAPE 1 : Upload l'image sur Fal.ai storage si base64 fourni
-    let uploadedImageUrl = imageUrl || null;
-    if (imageBase64 && imageBase64.startsWith('data:image')) {
-      try {
-        // Convertir base64 en blob pour upload
-        const base64Data = imageBase64.split(',')[1];
-        const mimeType = imageBase64.split(';')[0].split(':')[1] || 'image/jpeg';
-        const buffer = Buffer.from(base64Data, 'base64');
-
-        // Upload vers Fal storage
-        const uploadRes = await fetch('https://rest.alpha.fal.ai/storage/upload/initiate', {
-          method: 'POST',
-          headers: {
-            'Authorization': 'Key ' + FAL_KEY,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ content_type: mimeType, file_name: 'product.jpg' })
-        });
-
-        if (uploadRes.ok) {
-          const { upload_url, file_url } = await uploadRes.json();
-          await fetch(upload_url, {
-            method: 'PUT',
-            headers: { 'Content-Type': mimeType },
-            body: buffer
-          });
-          uploadedImageUrl = file_url;
-          console.log('Image uploaded to Fal:', uploadedImageUrl);
-        }
-      } catch(e) {
-        console.log('Upload error, using base64 directly:', e.message);
-        uploadedImageUrl = imageBase64; // fallback
-      }
-    }
-
-    const falHeaders = {
-      'Authorization': 'Key ' + FAL_KEY,
-      'Content-Type': 'application/json'
-    };
-
-    // ── TYPE 1 : Fond propre (enlever fond + fond blanc/coloré)
+    // ── Construire le prompt selon le type demandé
     if (type === 'clean_background') {
-      // Étape 1 : Enlever le fond avec BiRefNet
-      const bgRes = await fetch('https://queue.fal.run/fal-ai/birefnet', {
-        method: 'POST',
-        headers: falHeaders,
-        body: JSON.stringify({ image_url: uploadedImageUrl })
-      });
-      const bgJob = await bgRes.json();
+      prompt = `Professional product photography of ${productName}, clean pure white studio background, soft drop shadows, centered product, high-end commercial photography, 8K resolution, photorealistic, no text`;
 
-      // Attendre le résultat
-      let bgResult = await pollFalJob(FAL_KEY, bgJob.request_id || bgJob.id, 'fal-ai/birefnet');
+    } else if (type === 'lifestyle') {
+      prompt = `${productName} product in a luxury lifestyle setting, elegant modern African home interior, warm golden lighting, beautiful artistic composition, high-end brand photography, photorealistic, aspirational`;
 
-      const transparentUrl = bgResult?.image?.url || bgResult?.images?.[0]?.url;
+    } else if (type === 'benefits') {
+      const benefitText = (benefits || []).slice(0, 3).join(', ');
+      prompt = `Professional marketing image of ${productName}, clean dark background with colorful accent colors, product prominently displayed, modern African brand aesthetic, bold visual design highlighting benefits: ${benefitText}, high quality commercial photo`;
 
-      if (transparentUrl) {
-        // Étape 2 : FLUX image-to-image pour fond propre
-        const fluxRes = await fetch('https://queue.fal.run/fal-ai/flux/dev/image-to-image', {
-          method: 'POST',
-          headers: falHeaders,
-          body: JSON.stringify({
-            image_url: transparentUrl,
-            prompt: `Professional product photography of ${productName}, clean white studio background, soft shadows, high-end commercial photography, 8K resolution, photorealistic`,
-            strength: 0.3,
-            num_inference_steps: 28,
-            guidance_scale: 3.5
-          })
-        });
-        const fluxJob = await fluxRes.json();
-        result = await pollFalJob(FAL_KEY, fluxJob.request_id || fluxJob.id, 'fal-ai/flux/dev/image-to-image');
-      } else {
-        // Fallback : génération directe sans fond
-        const fluxRes = await fetch('https://queue.fal.run/fal-ai/flux/dev', {
-          method: 'POST',
-          headers: falHeaders,
-          body: JSON.stringify({
-            prompt: `Professional product photography of ${productName}, clean white studio background, soft shadows, centered, high-end commercial photography, photorealistic, 8K`,
-            image_size: '1024x1024',
-            num_inference_steps: 28
-          })
-        });
-        const fluxJob = await fluxRes.json();
-        result = await pollFalJob(FAL_KEY, fluxJob.request_id || fluxJob.id, 'fal-ai/flux/dev');
-      }
-    }
+    } else if (type === 'review') {
+      prompt = `${productName} product displayed elegantly, customer review card overlay with 5 gold stars, African customer testimonial, name "${reviewerName || 'Kofi M.'}", quote "${reviewText || 'Excellent produit, je recommande!'}", modern e-commerce style, dark elegant background, professional marketing image`;
 
-    // ── TYPE 2 : Image lifestyle (produit dans une scène)
-    else if (type === 'lifestyle') {
-      const fluxRes = await fetch('https://queue.fal.run/fal-ai/flux/dev/image-to-image', {
-        method: 'POST',
-        headers: falHeaders,
-        body: JSON.stringify({
-          image_url: uploadedImageUrl,
-          prompt: `${productName} product in a luxury lifestyle setting, elegant African home, warm lighting, beautiful composition, high-end brand photography, photorealistic`,
-          strength: 0.65,
-          num_inference_steps: 28,
-          guidance_scale: 3.5
-        })
-      });
-      const fluxJob = await fluxRes.json();
-      result = await pollFalJob(FAL_KEY, fluxJob.request_id || fluxJob.id, 'fal-ai/flux/dev/image-to-image');
-    }
+    } else if (type === 'modify') {
+      prompt = modifyPrompt || `Improve this product image for ${productName}, professional quality, clean background, high-end commercial photography`;
 
-    // ── TYPE 3 : Image bénéfices (produit + textes bulles)
-    else if (type === 'benefits') {
-      const benefitText = (benefits || []).slice(0, 3).join(' | ');
-      const fluxRes = await fetch('https://queue.fal.run/fal-ai/flux/dev/image-to-image', {
-        method: 'POST',
-        headers: falHeaders,
-        body: JSON.stringify({
-          image_url: uploadedImageUrl,
-          prompt: `Professional marketing image of ${productName} with text overlay showing benefits: ${benefitText}. Clean design, dark background with colorful accent colors, modern African brand aesthetic, high quality`,
-          strength: 0.55,
-          num_inference_steps: 28,
-          guidance_scale: 3.5
-        })
-      });
-      const fluxJob = await fluxRes.json();
-      result = await pollFalJob(FAL_KEY, fluxJob.request_id || fluxJob.id, 'fal-ai/flux/dev/image-to-image');
-    }
-
-    // ── TYPE 4 : Image avis client africain style Amazon
-    else if (type === 'review') {
-      const fluxRes = await fetch('https://queue.fal.run/fal-ai/flux/dev/image-to-image', {
-        method: 'POST',
-        headers: falHeaders,
-        body: JSON.stringify({
-          image_url: uploadedImageUrl,
-          prompt: `${productName} product image with a customer review overlay card showing 5 stars rating, African customer name "${reviewerName || 'Kofi M.'}", review text "${reviewText || 'Excellent produit, je recommande!'}", modern e-commerce style, dark elegant background`,
-          strength: 0.45,
-          num_inference_steps: 28,
-          guidance_scale: 3.5
-        })
-      });
-      const fluxJob = await fluxRes.json();
-      result = await pollFalJob(FAL_KEY, fluxJob.request_id || fluxJob.id, 'fal-ai/flux/dev/image-to-image');
-    }
-
-    // ── TYPE 5 : Modifier une image existante
-    else if (type === 'modify' && (imageUrl || uploadedImageUrl)) {
-      const fluxRes = await fetch('https://queue.fal.run/fal-ai/flux/dev/image-to-image', {
-        method: 'POST',
-        headers: falHeaders,
-        body: JSON.stringify({
-          image_url: imageUrl || uploadedImageUrl,
-          prompt: modifyPrompt || `Improve this product image for ${productName}`,
-          strength: 0.7,
-          num_inference_steps: 28,
-          guidance_scale: 3.5
-        })
-      });
-      const fluxJob = await fluxRes.json();
-      result = await pollFalJob(FAL_KEY, fluxJob.request_id || fluxJob.id, 'fal-ai/flux/dev/image-to-image');
-    }
-
-    else {
+    } else {
       return res.status(400).json({ error: 'Type non reconnu: ' + type });
     }
 
-    // Extraire l'URL de l'image générée
-    const imageResultUrl =
-      result?.images?.[0]?.url ||
-      result?.image?.url ||
-      result?.output?.[0] ||
-      null;
+    // ── Appel Together AI — FLUX.1 Schnell (gratuit 3 mois)
+    const response = await fetch('https://api.together.xyz/v1/images/generations', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + TOGETHER_KEY,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: 'black-forest-labs/FLUX.1-schnell-Free',
+        prompt: prompt,
+        width: 1024,
+        height: 1024,
+        steps: 4,
+        n: 1,
+        response_format: 'url'
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error('Together AI error:', JSON.stringify(data));
+      // Fallback sur le modèle payant si le gratuit ne fonctionne pas
+      return await generateWithPaidModel(TOGETHER_KEY, prompt, res);
+    }
+
+    const imageResultUrl = data?.data?.[0]?.url || null;
 
     if (!imageResultUrl) {
-      console.error('No image URL in result:', JSON.stringify(result).substring(0, 200));
+      console.error('No image URL in result:', JSON.stringify(data).substring(0, 200));
       return res.status(500).json({ error: 'Aucune image générée. Réessaie.' });
     }
 
@@ -194,38 +77,36 @@ module.exports = async function handler(req, res) {
   }
 };
 
-// ── Polling helper pour attendre le résultat Fal.ai
-async function pollFalJob(falKey, jobId, modelId, maxAttempts = 30) {
-  if (!jobId) return null;
+// ── Fallback : modèle payant si gratuit indisponible
+async function generateWithPaidModel(apiKey, prompt, res) {
+  try {
+    const response = await fetch('https://api.together.xyz/v1/images/generations', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + apiKey,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: 'black-forest-labs/FLUX.1-schnell',
+        prompt: prompt,
+        width: 1024,
+        height: 1024,
+        steps: 4,
+        n: 1,
+        response_format: 'url'
+      })
+    });
 
-  for (let i = 0; i < maxAttempts; i++) {
-    await new Promise(r => setTimeout(r, 2000)); // attendre 2 secondes
+    const data = await response.json();
+    const imageResultUrl = data?.data?.[0]?.url || null;
 
-    try {
-      const statusRes = await fetch(
-        `https://queue.fal.run/${modelId}/requests/${jobId}/status`,
-        { headers: { 'Authorization': 'Key ' + falKey } }
-      );
-
-      if (!statusRes.ok) continue;
-      const status = await statusRes.json();
-
-      if (status.status === 'COMPLETED') {
-        const resultRes = await fetch(
-          `https://queue.fal.run/${modelId}/requests/${jobId}`,
-          { headers: { 'Authorization': 'Key ' + falKey } }
-        );
-        if (resultRes.ok) return await resultRes.json();
-        break;
-      }
-
-      if (status.status === 'FAILED') {
-        console.error('Fal job failed:', jobId);
-        break;
-      }
-    } catch(e) {
-      console.log('Poll error:', e.message);
+    if (!imageResultUrl) {
+      return res.status(500).json({ error: 'Aucune image générée. Vérifie ta clé Together AI.' });
     }
+
+    return res.status(200).json({ success: true, url: imageResultUrl });
+
+  } catch (err) {
+    return res.status(500).json({ error: 'Erreur fallback: ' + err.message });
   }
-  return null;
 }
