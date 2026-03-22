@@ -58,7 +58,7 @@ module.exports = async function handler(req, res) {
             headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + GROQ_KEY },
             body: JSON.stringify({
               model: model,
-              max_tokens: 8000,  // Augmenté pour éviter la coupure JSON
+              max_tokens: 8000,
               temperature: 0.7,
               messages: [
                 {
@@ -76,7 +76,6 @@ module.exports = async function handler(req, res) {
             const finishReason = data.choices[0].finish_reason;
             console.log('Model:', model, '| Finish:', finishReason, '| Length:', rawText.length);
 
-            // Si coupé (finish_reason=length), essayer le modèle suivant
             if (finishReason === 'length') {
               console.log('Response truncated, trying next model...');
               continue;
@@ -93,9 +92,8 @@ module.exports = async function handler(req, res) {
       }
 
       if (!succeeded && rawText) {
-        // On a une réponse mais peut-être coupée - essayer de la réparer
         console.log('Trying to repair truncated JSON...');
-        succeeded = true; // On essaie quand même de parser
+        succeeded = true;
       }
 
       if (!succeeded) {
@@ -103,7 +101,7 @@ module.exports = async function handler(req, res) {
       }
 
     } else {
-      // Claude
+      // ── CLAUDE ──
       const CLAUDE_KEY = process.env.CLAUDE_KEY || '';
       if (!CLAUDE_KEY) return res.status(500).json({ error: 'CLAUDE_KEY manquante dans Vercel Environment Variables' });
 
@@ -130,7 +128,7 @@ module.exports = async function handler(req, res) {
           'anthropic-version': '2023-06-01'
         },
         body: JSON.stringify({
-          model: 'claude-sonnet-4-5',
+          model: 'claude-sonnet-4-6', // ← Modèle correct et actuel
           max_tokens: 8000,
           messages
         })
@@ -144,13 +142,12 @@ module.exports = async function handler(req, res) {
       rawText = data.content[0].text;
     }
 
-    // Nettoyer et réparer le JSON
+    // ── Nettoyer et parser le JSON ──
     let clean = rawText
       .replace(/```json/gi, '')
       .replace(/```/g, '')
       .trim();
 
-    // Extraire le JSON si entouré d'autre texte
     const jsonStart = clean.indexOf('{');
     const jsonEnd = clean.lastIndexOf('}');
     if (jsonStart > 0 || jsonEnd < clean.length - 1) {
@@ -164,24 +161,18 @@ module.exports = async function handler(req, res) {
       console.error('JSON parse error:', e.message);
       console.error('Raw length:', rawText.length, '| Début:', clean.substring(0, 200));
 
-      // Tentative de réparation : compléter le JSON coupé
+      // Tentative de réparation
       try {
-        // Compter les accolades ouvertes vs fermées
         let openBraces = (clean.match(/{/g) || []).length;
         let closeBraces = (clean.match(/}/g) || []).length;
         let missingBraces = openBraces - closeBraces;
-
-        // Compter les crochets ouverts vs fermés
         let openBrackets = (clean.match(/\[/g) || []).length;
         let closeBrackets = (clean.match(/\]/g) || []).length;
         let missingBrackets = openBrackets - closeBrackets;
 
         let repaired = clean;
-        // Fermer les éventuelles chaînes ouvertes
         if (repaired.match(/"[^"]*$/)) repaired += '"';
-        // Fermer les tableaux manquants
         for (let i = 0; i < missingBrackets; i++) repaired += ']';
-        // Fermer les objets manquants
         for (let i = 0; i < missingBraces; i++) repaired += '}';
 
         parsed = JSON.parse(repaired);
