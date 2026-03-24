@@ -393,35 +393,32 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
 .sh-check{font-size:1rem;flex-shrink:0;color:var(--or);}
 
 /* ── CHAT IA ── */
-.chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 100px);max-height:800px;}
-.chat-header{display:flex;align-items:center;gap:.8rem;background:var(--bg2);border:1px solid var(--bd);border-radius:14px;padding:1rem 1.3rem;margin-bottom:.8rem;flex-shrink:0;}
-.chat-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--or),var(--gold));display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
-.chat-title{font-size:.92rem;font-weight:800;}
-.chat-subtitle{font-size:.72rem;color:var(--muted);}
-.chat-messages{flex:1;overflow-y:auto;padding:.5rem 0;display:flex;flex-direction:column;gap:.6rem;min-height:200px;}
+.chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 120px);max-width:800px;margin:0 auto;}
+.chat-messages{flex:1;overflow-y:auto;padding:.5rem 0;display:flex;flex-direction:column;gap:.75rem;}
 .chat-messages::-webkit-scrollbar{width:3px;}
-.chat-messages::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px;}
-.chat-welcome{text-align:center;padding:2rem 1rem;color:var(--text);}
-.chat-msg{display:flex;max-width:85%;}
-.chat-msg.user{align-self:flex-end;justify-content:flex-end;}
-.chat-msg.assistant{align-self:flex-start;}
-.chat-bubble{padding:.7rem 1rem;border-radius:14px;font-size:.82rem;line-height:1.65;}
-.chat-msg.user .chat-bubble{background:linear-gradient(135deg,var(--or),#FF8C42);color:#fff;border-radius:14px 14px 4px 14px;}
-.chat-msg.assistant .chat-bubble{background:var(--bg2);border:1px solid var(--bd);color:var(--text);border-radius:14px 14px 14px 4px;}
-.chat-dots{display:flex;gap:4px;padding:.2rem 0;}
-.chat-dots span{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:dotPulse 1.4s ease infinite;}
-.chat-dots span:nth-child(2){animation-delay:.2s;}
-.chat-dots span:nth-child(3){animation-delay:.4s;}
-@keyframes dotPulse{0%,80%,100%{opacity:.3;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
-.chat-suggestions{display:flex;flex-wrap:wrap;gap:.4rem;padding:.5rem 0;flex-shrink:0;}
-.chat-sug{background:var(--bg3);border:1px solid var(--bd);border-radius:20px;padding:.38rem .85rem;font-size:.72rem;color:var(--soft);cursor:pointer;font-family:var(--font);transition:all .18s;}
-.chat-sug:hover{border-color:var(--or);color:var(--text);}
-.chat-input-row{display:flex;gap:.5rem;align-items:flex-end;background:var(--bg2);border:1px solid var(--bd);border-radius:12px;padding:.5rem .7rem;margin-top:.6rem;flex-shrink:0;}
-.chat-input{flex:1;background:transparent;border:none;outline:none;font-family:var(--font);font-size:.84rem;color:var(--text);resize:none;max-height:120px;min-height:20px;line-height:1.5;}
-.chat-input::placeholder{color:var(--muted);}
-.chat-send{background:linear-gradient(135deg,var(--or),#FF8C42);color:#fff;border:none;border-radius:8px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:opacity .18s;}
-.chat-send:hover{opacity:.85;}
-.chat-send:disabled{opacity:.4;cursor:not-allowed;}
+.chat-messages::-webkit-scrollbar-thumb{background:rgba(255,255,255,.07);border-radius:3px;}
+.chat-msg{display:flex;gap:.6rem;animation:fadeUp .25s ease both;}
+.chat-msg.user{flex-direction:row-reverse;}
+.chat-bubble{max-width:82%;padding:.7rem 1rem;border-radius:14px;font-size:.83rem;line-height:1.65;}
+.chat-msg.user .chat-bubble{background:var(--or);color:#fff;border-radius:14px 14px 4px 14px;}
+.chat-msg.ai .chat-bubble{background:var(--bg2);border:1px solid var(--bd);border-radius:14px 14px 14px 4px;color:var(--text);}
+.chat-avatar{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.75rem;margin-top:2px;}
+.chat-msg.user .chat-avatar{background:var(--or);color:#fff;font-weight:700;}
+.chat-msg.ai .chat-avatar{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;}
+.chat-input-area{display:flex;gap:.6rem;padding:.8rem 0 0;border-top:1px solid var(--bd);margin-top:.5rem;}
+.chat-input{flex:1;background:var(--bg2);border:1px solid var(--bd2);border-radius:10px;padding:.65rem 1rem;color:var(--text);font-family:var(--font);font-size:.84rem;outline:none;resize:none;min-height:44px;max-height:120px;transition:border-color .2s;}
+.chat-input:focus{border-color:var(--or);}
+.chat-send{background:linear-gradient(135deg,var(--or),#FF8C42);color:#fff;border:none;border-radius:10px;padding:.65rem 1rem;cursor:pointer;font-size:.9rem;flex-shrink:0;transition:opacity .2s;}
+.chat-send:hover{opacity:.9;}
+.chat-send:disabled{opacity:.5;cursor:not-allowed;}
+.chat-typing{display:flex;gap:.3rem;align-items:center;padding:.5rem .8rem;}
+.chat-typing span{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:bounce .9s infinite;}
+.chat-typing span:nth-child(2){animation-delay:.15s;}
+.chat-typing span:nth-child(3){animation-delay:.3s;}
+@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+.chat-suggestions{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.8rem;}
+.chat-sug{background:var(--bg3);border:1px solid var(--bd2);border-radius:20px;padding:.3rem .75rem;font-size:.72rem;color:var(--soft);cursor:pointer;transition:all .15s;}
+.chat-sug:hover{border-color:var(--or);color:var(--or);}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -458,6 +455,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
       <div class="ni" id="nav-voixoff" onclick="navTo('voixoff')"><span class="ico">🎙️</span>Voix Off</div>
       <div class="ni" id="nav-avatar" onclick="navTo('avatar')"><span class="ico">👤</span>Avatar Client</div>
       <div class="ni" id="nav-concurrence" onclick="navTo('concurrence')"><span class="ico">🔍</span>Concurrence</div>
+      <div class="ni" id="nav-chat" onclick="navTo('chat')"><span class="ico">💬</span>Chat IA Produit</div>
     </div>
     <div style="padding:.3rem 0">
       <div class="nlbl">Médias</div>
@@ -467,7 +465,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
     <div style="padding:.3rem 0">
       <div class="nlbl">Compte</div>
       <div class="ni" id="nav-shopify_connect" onclick="showPage('shopify_connect');closeSidebar()"><span class="ico">🛍️</span>Connecter Shopify</div>
-      <div class="ni" id="nav-chat" onclick="showPage('chat');closeSidebar()"><span class="ico">💬</span>Assistant IA</div>
       <div class="ni" id="nav-comptabilite" onclick="showPage('comptabilite');closeSidebar()"><span class="ico">📈</span>Comptabilité</div>
       <div class="ni" id="nav-historique" onclick="showPage('historique');closeSidebar()"><span class="ico">📊</span>Historique<span class="nbadge" id="hcount">3</span></div>
     </div>
@@ -517,8 +514,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
 <script>
 // ══ CONFIG SUPABASE ══
 // Mets ton URL et clé anon Supabase ici (ces deux sont publiques par conception)
-const SUPABASE_URL='https://jrsqomjwiawzbdsolcjq.supabase.co';
-const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impyc3FvbWp3aWF3emJkc29sY2pxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Nzc5NjYsImV4cCI6MjA4OTM1Mzk2Nn0.5n9njd-gv7Ss9k7bWSzMTRNYO8SwdIUP6C9FVa0c6NY';
+const SUPABASE_URL='METS-TON-URL-SUPABASE-ICI';
+const SUPABASE_KEY='METS-TA-CLE-ANON-ICI';
 // GROK_KEY et CLAUDE_KEY sont maintenant côté serveur dans /api/ai.js
 // Tu les mets dans Vercel → Settings → Environment Variables
 // PAS BESOIN de les mettre ici.
@@ -621,7 +618,7 @@ const ALL_PAYS_FB=[
   {pays:'Ethiopia 🇬🇧',code:'ET',flag:'🇪🇹',lang:'en'},{pays:'Zambia 🇬🇧',code:'ZM',flag:'🇿🇲',lang:'en'},
   {pays:'World EN 🇬🇧',code:'ALL',flag:'🌍',lang:'en'},
 ];
-const TITLES={form:'Nouveau Produit',prix:'Prix & Gains',score:'Score Produit',offres:'Offres',shopify:'Page Shopify',facebook:'Facebook Ads',voixoff:'Voix Off',avatar:'Avatar Client',concurrence:'Concurrence',images:'Images',videos:'Vidéos',historique:'Historique',comptabilite:'Comptabilité',shopify_connect:'Connecter Shopify',chat:'Assistant IA'};
+const TITLES={form:'Nouveau Produit',prix:'Prix & Gains',score:'Score Produit',offres:'Offres',shopify:'Page Shopify',facebook:'Facebook Ads',voixoff:'Voix Off',avatar:'Avatar Client',concurrence:'Concurrence',chat:'Chat IA Produit',images:'Images',videos:'Vidéos',historique:'Historique',comptabilite:'Comptabilité',shopify_connect:'Connecter Shopify'};
 
 // ══ MOBILE NAV ══
 function openSidebar(){document.getElementById('sb').classList.add('open');document.getElementById('overlay').classList.add('show');}
@@ -646,7 +643,7 @@ function showPage(p){
   else tp.style.display='none';
   const rs={form:rForm,prix:rPrix,score:rScore,offres:rOffres,shopify:rShopify,
     facebook:rFacebook,voixoff:rVoixOff,avatar:rAvatar,concurrence:rConc,
-    images:rImages,videos:rVideos,historique:rHist,comptabilite:rCompta,shopify_connect:rShopifyConnect,chat:rChat};
+    chat:rChat,images:rImages,videos:rVideos,historique:rHist,comptabilite:rCompta,shopify_connect:rShopifyConnect};
   const c=document.getElementById('content');
   c.innerHTML=rs[p]?rs[p]():'';
   c.scrollTop=0;
@@ -766,95 +763,80 @@ async function analyze(){
 
 // ══ API ══
 async function callAI(nom,prix,pays,cat,desc,pR,imageBase64=null){
-  // Détecter si le produit est mainstream (tout le monde peut l'utiliser)
   const isMainstream = cat === 'Maison & Cuisine' || cat === 'Alimentation' || cat === 'Électronique' || cat === 'Enfants & Bébé' || (desc && (desc.toLowerCase().includes('tout') || desc.toLowerCase().includes('famille') || desc.toLowerCase().includes('homme') && desc.toLowerCase().includes('femme')));
   
-  // Voix off toujours courte et minimaliste
-  const voixDuree = '60-80 mots maximum (environ 25-30 secondes)';
+  // Voix off : 35-45 secondes de lecture = 90-110 mots
+  const voixDuree = '90-110 mots (35-45 secondes de lecture)';
 
-  const prompt=`Tu es un expert en neuromarketing et e-commerce africain. Tu dois analyser ce produit et générer du contenu marketing qui touche l'ÉMOTION des africains. Réponds UNIQUEMENT en JSON valide, zéro texte ni backticks.
+  const prompt=`Tu es un expert en neuromarketing et e-commerce africain. Génère du contenu marketing émotionnel pour ce produit. Réponds UNIQUEMENT en JSON valide, zéro texte ni backticks.
 
 PRODUIT: ${nom}
 DESCRIPTION: ${desc}
 PRIX ACHAT: ${prix} FCFA | PRIX VENTE: ${pR} FCFA | PAYS: ${pays} | CATÉGORIE: ${cat}
-PRODUIT MAINSTREAM: ${isMainstream ? 'OUI — hommes ET femmes peuvent l\'acheter' : 'NON — cible spécifique'}
+PRODUIT MAINSTREAM: ${isMainstream ? 'OUI — hommes ET femmes' : 'NON — cible spécifique'}
 
-═══ ÉTAPE 1 — IDENTIFIER LE VRAI PRODUIT ═══
-Avant tout, identifie le vrai nom commercial de ce produit à partir du nom et de la description.
-- Si c'est une poudre dentaire → nom réel = poudre de blanchiment dentaire / dental powder
-- Si c'est Beauty Milk → c'est une boisson lactée à boire pour la peau
-- Si le nom donné n'est pas clair → trouve le vrai nom et travaille avec
-Stocke ce vrai nom dans "nom_reel" et "nom_reel_en" (en anglais) dans le JSON.
+═══ IDENTIFIER LE VRAI PRODUIT ═══
+Identifie le vrai nom commercial. Stocke dans "nom_reel" (français) et "nom_reel_en" (anglais).
 
-═══ ÉTAPE 2 — IDENTIFIER LES VRAIES FRUSTRATIONS ═══
-Base-toi sur ce que les vrais clients africains disent de ce type de produit :
-- Quels problèmes concrets ils vivent AVANT d'acheter
-- Ce qui les empêche de dormir la nuit
-- Ce qui les rend complexés ou frustrés dans leur quotidien
-- Ce qu'ils ont essayé avant sans succès
-Ces frustrations réelles serviront pour TOUT le contenu.
+═══ FRUSTRATIONS RÉELLES ═══
+Ce que les vrais clients africains vivent AVANT d'acheter : problèmes concrets, honte, frustrations, ce qu'ils ont essayé sans succès. Ces frustrations servent pour TOUT le contenu.
 
-═══ RÈGLES DE STYLE AFRICAIN OBLIGATOIRES ═══
-1. Parle comme un vendeur africain qui connaît SA clientèle — pas comme une pub européenne
-2. Situations du quotidien africain : la belle-mère, les voisines, les collègues du bureau, le marché
-3. Humour, pique l'ego ou la jalousie quand c'est approprié
-4. Tutoiement direct et chaleureux
-5. Phrases courtes, percutantes — le cerveau africain défile vite
-6. VENDS LA TRANSFORMATION, pas le produit. VENDS LE DÉSIR, pas les caractéristiques.
-7. Jamais de français corporate ou publicitaire européen
-8. Ne JAMAIS mettre le nom du produit là où doit être le problème
+═══ RÈGLES STYLE AFRICAIN ═══
+1. Vendeur africain qui connaît SA clientèle — pas pub européenne
+2. Situations africaines : belle-mère, voisines, collègues, marché
+3. Tutoiement direct et chaleureux
+4. Phrases courtes et percutantes
+5. VENDS LA TRANSFORMATION et LE DÉSIR — pas les caractéristiques
+6. Jamais de français corporate
 
-═══ SCORE — SOIS HONNÊTE ═══
-Le score doit refléter la RÉALITÉ du marché africain pour ce produit spécifique.
-- Si la concurrence est forte → score bas sur ce critère, dis-le clairement
-- Si le produit est cher pour le marché → dis-le
-- Si le produit est difficile à marketer → dis-le
-- Un score de 90+ = vraiment exceptionnel, rare
-- Un score de 40-50 = produit risqué, être honnête
-N'invente pas des bons scores pour rassurer. La vérité aide plus.
-BUDGET PUB : Toujours recommander entre 3$ et 7$/jour (jamais en FCFA, jamais plus de 7$/jour pour démarrer). Exemple : "Lance avec 5$/jour pendant 3 jours pour tester."
+═══ SCORE ═══
+Sois honnête sur le marché africain. Score 90+ = exceptionnel rare. 40-50 = risqué.
+BUDGET : Toujours entre 3$ et 7$/jour. Exemple : "Lance avec 5$/jour pendant 3 jours."
 
-═══ OFFRES — ADAPTER AU PRIX ═══
-Prix de vente: ${pR} FCFA
-- Si prix > 10 000 FCFA → PAS de "pack 2+1" (trop cher). Propose : garantie satisfait ou remboursé, paiement en 2 fois, cadeau surprise, consultation gratuite...
-- Si prix < 5 000 FCFA → les packs et bundles marchent bien
-- Si prix entre 5 000-10 000 FCFA → offre de fidélité, bonus livraison, cadeau
-Toujours dans le neuromarketing : l'offre doit enlever la peur d'acheter.
+═══ OFFRES ═══
+Prix: ${pR} FCFA. Adapter selon le prix :
+- >10 000 FCFA → garantie remboursement, paiement en 2 fois, cadeau surprise
+- <5 000 FCFA → packs et bundles
+- 5 000-10 000 FCFA → fidélité, livraison offerte, cadeau
 
-═══ VOIX OFF — STRUCTURE OBLIGATOIRE ═══
-Durée cible: ${voixDuree}
-RÈGLE : Court, simple, direct. Pas de fioritures. Chaque phrase doit être utile.
-Structure EN UN SEUL PARAGRAPHE FLUIDE (sans labels) :
-1. ACCROCHE (1 phrase) : le problème en 1 question ou affirmation. La personne s'identifie en 2 secondes.
-2. DOULEUR (1 phrase) : une situation concrète africaine, courte.
-3. SOLUTION (1 phrase) : le produit comme réponse naturelle.
-4. RÉSULTAT (1 phrase) : ce que ça change concrètement.
-5. CTA (1 phrase) : simple et direct. "Lien dans la bio" ou "Message-nous maintenant".
-Ton : naturel, comme une amie qui parle. PAS de prix. PAS de noms de pays. PAS de labels.
+═══ PAGE SHOPIFY — RÈGLES STRICTES ═══
+OBLIGATOIRE : 6 paragraphes. Chaque paragraphe = exactement 3 à 4 phrases.
+UNIQUEMENT les BÉNÉFICES — jamais les caractéristiques techniques.
+Structure des 6 paragraphes :
+1. Le problème que ce produit résout (émotion, douleur du client)
+2. Le bénéfice principal — comment ça transforme la vie
+3. Bénéfice secondaire — résultat visible et concret
+4. Preuve sociale — témoignage style africain naturel
+5. Pourquoi maintenant — urgence et opportunité
+6. Garantie et réassurance — enlever la peur d'acheter
+Chaque paragraphe : 3-4 phrases courtes, émotionnelles, style neuromarketing africain.
 
-═══ FACEBOOK ADS ═══
-RÈGLE ABSOLUE : Texte court, compact, percutant. Maximum 6-8 lignes en tout.
-Structure obligatoire :
-- Ligne 1 : Accroche choc (1 phrase — le problème EXACT)
-- Ligne 2-3 : Agitation (2 phrases max — la douleur, l'émotion)
-- Ligne 4 : Solution (1 phrase — le produit comme réponse)
-- Ligne 5 : 2-3 bénéfices avec emojis (puces courtes)
-- Ligne 6 : CTA court ("Commande maintenant 👇" ou "Lien dans la bio")
-PAS de longs paragraphes. PAS de répétitions. Chaque mot doit servir.
-Exemples d'accroche : "Tu souris mais tu caches tes dents depuis 2 ans 😔" / "Ta voisine a changé quelque chose et maintenant tout le monde lui fait des compliments 👀"
+═══ VOIX OFF — STRUCTURE STRICTE ═══
+Durée : ${voixDuree}
+UN SEUL paragraphe fluide SANS labels ni numéros. Structure dans cet ordre :
+HOOK (1 phrase percutante qui interpelle — question ou affirmation choc sur le problème)
+PROBLÈME (1-2 phrases — la douleur concrète, situation africaine réelle)
+SOLUTION (1 phrase — le produit comme réponse naturelle)
+FONCTIONNEMENT (1-2 phrases — comment ça marche, résultat concret visible)
+TÉMOIGNAGE (1 phrase — prénom africain sans pays, naturel et crédible)
+CTA (1 phrase courte — "Lien dans la bio" ou "Message-nous maintenant")
+TON : simple, naturel, comme une amie qui parle. PAS de prix. PAS de noms de pays.
+
+═══ FACEBOOK ADS — 7 LIGNES MAXIMUM ═══
+RÈGLE ABSOLUE : Maximum 7 lignes en tout. Compact et percutant.
+Structure EXACTE :
+Ligne 1 : Accroche choc — problème ET solution en 1 phrase (ex: "Tu caches tes dents depuis 2 ans ? Ce produit change tout 😮")
+Ligne 2 : Phrase d'agitation courte (la douleur en 1 phrase)
+Ligne 3-6 : Liste de 4 bénéfices avec emojis (une puce par ligne, 5-7 mots max par puce)
+Ligne 7 : CTA direct ("Commande maintenant 👇" ou "Lien dans la bio ⬇️")
+PAS de paragraphes. PAS de répétitions. Chaque mot compte.
 
 ═══ AVATAR CLIENT ═══
-PRODUIT MAINSTREAM (${isMainstream ? 'OUI' : 'NON'}) :
-${isMainstream ? '→ Génère DEUX avatars distincts : un homme ET une femme. avatar_secondaire OBLIGATOIRE rempli.' : '→ Un seul avatar adapté au genre du produit. avatar_secondaire = null.'}
-
-La PHRASE DÉCLENCHANTE doit être 100% cohérente avec CE produit.
-- Poudre dentaire → parler des dents, sourire, confiance
-- Boisson beauté → parler de la peau, éclat, compliments
-- Produit sport → parler de performance, corps, énergie
-JAMAIS mélanger les domaines.
+${isMainstream ? '→ DEUX avatars : homme ET femme. avatar_secondaire OBLIGATOIRE.' : '→ Un seul avatar. avatar_secondaire = null.'}
+Phrase déclenchante 100% cohérente avec CE produit uniquement.
 
 JSON:
-{"nom_reel":"vrai nom commercial du produit en français","nom_reel_en":"real product name in english","score":75,"score_verdict":"5 mots honnêtes","score_desc":"1 phrase honnête sur le potentiel réel","score_recommandation":"réponse directe et honnête : dois-je lancer ? avec les vraies raisons (avantages ET risques)","criteres":[{"nom":"Popularité en Afrique","score":70,"explication":"réalité du marché","conseil":"action concrète immédiate"},{"nom":"Facilité à marketer","score":80,"explication":"réalité","conseil":"comment"},{"nom":"Concurrence","score":60,"explication":"réalité de la concurrence","conseil":"comment se différencier"},{"nom":"Prix adapté au marché","score":85,"explication":"avis honnête sur le prix","conseil":"conseil prix"},{"nom":"Audience cible","score":75,"explication":"qui achète vraiment","conseil":"comment cibler"},{"nom":"Tendance marché","score":68,"explication":"tendance réelle","conseil":"timing"}],"offres":[{"titre":"offre adaptée au prix ${pR}","desc":"...","icon":"🚚","pour_qui":"...","comment":"...","impact":"...","recommandee":true},{"titre":"...","desc":"...","icon":"📦","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🎁","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🛡️","pour_qui":"...","comment":"...","impact":"...","recommandee":false}],"shopify_titres":["titre accrocheur 1","titre accrocheur 2","titre accrocheur 3"],"shopify_paragraphes":[{"titre":"Titre du bénéfice principal","contenu":"3-4 phrases qui vendent la TRANSFORMATION. Commence par une situation concrète africaine. Montre le AVANT (problème) et le APRÈS (résultat). Pas de caractéristiques techniques. Émotionnel et concret."},{"titre":"Titre bénéfice 2","contenu":"3-4 phrases sur un autre bénéfice clé. Même style — TRANSFORMATION visible, situations africaines."},{"titre":"Titre bénéfice 3","contenu":"3-4 phrases. Insiste sur la confiance et la preuve sociale. Témoignages, résultats concrets."},{"titre":"Titre bénéfice 4","contenu":"3-4 phrases. Bénéfice complémentaire. Pourquoi ce produit est différent des autres solutions essayées."},{"titre":"Titre bénéfice 5","contenu":"3-4 phrases. Urgence et garantie. Pourquoi agir maintenant. Satisfaction garantie."},{"titre":"Titre bénéfice 6","contenu":"3-4 phrases. Bénéfice bonus ou utilisation pratique. Comment intégrer le produit dans le quotidien africain."}],"fb_ads":[{"angle":"Douleur / Problème","accroche":"1 phrase CHOC max 10 mots — nomme le problème EXACT, style africain percutant, donne envie de lire la suite","texte":"STRUCTURE OBLIGATOIRE max 7 lignes:\nLigne 1: Accroche (même que dessus)\nLigne 2-3: Liste à puces 4-5 bénéfices clés avec emojis (✅ ou 🔥)\nLigne 4: Preuve sociale courte (X clients satisfaits)\nLigne 5: Garantie (Satisfait ou remboursé)\nLigne 6: CTA (Commande maintenant — Lien dans la bio 👇)\nPas de phrases longues. Emojis stratégiques. Africain et direct."},{"angle":"Preuve Sociale","accroche":"1 phrase courte — résultat réel ou témoignage percutant","texte":"STRUCTURE max 7 lignes. Même format que ci-dessus mais en partant du témoignage."},{"angle":"Curiosité / Intrigue","accroche":"1 phrase qui pique la curiosité sans révéler le produit","texte":"STRUCTURE max 7 lignes. Crée la curiosité, révèle progressivement, CTA fort."}],"voix_off":[{"titre":"Script 1 — Émotionnel","script":"Script 35-45 secondes (80-100 mots). Structure OBLIGATOIRE sans labels : 1) HOOK (1 phrase percutante qui pose le problème — la personne doit se reconnaître immédiatement) 2) PROBLÈME (2 phrases sur la douleur vécue, situations africaines concrètes) 3) SOLUTION (1 phrase — le produit arrive naturellement) 4) FONCTIONNEMENT (2 phrases — comment ça marche, bénéfices visibles) 5) TÉMOIGNAGE (1 phrase — prénom africain varié SANS mentionner le pays, son ressenti naturel) 6) CTA (1 phrase urgente — lien dans la bio ou message). Ton chaleureux, simple, impactant. JAMAIS de prix ni de noms de pays."},{"titre":"Script 2 — Direct & Choc","script":"Script 35-45 secondes (80-100 mots). Même structure que Script 1 mais ton direct et percutant. Hook choc en première phrase. Témoignage avec prénom africain SANS pays mentionné."},{"titre":"Script 3 — Storytelling","script":"Script 35-45 secondes (80-100 mots). Mini histoire vraie : une personne (prénom africain, SANS pays) vivait ce problème → a découvert le produit → sa vie a changé. Se termine par CTA. Naturel, crédible, émouvant."}],"avatar_principal":{"prenom":"prénom africain varié selon pays et genre","age":"tranche d'âge réelle","sexe":"Homme ou Femme","profession":"profession réelle et courante en Afrique","revenu":"revenu réaliste en FCFA","situation":"situation familiale réelle","ville":"vraie ville du pays cible","en_ligne":"horaires réels","budget_max":"budget max réaliste pour CE produit","description":"2 phrases portrait psychologique réel et précis","motivations":["motivation réelle liée au produit","...","..."],"frustrations":["frustration réelle vécue avant d'acheter","...","..."],"desirs":["désir concret que le produit peut accomplir","...","..."],"langage":["expression typique africaine qu'il/elle utilise vraiment","...","..."],"objections":["vraie objection à l'achat","..."],"reponses":["réponse vendeur efficace","..."],"phrase_declenchante":"phrase 100% cohérente avec CE produit spécifique — jamais hors sujet","reseaux":["...","..."],"tags":["...","...","..."],"face":"👨 ou 👩","bg":"linear-gradient(135deg,couleur1,couleur2)"},"avatar_secondaire":null,"concurrence":{"analyse":"2-3 phrases sur la realite de la concurrence pour ce produit en Afrique","conseil":"conseil stratégique concret pour se différencier"}}`;
+{"nom_reel":"vrai nom français","nom_reel_en":"real name english","score":75,"score_verdict":"5 mots honnêtes","score_desc":"1 phrase honnête","score_recommandation":"réponse directe avec avantages ET risques, budget 3-7$/jour","criteres":[{"nom":"Popularité en Afrique","score":70,"explication":"réalité marché","conseil":"action concrète"},{"nom":"Facilité à marketer","score":80,"explication":"réalité","conseil":"comment"},{"nom":"Concurrence","score":60,"explication":"réalité concurrence","conseil":"différenciation"},{"nom":"Prix adapté","score":85,"explication":"avis honnête prix","conseil":"conseil prix"},{"nom":"Audience cible","score":75,"explication":"qui achète vraiment","conseil":"comment cibler"},{"nom":"Tendance marché","score":68,"explication":"tendance réelle","conseil":"timing"}],"offres":[{"titre":"offre adaptée ${pR} FCFA","desc":"...","icon":"🚚","pour_qui":"...","comment":"...","impact":"...","recommandee":true},{"titre":"...","desc":"...","icon":"📦","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🎁","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🛡️","pour_qui":"...","comment":"...","impact":"...","recommandee":false}],"shopify_titres":["titre accrocheur neuromarketing 1","titre accrocheur 2","titre accrocheur 3"],"shopify_paragraphes":[{"titre":"Titre bénéfice 1","contenu":"3-4 phrases bénéfice émotionnel — transformation, pas caractéristique"},{"titre":"Titre bénéfice 2","contenu":"3-4 phrases"},{"titre":"Titre bénéfice 3","contenu":"3-4 phrases"},{"titre":"Titre bénéfice 4","contenu":"3-4 phrases"},{"titre":"Titre bénéfice 5","contenu":"3-4 phrases"},{"titre":"Titre bénéfice 6","contenu":"3-4 phrases"}],"fb_ads":[{"angle":"Douleur / Problème","accroche":"accroche choc 1 phrase problème+solution","texte":"7 lignes MAX : ligne1 accroche + ligne2 agitation + lignes3-6 puces bénéfices emojis + ligne7 CTA"},{"angle":"Preuve Sociale","accroche":"résultat ou témoignage court","texte":"7 lignes MAX même structure"},{"angle":"Curiosité","accroche":"1 phrase qui pique la curiosité","texte":"7 lignes MAX même structure"}],"voix_off":[{"titre":"Script 1 — Émotionnel","script":"${voixDuree} — hook+problème+solution+fonctionnement+témoignage prénom africain sans pays+CTA — 1 paragraphe fluide sans labels"},{"titre":"Script 2 — Direct","script":"${voixDuree} — même structure, ton direct et percutant"},{"titre":"Script 3 — Storytelling","script":"${voixDuree} — même structure, mini histoire avant/après"}],"avatar_principal":{"prenom":"prénom africain","age":"tranche réelle","sexe":"Homme ou Femme","profession":"profession africaine courante","revenu":"revenu FCFA réaliste","situation":"situation familiale","ville":"ville du pays cible","en_ligne":"18h-22h","budget_max":"budget max pour CE produit","description":"2 phrases portrait psychologique précis","motivations":["motivation liée au produit","...","..."],"frustrations":["frustration réelle avant achat","...","..."],"desirs":["désir concret","...","..."],"langage":["expression africaine typique","...","..."],"objections":["vraie objection","..."],"reponses":["réponse efficace","..."],"phrase_declenchante":"phrase 100% cohérente avec CE produit","reseaux":["...","..."],"tags":["...","...","..."],"face":"👨 ou 👩","bg":"linear-gradient(135deg,couleur1,couleur2)"},"avatar_secondaire":null,"concurrence":{"analyse":"2-3 phrases réalité concurrence Afrique","conseil":"conseil stratégique concret"}}`;
 
   // Appel sécurisé via /api/ai — les clés restent côté serveur Vercel
   const r=await fetch('/api/ai',{
@@ -976,19 +958,21 @@ function demo(nom,prix,pays,cat,desc,pM,pX,pR,pub,liv,clo,imageBase64){
 
 // ══ SHOPIFY CONNECTION ══
 S.shopifySelected = S.shopifySelected || {titres:[], paragraphes:[]};
-// Charger les credentials Shopify au démarrage
-if(!S.shopifyStore) S.shopifyStore = localStorage.getItem('eb2_shopify_store') || '';
-if(!S.shopifyToken) S.shopifyToken = localStorage.getItem('eb2_shopify_token') || '';
+S.shopifyToken = S.shopifyToken || localStorage.getItem('eb2_shopify_token') || '';
+S.shopifyStore = S.shopifyStore || localStorage.getItem('eb2_shopify_store') || '';
 
 function rShopifyConnect(){
+  const connected = S.shopifyToken && S.shopifyStore;
+
   if(!S.results){
     return `
     <div class="rh afu"><div><h2>🛍️ Exporter sur Shopify</h2><div class="rp">Crée ton produit en 1 clic</div></div></div>
-    <div class="tip afu2"><div class="tip-i">ℹ️</div><div><h4>Analyse un produit d'abord</h4><p>Lance une analyse depuis le formulaire pour pouvoir exporter sur Shopify.</p></div></div>`;
+    ${!connected ? rShopifyForm() : '<div class="tip afu2"><div class="tip-i">✅</div><div><h4>Boutique connectée !</h4><p>Lance une analyse pour exporter un produit.</p></div></div>'}`;
   }
 
   const titres = S.results.shopify_titres || [];
   const paras = S.results.shopify_paragraphes || [];
+  const prixReco = S.results.prixReco || '';
 
   const titreCards = titres.map((t,i)=>{
     const kt = storeCopy(t);
@@ -1014,29 +998,61 @@ function rShopifyConnect(){
   return `
   <div class="rh afu"><div><h2>🛍️ Exporter sur Shopify</h2><div class="rp">${S.product.nom}</div></div></div>
 
-  <div class="tip afu2" style="margin-bottom:1.2rem">
+  ${!connected ? rShopifyForm() : `
+  <div class="shopify-card afu2" style="background:rgba(34,197,94,.07);border-color:rgba(34,197,94,.2);margin-bottom:1rem;padding:.8rem 1rem;display:flex;align-items:center;justify-content:space-between">
+    <span style="font-size:.82rem;color:var(--green)">✅ Connecté : ${S.shopifyStore}</span>
+    <button onclick="disconnectShopify()" style="font-size:.7rem;color:#F87171;background:none;border:1px solid rgba(239,68,68,.3);border-radius:5px;padding:.2rem .5rem;cursor:pointer">Déconnecter</button>
+  </div>`}
+
+  <div class="tip afu2" style="margin-bottom:1rem">
     <div class="tip-i">💡</div>
-    <div>
-      <h4>Comment ça marche</h4>
-      <p>Sélectionne 1 titre + les paragraphes que tu veux → clique "Créer sur Shopify" → le produit est créé automatiquement dans ta boutique en statut brouillon.</p>
-    </div>
+    <div><h4>Comment ça marche</h4>
+    <p>Sélectionne 1 titre + tes paragraphes + mets ton prix → clique "Créer sur Shopify" → le produit apparaît dans ta boutique en brouillon.</p></div>
   </div>
 
   <div class="shopify-card afu2">
-    <div class="section-subtitle" style="margin-bottom:.8rem">📝 Choisis un titre</div>
+    <div class="section-subtitle" style="margin-bottom:.8rem">📝 1 — Choisis un titre</div>
     ${titreCards}
   </div>
 
   <div class="shopify-card afu3">
-    <div class="section-subtitle" style="margin-bottom:.8rem">📄 Choisis tes paragraphes (plusieurs possibles)</div>
+    <div class="section-subtitle" style="margin-bottom:.8rem">📄 2 — Choisis tes paragraphes</div>
     ${paraCards}
   </div>
 
-  <div style="margin-top:.5rem" class="afu4">
+  <div class="shopify-card afu4">
+    <div class="section-subtitle" style="margin-bottom:.8rem">💰 3 — Prix de vente</div>
+    <div class="fg">
+      <input type="number" id="sh-prix" placeholder="Ex: 15000" value="${prixReco}" style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:.6rem .82rem;color:var(--text);font-family:var(--font);font-size:.84rem;width:100%;outline:none">
+      <div style="font-size:.68rem;color:var(--muted);margin-top:.3rem">Prix en FCFA — laisse vide pour utiliser le prix recommandé (${prixReco} FCFA)</div>
+    </div>
+  </div>
+
+  <div style="margin-top:.8rem" class="afu4">
     <button class="btng" onclick="exportToShopify()" style="width:100%">
       🚀 Créer ce produit sur Shopify
     </button>
-    <p style="font-size:.7rem;color:var(--muted);text-align:center;margin-top:.5rem">Le produit sera créé en brouillon dans ta boutique Nuveria Store</p>
+  </div>`;
+}
+
+function rShopifyForm(){
+  return `
+  <div class="shopify-card afu2" style="margin-bottom:1rem">
+    <div class="section-subtitle" style="margin-bottom:.8rem">🔗 Connecter ta boutique Shopify</div>
+    <div class="fg" style="margin-bottom:.7rem">
+      <label style="font-size:.7rem;font-weight:600;color:var(--soft);display:block;margin-bottom:.3rem">URL de ta boutique</label>
+      <input type="text" id="sh-store" placeholder="nom-boutique.myshopify.com" value="${S.shopifyStore}" style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:.6rem .82rem;color:var(--text);font-family:var(--font);font-size:.84rem;width:100%;outline:none">
+    </div>
+    <div class="fg" style="margin-bottom:.7rem">
+      <label style="font-size:.7rem;font-weight:600;color:var(--soft);display:block;margin-bottom:.3rem">Token d'accès Admin</label>
+      <input type="password" id="sh-token" placeholder="shpat_xxxxxxxxxx" value="${S.shopifyToken}" style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:.6rem .82rem;color:var(--text);font-family:var(--font);font-size:.84rem;width:100%;outline:none">
+    </div>
+    <div class="tip" style="margin-bottom:.8rem">
+      <div class="tip-i">💡</div>
+      <div><h4>Où trouver ton token ?</h4>
+      <p>Admin Shopify → Paramètres → Apps → Développer des apps → Créer une app → Configurer API Admin → Coche write_products → Installer → Copie le token shpat_xxx</p></div>
+    </div>
+    <button class="btng" onclick="saveShopify()">💾 Connecter ma boutique</button>
   </div>`;
 }
 
@@ -1086,9 +1102,12 @@ function toggleShopifyItem(type, idx, text){
 }
 
 async function exportToShopify(){
+  // Vérifier connexion
+  if(!S.shopifyStore || !S.shopifyToken){
+    toast('⚠️ Connecte ta boutique Shopify d\'abord', false);
+    return;
+  }
   const sel = S.shopifySelected || {titres:[], paragraphes:[]};
-
-  // Vérifier qu'un titre est sélectionné
   if(sel.titres.length === 0){
     toast('⚠️ Sélectionne au moins un titre', false);
     return;
@@ -1098,45 +1117,33 @@ async function exportToShopify(){
   const paras = sel.paragraphes.length > 0
     ? sel.paragraphes.map(p=>p.text).join('\n\n')
     : '';
+  const bodyHtml = paras ? paras.replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>') : '';
 
-  // Construire la description HTML
-  const bodyHtml = paras
-    ? paras.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>')
-    : '';
+  // Récupérer le prix saisi ou utiliser le prix recommandé
+  const prixInput = document.getElementById('sh-prix')?.value?.trim();
+  const prix = prixInput || S.results?.prixReco?.toString() || '0';
 
-  showLov('Création sur Shopify...', 'Le produit est en cours d\'envoi...');
+  showLov('Création sur Shopify...', 'Envoi du produit en cours...');
 
   try {
-    // Récupérer store et token sauvegardés
-    const shopStore = S.shopifyStore || localStorage.getItem('eb2_shopify_store') || '';
-    const shopToken = S.shopifyToken || localStorage.getItem('eb2_shopify_token') || '';
-
-    if(!shopStore || !shopToken){
-      hideLov();
-      toast('⚠️ Connecte ta boutique Shopify dabord dans "Connecter Shopify"', false);
-      return;
-    }
-
     const r = await fetch('/api/shopify', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-        store: shopStore,
-        token: shopToken,
+        store: S.shopifyStore,
+        token: S.shopifyToken,
         title: titre,
         body_html: bodyHtml,
-        price: S.results?.prixReco?.toString() || '0',
+        price: prix,
         vendor: 'Ecom Booster'
       })
     });
     hideLov();
     const d = await r.json();
     if(d.success){
-      toast('✅ Produit créé sur Shopify !', true);
-      // Réinitialiser la sélection
       S.shopifySelected = {titres:[], paragraphes:[]};
-      // Ouvrir le produit dans Shopify
-      if(d.url) setTimeout(()=>window.open(d.url, '_blank'), 800);
+      toast('✅ Produit créé sur Shopify !', true);
+      if(d.url) setTimeout(()=>window.open(d.url,'_blank'), 800);
     } else {
       toast('❌ ' + (d.error||'Erreur Shopify'), false);
     }
@@ -1144,149 +1151,6 @@ async function exportToShopify(){
     hideLov();
     toast('❌ Erreur réseau: ' + e.message, false);
   }
-}
-
-
-// ══ CHAT IA ══
-S.chatHistory = S.chatHistory || [];
-S.chatLoading = false;
-
-function rChat(){
-  const product = S.product;
-  const hasProduct = product && product.nom;
-
-  const msgs = S.chatHistory.map(m => `
-    <div class="chat-msg ${m.role}">
-      <div class="chat-bubble">${m.content.replace(/\n/g,'<br>')}</div>
-    </div>`).join('');
-
-  const suggestions = hasProduct ? [
-    'Comment améliorer mon prix de vente ?',
-    'Donne-moi 3 idées de contenu pour ' + product.nom,
-    'Quelles sont les meilleures audiences Facebook pour ce produit ?',
-    'Comment rédiger un bon titre WhatsApp pour ' + product.nom,
-  ] : [
-    'Comment trouver un produit gagnant ?',
-    'Quels produits marchent bien en Afrique en ce moment ?',
-    'Comment calculer mon budget pub Facebook ?',
-  ];
-
-  const suggHtml = suggestions.map(s =>
-    `<button class="chat-sug" onclick="sendChat('${s.replace(/'/g, "\'")}')"> ${s}</button>`
-  ).join('');
-
-  return `
-  <div class="chat-wrap">
-    <div class="chat-header">
-      <div class="chat-avatar">🤖</div>
-      <div>
-        <div class="chat-title">Assistant Ecom Booster</div>
-        <div class="chat-subtitle">${hasProduct ? 'Produit actif : ' + product.nom : 'Pose-moi tes questions sur le e-commerce africain'}</div>
-      </div>
-    </div>
-
-    <div class="chat-messages" id="chat-messages">
-      ${S.chatHistory.length === 0 ? `
-      <div class="chat-welcome">
-        <div style="font-size:2rem;margin-bottom:.5rem">👋</div>
-        <div style="font-weight:700;margin-bottom:.3rem">Bonjour ! Je suis ton assistant e-commerce.</div>
-        <div style="color:var(--muted);font-size:.82rem">Je peux t'aider à vendre mieux, créer du contenu, comprendre ton marché africain. ${hasProduct ? 'Je connais déjà ton produit <strong>' + product.nom + '</strong>.' : 'Analyse d'abord un produit pour des réponses plus précises.'}</div>
-      </div>` : msgs}
-    </div>
-
-    <div class="chat-suggestions" id="chat-sugs">
-      ${S.chatHistory.length === 0 ? suggHtml : ''}
-    </div>
-
-    <div class="chat-input-row">
-      <textarea id="chat-input" class="chat-input" placeholder="Pose ta question sur ton produit, tes ventes, tes publicités..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"></textarea>
-      <button class="chat-send" id="chat-send-btn" onclick="sendChat()">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-      </button>
-    </div>
-  </div>`;
-}
-
-async function sendChat(preset){
-  const input = document.getElementById('chat-input');
-  const msg = preset || (input ? input.value.trim() : '');
-  if(!msg || S.chatLoading) return;
-
-  if(input) input.value = '';
-
-  // Cacher les suggestions
-  const sugsEl = document.getElementById('chat-sugs');
-  if(sugsEl) sugsEl.style.display = 'none';
-
-  // Ajouter le message utilisateur
-  S.chatHistory.push({role:'user', content: msg});
-  updateChatUI();
-
-  S.chatLoading = true;
-  const sendBtn = document.getElementById('chat-send-btn');
-  if(sendBtn) sendBtn.disabled = true;
-
-  // Construire le contexte produit
-  const productContext = S.product ? `
-CONTEXTE PRODUIT ACTUEL:
-- Nom: ${S.product.nom}
-- Prix achat: ${S.product.prix} FCFA
-- Prix vente recommandé: ${S.results?.prixReco || 'non calculé'} FCFA
-- Pays: ${S.product.pays}
-- Catégorie: ${S.product.cat}
-${S.results ? '- Score: ' + S.results.score + '/100' : ''}
-${S.results?.score_recommandation ? '- Avis: ' + S.results.score_recommandation : ''}
-` : '';
-
-  // Construire l'historique pour Claude
-  const messages = S.chatHistory.map(m => ({
-    role: m.role,
-    content: m.role === 'user' && m === S.chatHistory[S.chatHistory.length-1]
-      ? (productContext ? productContext + '\n\nQuestion: ' + m.content : m.content)
-      : m.content
-  }));
-
-  try {
-    const r = await fetch('/api/chat', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ messages, mode: S.apiMode })
-    });
-
-    const d = await r.json();
-    if(d.success){
-      S.chatHistory.push({role:'assistant', content: d.reply});
-    } else {
-      S.chatHistory.push({role:'assistant', content: '❌ Erreur: ' + (d.error || 'Réessaie.')});
-    }
-  } catch(e) {
-    S.chatHistory.push({role:'assistant', content: '❌ Erreur réseau. Vérifie ta connexion.'});
-  }
-
-  S.chatLoading = false;
-  if(sendBtn) sendBtn.disabled = false;
-  updateChatUI();
-}
-
-function updateChatUI(){
-  const msgsEl = document.getElementById('chat-messages');
-  if(!msgsEl) return;
-
-  const msgs = S.chatHistory.map(m => `
-    <div class="chat-msg ${m.role}">
-      <div class="chat-bubble">${m.content.replace(/\n/g,'<br>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')}</div>
-    </div>`).join('');
-
-  // Add loading indicator if waiting
-  const loading = S.chatLoading ? '<div class="chat-msg assistant"><div class="chat-bubble"><div class="chat-dots"><span></span><span></span><span></span></div></div></div>' : '';
-
-  msgsEl.innerHTML = msgs + loading;
-  msgsEl.scrollTop = msgsEl.scrollHeight;
-}
-
-function clearChat(){
-  S.chatHistory = [];
-  showPage('chat');
 }
 
 // ══ COPY STORE — stockage textes par clé unique ══
@@ -1647,8 +1511,6 @@ async function genImage(type, extraData={}) {
   const p = S.product;
   if(!p) { toast('⚠️ Analyse un produit d\'abord', false); return; }
 
-  const FAL_KEY_SET = true; // La clé est dans Vercel
-
   const btn = document.getElementById('gen-btn-' + type);
   const card = document.getElementById('gen-card-' + type);
   if(btn) { btn.disabled = true; btn.textContent = '⏳ Génération...'; }
@@ -1658,10 +1520,10 @@ async function genImage(type, extraData={}) {
     const body = {
       type,
       productName: p.nom,
-      imageBase64: p.imageBase64 || null,
-      benefits: S.results?.criteres?.slice(0,3).map(c=>c.nom) || [],
+      productDescription: p.desc || p.nom,
+      benefits: S.results?.criteres?.slice(0,5).map(c=>c.nom) || [],
       reviewText: S.results?.avatar_principal?.phrase_declenchante || 'Excellent produit, vraiment efficace !',
-      reviewerName: S.results?.avatar_principal?.prenom || 'Kofi M.',
+      reviewerName: S.results?.avatar_principal?.prenom || 'Fatoumata K.',
       ...extraData
     };
 
@@ -1674,16 +1536,15 @@ async function genImage(type, extraData={}) {
     const d = await r.json();
     if(!d.success) throw new Error(d.error || 'Échec génération');
 
-    // Stocker l'image générée
+    S.generatedImages = S.generatedImages || [];
     S.generatedImages.push({ type, url: d.url, name: p.nom });
 
-    // Afficher dans la carte
     if(card) {
       card.innerHTML = `
         <img src="${d.url}" style="width:100%;border-radius:10px;display:block" alt="${type}">
         <div style="display:flex;gap:.5rem;margin-top:.6rem;flex-wrap:wrap">
-          <a href="${d.url}" download="eb2-${type}.jpg" class="cbtn" style="text-decoration:none">⬇️ Télécharger</a>
-          <button class="cbtn" onclick="modifyImage('${type}','${d.url}')">✏️ Modifier</button>
+          <a href="${d.url}" target="_blank" class="cbtn" style="text-decoration:none">⬇️ Télécharger</a>
+          <button class="cbtn" onclick="genImage('${type}')">🔄 Regénérer</button>
         </div>`;
       card.style.opacity = '1';
     }
@@ -1691,7 +1552,7 @@ async function genImage(type, extraData={}) {
   } catch(e) {
     toast('❌ ' + e.message, false);
     if(card) {
-      card.innerHTML = `<div style="color:#F87171;font-size:.78rem;padding:1rem">❌ Erreur: ${e.message}<br><button class="cbtn" style="margin-top:.5rem" onclick="genImage('${type}')">Réessayer</button></div>`;
+      card.innerHTML = `<div style="color:#F87171;font-size:.78rem;padding:1rem">❌ ${e.message}<br><button class="cbtn" style="margin-top:.5rem" onclick="genImage('${type}')">Réessayer</button></div>`;
       card.style.opacity = '1';
     }
   } finally {
@@ -1705,21 +1566,143 @@ function modifyImage(type, imageUrl) {
   genImage('modify', { imageUrl, modifyPrompt: modPrompt + ' for product ' + (S.product?.nom || '') });
 }
 
+// ══ CHAT IA PRODUIT ══
+if(!window.S) window.S = {};
+S.chatHistory = S.chatHistory || [];
+
+function rChat(){
+  const p = S.product;
+  const suggestions = [
+    'Comment améliorer ma page produit ?',
+    'Quel est le meilleur angle publicitaire ?',
+    'Comment gérer les objections clients ?',
+    'Quelle offre irrésistible proposer ?',
+    'Comment cibler sur Facebook ?',
+    'Quel prix est optimal pour ce marché ?'
+  ];
+  const sugHtml = suggestions.map(s=>`<div class="chat-sug" onclick="sendChatMsg('${s.replace(/'/g,"\\'")}')">${s}</div>`).join('');
+
+  const msgsHtml = S.chatHistory.map(m=>`
+    <div class="chat-msg ${m.role}">
+      <div class="chat-avatar">${m.role==='user'?'👤':'🤖'}</div>
+      <div class="chat-bubble">${m.content.replace(/\n/g,'<br>')}</div>
+    </div>`).join('');
+
+  const emptyHtml = S.chatHistory.length === 0 ? `
+    <div style="text-align:center;padding:2rem 1rem;color:var(--muted)">
+      <div style="font-size:2rem;margin-bottom:.5rem">💬</div>
+      <div style="font-size:.85rem;font-weight:600;color:var(--soft);margin-bottom:.3rem">Pose une question sur ${p?.nom||'ton produit'}</div>
+      <div style="font-size:.75rem">Je peux t'aider sur la stratégie, les textes, le ciblage...</div>
+    </div>` : '';
+
+  return `
+  <div class="rh afu"><div><h2>💬 Chat IA Produit</h2><div class="rp">${p?.nom||'Analyse un produit d\'abord'}</div></div>
+    <button class="cbtn" onclick="clearChat()">🗑️ Effacer</button>
+  </div>
+
+  <div class="chat-wrap afu2">
+    <div class="chat-suggestions">${sugHtml}</div>
+    <div class="chat-messages" id="chat-msgs">
+      ${emptyHtml}${msgsHtml}
+    </div>
+    <div class="chat-input-area">
+      <textarea class="chat-input" id="chat-input" placeholder="Pose ta question sur ce produit..." rows="1"
+        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"></textarea>
+      <button class="chat-send" id="chat-send-btn" onclick="sendChat()">➤</button>
+    </div>
+  </div>`;
+}
+
+function clearChat(){
+  S.chatHistory = [];
+  showPage('chat');
+}
+
+function sendChatMsg(msg){
+  document.getElementById('chat-input').value = msg;
+  sendChat();
+}
+
+async function sendChat(){
+  const input = document.getElementById('chat-input');
+  const btn = document.getElementById('chat-send-btn');
+  const msg = input?.value?.trim();
+  if(!msg) return;
+  if(!S.product){ toast('⚠️ Analyse un produit d\'abord', false); return; }
+
+  // Ajouter message user
+  S.chatHistory.push({role:'user', content: msg});
+  input.value = '';
+  input.style.height = 'auto';
+
+  // Afficher message user + typing indicator
+  const msgsEl = document.getElementById('chat-msgs');
+  if(msgsEl){
+    msgsEl.innerHTML += `
+      <div class="chat-msg user">
+        <div class="chat-avatar">👤</div>
+        <div class="chat-bubble">${msg}</div>
+      </div>
+      <div class="chat-msg ai" id="typing-indicator">
+        <div class="chat-avatar">🤖</div>
+        <div class="chat-bubble"><div class="chat-typing"><span></span><span></span><span></span></div></div>
+      </div>`;
+    msgsEl.scrollTop = msgsEl.scrollHeight;
+  }
+  if(btn) btn.disabled = true;
+
+  // Construire le contexte produit
+  const ctx = S.product ? `Produit analysé: "${S.product.nom}" | Prix vente: ${S.results?.prixReco||'?'} FCFA | Pays: ${S.product.pays} | Score: ${S.results?.score||'?'}/100` : '';
+
+  // Construire l'historique pour l'API (max 10 derniers messages)
+  const history = S.chatHistory.slice(-10).map(m=>({role:m.role==='user'?'user':'assistant', content:m.content}));
+
+  try {
+    const r = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ message: msg, context: ctx, history: history.slice(0,-1) })
+    });
+    const d = await r.json();
+    const reply = d.reply || 'Désolé, je n\'ai pas pu répondre. Réessaie.';
+
+    // Remplacer le typing indicator
+    S.chatHistory.push({role:'ai', content: reply});
+    const typing = document.getElementById('typing-indicator');
+    if(typing){
+      typing.outerHTML = `
+        <div class="chat-msg ai">
+          <div class="chat-avatar">🤖</div>
+          <div class="chat-bubble">${reply.replace(/\n/g,'<br>')}</div>
+        </div>`;
+    }
+    if(msgsEl) msgsEl.scrollTop = msgsEl.scrollHeight;
+  } catch(e) {
+    const typing = document.getElementById('typing-indicator');
+    if(typing) typing.remove();
+    toast('❌ Erreur chat: ' + e.message, false);
+  } finally {
+    if(btn) btn.disabled = false;
+  }
+}
+
 function rImages() {
   const p = S.product;
   const q = encodeURIComponent(p?.nom || '');
-  const hasImage = p?.imageBase64 || false;
 
-  // Section génération IA
+  // 7 types d'images professionnelles
   const imgTypes = [
-    { id: 'clean_background', label: '📸 Fond Blanc Pro', desc: 'Produit sur fond propre' },
-    { id: 'lifestyle', label: '✨ Photo Lifestyle', desc: 'Produit dans une scène' },
-    { id: 'benefits', label: '💎 Bénéfices Produit', desc: 'Produit + atouts clés' },
-    { id: 'review', label: '⭐ Avis Client Africain', desc: 'Style commentaire Amazon' },
+    { id: 'clean_background', label: '📸 Fond Blanc Pro', desc: 'Image 1 — Produit centré sur fond blanc pur, style grande marque' },
+    { id: 'lifestyle',        label: '✨ Photo Lifestyle', desc: 'Image 2 — Produit dans un cadre de vie africain élégant' },
+    { id: 'benefits',         label: '💎 Bénéfices',       desc: 'Image 3 — Produit au centre + 4-5 bénéfices de chaque côté' },
+    { id: 'how_to_use',       label: '📋 Comment Utiliser', desc: 'Image 4 — Guide visuel étape par étape' },
+    { id: 'angles',           label: '🔄 Multi-Angles',    desc: 'Image 5 — Produit sous 3-4 angles différents' },
+    { id: 'review',           label: '⭐ Avis Client',      desc: 'Image 6 — Commentaire africain style Amazon avec 5 étoiles' },
+    { id: 'promo',            label: '🔥 Image Promo',      desc: 'Image 7 — Design promotionnel percutant avec slogan' },
   ];
 
   const genCards = imgTypes.map((t,i) => `
-    <div class="img-gen-card" style="animation-delay:${i*.08}s">
+    <div class="img-gen-card" style="animation-delay:${i*.06}s">
       <div class="img-gen-header">
         <div>
           <div class="img-gen-label">${t.label}</div>
@@ -1729,12 +1712,12 @@ function rImages() {
       </div>
       <div class="img-gen-preview" id="gen-card-${t.id}">
         <div class="img-gen-empty">
-          ${hasImage ? `<div style="font-size:1.8rem;margin-bottom:.4rem">🎨</div><div>Clique "Générer" pour créer cette image</div>` : `<div style="font-size:1.8rem;margin-bottom:.4rem">📷</div><div style="color:#F87171">Uploade une photo produit dans le formulaire d'abord</div>`}
+          <div style="font-size:1.8rem;margin-bottom:.4rem">🎨</div>
+          <div>Clique "Générer" pour créer cette image</div>
         </div>
       </div>
     </div>`).join('');
 
-  // Section liens existants
   const srcs = [
     {n:'Pinterest',ic:'📌',u:`https://www.pinterest.com/search/pins/?q=${q}`,cls:'bbl-pt',sub:'Photos produit'},
     {n:'Google Images',ic:'🔎',u:`https://www.google.com/search?tbm=isch&q=${q}`,cls:'bbl-gg',sub:'Toutes images'},
@@ -1751,16 +1734,15 @@ function rImages() {
   <div class="rh afu"><div><h2>🖼️ Images</h2><div class="rp">${p?.nom||'Ton produit'}</div></div></div>
 
   <div class="img-ai-section afu2">
-    <div class="img-ai-title">🤖 Génération IA — Images professionnelles</div>
-    <div class="img-ai-subtitle">${hasImage ? '✅ Photo produit détectée — prêt à générer' : '⚠️ Uploade une photo dans le formulaire pour de meilleurs résultats'}</div>
+    <div class="img-ai-title">🤖 Génération IA — 7 Images Professionnelles (DALL-E 3)</div>
+    <div class="img-ai-subtitle">Claude génère les prompts optimisés → DALL-E 3 crée les images. Résultat pro garanti.</div>
     <div class="img-gen-grid">${genCards}</div>
   </div>
 
   <div class="img-ai-section" style="margin-top:1.2rem">
     <div class="img-ai-title">🌐 Trouver des images de référence</div>
-    <p style="font-size:.73rem;color:var(--muted);margin-bottom:.75rem">Clique pour chercher des images de "<strong style="color:var(--text)">${p?.nom||''}</strong>" sur ces plateformes</p>
+    <p style="font-size:.73rem;color:var(--muted);margin-bottom:.75rem">Clique pour chercher des images de "<strong style="color:var(--text)">${p?.nom||''}</strong>"</p>
     <div class="bubble-grid">${srcs}</div>
-    <div class="tip" style="margin-top:1.2rem"><div class="tip-i">💡</div><div><h4>Mix gagnant</h4><p>Génère 2-3 images IA + complète avec des photos de AliExpress ou Pexels. Ce mix "IA + réaliste" convertit mieux que l'un ou l'autre seul.</p></div></div>
   </div>`;
 }
 
