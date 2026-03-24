@@ -391,6 +391,37 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
 .shopify-item{background:var(--bg3);border:1px solid var(--bd);border-radius:9px;padding:.65rem .9rem;cursor:pointer;transition:border-color .2s;display:flex;align-items:flex-start;gap:.6rem;font-size:.8rem;}
 .shopify-item:hover{border-color:var(--bd2);}
 .sh-check{font-size:1rem;flex-shrink:0;color:var(--or);}
+
+/* ── CHAT IA ── */
+.chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 100px);max-height:800px;}
+.chat-header{display:flex;align-items:center;gap:.8rem;background:var(--bg2);border:1px solid var(--bd);border-radius:14px;padding:1rem 1.3rem;margin-bottom:.8rem;flex-shrink:0;}
+.chat-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--or),var(--gold));display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.chat-title{font-size:.92rem;font-weight:800;}
+.chat-subtitle{font-size:.72rem;color:var(--muted);}
+.chat-messages{flex:1;overflow-y:auto;padding:.5rem 0;display:flex;flex-direction:column;gap:.6rem;min-height:200px;}
+.chat-messages::-webkit-scrollbar{width:3px;}
+.chat-messages::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px;}
+.chat-welcome{text-align:center;padding:2rem 1rem;color:var(--text);}
+.chat-msg{display:flex;max-width:85%;}
+.chat-msg.user{align-self:flex-end;justify-content:flex-end;}
+.chat-msg.assistant{align-self:flex-start;}
+.chat-bubble{padding:.7rem 1rem;border-radius:14px;font-size:.82rem;line-height:1.65;}
+.chat-msg.user .chat-bubble{background:linear-gradient(135deg,var(--or),#FF8C42);color:#fff;border-radius:14px 14px 4px 14px;}
+.chat-msg.assistant .chat-bubble{background:var(--bg2);border:1px solid var(--bd);color:var(--text);border-radius:14px 14px 14px 4px;}
+.chat-dots{display:flex;gap:4px;padding:.2rem 0;}
+.chat-dots span{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:dotPulse 1.4s ease infinite;}
+.chat-dots span:nth-child(2){animation-delay:.2s;}
+.chat-dots span:nth-child(3){animation-delay:.4s;}
+@keyframes dotPulse{0%,80%,100%{opacity:.3;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
+.chat-suggestions{display:flex;flex-wrap:wrap;gap:.4rem;padding:.5rem 0;flex-shrink:0;}
+.chat-sug{background:var(--bg3);border:1px solid var(--bd);border-radius:20px;padding:.38rem .85rem;font-size:.72rem;color:var(--soft);cursor:pointer;font-family:var(--font);transition:all .18s;}
+.chat-sug:hover{border-color:var(--or);color:var(--text);}
+.chat-input-row{display:flex;gap:.5rem;align-items:flex-end;background:var(--bg2);border:1px solid var(--bd);border-radius:12px;padding:.5rem .7rem;margin-top:.6rem;flex-shrink:0;}
+.chat-input{flex:1;background:transparent;border:none;outline:none;font-family:var(--font);font-size:.84rem;color:var(--text);resize:none;max-height:120px;min-height:20px;line-height:1.5;}
+.chat-input::placeholder{color:var(--muted);}
+.chat-send{background:linear-gradient(135deg,var(--or),#FF8C42);color:#fff;border:none;border-radius:8px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:opacity .18s;}
+.chat-send:hover{opacity:.85;}
+.chat-send:disabled{opacity:.4;cursor:not-allowed;}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -436,6 +467,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
     <div style="padding:.3rem 0">
       <div class="nlbl">Compte</div>
       <div class="ni" id="nav-shopify_connect" onclick="showPage('shopify_connect');closeSidebar()"><span class="ico">🛍️</span>Connecter Shopify</div>
+      <div class="ni" id="nav-chat" onclick="showPage('chat');closeSidebar()"><span class="ico">💬</span>Assistant IA</div>
       <div class="ni" id="nav-comptabilite" onclick="showPage('comptabilite');closeSidebar()"><span class="ico">📈</span>Comptabilité</div>
       <div class="ni" id="nav-historique" onclick="showPage('historique');closeSidebar()"><span class="ico">📊</span>Historique<span class="nbadge" id="hcount">3</span></div>
     </div>
@@ -589,7 +621,7 @@ const ALL_PAYS_FB=[
   {pays:'Ethiopia 🇬🇧',code:'ET',flag:'🇪🇹',lang:'en'},{pays:'Zambia 🇬🇧',code:'ZM',flag:'🇿🇲',lang:'en'},
   {pays:'World EN 🇬🇧',code:'ALL',flag:'🌍',lang:'en'},
 ];
-const TITLES={form:'Nouveau Produit',prix:'Prix & Gains',score:'Score Produit',offres:'Offres',shopify:'Page Shopify',facebook:'Facebook Ads',voixoff:'Voix Off',avatar:'Avatar Client',concurrence:'Concurrence',images:'Images',videos:'Vidéos',historique:'Historique',comptabilite:'Comptabilité',shopify_connect:'Connecter Shopify'};
+const TITLES={form:'Nouveau Produit',prix:'Prix & Gains',score:'Score Produit',offres:'Offres',shopify:'Page Shopify',facebook:'Facebook Ads',voixoff:'Voix Off',avatar:'Avatar Client',concurrence:'Concurrence',images:'Images',videos:'Vidéos',historique:'Historique',comptabilite:'Comptabilité',shopify_connect:'Connecter Shopify',chat:'Assistant IA'};
 
 // ══ MOBILE NAV ══
 function openSidebar(){document.getElementById('sb').classList.add('open');document.getElementById('overlay').classList.add('show');}
@@ -614,7 +646,7 @@ function showPage(p){
   else tp.style.display='none';
   const rs={form:rForm,prix:rPrix,score:rScore,offres:rOffres,shopify:rShopify,
     facebook:rFacebook,voixoff:rVoixOff,avatar:rAvatar,concurrence:rConc,
-    images:rImages,videos:rVideos,historique:rHist,comptabilite:rCompta,shopify_connect:rShopifyConnect};
+    images:rImages,videos:rVideos,historique:rHist,comptabilite:rCompta,shopify_connect:rShopifyConnect,chat:rChat};
   const c=document.getElementById('content');
   c.innerHTML=rs[p]?rs[p]():'';
   c.scrollTop=0;
@@ -695,7 +727,7 @@ async function analyze(){
   const pub=parseInt(document.getElementById('fpb').value)||2000;
   const liv=parseInt(document.getElementById('fl').value)||2000;
   const clo=parseInt(document.getElementById('fco').value)||1000;
-  if(!nom||!prix){toast('⚠️ Nom et prix sont obligatoires',false);return;}
+  if(!nom||!prix){S._analyzing=false;toast('⚠️ Nom et prix sont obligatoires',false);return;}
   // Convertir la première image en base64 si disponible
   let imageBase64 = null;
   if(S.imgs && S.imgs.length > 0){
@@ -822,7 +854,7 @@ La PHRASE DÉCLENCHANTE doit être 100% cohérente avec CE produit.
 JAMAIS mélanger les domaines.
 
 JSON:
-{"nom_reel":"vrai nom commercial du produit en français","nom_reel_en":"real product name in english","score":75,"score_verdict":"5 mots honnêtes","score_desc":"1 phrase honnête sur le potentiel réel","score_recommandation":"réponse directe et honnête : dois-je lancer ? avec les vraies raisons (avantages ET risques)","criteres":[{"nom":"Popularité en Afrique","score":70,"explication":"réalité du marché","conseil":"action concrète immédiate"},{"nom":"Facilité à marketer","score":80,"explication":"réalité","conseil":"comment"},{"nom":"Concurrence","score":60,"explication":"réalité de la concurrence","conseil":"comment se différencier"},{"nom":"Prix adapté au marché","score":85,"explication":"avis honnête sur le prix","conseil":"conseil prix"},{"nom":"Audience cible","score":75,"explication":"qui achète vraiment","conseil":"comment cibler"},{"nom":"Tendance marché","score":68,"explication":"tendance réelle","conseil":"timing"}],"offres":[{"titre":"offre adaptée au prix ${pR}","desc":"...","icon":"🚚","pour_qui":"...","comment":"...","impact":"...","recommandee":true},{"titre":"...","desc":"...","icon":"📦","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🎁","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🛡️","pour_qui":"...","comment":"...","impact":"...","recommandee":false}],"shopify_titres":["titre accrocheur 1","titre accrocheur 2","titre accrocheur 3"],"shopify_paragraphes":[{"titre":"...","contenu":"3-4 phrases qui vendent la TRANSFORMATION, pas les caractéristiques. Émotionnel, africain, concret."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."},{"titre":"...","contenu":"..."}],"fb_ads":[{"angle":"Douleur / Problème","accroche":"1 phrase choc qui nomme le problème EXACT — style africain percutant","texte":"texte COURT 6-8 lignes max avec emojis, structure accroche+douleur+solution+bénéfices+CTA"},{"angle":"Preuve Sociale","accroche":"1 phrase témoignage ou résultat réel court","texte":"texte COURT 6-8 lignes max"},{"angle":"Curiosité / Intrigue","accroche":"1 phrase courte qui pique la curiosité","texte":"texte COURT 6-8 lignes max"}],"voix_off":[{"titre":"Script 1 — Émotionnel","script":"paragraphe COURT ${voixDuree} — 5 phrases max, style africain naturel et chaleureux"},{"titre":"Script 2 — Direct & Choc","script":"paragraphe COURT ${voixDuree} — 5 phrases max, direct et percutant"},{"titre":"Script 3 — Storytelling","script":"paragraphe COURT ${voixDuree} — 5 phrases max, mini histoire avant/après"}],"avatar_principal":{"prenom":"prénom africain varié selon pays et genre","age":"tranche d'âge réelle","sexe":"Homme ou Femme","profession":"profession réelle et courante en Afrique","revenu":"revenu réaliste en FCFA","situation":"situation familiale réelle","ville":"vraie ville du pays cible","en_ligne":"horaires réels","budget_max":"budget max réaliste pour CE produit","description":"2 phrases portrait psychologique réel et précis","motivations":["motivation réelle liée au produit","...","..."],"frustrations":["frustration réelle vécue avant d'acheter","...","..."],"desirs":["désir concret que le produit peut accomplir","...","..."],"langage":["expression typique africaine qu'il/elle utilise vraiment","...","..."],"objections":["vraie objection à l'achat","..."],"reponses":["réponse vendeur efficace","..."],"phrase_declenchante":"phrase 100% cohérente avec CE produit spécifique — jamais hors sujet","reseaux":["...","..."],"tags":["...","...","..."],"face":"👨 ou 👩","bg":"linear-gradient(135deg,couleur1,couleur2)"},"avatar_secondaire":null,"concurrence":{"analyse":"2-3 phrases sur la realite de la concurrence pour ce produit en Afrique","conseil":"conseil stratégique concret pour se différencier"}}`;
+{"nom_reel":"vrai nom commercial du produit en français","nom_reel_en":"real product name in english","score":75,"score_verdict":"5 mots honnêtes","score_desc":"1 phrase honnête sur le potentiel réel","score_recommandation":"réponse directe et honnête : dois-je lancer ? avec les vraies raisons (avantages ET risques)","criteres":[{"nom":"Popularité en Afrique","score":70,"explication":"réalité du marché","conseil":"action concrète immédiate"},{"nom":"Facilité à marketer","score":80,"explication":"réalité","conseil":"comment"},{"nom":"Concurrence","score":60,"explication":"réalité de la concurrence","conseil":"comment se différencier"},{"nom":"Prix adapté au marché","score":85,"explication":"avis honnête sur le prix","conseil":"conseil prix"},{"nom":"Audience cible","score":75,"explication":"qui achète vraiment","conseil":"comment cibler"},{"nom":"Tendance marché","score":68,"explication":"tendance réelle","conseil":"timing"}],"offres":[{"titre":"offre adaptée au prix ${pR}","desc":"...","icon":"🚚","pour_qui":"...","comment":"...","impact":"...","recommandee":true},{"titre":"...","desc":"...","icon":"📦","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🎁","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🛡️","pour_qui":"...","comment":"...","impact":"...","recommandee":false}],"shopify_titres":["titre accrocheur 1","titre accrocheur 2","titre accrocheur 3"],"shopify_paragraphes":[{"titre":"Titre du bénéfice principal","contenu":"3-4 phrases qui vendent la TRANSFORMATION. Commence par une situation concrète africaine. Montre le AVANT (problème) et le APRÈS (résultat). Pas de caractéristiques techniques. Émotionnel et concret."},{"titre":"Titre bénéfice 2","contenu":"3-4 phrases sur un autre bénéfice clé. Même style — TRANSFORMATION visible, situations africaines."},{"titre":"Titre bénéfice 3","contenu":"3-4 phrases. Insiste sur la confiance et la preuve sociale. Témoignages, résultats concrets."},{"titre":"Titre bénéfice 4","contenu":"3-4 phrases. Bénéfice complémentaire. Pourquoi ce produit est différent des autres solutions essayées."},{"titre":"Titre bénéfice 5","contenu":"3-4 phrases. Urgence et garantie. Pourquoi agir maintenant. Satisfaction garantie."},{"titre":"Titre bénéfice 6","contenu":"3-4 phrases. Bénéfice bonus ou utilisation pratique. Comment intégrer le produit dans le quotidien africain."}],"fb_ads":[{"angle":"Douleur / Problème","accroche":"1 phrase CHOC max 10 mots — nomme le problème EXACT, style africain percutant, donne envie de lire la suite","texte":"STRUCTURE OBLIGATOIRE max 7 lignes:\nLigne 1: Accroche (même que dessus)\nLigne 2-3: Liste à puces 4-5 bénéfices clés avec emojis (✅ ou 🔥)\nLigne 4: Preuve sociale courte (X clients satisfaits)\nLigne 5: Garantie (Satisfait ou remboursé)\nLigne 6: CTA (Commande maintenant — Lien dans la bio 👇)\nPas de phrases longues. Emojis stratégiques. Africain et direct."},{"angle":"Preuve Sociale","accroche":"1 phrase courte — résultat réel ou témoignage percutant","texte":"STRUCTURE max 7 lignes. Même format que ci-dessus mais en partant du témoignage."},{"angle":"Curiosité / Intrigue","accroche":"1 phrase qui pique la curiosité sans révéler le produit","texte":"STRUCTURE max 7 lignes. Crée la curiosité, révèle progressivement, CTA fort."}],"voix_off":[{"titre":"Script 1 — Émotionnel","script":"Script 35-45 secondes (80-100 mots). Structure OBLIGATOIRE sans labels : 1) HOOK (1 phrase percutante qui pose le problème — la personne doit se reconnaître immédiatement) 2) PROBLÈME (2 phrases sur la douleur vécue, situations africaines concrètes) 3) SOLUTION (1 phrase — le produit arrive naturellement) 4) FONCTIONNEMENT (2 phrases — comment ça marche, bénéfices visibles) 5) TÉMOIGNAGE (1 phrase — prénom africain varié SANS mentionner le pays, son ressenti naturel) 6) CTA (1 phrase urgente — lien dans la bio ou message). Ton chaleureux, simple, impactant. JAMAIS de prix ni de noms de pays."},{"titre":"Script 2 — Direct & Choc","script":"Script 35-45 secondes (80-100 mots). Même structure que Script 1 mais ton direct et percutant. Hook choc en première phrase. Témoignage avec prénom africain SANS pays mentionné."},{"titre":"Script 3 — Storytelling","script":"Script 35-45 secondes (80-100 mots). Mini histoire vraie : une personne (prénom africain, SANS pays) vivait ce problème → a découvert le produit → sa vie a changé. Se termine par CTA. Naturel, crédible, émouvant."}],"avatar_principal":{"prenom":"prénom africain varié selon pays et genre","age":"tranche d'âge réelle","sexe":"Homme ou Femme","profession":"profession réelle et courante en Afrique","revenu":"revenu réaliste en FCFA","situation":"situation familiale réelle","ville":"vraie ville du pays cible","en_ligne":"horaires réels","budget_max":"budget max réaliste pour CE produit","description":"2 phrases portrait psychologique réel et précis","motivations":["motivation réelle liée au produit","...","..."],"frustrations":["frustration réelle vécue avant d'acheter","...","..."],"desirs":["désir concret que le produit peut accomplir","...","..."],"langage":["expression typique africaine qu'il/elle utilise vraiment","...","..."],"objections":["vraie objection à l'achat","..."],"reponses":["réponse vendeur efficace","..."],"phrase_declenchante":"phrase 100% cohérente avec CE produit spécifique — jamais hors sujet","reseaux":["...","..."],"tags":["...","...","..."],"face":"👨 ou 👩","bg":"linear-gradient(135deg,couleur1,couleur2)"},"avatar_secondaire":null,"concurrence":{"analyse":"2-3 phrases sur la realite de la concurrence pour ce produit en Afrique","conseil":"conseil stratégique concret pour se différencier"}}`;
 
   // Appel sécurisé via /api/ai — les clés restent côté serveur Vercel
   const r=await fetch('/api/ai',{
@@ -944,6 +976,9 @@ function demo(nom,prix,pays,cat,desc,pM,pX,pR,pub,liv,clo,imageBase64){
 
 // ══ SHOPIFY CONNECTION ══
 S.shopifySelected = S.shopifySelected || {titres:[], paragraphes:[]};
+// Charger les credentials Shopify au démarrage
+if(!S.shopifyStore) S.shopifyStore = localStorage.getItem('eb2_shopify_store') || '';
+if(!S.shopifyToken) S.shopifyToken = localStorage.getItem('eb2_shopify_token') || '';
 
 function rShopifyConnect(){
   if(!S.results){
@@ -1072,10 +1107,22 @@ async function exportToShopify(){
   showLov('Création sur Shopify...', 'Le produit est en cours d\'envoi...');
 
   try {
+    // Récupérer store et token sauvegardés
+    const shopStore = S.shopifyStore || localStorage.getItem('eb2_shopify_store') || '';
+    const shopToken = S.shopifyToken || localStorage.getItem('eb2_shopify_token') || '';
+
+    if(!shopStore || !shopToken){
+      hideLov();
+      toast('⚠️ Connecte ta boutique Shopify dabord dans "Connecter Shopify"', false);
+      return;
+    }
+
     const r = await fetch('/api/shopify', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
+        store: shopStore,
+        token: shopToken,
         title: titre,
         body_html: bodyHtml,
         price: S.results?.prixReco?.toString() || '0',
@@ -1097,6 +1144,149 @@ async function exportToShopify(){
     hideLov();
     toast('❌ Erreur réseau: ' + e.message, false);
   }
+}
+
+
+// ══ CHAT IA ══
+S.chatHistory = S.chatHistory || [];
+S.chatLoading = false;
+
+function rChat(){
+  const product = S.product;
+  const hasProduct = product && product.nom;
+
+  const msgs = S.chatHistory.map(m => `
+    <div class="chat-msg ${m.role}">
+      <div class="chat-bubble">${m.content.replace(/\n/g,'<br>')}</div>
+    </div>`).join('');
+
+  const suggestions = hasProduct ? [
+    'Comment améliorer mon prix de vente ?',
+    'Donne-moi 3 idées de contenu pour ' + product.nom,
+    'Quelles sont les meilleures audiences Facebook pour ce produit ?',
+    'Comment rédiger un bon titre WhatsApp pour ' + product.nom,
+  ] : [
+    'Comment trouver un produit gagnant ?',
+    'Quels produits marchent bien en Afrique en ce moment ?',
+    'Comment calculer mon budget pub Facebook ?',
+  ];
+
+  const suggHtml = suggestions.map(s =>
+    `<button class="chat-sug" onclick="sendChat('${s.replace(/'/g, "\'")}')"> ${s}</button>`
+  ).join('');
+
+  return `
+  <div class="chat-wrap">
+    <div class="chat-header">
+      <div class="chat-avatar">🤖</div>
+      <div>
+        <div class="chat-title">Assistant Ecom Booster</div>
+        <div class="chat-subtitle">${hasProduct ? 'Produit actif : ' + product.nom : 'Pose-moi tes questions sur le e-commerce africain'}</div>
+      </div>
+    </div>
+
+    <div class="chat-messages" id="chat-messages">
+      ${S.chatHistory.length === 0 ? `
+      <div class="chat-welcome">
+        <div style="font-size:2rem;margin-bottom:.5rem">👋</div>
+        <div style="font-weight:700;margin-bottom:.3rem">Bonjour ! Je suis ton assistant e-commerce.</div>
+        <div style="color:var(--muted);font-size:.82rem">Je peux t'aider à vendre mieux, créer du contenu, comprendre ton marché africain. ${hasProduct ? 'Je connais déjà ton produit <strong>' + product.nom + '</strong>.' : 'Analyse d'abord un produit pour des réponses plus précises.'}</div>
+      </div>` : msgs}
+    </div>
+
+    <div class="chat-suggestions" id="chat-sugs">
+      ${S.chatHistory.length === 0 ? suggHtml : ''}
+    </div>
+
+    <div class="chat-input-row">
+      <textarea id="chat-input" class="chat-input" placeholder="Pose ta question sur ton produit, tes ventes, tes publicités..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"></textarea>
+      <button class="chat-send" id="chat-send-btn" onclick="sendChat()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>`;
+}
+
+async function sendChat(preset){
+  const input = document.getElementById('chat-input');
+  const msg = preset || (input ? input.value.trim() : '');
+  if(!msg || S.chatLoading) return;
+
+  if(input) input.value = '';
+
+  // Cacher les suggestions
+  const sugsEl = document.getElementById('chat-sugs');
+  if(sugsEl) sugsEl.style.display = 'none';
+
+  // Ajouter le message utilisateur
+  S.chatHistory.push({role:'user', content: msg});
+  updateChatUI();
+
+  S.chatLoading = true;
+  const sendBtn = document.getElementById('chat-send-btn');
+  if(sendBtn) sendBtn.disabled = true;
+
+  // Construire le contexte produit
+  const productContext = S.product ? `
+CONTEXTE PRODUIT ACTUEL:
+- Nom: ${S.product.nom}
+- Prix achat: ${S.product.prix} FCFA
+- Prix vente recommandé: ${S.results?.prixReco || 'non calculé'} FCFA
+- Pays: ${S.product.pays}
+- Catégorie: ${S.product.cat}
+${S.results ? '- Score: ' + S.results.score + '/100' : ''}
+${S.results?.score_recommandation ? '- Avis: ' + S.results.score_recommandation : ''}
+` : '';
+
+  // Construire l'historique pour Claude
+  const messages = S.chatHistory.map(m => ({
+    role: m.role,
+    content: m.role === 'user' && m === S.chatHistory[S.chatHistory.length-1]
+      ? (productContext ? productContext + '\n\nQuestion: ' + m.content : m.content)
+      : m.content
+  }));
+
+  try {
+    const r = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ messages, mode: S.apiMode })
+    });
+
+    const d = await r.json();
+    if(d.success){
+      S.chatHistory.push({role:'assistant', content: d.reply});
+    } else {
+      S.chatHistory.push({role:'assistant', content: '❌ Erreur: ' + (d.error || 'Réessaie.')});
+    }
+  } catch(e) {
+    S.chatHistory.push({role:'assistant', content: '❌ Erreur réseau. Vérifie ta connexion.'});
+  }
+
+  S.chatLoading = false;
+  if(sendBtn) sendBtn.disabled = false;
+  updateChatUI();
+}
+
+function updateChatUI(){
+  const msgsEl = document.getElementById('chat-messages');
+  if(!msgsEl) return;
+
+  const msgs = S.chatHistory.map(m => `
+    <div class="chat-msg ${m.role}">
+      <div class="chat-bubble">${m.content.replace(/\n/g,'<br>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')}</div>
+    </div>`).join('');
+
+  // Add loading indicator if waiting
+  const loading = S.chatLoading ? '<div class="chat-msg assistant"><div class="chat-bubble"><div class="chat-dots"><span></span><span></span><span></span></div></div></div>' : '';
+
+  msgsEl.innerHTML = msgs + loading;
+  msgsEl.scrollTop = msgsEl.scrollHeight;
+}
+
+function clearChat(){
+  S.chatHistory = [];
+  showPage('chat');
 }
 
 // ══ COPY STORE — stockage textes par clé unique ══
