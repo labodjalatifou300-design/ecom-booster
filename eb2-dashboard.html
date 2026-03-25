@@ -392,7 +392,24 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
 .shopify-item:hover{border-color:var(--bd2);}
 .sh-check{font-size:1rem;flex-shrink:0;color:var(--or);}
 
-/* ── CHAT IA ── */
+/* ── THÈME CLAIR ── */
+body.light{--bg:#F0F2F8;--bg2:#FFFFFF;--bg3:#F5F7FF;--bg4:#EEF0F8;--text:#1A1D2E;--muted:#6B7280;--soft:#4B5563;--bd:rgba(0,0,0,0.08);--bd2:rgba(0,0,0,0.14);}
+body.light .sb{box-shadow:2px 0 12px rgba(0,0,0,.06);}
+body.light .topbar{box-shadow:0 1px 8px rgba(0,0,0,.06);}
+body.light .ni:hover{background:rgba(255,107,26,.06);}
+body.light .ni.active{background:rgba(255,107,26,.1);}
+body.light .ic{box-shadow:0 1px 8px rgba(0,0,0,.05);}
+body.light .sc{box-shadow:0 1px 8px rgba(0,0,0,.05);}
+body.light .fcard{box-shadow:0 2px 16px rgba(0,0,0,.06);}
+body.light .fg input,body.light .fg select,body.light .fg textarea{background:#fff;color:#1A1D2E;border-color:rgba(0,0,0,.12);}
+body.light .fg input:focus,body.light .fg select:focus,body.light .fg textarea:focus{border-color:var(--or);background:#fff;}
+body.light .chat-msg.ai .chat-bubble{background:#fff;border-color:rgba(0,0,0,.1);}
+body.light .shopify-card{box-shadow:0 1px 8px rgba(0,0,0,.05);}
+body.light .img-ai-section{box-shadow:0 1px 8px rgba(0,0,0,.05);}
+body.light .img-gen-card{background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.05);}
+body.light .img-gen-preview{background:#F8F9FF;border-color:rgba(0,0,0,.1);}
+body.light .ofcard{box-shadow:0 2px 10px rgba(0,0,0,.06);}
+body.light .crit{box-shadow:0 1px 6px rgba(0,0,0,.05);}
 .chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 130px);max-width:800px;margin:0 auto;}
 .chat-messages{flex:1;overflow-y:auto;padding:.5rem 0;display:flex;flex-direction:column;gap:.75rem;min-height:0;}
 .chat-messages::-webkit-scrollbar{width:3px;}
@@ -469,17 +486,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
       <div class="ni" id="nav-historique" onclick="showPage('historique');closeSidebar()"><span class="ico">📊</span>Historique<span class="nbadge" id="hcount">3</span></div>
     </div>
   </div>
-  <div class="api-sw">
-    <div class="api-lbl">Moteur IA</div>
-    <div class="api-btns">
-      <div class="api-btn" id="btn-grok" onclick="setAPI('grok')">Grok (gratuit)</div>
-      <div class="api-btn active-api" id="btn-claude" onclick="setAPI('claude')">Claude (pro)</div>
-    </div>
-  </div>
   <div class="sb-bot">
     <div style="display:flex;gap:.4rem;margin-bottom:.5rem;">
       <button onclick="allerAccueil()" style="flex:1;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;padding:.38rem .5rem;font-size:.68rem;color:var(--muted);cursor:pointer;font-family:var(--font);transition:all .18s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">🏠 Accueil</button>
-      <button onclick="deconnexion()" style="flex:1;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;padding:.38rem .5rem;font-size:.68rem;color:var(--muted);cursor:pointer;font-family:var(--font);transition:all .18s;" onmouseover="this.style.color='#F87171'" onmouseout="this.style.color='var(--muted)'">⏻ Déconnexion</button>
+      <button onclick="toggleTheme()" id="theme-btn" style="flex:1;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;padding:.38rem .5rem;font-size:.68rem;color:var(--muted);cursor:pointer;font-family:var(--font);transition:all .18s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">☀️ Thème clair</button>
+      <button onclick="deconnexion()" style="flex:1;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;padding:.38rem .5rem;font-size:.68rem;color:var(--muted);cursor:pointer;font-family:var(--font);transition:all .18s;" onmouseover="this.style.color='#F87171'" onmouseout="this.style.color='var(--muted)'">⏻</button>
     </div>
     <div class="ucard">
       <div class="uav" id="uav">AK</div>
@@ -589,11 +600,7 @@ async function sauvegarderProduit(product,results){
 
 // ══ STATE ══
 const S={product:null,results:null,imgs:[],apiMode:'claude',
-  history:[
-    {name:'Ceinture chauffante lombaire',prix:5500,pays:'Togo',score:78,prixReco:16000,date:'14 mars 2025'},
-    {name:'Brosse nettoyante visage',prix:3200,pays:"Côte d'Ivoire",score:62,prixReco:12000,date:'10 mars 2025'},
-    {name:'Sac étanche sport',prix:4800,pays:'Sénégal',score:85,prixReco:15000,date:'5 mars 2025'},
-  ]
+  history:[]
 };
 
 const PAYS=['Togo','Bénin','Burkina Faso',"Côte d'Ivoire",'Guinée','Guinée-Bissau','Mali','Mauritanie','Niger','Sénégal','Cameroun','Congo (Brazzaville)','RD Congo','Gabon','République Centrafricaine','Tchad','Rwanda','Burundi','Djibouti','Comores','Madagascar','Maurice','Seychelles'];
@@ -619,6 +626,20 @@ const ALL_PAYS_FB=[
   {pays:'World EN 🇬🇧',code:'ALL',flag:'🌍',lang:'en'},
 ];
 const TITLES={form:'Nouveau Produit',prix:'Prix & Gains',score:'Score Produit',offres:'Offres',shopify:'Page Shopify',facebook:'Facebook Ads',voixoff:'Voix Off',avatar:'Avatar Client',concurrence:'Concurrence',chat:'Chat IA Produit',images:'Images',videos:'Vidéos',historique:'Historique',comptabilite:'Comptabilité',shopify_connect:'Connecter Shopify'};
+
+// ══ THÈME CLAIR/SOMBRE ══
+let _darkMode = localStorage.getItem('eb2_theme') !== 'light';
+function applyTheme(){
+  document.body.classList.toggle('light', !_darkMode);
+  const btn = document.getElementById('theme-btn');
+  if(btn) btn.textContent = _darkMode ? '☀️ Thème clair' : '🌙 Thème sombre';
+}
+function toggleTheme(){
+  _darkMode = !_darkMode;
+  localStorage.setItem('eb2_theme', _darkMode ? 'dark' : 'light');
+  applyTheme();
+}
+applyTheme();
 
 // ══ MOBILE NAV ══
 function openSidebar(){document.getElementById('sb').classList.add('open');document.getElementById('overlay').classList.add('show');}
@@ -1074,10 +1095,13 @@ function rShopifyOAuthForm(){
     <h3 style="font-size:1rem;font-weight:800;margin-bottom:.4rem">Connecter ta boutique Shopify</h3>
     <p style="font-size:.78rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.6">Entre le nom de ta boutique ci-dessous.<br>Tu seras redirigé vers Shopify pour autoriser l'accès.</p>
     <div class="fg" style="text-align:left;margin-bottom:1rem">
-      <label style="font-size:.7rem;font-weight:600;color:var(--soft);display:block;margin-bottom:.3rem">Nom de ta boutique</label>
-      <input type="text" id="sh-shop-name" placeholder="ma-boutique (sans .myshopify.com)"
+      <label style="font-size:.7rem;font-weight:600;color:var(--soft);display:block;margin-bottom:.3rem">Identifiant de ta boutique Shopify</label>
+      <input type="text" id="sh-shop-name" placeholder="Ex: wc15dq-6e"
         style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:.65rem .9rem;color:var(--text);font-family:var(--font);font-size:.84rem;width:100%;outline:none"
         onkeydown="if(event.key==='Enter')connectShopifyOAuth()">
+      <div style="font-size:.68rem;color:var(--muted);margin-top:.3rem">
+        💡 Trouve ton identifiant dans Paramètres → Domaines → tu vois <strong style="color:var(--soft)">xxxxx.myshopify.com</strong> → entre juste la partie avant .myshopify.com
+      </div>
     </div>
     <button class="btng" onclick="connectShopifyOAuth()" style="width:100%;justify-content:center;gap:.6rem">
       <span>🔗</span> Connecter avec Shopify
@@ -1088,17 +1112,38 @@ function rShopifyOAuthForm(){
 
 async function connectShopifyOAuth(){
   const shopInput = document.getElementById('sh-shop-name')?.value?.trim();
-  if(!shopInput){ toast('⚠️ Entre le nom de ta boutique', false); return; }
+  if(!shopInput){ toast('⚠️ Entre le nom ou l\'URL de ta boutique', false); return; }
+
+  // Nettoyer l'input — accepter toutes les formes :
+  // "nuveria", "wc15dq-6e", "wc15dq-6e.myshopify.com", 
+  // "admin.shopify.com/store/wc15dq-6e", "https://www.nuveria.shop/admin"
+  let shopDomain = shopInput.trim().toLowerCase()
+    .replace('https://', '').replace('http://', '').replace(/\/$/, '');
+
+  // Si c'est une URL admin.shopify.com/store/xxx → extraire le slug
+  const adminMatch = shopDomain.match(/admin\.shopify\.com\/store\/([^\/\?]+)/);
+  if(adminMatch) shopDomain = adminMatch[1] + '.myshopify.com';
+
+  // Si c'est un domaine custom (ex: www.nuveria.shop) → on ne peut pas déduire le myshopify
+  // L'utilisateur doit entrer le nom myshopify directement
+  if(!shopDomain.includes('.myshopify.com') && shopDomain.includes('.')){
+    toast('⚠️ Entre ton nom de boutique myshopify (ex: wc15dq-6e)', false);
+    return;
+  }
+
+  // Ajouter .myshopify.com si c'est juste le slug
+  if(!shopDomain.includes('.myshopify.com')){
+    shopDomain = shopDomain + '.myshopify.com';
+  }
 
   toast('⏳ Connexion en cours...', true);
 
   try {
-    const r = await fetch(`/api/shopify-auth?mode=connect&shop=${encodeURIComponent(shopInput)}`);
+    const r = await fetch(`/api/shopify-auth?mode=connect&shop=${encodeURIComponent(shopDomain)}`);
     const d = await r.json();
     if(!d.success || !d.authUrl){
       toast('❌ ' + (d.error||'Erreur'), false); return;
     }
-    // Ouvrir la popup OAuth Shopify
     const popup = window.open(d.authUrl, 'ShopifyAuth', 'width=600,height=700,scrollbars=yes');
     if(!popup){ toast('⚠️ Active les popups dans ton navigateur', false); }
   } catch(e) {
