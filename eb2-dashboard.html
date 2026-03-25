@@ -393,8 +393,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
 .sh-check{font-size:1rem;flex-shrink:0;color:var(--or);}
 
 /* ── CHAT IA ── */
-.chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 120px);max-width:800px;margin:0 auto;}
-.chat-messages{flex:1;overflow-y:auto;padding:.5rem 0;display:flex;flex-direction:column;gap:.75rem;}
+.chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 130px);max-width:800px;margin:0 auto;}
+.chat-messages{flex:1;overflow-y:auto;padding:.5rem 0;display:flex;flex-direction:column;gap:.75rem;min-height:0;}
 .chat-messages::-webkit-scrollbar{width:3px;}
 .chat-messages::-webkit-scrollbar-thumb{background:rgba(255,255,255,.07);border-radius:3px;}
 .chat-msg{display:flex;gap:.6rem;animation:fadeUp .25s ease both;}
@@ -405,7 +405,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
 .chat-avatar{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.75rem;margin-top:2px;}
 .chat-msg.user .chat-avatar{background:var(--or);color:#fff;font-weight:700;}
 .chat-msg.ai .chat-avatar{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;}
-.chat-input-area{display:flex;gap:.6rem;padding:.8rem 0 0;border-top:1px solid var(--bd);margin-top:.5rem;}
+.chat-input-area{display:flex;gap:.6rem;padding:.8rem 0 0;border-top:1px solid var(--bd);flex-shrink:0;}
 .chat-input{flex:1;background:var(--bg2);border:1px solid var(--bd2);border-radius:10px;padding:.65rem 1rem;color:var(--text);font-family:var(--font);font-size:.84rem;outline:none;resize:none;min-height:44px;max-height:120px;transition:border-color .2s;}
 .chat-input:focus{border-color:var(--or);}
 .chat-send{background:linear-gradient(135deg,var(--or),#FF8C42);color:#fff;border:none;border-radius:10px;padding:.65rem 1rem;cursor:pointer;font-size:.9rem;flex-shrink:0;transition:opacity .2s;}
@@ -416,8 +416,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
 .chat-typing span:nth-child(2){animation-delay:.15s;}
 .chat-typing span:nth-child(3){animation-delay:.3s;}
 @keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
-.chat-suggestions{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.8rem;}
-.chat-sug{background:var(--bg3);border:1px solid var(--bd2);border-radius:20px;padding:.3rem .75rem;font-size:.72rem;color:var(--soft);cursor:pointer;transition:all .15s;}
+.chat-suggestions{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.6rem;flex-shrink:0;}
+.chat-sug{background:var(--bg3);border:1px solid var(--bd2);border-radius:20px;padding:.3rem .75rem;font-size:.72rem;color:var(--soft);cursor:pointer;transition:all .15s;white-space:nowrap;}
 .chat-sug:hover{border-color:var(--or);color:var(--or);}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -514,8 +514,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
 <script>
 // ══ CONFIG SUPABASE ══
 // Mets ton URL et clé anon Supabase ici (ces deux sont publiques par conception)
-const SUPABASE_URL='https://jrsqomjwiawzbdsolcjq.supabase.co';
-const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impyc3FvbWp3aWF3emJkc29sY2pxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Nzc5NjYsImV4cCI6MjA4OTM1Mzk2Nn0.5n9njd-gv7Ss9k7bWSzMTRNYO8SwdIUP6C9FVa0c6NY';
+const SUPABASE_URL='METS-TON-URL-SUPABASE-ICI';
+const SUPABASE_KEY='METS-TA-CLE-ANON-ICI';
 // GROK_KEY et CLAUDE_KEY sont maintenant côté serveur dans /api/ai.js
 // Tu les mets dans Vercel → Settings → Environment Variables
 // PAS BESOIN de les mettre ici.
@@ -752,12 +752,24 @@ async function analyze(){
   }catch(e){
     hideLov();
     S._analyzing=false;
+    // Afficher l'erreur réelle pour pouvoir la diagnostiquer
+    console.error('Erreur analyse:', e.message);
+    const errMsg = e.message || 'Erreur inconnue';
+    // Si c'est une erreur d'API (clé, serveur), montrer l'erreur
+    if(errMsg.includes('CLAUDE_KEY') || errMsg.includes('401') || errMsg.includes('403')){
+      toast('❌ Clé Claude invalide — vérifie CLAUDE_KEY dans Vercel', false);
+      return;
+    }
+    if(errMsg.includes('500') || errMsg.includes('réseau') || errMsg.includes('network')){
+      toast('❌ Erreur serveur: ' + errMsg, false);
+      return;
+    }
+    // Fallback mode démo uniquement si vraiment nécessaire
     S.results=demo(nom,prix,pays,cat,desc,pM,pX,pR,pub,liv,clo,imageBase64);
     S.history.unshift({name:nom,prix,pays,score:S.results.score,prixReco:pR,date:'Aujourd\'hui'});
     document.getElementById('hcount').textContent=S.history.length;
-    // Sauvegarder dans Supabase si configuré
     if(sbOk)sauvegarderProduit(S.product,S.results);
-    showPage('prix');toast('⚠️ Mode démo — Ajoute ta clé API',false);
+    showPage('prix');toast('⚠️ Mode démo — Erreur API: ' + errMsg.substring(0,60), false);
   }
 }
 
@@ -831,12 +843,20 @@ Ligne 3-6 : Liste de 4 bénéfices avec emojis (une puce par ligne, 5-7 mots max
 Ligne 7 : CTA direct ("Commande maintenant 👇" ou "Lien dans la bio ⬇️")
 PAS de paragraphes. PAS de répétitions. Chaque mot compte.
 
+═══ MOTS-CLÉS FACEBOOK ADS LIBRARY ═══
+Génère 5 mots-clés optimisés pour rechercher des publicités concurrentes sur Facebook Ads Library.
+Ces mots-clés doivent être ceux que les VENDEURS utilisent dans leurs pubs — pas forcément le nom exact du produit.
+- En français (fr) : mots-clés que les vendeurs africains francophones utilisent
+- En anglais (en) : traduction optimisée pour les pays anglophones
+Exemples : si produit = "crème éclaircissante" → mots-clés FR: ["teint lumineux","peau claire","éclat du visage","blanchiment peau","soin beauté africain"]
+Réfléchis à ce que les acheteurs tapent, pas juste le nom du produit.
+
 ═══ AVATAR CLIENT ═══
 ${isMainstream ? '→ DEUX avatars : homme ET femme. avatar_secondaire OBLIGATOIRE.' : '→ Un seul avatar. avatar_secondaire = null.'}
 Phrase déclenchante 100% cohérente avec CE produit uniquement.
 
 JSON:
-{"nom_reel":"vrai nom français","nom_reel_en":"real name english","score":75,"score_verdict":"5 mots honnêtes","score_desc":"1 phrase honnête","score_recommandation":"réponse directe avec avantages ET risques, budget 3-7$/jour","criteres":[{"nom":"Popularité en Afrique","score":70,"explication":"réalité marché","conseil":"action concrète"},{"nom":"Facilité à marketer","score":80,"explication":"réalité","conseil":"comment"},{"nom":"Concurrence","score":60,"explication":"réalité concurrence","conseil":"différenciation"},{"nom":"Prix adapté","score":85,"explication":"avis honnête prix","conseil":"conseil prix"},{"nom":"Audience cible","score":75,"explication":"qui achète vraiment","conseil":"comment cibler"},{"nom":"Tendance marché","score":68,"explication":"tendance réelle","conseil":"timing"}],"offres":[{"titre":"offre adaptée ${pR} FCFA","desc":"...","icon":"🚚","pour_qui":"...","comment":"...","impact":"...","recommandee":true},{"titre":"...","desc":"...","icon":"📦","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🎁","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🛡️","pour_qui":"...","comment":"...","impact":"...","recommandee":false}],"shopify_titres":["titre accrocheur neuromarketing 1","titre accrocheur 2","titre accrocheur 3"],"shopify_paragraphes":[{"titre":"Titre bénéfice 1","contenu":"3-4 phrases bénéfice émotionnel — transformation, pas caractéristique"},{"titre":"Titre bénéfice 2","contenu":"3-4 phrases"},{"titre":"Titre bénéfice 3","contenu":"3-4 phrases"},{"titre":"Titre bénéfice 4","contenu":"3-4 phrases"},{"titre":"Titre bénéfice 5","contenu":"3-4 phrases"},{"titre":"Titre bénéfice 6","contenu":"3-4 phrases"}],"fb_ads":[{"angle":"Douleur / Problème","accroche":"accroche choc 1 phrase problème+solution","texte":"7 lignes MAX : ligne1 accroche + ligne2 agitation + lignes3-6 puces bénéfices emojis + ligne7 CTA"},{"angle":"Preuve Sociale","accroche":"résultat ou témoignage court","texte":"7 lignes MAX même structure"},{"angle":"Curiosité","accroche":"1 phrase qui pique la curiosité","texte":"7 lignes MAX même structure"}],"voix_off":[{"titre":"Script 1 — Émotionnel","script":"${voixDuree} — hook+problème+solution+fonctionnement+témoignage prénom africain sans pays+CTA — 1 paragraphe fluide sans labels"},{"titre":"Script 2 — Direct","script":"${voixDuree} — même structure, ton direct et percutant"},{"titre":"Script 3 — Storytelling","script":"${voixDuree} — même structure, mini histoire avant/après"}],"avatar_principal":{"prenom":"prénom africain","age":"tranche réelle","sexe":"Homme ou Femme","profession":"profession africaine courante","revenu":"revenu FCFA réaliste","situation":"situation familiale","ville":"ville du pays cible","en_ligne":"18h-22h","budget_max":"budget max pour CE produit","description":"2 phrases portrait psychologique précis","motivations":["motivation liée au produit","...","..."],"frustrations":["frustration réelle avant achat","...","..."],"desirs":["désir concret","...","..."],"langage":["expression africaine typique","...","..."],"objections":["vraie objection","..."],"reponses":["réponse efficace","..."],"phrase_declenchante":"phrase 100% cohérente avec CE produit","reseaux":["...","..."],"tags":["...","...","..."],"face":"👨 ou 👩","bg":"linear-gradient(135deg,couleur1,couleur2)"},"avatar_secondaire":null,"concurrence":{"analyse":"2-3 phrases réalité concurrence Afrique","conseil":"conseil stratégique concret"}}`;
+{"nom_reel":"vrai nom français","nom_reel_en":"real name english","score":75,"score_verdict":"5 mots honnêtes","score_desc":"1 phrase honnête","score_recommandation":"réponse directe avec avantages ET risques, budget 3-7$/jour","criteres":[{"nom":"Popularité en Afrique","score":70,"explication":"réalité marché","conseil":"action concrète"},{"nom":"Facilité à marketer","score":80,"explication":"réalité","conseil":"comment"},{"nom":"Concurrence","score":60,"explication":"réalité concurrence","conseil":"différenciation"},{"nom":"Prix adapté","score":85,"explication":"avis honnête prix","conseil":"conseil prix"},{"nom":"Audience cible","score":75,"explication":"qui achète vraiment","conseil":"comment cibler"},{"nom":"Tendance marché","score":68,"explication":"tendance réelle","conseil":"timing"}],"offres":[{"titre":"offre adaptée ${pR} FCFA","desc":"...","icon":"🚚","pour_qui":"...","comment":"...","impact":"...","recommandee":true},{"titre":"...","desc":"...","icon":"📦","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🎁","pour_qui":"...","comment":"...","impact":"...","recommandee":false},{"titre":"...","desc":"...","icon":"🛡️","pour_qui":"...","comment":"...","impact":"...","recommandee":false}],"shopify_titres":["titre accrocheur neuromarketing 1","titre accrocheur 2","titre accrocheur 3"],"shopify_paragraphes":[{"titre":"Titre bénéfice 1","contenu":"3-4 phrases bénéfice émotionnel — transformation, pas caractéristique"},{"titre":"Titre bénéfice 2","contenu":"3-4 phrases"},{"titre":"Titre bénéfice 3","contenu":"3-4 phrases"},{"titre":"Titre bénéfice 4","contenu":"3-4 phrases"},{"titre":"Titre bénéfice 5","contenu":"3-4 phrases"},{"titre":"Titre bénéfice 6","contenu":"3-4 phrases"}],"fb_ads":[{"angle":"Douleur / Problème","accroche":"accroche choc 1 phrase problème+solution","texte":"7 lignes MAX : ligne1 accroche + ligne2 agitation + lignes3-6 puces bénéfices emojis + ligne7 CTA"},{"angle":"Preuve Sociale","accroche":"résultat ou témoignage court","texte":"7 lignes MAX même structure"},{"angle":"Curiosité","accroche":"1 phrase qui pique la curiosité","texte":"7 lignes MAX même structure"}],"voix_off":[{"titre":"Script 1 — Émotionnel","script":"${voixDuree} — hook+problème+solution+fonctionnement+témoignage prénom africain sans pays+CTA — 1 paragraphe fluide sans labels"},{"titre":"Script 2 — Direct","script":"${voixDuree} — même structure, ton direct et percutant"},{"titre":"Script 3 — Storytelling","script":"${voixDuree} — même structure, mini histoire avant/après"}],"avatar_principal":{"prenom":"prénom africain","age":"tranche réelle","sexe":"Homme ou Femme","profession":"profession africaine courante","revenu":"revenu FCFA réaliste","situation":"situation familiale","ville":"ville du pays cible","en_ligne":"18h-22h","budget_max":"budget max pour CE produit","description":"2 phrases portrait psychologique précis","motivations":["motivation liée au produit","...","..."],"frustrations":["frustration réelle avant achat","...","..."],"desirs":["désir concret","...","..."],"langage":["expression africaine typique","...","..."],"objections":["vraie objection","..."],"reponses":["réponse efficace","..."],"phrase_declenchante":"phrase 100% cohérente avec CE produit","reseaux":["...","..."],"tags":["...","...","..."],"face":"👨 ou 👩","bg":"linear-gradient(135deg,couleur1,couleur2)"},"avatar_secondaire":null,"mots_cles_fb":{"fr":["mot-clé FR optimisé 1","mot-clé FR 2","mot-clé FR 3","mot-clé FR 4","mot-clé FR 5"],"en":["optimized EN keyword 1","EN keyword 2","EN keyword 3","EN keyword 4","EN keyword 5"]},"concurrence":{"analyse":"2-3 phrases réalité concurrence Afrique","conseil":"conseil stratégique concret"}}`;
 
   // Appel sécurisé via /api/ai — les clés restent côté serveur Vercel
   const r=await fetch('/api/ai',{
@@ -961,13 +981,36 @@ S.shopifySelected = S.shopifySelected || {titres:[], paragraphes:[]};
 S.shopifyToken = S.shopifyToken || localStorage.getItem('eb2_shopify_token') || '';
 S.shopifyStore = S.shopifyStore || localStorage.getItem('eb2_shopify_store') || '';
 
+// Écouter le retour OAuth de la popup
+window.addEventListener('message', function(e){
+  if(e.data && e.data.type === 'SHOPIFY_AUTH_SUCCESS'){
+    S.shopifyStore = e.data.shop;
+    S.shopifyToken = e.data.token;
+    localStorage.setItem('eb2_shopify_store', e.data.shop);
+    localStorage.setItem('eb2_shopify_token', e.data.token);
+    toast('✅ Boutique Shopify connectée !', true);
+    showPage('shopify_connect');
+  }
+});
+
 function rShopifyConnect(){
   const connected = S.shopifyToken && S.shopifyStore;
 
-  if(!S.results){
+  if(!S.results && !connected){
     return `
-    <div class="rh afu"><div><h2>🛍️ Exporter sur Shopify</h2><div class="rp">Crée ton produit en 1 clic</div></div></div>
-    ${!connected ? rShopifyForm() : '<div class="tip afu2"><div class="tip-i">✅</div><div><h4>Boutique connectée !</h4><p>Lance une analyse pour exporter un produit.</p></div></div>'}`;
+    <div class="rh afu"><div><h2>🛍️ Connecter Shopify</h2><div class="rp">Export en 1 clic vers ta boutique</div></div></div>
+    ${rShopifyOAuthForm()}`;
+  }
+
+  if(!S.results && connected){
+    return `
+    <div class="rh afu"><div><h2>🛍️ Connecter Shopify</h2><div class="rp">Export en 1 clic</div></div></div>
+    <div class="shopify-card afu2" style="background:rgba(34,197,94,.07);border-color:rgba(34,197,94,.2);display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+      <div><div style="font-size:.82rem;color:var(--green);font-weight:700">✅ Connecté</div>
+      <div style="font-size:.72rem;color:var(--muted)">${S.shopifyStore}</div></div>
+      <button onclick="disconnectShopify()" style="font-size:.7rem;color:#F87171;background:none;border:1px solid rgba(239,68,68,.3);border-radius:5px;padding:.25rem .6rem;cursor:pointer">Déconnecter</button>
+    </div>
+    <div class="tip afu3"><div class="tip-i">ℹ️</div><div><p>Lance une analyse produit pour pouvoir exporter vers Shopify.</p></div></div>`;
   }
 
   const titres = S.results.shopify_titres || [];
@@ -998,66 +1041,73 @@ function rShopifyConnect(){
   return `
   <div class="rh afu"><div><h2>🛍️ Exporter sur Shopify</h2><div class="rp">${S.product.nom}</div></div></div>
 
-  ${!connected ? rShopifyForm() : `
-  <div class="shopify-card afu2" style="background:rgba(34,197,94,.07);border-color:rgba(34,197,94,.2);margin-bottom:1rem;padding:.8rem 1rem;display:flex;align-items:center;justify-content:space-between">
-    <span style="font-size:.82rem;color:var(--green)">✅ Connecté : ${S.shopifyStore}</span>
-    <button onclick="disconnectShopify()" style="font-size:.7rem;color:#F87171;background:none;border:1px solid rgba(239,68,68,.3);border-radius:5px;padding:.2rem .5rem;cursor:pointer">Déconnecter</button>
+  ${!connected ? rShopifyOAuthForm() : `
+  <div class="shopify-card afu2" style="background:rgba(34,197,94,.07);border-color:rgba(34,197,94,.2);display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+    <div><div style="font-size:.82rem;color:var(--green);font-weight:700">✅ ${S.shopifyStore}</div>
+    <div style="font-size:.7rem;color:var(--muted)">Boutique connectée</div></div>
+    <button onclick="disconnectShopify()" style="font-size:.7rem;color:#F87171;background:none;border:1px solid rgba(239,68,68,.3);border-radius:5px;padding:.25rem .6rem;cursor:pointer">Changer</button>
   </div>`}
 
-  <div class="tip afu2" style="margin-bottom:1rem">
-    <div class="tip-i">💡</div>
-    <div><h4>Comment ça marche</h4>
-    <p>Sélectionne 1 titre + tes paragraphes + mets ton prix → clique "Créer sur Shopify" → le produit apparaît dans ta boutique en brouillon.</p></div>
-  </div>
-
+  ${connected ? `
   <div class="shopify-card afu2">
     <div class="section-subtitle" style="margin-bottom:.8rem">📝 1 — Choisis un titre</div>
     ${titreCards}
   </div>
-
   <div class="shopify-card afu3">
     <div class="section-subtitle" style="margin-bottom:.8rem">📄 2 — Choisis tes paragraphes</div>
     ${paraCards}
   </div>
-
   <div class="shopify-card afu4">
-    <div class="section-subtitle" style="margin-bottom:.8rem">💰 3 — Prix de vente</div>
-    <div class="fg">
-      <input type="number" id="sh-prix" placeholder="Ex: 15000" value="${prixReco}" style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:.6rem .82rem;color:var(--text);font-family:var(--font);font-size:.84rem;width:100%;outline:none">
-      <div style="font-size:.68rem;color:var(--muted);margin-top:.3rem">Prix en FCFA — laisse vide pour utiliser le prix recommandé (${prixReco} FCFA)</div>
-    </div>
+    <div class="section-subtitle" style="margin-bottom:.6rem">💰 3 — Prix de vente (FCFA)</div>
+    <input type="number" id="sh-prix" placeholder="Ex: 15000" value="${prixReco}" style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:.6rem .82rem;color:var(--text);font-family:var(--font);font-size:.84rem;width:100%;outline:none">
+    <div style="font-size:.68rem;color:var(--muted);margin-top:.3rem">Prix recommandé : ${prixReco} FCFA</div>
   </div>
-
   <div style="margin-top:.8rem" class="afu4">
-    <button class="btng" onclick="exportToShopify()" style="width:100%">
-      🚀 Créer ce produit sur Shopify
+    <button class="btng" onclick="exportToShopify()" style="width:100%">🚀 Créer ce produit sur Shopify</button>
+  </div>` : ''}`;
+}
+
+function rShopifyOAuthForm(){
+  return `
+  <div class="shopify-card afu2" style="text-align:center;padding:2rem">
+    <div style="font-size:2.5rem;margin-bottom:.8rem">🛍️</div>
+    <h3 style="font-size:1rem;font-weight:800;margin-bottom:.4rem">Connecter ta boutique Shopify</h3>
+    <p style="font-size:.78rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.6">Entre le nom de ta boutique ci-dessous.<br>Tu seras redirigé vers Shopify pour autoriser l'accès.</p>
+    <div class="fg" style="text-align:left;margin-bottom:1rem">
+      <label style="font-size:.7rem;font-weight:600;color:var(--soft);display:block;margin-bottom:.3rem">Nom de ta boutique</label>
+      <input type="text" id="sh-shop-name" placeholder="ma-boutique (sans .myshopify.com)"
+        style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:.65rem .9rem;color:var(--text);font-family:var(--font);font-size:.84rem;width:100%;outline:none"
+        onkeydown="if(event.key==='Enter')connectShopifyOAuth()">
+    </div>
+    <button class="btng" onclick="connectShopifyOAuth()" style="width:100%;justify-content:center;gap:.6rem">
+      <span>🔗</span> Connecter avec Shopify
     </button>
+    <p style="font-size:.68rem;color:var(--muted);margin-top:.8rem">Shopify te demandera d'autoriser l'application. C'est sécurisé.</p>
   </div>`;
 }
 
-function rShopifyForm(){
-  return `
-  <div class="shopify-card afu2" style="margin-bottom:1rem">
-    <div class="section-subtitle" style="margin-bottom:.8rem">🔗 Connecter ta boutique Shopify</div>
-    <div class="fg" style="margin-bottom:.7rem">
-      <label style="font-size:.7rem;font-weight:600;color:var(--soft);display:block;margin-bottom:.3rem">URL de ta boutique</label>
-      <input type="text" id="sh-store" placeholder="nom-boutique.myshopify.com" value="${S.shopifyStore}" style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:.6rem .82rem;color:var(--text);font-family:var(--font);font-size:.84rem;width:100%;outline:none">
-    </div>
-    <div class="fg" style="margin-bottom:.7rem">
-      <label style="font-size:.7rem;font-weight:600;color:var(--soft);display:block;margin-bottom:.3rem">Token d'accès Admin</label>
-      <input type="password" id="sh-token" placeholder="shpat_xxxxxxxxxx" value="${S.shopifyToken}" style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:.6rem .82rem;color:var(--text);font-family:var(--font);font-size:.84rem;width:100%;outline:none">
-    </div>
-    <div class="tip" style="margin-bottom:.8rem">
-      <div class="tip-i">💡</div>
-      <div><h4>Où trouver ton token ?</h4>
-      <p>Admin Shopify → Paramètres → Apps → Développer des apps → Créer une app → Configurer API Admin → Coche write_products → Installer → Copie le token shpat_xxx</p></div>
-    </div>
-    <button class="btng" onclick="saveShopify()">💾 Connecter ma boutique</button>
-  </div>`;
+async function connectShopifyOAuth(){
+  const shopInput = document.getElementById('sh-shop-name')?.value?.trim();
+  if(!shopInput){ toast('⚠️ Entre le nom de ta boutique', false); return; }
+
+  toast('⏳ Connexion en cours...', true);
+
+  try {
+    const r = await fetch(`/api/shopify-auth?action=connect&shop=${encodeURIComponent(shopInput)}`);
+    const d = await r.json();
+    if(!d.success || !d.authUrl){
+      toast('❌ ' + (d.error||'Erreur'), false); return;
+    }
+    // Ouvrir la popup OAuth Shopify
+    const popup = window.open(d.authUrl, 'ShopifyAuth', 'width=600,height=700,scrollbars=yes');
+    if(!popup){ toast('⚠️ Active les popups dans ton navigateur', false); }
+  } catch(e) {
+    toast('❌ Erreur: ' + e.message, false);
+  }
 }
 
 function saveShopify(){
-  const store = document.getElementById('sh-store')?.value?.trim().replace('https://','').replace('/','');
+  const store = document.getElementById('sh-store')?.value?.trim().replace('https://','').replace(/\/$/,'');
   const token = document.getElementById('sh-token')?.value?.trim();
   if(!store || !token){ toast('⚠️ Remplis les deux champs', false); return; }
   S.shopifyStore = store;
@@ -1072,6 +1122,7 @@ function disconnectShopify(){
   S.shopifyStore = ''; S.shopifyToken = '';
   localStorage.removeItem('eb2_shopify_store');
   localStorage.removeItem('eb2_shopify_token');
+  S.shopifySelected = {titres:[], paragraphes:[]};
   showPage('shopify_connect');
   toast('🗑️ Boutique déconnectée', true);
 }
@@ -1427,70 +1478,129 @@ function rAvatar(){
 
 function rConc(){
   const r=S.results,p=S.product;if(!r)return'';
-  // Utiliser le vrai nom du produit si Claude l'a trouvé
   const nomReel = r.nom_reel || p.nom;
   const nomReelEn = r.nom_reel_en || nomReel;
-  const q=encodeURIComponent(nomReel);
-  const fbBubbles=ALL_PAYS_FB.map(({pays,code,flag,lang},i)=>{
-    // Pour les pays anglophones, utiliser le nom anglais du produit
-    const qLang = lang==='en' ? encodeURIComponent(nomReelEn) : q;
-    const url=code==='ALL'?`https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=${code}&q=${qLang}`:`https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=${code}&q=${qLang}&search_type=keyword_unordered`;
-    const langBadge = lang==='en' ? '<span style="font-size:.55rem;background:rgba(59,130,246,.2);color:#60A5FA;padding:.06rem .25rem;border-radius:3px;margin-left:.2rem">EN</span>' : '';
-    return`<a class="pbbl" href="${url}" target="_blank" style="animation-delay:${i*.04}s"><span class="flag">${flag}</span><span>${pays}${langBadge}</span></a>`;
+
+  // Mots-clés optimisés générés par l'IA
+  const motsClesFr = r.mots_cles_fb?.fr || [nomReel];
+  const motsClesEn = r.mots_cles_fb?.en || [nomReelEn];
+
+  // Suggestions de mots-clés cliquables
+  const sugFr = motsClesFr.map(mc=>{
+    const qmc = encodeURIComponent(mc);
+    return `<a class="chat-sug" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=${qmc}&media_type=all" target="_blank" style="text-decoration:none">🔵 ${mc}</a>`;
   }).join('');
+  const sugEn = motsClesEn.map(mc=>{
+    const qmc = encodeURIComponent(mc);
+    return `<a class="chat-sug" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=${qmc}&media_type=all" target="_blank" style="text-decoration:none;border-color:rgba(59,130,246,.3);color:#60A5FA">🌍 ${mc}</a>`;
+  }).join('');
+
+  // Liens par pays — lien correct FB Ads Library
+  const fbBubbles = ALL_PAYS_FB.map(({pays,code,flag,lang},i)=>{
+    const keywords = lang==='en' ? motsClesEn : motsClesFr;
+    const kw = encodeURIComponent(keywords[0] || (lang==='en' ? nomReelEn : nomReel));
+    // URL Facebook Ads Library correcte : pays + toutes les pubs + mot-clé optimisé
+    const url = `https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=${code}&q=${kw}&media_type=all`;
+    const langBadge = lang==='en' ? '<span style="font-size:.55rem;background:rgba(59,130,246,.2);color:#60A5FA;padding:.06rem .25rem;border-radius:3px;margin-left:.2rem">EN</span>' : '';
+    return `<a class="pbbl" href="${url}" target="_blank" style="animation-delay:${i*.04}s"><span class="flag">${flag}</span><span>${pays}${langBadge}</span></a>`;
+  }).join('');
+
+  const q = encodeURIComponent(nomReel);
   const shopBubbles=[
     {n:'Google Shopping',ic:'🛒',u:`https://www.google.com/search?tbm=shop&q=${q}`,cls:'bbl-gg'},
-    {n:'Google Search',ic:'🔎',u:`https://www.google.com/search?q=${q}+acheter`,cls:'bbl-gg'},
+    {n:'Google Search',ic:'🔎',u:`https://www.google.com/search?q=${q}+acheter+afrique`,cls:'bbl-gg'},
     {n:'TikTok',ic:'🎵',u:`https://www.tiktok.com/search?q=${q}`,cls:'bbl-tt'},
     {n:'YouTube',ic:'▶️',u:`https://www.youtube.com/results?search_query=${q}`,cls:'bbl-yt'},
     {n:'Pinterest',ic:'📌',u:`https://www.pinterest.com/search/pins/?q=${q}`,cls:'bbl-pt'},
-    {n:'AliExpress',ic:'🏷️',u:`https://www.aliexpress.com/wholesale?SearchText=${q}`,cls:'bbl-al'},
+    {n:'AliExpress',ic:'🏷️',u:`https://www.aliexpress.com/wholesale?SearchText=${encodeURIComponent(nomReelEn)}`,cls:'bbl-al'},
     {n:'Amazon',ic:'📦',u:`https://www.amazon.fr/s?k=${q}`,cls:'bbl-am'},
-    {n:'Jumia',ic:'🛍️',u:`https://www.jumia.com.gh/catalog/?q=${q}`,cls:'bbl-ju'},
+    {n:'Jumia',ic:'🛍️',u:`https://www.jumia.com.gh/catalog/?q=${encodeURIComponent(nomReelEn)}`,cls:'bbl-ju'},
   ].map((b,i)=>`<a class="bbl ${b.cls}" href="${b.u}" target="_blank" style="animation-delay:${i*.08}s"><span class="bico">${b.ic}</span><span class="bname">${b.n}</span></a>`).join('');
-  return`<div class="rh afu"><div><h2>🔍 Concurrence</h2><div class="rp">${p.nom} · ${p.pays}</div></div></div>
+
+  return `<div class="rh afu"><div><h2>🔍 Concurrence</h2><div class="rp">${p.nom} · ${p.pays}</div></div></div>
   <div class="ic afu2"><div class="ich"><h4>Analyse du marché</h4></div><p>${r.concurrence.analyse}</p></div>
   <div class="tip afu3"><div class="tip-i">💡</div><div><h4>Conseil stratégique</h4><p>${r.concurrence.conseil}</p></div></div>
-  <div class="bubbles-section">
-    <div class="section-subtitle">🔵 Facebook Ads Library — Voir les pubs actives par pays</div>
-    <p style="font-size:.73rem;color:var(--muted);margin-bottom:.65rem">Clique sur un pays pour voir qui vend "<strong style="color:var(--text)">${p.nom}</strong>"</p>
+
+  <div class="bubbles-section afu3">
+    <div class="section-subtitle">🔵 Mots-clés optimisés pour FB Ads Library</div>
+    <p style="font-size:.73rem;color:var(--muted);margin-bottom:.6rem">Clique sur un mot-clé pour voir toutes les pubs actives — Monde entier</p>
+    <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.5rem">${sugFr}</div>
+    <div style="display:flex;flex-wrap:wrap;gap:.4rem">${sugEn}</div>
+  </div>
+
+  <div class="bubbles-section afu4">
+    <div class="section-subtitle">🌍 FB Ads Library — Pubs actives par pays</div>
+    <p style="font-size:.73rem;color:var(--muted);margin-bottom:.65rem">Catégorie : <strong style="color:var(--text)">Toutes les publicités</strong> · Mot-clé optimisé par l'IA</p>
     <div class="pays-grid">${fbBubbles}</div>
   </div>
+
   <div class="bubbles-section">
-    <div class="section-subtitle">🌐 Chercher les concurrents sur d'autres plateformes</div>
+    <div class="section-subtitle">🌐 Chercher les concurrents ailleurs</div>
     <div class="bubble-grid">${shopBubbles}</div>
   </div>`;
 }
 
 function rVideos(){
   const p=S.product;
-  const nomReel = S.results?.nom_reel || p?.nom || '';
-  const nomReelEn = S.results?.nom_reel_en || nomReel;
-  const q=encodeURIComponent(nomReel);
-  const fbVids=ALL_PAYS_FB.map(({pays,code,flag,lang},i)=>{
-    const qLang = lang==='en' ? encodeURIComponent(nomReelEn) : q;
-    const langBadge = lang==='en' ? '<span style="font-size:.55rem;background:rgba(59,130,246,.2);color:#60A5FA;padding:.06rem .25rem;border-radius:3px;margin-left:.2rem">EN</span>' : '';
-    return`<a class="pbbl" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=video&country=${code}&q=${qLang}&search_type=keyword_unordered" target="_blank" style="animation-delay:${i*.04}s"><span class="flag">${flag}</span><span>${pays}${langBadge}</span></a>`;
+  const r=S.results;
+  const nomReel = r?.nom_reel || p?.nom || '';
+  const nomReelEn = r?.nom_reel_en || nomReel;
+
+  // Mots-clés optimisés
+  const motsClesFr = r?.mots_cles_fb?.fr || [nomReel];
+  const motsClesEn = r?.mots_cles_fb?.en || [nomReelEn];
+
+  // Suggestions mots-clés cliquables — videos uniquement
+  const sugFr = motsClesFr.map(mc=>{
+    const qmc = encodeURIComponent(mc);
+    return `<a class="chat-sug" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=video&country=ALL&q=${qmc}&media_type=video" target="_blank" style="text-decoration:none">🎬 ${mc}</a>`;
   }).join('');
+  const sugEn = motsClesEn.map(mc=>{
+    const qmc = encodeURIComponent(mc);
+    return `<a class="chat-sug" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=video&country=ALL&q=${qmc}&media_type=video" target="_blank" style="text-decoration:none;border-color:rgba(59,130,246,.3);color:#60A5FA">🌍 ${mc}</a>`;
+  }).join('');
+
+  // Liens par pays — vidéos pub uniquement
+  const fbVids = ALL_PAYS_FB.map(({pays,code,flag,lang},i)=>{
+    const keywords = lang==='en' ? motsClesEn : motsClesFr;
+    const kw = encodeURIComponent(keywords[0] || (lang==='en' ? nomReelEn : nomReel));
+    const url = `https://www.facebook.com/ads/library/?active_status=active&ad_type=video&country=${code}&q=${kw}&media_type=video`;
+    const langBadge = lang==='en' ? '<span style="font-size:.55rem;background:rgba(59,130,246,.2);color:#60A5FA;padding:.06rem .25rem;border-radius:3px;margin-left:.2rem">EN</span>' : '';
+    return `<a class="pbbl" href="${url}" target="_blank" style="animation-delay:${i*.04}s"><span class="flag">${flag}</span><span>${pays}${langBadge}</span></a>`;
+  }).join('');
+
+  const q = encodeURIComponent(nomReel);
+  const qEn = encodeURIComponent(nomReelEn);
   const vidSrcs=[
     {n:'TikTok',ic:'🎵',u:`https://www.tiktok.com/search?q=${q}`,cls:'bbl-tt',sub:'Vidéos virales'},
     {n:'YouTube',ic:'▶️',u:`https://www.youtube.com/results?search_query=${q}+review`,cls:'bbl-yt',sub:'Reviews'},
     {n:'Pinterest Vidéos',ic:'📌',u:`https://www.pinterest.com/search/videos/?q=${q}`,cls:'bbl-pt',sub:'Inspiration'},
     {n:'Google Vidéos',ic:'🔎',u:`https://www.google.com/search?tbm=vid&q=${q}`,cls:'bbl-gg',sub:'Tous résultats'},
-    {n:'Instagram',ic:'📸',u:`https://www.instagram.com/explore/tags/${(p?.nom||'').replace(/\s/g,'')}/`,cls:'bbl-in',sub:'Reels & posts'},
-    {n:'Snapchat',ic:'👻',u:`https://www.snapchat.com/search?q=${q}`,cls:'bbl-gg',sub:'Stories'},
+    {n:'Instagram',ic:'📸',u:`https://www.instagram.com/explore/tags/${(nomReel||'').replace(/\s/g,'')}/`,cls:'bbl-in',sub:'Reels & posts'},
+    {n:'YouTube EN',ic:'▶️',u:`https://www.youtube.com/results?search_query=${qEn}+review`,cls:'bbl-yt',sub:'Reviews EN'},
   ].map((s,i)=>`<a class="bbl ${s.cls}" href="${s.u}" target="_blank" style="animation-delay:${i*.08}s"><span class="bico">${s.ic}</span><span class="bname">${s.n}</span><span class="bsub">${s.sub}</span></a>`).join('');
-  return`<div class="rh afu"><div><h2>🎬 Vidéos</h2><div class="rp">${p?.nom||''}</div></div></div>
-  <div class="bubbles-section">
-    <div class="section-subtitle">🔵 FB Ads Library — Vidéos publicitaires actives par pays</div>
-    <p style="font-size:.73rem;color:var(--muted);margin-bottom:.65rem">Vois les vidéos publicitaires actives pour ce produit, pays par pays</p>
-    <div class="pays-grid afu2">${fbVids}</div>
+
+  return `<div class="rh afu"><div><h2>🎬 Vidéos</h2><div class="rp">${p?.nom||''}</div></div></div>
+
+  <div class="bubbles-section afu2">
+    <div class="section-subtitle">🎯 Mots-clés optimisés pour FB Ads Library — Vidéos</div>
+    <p style="font-size:.73rem;color:var(--muted);margin-bottom:.6rem">Clique pour voir les vidéos publicitaires actives — Monde entier</p>
+    <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.5rem">${sugFr}</div>
+    <div style="display:flex;flex-wrap:wrap;gap:.4rem">${sugEn}</div>
   </div>
-  <div class="bubbles-section">
+
+  <div class="bubbles-section afu3">
+    <div class="section-subtitle">🔵 FB Ads Library — Vidéos pubs actives par pays</div>
+    <p style="font-size:.73rem;color:var(--muted);margin-bottom:.65rem">Filtre : <strong style="color:var(--text)">Vidéos uniquement</strong> · Mot-clé optimisé</p>
+    <div class="pays-grid">${fbVids}</div>
+  </div>
+
+  <div class="bubbles-section afu4">
     <div class="section-subtitle">📹 Trouver des vidéos de référence</div>
-    <div class="bubble-grid afu3">${vidSrcs}</div>
+    <div class="bubble-grid">${vidSrcs}</div>
   </div>
-  <div class="tip"><div class="tip-i">💡</div><div><h4>Comment utiliser ces vidéos</h4><p>Les vidéos Facebook Ads Library montrent ce qui <strong style="color:var(--text)">tourne déjà</strong> chez tes concurrents. Note les angles, les accroches, les musiques récurrentes — c'est ce que le marché achète. Inspire-toi sans copier.</p></div></div>`;
+
+  <div class="tip"><div class="tip-i">💡</div><div><h4>Comment utiliser ces vidéos</h4><p>Les vidéos FB Ads Library montrent ce qui <strong style="color:var(--text)">tourne déjà</strong> chez tes concurrents. Note les angles, les accroches, les musiques — c'est ce que le marché achète. Inspire-toi sans copier.</p></div></div>`;
 }
 
 function rHist(){
@@ -1574,11 +1684,11 @@ function rChat(){
   const p = S.product;
   const suggestions = [
     'Comment améliorer ma page produit ?',
-    'Quel est le meilleur angle publicitaire ?',
-    'Comment gérer les objections clients ?',
+    'Quel est le meilleur angle pub ?',
+    'Comment gérer les objections ?',
     'Quelle offre irrésistible proposer ?',
     'Comment cibler sur Facebook ?',
-    'Quel prix est optimal pour ce marché ?'
+    'Quel prix est optimal ?'
   ];
   const sugHtml = suggestions.map(s=>`<div class="chat-sug" onclick="sendChatMsg('${s.replace(/'/g,"\\'")}')">${s}</div>`).join('');
 
@@ -1589,25 +1699,28 @@ function rChat(){
     </div>`).join('');
 
   const emptyHtml = S.chatHistory.length === 0 ? `
-    <div style="text-align:center;padding:2rem 1rem;color:var(--muted)">
-      <div style="font-size:2rem;margin-bottom:.5rem">💬</div>
-      <div style="font-size:.85rem;font-weight:600;color:var(--soft);margin-bottom:.3rem">Pose une question sur ${p?.nom||'ton produit'}</div>
-      <div style="font-size:.75rem">Je peux t'aider sur la stratégie, les textes, le ciblage...</div>
+    <div style="text-align:center;padding:2rem 1rem;color:var(--muted);flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center">
+      <div style="font-size:2.5rem;margin-bottom:.6rem">💬</div>
+      <div style="font-size:.88rem;font-weight:600;color:var(--soft);margin-bottom:.25rem">Pose une question sur ${p?.nom||'ton produit'}</div>
+      <div style="font-size:.76rem">Je peux t\'aider sur la stratégie, les textes, le ciblage...</div>
     </div>` : '';
 
   return `
-  <div class="rh afu"><div><h2>💬 Chat IA Produit</h2><div class="rp">${p?.nom||'Analyse un produit d\'abord'}</div></div>
-    <button class="cbtn" onclick="clearChat()">🗑️ Effacer</button>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem" class="afu">
+    <div><h2 style="font-size:1.1rem;font-weight:800">💬 Chat IA Produit</h2>
+    <div style="font-size:.72rem;color:var(--muted)">${p?.nom||'Analyse un produit d\'abord'}</div></div>
+    ${S.chatHistory.length > 0 ? '<button class="cbtn" onclick="clearChat()">🗑️ Effacer</button>' : ''}
   </div>
 
-  <div class="chat-wrap afu2">
+  <div class="chat-wrap">
     <div class="chat-suggestions">${sugHtml}</div>
     <div class="chat-messages" id="chat-msgs">
       ${emptyHtml}${msgsHtml}
     </div>
     <div class="chat-input-area">
-      <textarea class="chat-input" id="chat-input" placeholder="Pose ta question sur ce produit..." rows="1"
-        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"></textarea>
+      <textarea class="chat-input" id="chat-input" placeholder="Pose ta question..." rows="1"
+        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"
+        oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px'"></textarea>
       <button class="chat-send" id="chat-send-btn" onclick="sendChat()">➤</button>
     </div>
   </div>`;
