@@ -392,29 +392,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
 .shopify-item:hover{border-color:var(--bd2);}
 .sh-check{font-size:1rem;flex-shrink:0;color:var(--or);}
 
-/* ── ROBOT IA ANIMÉ ── */
-#eb-robot{position:fixed;bottom:80px;right:20px;z-index:500;cursor:pointer;user-select:none;transition:transform .3s cubic-bezier(.34,1.56,.64,1);filter:drop-shadow(0 8px 24px rgba(255,107,26,.4));}
-#eb-robot:hover{transform:scale(1.12) translateY(-4px);}
-.robot-body{animation:robotFloat 3s ease-in-out infinite;}
-@keyframes robotFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@keyframes robotJump{0%,100%{transform:translateY(0)}40%{transform:translateY(-22px) scale(1.05)}60%{transform:translateY(-16px)}}
-@keyframes robotShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px) rotate(-6deg)}40%{transform:translateX(7px) rotate(6deg)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
-@keyframes robotSpin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
-@keyframes robotPop{0%{transform:scale(0) rotate(-20deg);opacity:0}60%{transform:scale(1.2)}100%{transform:scale(1);opacity:1}}
-.robot-bubble{position:absolute;bottom:82px;right:0;background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1.5px solid var(--or);border-radius:14px 14px 4px 14px;padding:.55rem .9rem;font-size:.73rem;font-weight:600;color:var(--text);opacity:0;transform:scale(0.8) translateY(8px);transform-origin:bottom right;transition:all .28s cubic-bezier(.34,1.56,.64,1);pointer-events:none;max-width:175px;line-height:1.45;box-shadow:0 8px 24px rgba(0,0,0,.25);}
-.robot-bubble.show{opacity:1;transform:scale(1) translateY(0);}
-.robot-bubble::after{content:'';position:absolute;bottom:-8px;right:14px;border:4px solid transparent;border-top-color:var(--or);}
-
-/* ── TRANSITIONS PAGES FLUIDES ── */
-@keyframes pageIn{from{opacity:0;transform:translateX(20px) scale(.98)}to{opacity:1;transform:translateX(0) scale(1)}}
-@keyframes pageOut{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(-15px)}}
-.content.animating{animation:pageIn .3s cubic-bezier(.22,1,.36,1) both;}
-
-/* ── RIPPLE BOUTONS ── */
-.btng{position:relative;overflow:hidden;}
-.btn-ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.28);transform:scale(0);animation:rippleAnim .55s linear;pointer-events:none;}
-@keyframes rippleAnim{to{transform:scale(4);opacity:0}}
-
 /* ── THÈME CLAIR ── */
 body.light{--bg:#F0F2F8;--bg2:#FFFFFF;--bg3:#F5F7FF;--bg4:#EEF0F8;--text:#1A1D2E;--muted:#6B7280;--soft:#4B5563;--bd:rgba(0,0,0,0.08);--bd2:rgba(0,0,0,0.14);}
 body.light .sb{box-shadow:2px 0 12px rgba(0,0,0,.06);}
@@ -545,34 +522,6 @@ body.light .crit{box-shadow:0 1px 6px rgba(0,0,0,.05);}
 </div>
 <div class="toast" id="toast"><span id="ti">✓</span><span id="tm">Copié !</span></div>
 
-<!-- ROBOT IA -->
-<div id="eb-robot" onclick="robotClick()" title="Je suis là pour t'aider !">
-  <div class="robot-body">
-    <svg width="54" height="64" viewBox="0 0 54 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Antenne -->
-      <line x1="27" y1="4" x2="27" y2="12" stroke="#FF6B1A" stroke-width="2.5" stroke-linecap="round"/>
-      <circle cx="27" cy="3" r="3" fill="#FF6B1A"/>
-      <!-- Tête -->
-      <rect x="8" y="12" width="38" height="28" rx="10" fill="#1A1D35" stroke="#FF6B1A" stroke-width="1.5"/>
-      <!-- Yeux -->
-      <circle id="robot-eye-l" cx="18" cy="24" r="5" fill="#FF6B1A"/>
-      <circle id="robot-eye-r" cx="36" cy="24" r="5" fill="#FF6B1A"/>
-      <circle cx="19.5" cy="22.5" r="2" fill="white" opacity=".6"/>
-      <circle cx="37.5" cy="22.5" r="2" fill="white" opacity=".6"/>
-      <!-- Bouche -->
-      <path id="robot-mouth" d="M18 33 Q27 39 36 33" stroke="#FF6B1A" stroke-width="2" stroke-linecap="round" fill="none"/>
-      <!-- Corps -->
-      <rect x="13" y="42" width="28" height="16" rx="7" fill="#1A1D35" stroke="#FF6B1A" stroke-width="1.5"/>
-      <!-- Bouton centre -->
-      <circle cx="27" cy="50" r="3.5" fill="#FF6B1A" opacity=".7"/>
-      <!-- Jambes -->
-      <rect x="15" y="56" width="8" height="8" rx="3" fill="#FF6B1A" opacity=".6"/>
-      <rect x="31" y="56" width="8" height="8" rx="3" fill="#FF6B1A" opacity=".6"/>
-    </svg>
-  </div>
-  <div class="robot-bubble" id="robot-bubble"></div>
-</div>
-
 <script>
 // ══ CONFIG SUPABASE ══
 // Mets ton URL et clé anon Supabase ici (ces deux sont publiques par conception)
@@ -692,119 +641,6 @@ function toggleTheme(){
 }
 applyTheme();
 
-// ══ ROBOT IA ══
-const ROBOT_MESSAGES = {
-  form:       ["Analyse ton produit 🚀", "Je suis prêt !", "Montre-moi ce produit 👀"],
-  prix:       ["Regarde ces gains 💰", "Bon prix pour l'Afrique !", "Calcul terminé ✅"],
-  score:      ["Score calculé ⭐", "Analyse du marché...", "Regarde le potentiel !"],
-  offres:     ["Des offres irrésistibles 🎁", "Choisis la meilleure !", "Les clients vont adorer !"],
-  shopify:    ["Page prête 🛍️", "Textes neuromarketing !", "Copy & paste !"],
-  facebook:   ["Pubs africaines 📣", "Ces textes vont convertir !", "Lance tes pubs !"],
-  voixoff:    ["Scripts 35-45s 🎙️", "Simple et impactant !", "Enregistre vite !"],
-  avatar:     ["Profil client 👤", "Tu connais ton client !", "Cible bien !"],
-  concurrence:["Espionnage concurrence 🔍", "Regarde qui vend quoi !", "Analyse les pubs !"],
-  chat:       ["Pose moi une question 💬", "Je connais l'Afrique !", "Stratégie e-com 🚀"],
-  images:     ["7 images pro 🖼️", "DALL-E 3 activé !", "Images de marque !"],
-  videos:     ["Vidéos concurrentes 🎬", "Analyse ce qui marche !", "Copie les meilleurs !"],
-  historique: ["Tes analyses 📊", "Historique chargé !", "Bons résultats !"],
-  comptabilite:["On compte 📈", "Vérifie la rentabilité !", "ROAS important !"],
-  shopify_connect:["Connecte ta boutique 🔗", "Export en 1 clic !", "Prêt à exporter ?"],
-  default:    ["Je suis là ! 🤖", "Bonjour !", "En route 🚀"]
-};
-
-let _robotTimer = null;
-let _robotMsgTimer = null;
-let _currentPage = 'form';
-
-function robotSay(msg, duration=3500){
-  const bubble = document.getElementById('robot-bubble');
-  if(!bubble) return;
-  clearTimeout(_robotMsgTimer);
-  bubble.textContent = msg;
-  bubble.classList.add('show');
-  _robotMsgTimer = setTimeout(()=> bubble.classList.remove('show'), duration);
-}
-
-function robotAnimate(anim){
-  const robot = document.getElementById('eb-robot');
-  const body = robot?.querySelector('.robot-body');
-  if(!body) return;
-  body.style.animation = 'none';
-  body.offsetHeight; // reflow
-  body.style.animation = `${anim} 0.6s ease both`;
-  setTimeout(()=>{ body.style.animation = 'robotFloat 3s ease-in-out infinite'; }, 700);
-}
-
-function robotExpression(type){
-  const ml = document.getElementById('robot-mouth');
-  const el = document.getElementById('robot-eye-l');
-  const er = document.getElementById('robot-eye-r');
-  if(!ml) return;
-  if(type === 'happy'){
-    ml.setAttribute('d','M16 31 Q27 40 38 31');
-    if(el) el.setAttribute('r','5.5');
-    if(er) er.setAttribute('r','5.5');
-  } else if(type === 'think'){
-    ml.setAttribute('d','M20 34 Q27 34 34 34');
-    if(el){ el.setAttribute('cy','22'); el.setAttribute('r','4');}
-  } else if(type === 'wow'){
-    ml.setAttribute('d','M22 32 Q27 38 32 32');
-    if(el) el.setAttribute('r','6');
-    if(er) er.setAttribute('r','6');
-  } else {
-    ml.setAttribute('d','M18 33 Q27 39 36 33');
-    if(el){ el.setAttribute('r','5'); el.setAttribute('cy','24');}
-    if(er){ er.setAttribute('r','5'); er.setAttribute('cy','24');}
-  }
-}
-
-function robotClick(){
-  robotAnimate('robotJump');
-  robotExpression('happy');
-  const msgs = ["Je suis ton assistant IA ! 🤖","Dis-moi ce que tu vends !","On va faire du chiffre 💰","Analyse = ventes 🚀","Je connais l'Afrique ! 🌍"];
-  robotSay(msgs[Math.floor(Math.random()*msgs.length)], 3000);
-  setTimeout(()=>robotExpression('normal'), 2000);
-}
-
-function robotOnPageChange(page){
-  _currentPage = page;
-  const msgs = ROBOT_MESSAGES[page] || ROBOT_MESSAGES.default;
-  const msg = msgs[Math.floor(Math.random()*msgs.length)];
-  clearTimeout(_robotTimer);
-  _robotTimer = setTimeout(()=>{
-    if(page === 'form') robotAnimate('robotShake');
-    else if(page === 'prix') { robotAnimate('robotJump'); robotExpression('happy'); }
-    else if(page === 'images') { robotAnimate('robotSpin'); robotExpression('wow'); }
-    else robotAnimate('robotJump');
-    robotSay(msg, 3500);
-    setTimeout(()=>robotExpression('normal'), 2500);
-  }, 400);
-}
-
-// Ripple sur les boutons principaux
-document.addEventListener('click', function(e){
-  const btn = e.target.closest('.btng, .ni, .ofcard');
-  if(!btn) return;
-  const rect = btn.getBoundingClientRect();
-  const ripple = document.createElement('span');
-  ripple.className = 'btn-ripple';
-  const size = Math.max(rect.width, rect.height);
-  ripple.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px;`;
-  btn.appendChild(ripple);
-  setTimeout(()=>ripple.remove(), 600);
-});
-
-// Message de bienvenue du robot
-setTimeout(()=>{
-  robotSay("Salut ! Je suis EB2 🤖 Analyse ton produit !", 4000);
-}, 1500);
-
-// Message aléatoire toutes les 45s
-setInterval(()=>{
-  const idleMsg = ["Tu travailles bien ! 💪","Lance une analyse 🚀","Pense à tes pubs 📣","Combien de ventes aujourd'hui ? 💰","L'Afrique t'attend 🌍"];
-  robotSay(idleMsg[Math.floor(Math.random()*idleMsg.length)], 3000);
-}, 45000);
-
 // ══ MOBILE NAV ══
 function openSidebar(){document.getElementById('sb').classList.add('open');document.getElementById('overlay').classList.add('show');}
 function closeSidebar(){document.getElementById('sb').classList.remove('open');document.getElementById('overlay').classList.remove('show');}
@@ -830,16 +666,9 @@ function showPage(p){
     facebook:rFacebook,voixoff:rVoixOff,avatar:rAvatar,concurrence:rConc,
     chat:rChat,images:rImages,videos:rVideos,historique:rHist,comptabilite:rCompta,shopify_connect:rShopifyConnect};
   const c=document.getElementById('content');
-  // Transition fluide
-  c.classList.remove('animating');
-  c.offsetHeight; // reflow
   c.innerHTML=rs[p]?rs[p]():'';
-  c.classList.add('animating');
   c.scrollTop=0;
   if(p==='form'){S.imgs=[];initUp();}
-  // Déclencher le robot
-  robotOnPageChange(p);
-  setTimeout(()=>c.classList.remove('animating'), 350);
 }
 
 // ══ FORM ══
@@ -1173,69 +1002,153 @@ S.shopifySelected = S.shopifySelected || {titres:[], paragraphes:[]};
 S.shopifyToken = S.shopifyToken || localStorage.getItem('eb2_shopify_token') || '';
 S.shopifyStore = S.shopifyStore || localStorage.getItem('eb2_shopify_store') || '';
 
+// Écouter le retour OAuth de la popup
+window.addEventListener('message', function(e){
+  if(e.data && e.data.type === 'SHOPIFY_AUTH_SUCCESS'){
+    S.shopifyStore = e.data.shop;
+    S.shopifyToken = e.data.token;
+    localStorage.setItem('eb2_shopify_store', e.data.shop);
+    localStorage.setItem('eb2_shopify_token', e.data.token);
+    toast('✅ Boutique Shopify connectée !', true);
+    showPage('shopify_connect');
+  }
+});
+
 function rShopifyConnect(){
   const connected = S.shopifyToken && S.shopifyStore;
-  const titres = S.results?.shopify_titres || [];
-  const paras = S.results?.shopify_paragraphes || [];
-  const prixReco = S.results?.prixReco || '';
+
+  if(!S.results && !connected){
+    return `
+    <div class="rh afu"><div><h2>🛍️ Connecter Shopify</h2><div class="rp">Export en 1 clic vers ta boutique</div></div></div>
+    ${rShopifyOAuthForm()}`;
+  }
+
+  if(!S.results && connected){
+    return `
+    <div class="rh afu"><div><h2>🛍️ Connecter Shopify</h2><div class="rp">Export en 1 clic</div></div></div>
+    <div class="shopify-card afu2" style="background:rgba(34,197,94,.07);border-color:rgba(34,197,94,.2);display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+      <div><div style="font-size:.82rem;color:var(--green);font-weight:700">✅ Connecté</div>
+      <div style="font-size:.72rem;color:var(--muted)">${S.shopifyStore}</div></div>
+      <button onclick="disconnectShopify()" style="font-size:.7rem;color:#F87171;background:none;border:1px solid rgba(239,68,68,.3);border-radius:5px;padding:.25rem .6rem;cursor:pointer">Déconnecter</button>
+    </div>
+    <div class="tip afu3"><div class="tip-i">ℹ️</div><div><p>Lance une analyse produit pour pouvoir exporter vers Shopify.</p></div></div>`;
+  }
+
+  const titres = S.results.shopify_titres || [];
+  const paras = S.results.shopify_paragraphes || [];
+  const prixReco = S.results.prixReco || '';
 
   const titreCards = titres.map((t,i)=>{
     const kt = storeCopy(t);
-    return `<div class="shopify-item" id="sh-t-${i}" onclick="toggleShopifyItemByKey('titre',${i},'${kt}')" style="margin-bottom:.5rem;cursor:pointer">
+    return `
+    <div class="shopify-item" id="sh-t-${i}" onclick="toggleShopifyItemByKey('titre',${i},'${kt}')" style="margin-bottom:.5rem;cursor:pointer">
       <span class="sh-check" id="sh-check-t-${i}" style="font-size:1.1rem;color:var(--or)">☐</span>
-      <span style="font-size:.85rem;font-weight:600">${t}</span></div>`;
+      <span style="font-size:.85rem;font-weight:600">${t}</span>
+    </div>`;
   }).join('');
 
   const paraCards = paras.map((p,i)=>{
     const kp = storeCopy(`<h3>${p.titre}</h3><p>${p.contenu}</p>`);
-    return `<div class="shopify-item" id="sh-p-${i}" onclick="toggleShopifyItemByKey('para',${i},'${kp}')" style="margin-bottom:.5rem;cursor:pointer">
+    return `
+    <div class="shopify-item" id="sh-p-${i}" onclick="toggleShopifyItemByKey('para',${i},'${kp}')" style="margin-bottom:.5rem;cursor:pointer">
       <span class="sh-check" id="sh-check-p-${i}" style="font-size:1.1rem;color:var(--or)">☐</span>
-      <div><div style="font-size:.82rem;font-weight:700">${p.titre}</div>
-      <div style="font-size:.75rem;color:var(--muted);margin-top:.15rem">${p.contenu.substring(0,80)}...</div></div></div>`;
+      <div>
+        <div style="font-size:.82rem;font-weight:700">${p.titre}</div>
+        <div style="font-size:.75rem;color:var(--muted);margin-top:.15rem">${p.contenu.substring(0,80)}...</div>
+      </div>
+    </div>`;
   }).join('');
 
   return `
-  <div class="rh afu"><div><h2>🛍️ Exporter sur Shopify</h2><div class="rp">${S.product?.nom||'Analyse un produit d\'abord'}</div></div></div>
+  <div class="rh afu"><div><h2>🛍️ Exporter sur Shopify</h2><div class="rp">${S.product.nom}</div></div></div>
 
+  ${!connected ? rShopifyOAuthForm() : `
+  <div class="shopify-card afu2" style="background:rgba(34,197,94,.07);border-color:rgba(34,197,94,.2);display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+    <div><div style="font-size:.82rem;color:var(--green);font-weight:700">✅ ${S.shopifyStore}</div>
+    <div style="font-size:.7rem;color:var(--muted)">Boutique connectée</div></div>
+    <button onclick="disconnectShopify()" style="font-size:.7rem;color:#F87171;background:none;border:1px solid rgba(239,68,68,.3);border-radius:5px;padding:.25rem .6rem;cursor:pointer">Changer</button>
+  </div>`}
+
+  ${connected ? `
   <div class="shopify-card afu2">
-    <div class="section-subtitle" style="margin-bottom:.8rem">🔗 Ta boutique Shopify</div>
-    ${connected ? `
-    <div style="background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.2);border-radius:9px;padding:.7rem 1rem;display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem">
-      <div><div style="font-size:.82rem;color:var(--green);font-weight:700">✅ ${S.shopifyStore}</div>
-      <div style="font-size:.7rem;color:var(--muted)">Boutique connectée</div></div>
-      <button onclick="disconnectShopify()" style="font-size:.7rem;color:#F87171;background:none;border:1px solid rgba(239,68,68,.3);border-radius:5px;padding:.25rem .6rem;cursor:pointer;font-family:var(--font)">Changer</button>
-    </div>` : `
-    <div class="fg" style="margin-bottom:.6rem">
-      <label style="font-size:.7rem;font-weight:600;color:var(--soft);display:block;margin-bottom:.3rem">URL de ta boutique</label>
-      <input type="text" id="sh-store" placeholder="wc15dq-6e.myshopify.com" style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:.6rem .82rem;color:var(--text);font-family:var(--font);font-size:.84rem;width:100%;outline:none">
-    </div>
-    <div class="fg" style="margin-bottom:.8rem">
-      <label style="font-size:.7rem;font-weight:600;color:var(--soft);display:block;margin-bottom:.3rem">Token d'accès Admin</label>
-      <input type="password" id="sh-token" placeholder="shpat_xxxxxxxxxx" style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:.6rem .82rem;color:var(--text);font-family:var(--font);font-size:.84rem;width:100%;outline:none">
-      <div style="font-size:.65rem;color:var(--muted);margin-top:.3rem">Admin Shopify → Paramètres → Apps → Développer des apps → Créer une app → Configurer API → Coche write_products → Installer → Copie shpat_xxx</div>
-    </div>
-    <button class="btng" onclick="saveShopify()">💾 Connecter ma boutique</button>`}
-  </div>
-
-  ${S.results && connected ? `
-  <div class="shopify-card afu3">
     <div class="section-subtitle" style="margin-bottom:.8rem">📝 1 — Choisis un titre</div>
     ${titreCards}
   </div>
-  <div class="shopify-card afu4">
+  <div class="shopify-card afu3">
     <div class="section-subtitle" style="margin-bottom:.8rem">📄 2 — Choisis tes paragraphes</div>
     ${paraCards}
   </div>
-  <div class="shopify-card" style="animation:fadeUp .38s ease .28s both">
+  <div class="shopify-card afu4">
     <div class="section-subtitle" style="margin-bottom:.6rem">💰 3 — Prix de vente (FCFA)</div>
     <input type="number" id="sh-prix" placeholder="Ex: 15000" value="${prixReco}" style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:.6rem .82rem;color:var(--text);font-family:var(--font);font-size:.84rem;width:100%;outline:none">
     <div style="font-size:.68rem;color:var(--muted);margin-top:.3rem">Prix recommandé : ${prixReco} FCFA</div>
   </div>
-  <div style="margin-top:.8rem;animation:fadeUp .38s ease .35s both">
+  <div style="margin-top:.8rem" class="afu4">
     <button class="btng" onclick="exportToShopify()" style="width:100%">🚀 Créer ce produit sur Shopify</button>
-  </div>` : S.results && !connected ? `
-  <div class="tip afu3"><div class="tip-i">ℹ️</div><div><p>Connecte ta boutique ci-dessus pour pouvoir exporter.</p></div></div>` : `
-  <div class="tip afu3"><div class="tip-i">ℹ️</div><div><p>Lance une analyse produit d'abord, puis reviens ici pour exporter.</p></div></div>`}`;
+  </div>` : ''}`;
+}
+
+function rShopifyOAuthForm(){
+  return `
+  <div class="shopify-card afu2" style="text-align:center;padding:2rem">
+    <div style="font-size:2.5rem;margin-bottom:.8rem">🛍️</div>
+    <h3 style="font-size:1rem;font-weight:800;margin-bottom:.4rem">Connecter ta boutique Shopify</h3>
+    <p style="font-size:.78rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.6">Entre le nom de ta boutique ci-dessous.<br>Tu seras redirigé vers Shopify pour autoriser l'accès.</p>
+    <div class="fg" style="text-align:left;margin-bottom:1rem">
+      <label style="font-size:.7rem;font-weight:600;color:var(--soft);display:block;margin-bottom:.3rem">Identifiant de ta boutique Shopify</label>
+      <input type="text" id="sh-shop-name" placeholder="Ex: wc15dq-6e"
+        style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:.65rem .9rem;color:var(--text);font-family:var(--font);font-size:.84rem;width:100%;outline:none"
+        onkeydown="if(event.key==='Enter')connectShopifyOAuth()">
+      <div style="font-size:.68rem;color:var(--muted);margin-top:.3rem">
+        💡 Trouve ton identifiant dans Paramètres → Domaines → tu vois <strong style="color:var(--soft)">xxxxx.myshopify.com</strong> → entre juste la partie avant .myshopify.com
+      </div>
+    </div>
+    <button class="btng" onclick="connectShopifyOAuth()" style="width:100%;justify-content:center;gap:.6rem">
+      <span>🔗</span> Connecter avec Shopify
+    </button>
+    <p style="font-size:.68rem;color:var(--muted);margin-top:.8rem">Shopify te demandera d'autoriser l'application. C'est sécurisé.</p>
+  </div>`;
+}
+
+async function connectShopifyOAuth(){
+  const shopInput = document.getElementById('sh-shop-name')?.value?.trim();
+  if(!shopInput){ toast('⚠️ Entre le nom ou l\'URL de ta boutique', false); return; }
+
+  // Nettoyer l'input — accepter toutes les formes :
+  // "nuveria", "wc15dq-6e", "wc15dq-6e.myshopify.com", 
+  // "admin.shopify.com/store/wc15dq-6e", "https://www.nuveria.shop/admin"
+  let shopDomain = shopInput.trim().toLowerCase()
+    .replace('https://', '').replace('http://', '').replace(/\/$/, '');
+
+  // Si c'est une URL admin.shopify.com/store/xxx → extraire le slug
+  const adminMatch = shopDomain.match(/admin\.shopify\.com\/store\/([^\/\?]+)/);
+  if(adminMatch) shopDomain = adminMatch[1] + '.myshopify.com';
+
+  // Si c'est un domaine custom (ex: www.nuveria.shop) → on ne peut pas déduire le myshopify
+  // L'utilisateur doit entrer le nom myshopify directement
+  if(!shopDomain.includes('.myshopify.com') && shopDomain.includes('.')){
+    toast('⚠️ Entre ton nom de boutique myshopify (ex: wc15dq-6e)', false);
+    return;
+  }
+
+  // Ajouter .myshopify.com si c'est juste le slug
+  if(!shopDomain.includes('.myshopify.com')){
+    shopDomain = shopDomain + '.myshopify.com';
+  }
+
+  toast('⏳ Connexion en cours...', true);
+
+  try {
+    const r = await fetch(`/api/shopify-auth?mode=connect&shop=${encodeURIComponent(shopDomain)}`);
+    const d = await r.json();
+    if(!d.success || !d.authUrl){
+      toast('❌ ' + (d.error||'Erreur'), false); return;
+    }
+    const popup = window.open(d.authUrl, 'ShopifyAuth', 'width=600,height=700,scrollbars=yes');
+    if(!popup){ toast('⚠️ Active les popups dans ton navigateur', false); }
+  } catch(e) {
+    toast('❌ Erreur: ' + e.message, false);
+  }
 }
 
 function saveShopify(){
