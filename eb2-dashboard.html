@@ -478,6 +478,7 @@ body.light .crit{box-shadow:0 1px 6px rgba(0,0,0,.05);}
       <div class="nlbl">Médias</div>
       <div class="ni" id="nav-images" onclick="navTo('images')"><span class="ico">🖼️</span>Images</div>
       <div class="ni" id="nav-videos" onclick="navTo('videos')"><span class="ico">🎬</span>Vidéos</div>
+      <div class="ni" id="nav-fournisseurs" onclick="navTo('fournisseurs')"><span class="ico">🏭</span>Fournisseurs</div>
     </div>
     <div style="padding:.3rem 0">
       <div class="nlbl">Compte</div>
@@ -625,7 +626,7 @@ const ALL_PAYS_FB=[
   {pays:'Ethiopia 🇬🇧',code:'ET',flag:'🇪🇹',lang:'en'},{pays:'Zambia 🇬🇧',code:'ZM',flag:'🇿🇲',lang:'en'},
   {pays:'World EN 🇬🇧',code:'ALL',flag:'🌍',lang:'en'},
 ];
-const TITLES={form:'Nouveau Produit',prix:'Prix & Gains',score:'Score Produit',offres:'Offres',shopify:'Page Shopify',facebook:'Facebook Ads',voixoff:'Voix Off',avatar:'Avatar Client',concurrence:'Concurrence',chat:'Chat IA Produit',images:'Images',videos:'Vidéos',historique:'Historique',comptabilite:'Comptabilité',shopify_connect:'Connecter Shopify'};
+const TITLES={form:'Nouveau Produit',prix:'Prix & Gains',score:'Score Produit',offres:'Offres',shopify:'Page Shopify',facebook:'Facebook Ads',voixoff:'Voix Off',avatar:'Avatar Client',concurrence:'Concurrence',chat:'Chat IA Produit',images:'Images',videos:'Vidéos',fournisseurs:'Fournisseurs',historique:'Historique',comptabilite:'Comptabilité',shopify_connect:'Connecter Shopify'};
 
 // ══ THÈME CLAIR/SOMBRE ══
 let _darkMode = localStorage.getItem('eb2_theme') !== 'light';
@@ -664,7 +665,7 @@ function showPage(p){
   else tp.style.display='none';
   const rs={form:rForm,prix:rPrix,score:rScore,offres:rOffres,shopify:rShopify,
     facebook:rFacebook,voixoff:rVoixOff,avatar:rAvatar,concurrence:rConc,
-    chat:rChat,images:rImages,videos:rVideos,historique:rHist,comptabilite:rCompta,shopify_connect:rShopifyConnect};
+    chat:rChat,images:rImages,videos:rVideos,fournisseurs:rFournisseurs,historique:rHist,comptabilite:rCompta,shopify_connect:rShopifyConnect};
   const c=document.getElementById('content');
   c.innerHTML=rs[p]?rs[p]():'';
   c.scrollTop=0;
@@ -1402,6 +1403,35 @@ function rFacebook(){
   }).join('');
   return`<div class="rh afu"><div><h2>📣 Facebook Ads</h2><div class="rp">${S.product.nom} · 3 angles</div></div></div>
   ${ads}
+  <div class="ic afu3" style="margin-top:1.2rem">
+    <div class="ich"><h4>📊 Guide Métriques Facebook — Ce que ça veut dire</h4></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.5rem">
+      <div style="background:var(--bg3);border-radius:10px;padding:.9rem;border-left:3px solid var(--green)">
+        <div style="font-size:.72rem;font-weight:700;color:var(--green);margin-bottom:.4rem">✅ CTR > 2% — BON</div>
+        <div style="font-size:.75rem;color:var(--muted);line-height:1.6">Ton texte accroche. Augmente le budget de 20% tous les 2 jours. Ne touche rien tant que les ventes suivent.</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:10px;padding:.9rem;border-left:3px solid var(--gold)">
+        <div style="font-size:.72rem;font-weight:700;color:var(--gold);margin-bottom:.4rem">⚠️ CTR 1-2% — MOYEN</div>
+        <div style="font-size:.75rem;color:var(--muted);line-height:1.6">Change la 1ère ligne. Le problème vient de l'accroche — essaie une question directe ou une situation africaine concrète.</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:10px;padding:.9rem;border-left:3px solid #F87171">
+        <div style="font-size:.72rem;font-weight:700;color:#F87171;margin-bottom:.4rem">❌ CTR < 1% — MAUVAIS</div>
+        <div style="font-size:.75rem;color:var(--muted);line-height:1.6">Coupe après 2 jours et 5$. Ton texte ne touche pas la bonne douleur. Teste un autre angle parmi les 3 ci-dessus.</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:10px;padding:.9rem;border-left:3px solid var(--blue)">
+        <div style="font-size:.72rem;font-weight:700;color:var(--blue);margin-bottom:.4rem">💰 CPM élevé (> 5$)</div>
+        <div style="font-size:.75rem;color:var(--muted);line-height:1.6">Audience trop restreinte. Élargis le ciblage ou essaie un autre pays francophone moins saturé.</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:10px;padding:.9rem;border-left:3px solid var(--purple)">
+        <div style="font-size:.72rem;font-weight:700;color:var(--purple);margin-bottom:.4rem">📱 Clics mais 0 vente</div>
+        <div style="font-size:.75rem;color:var(--muted);line-height:1.6">Problème sur ta page produit. Vérifie la vitesse, le prix, simplifie la commande au maximum.</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:10px;padding:.9rem;border-left:3px solid var(--or)">
+        <div style="font-size:.72rem;font-weight:700;color:var(--or);margin-bottom:.4rem">🚀 Budget optimal</div>
+        <div style="font-size:.75rem;color:var(--muted);line-height:1.6">3-5$/jour par pub. Attends 3 jours avant de juger. Le pixel a besoin de temps pour optimiser.</div>
+      </div>
+    </div>
+  </div>
   <div class="tip"><div class="tip-i">💡</div><div><h4>Comment tester ces textes</h4><p>Lance les 3 textes avec <strong style="color:var(--text)">5$/jour chacun</strong> pendant 3 jours. Celui qui génère le plus de clics — garde-le, coupe les autres. Scale à 10-15$/jour.</p></div></div>`;
 }
 
@@ -1617,7 +1647,7 @@ function rVideos(){
   const q = encodeURIComponent(nomReel);
   const qEn = encodeURIComponent(nomReelEn);
   const vidSrcs=[
-    {n:'TikTok',ic:'🎵',u:`https://www.tiktok.com/search?q=${q}`,cls:'bbl-tt',sub:'Vidéos virales'},
+    {n:'TikTok',ic:'🎵',u:`https://www.tiktok.com/search?q=${encodeURIComponent(nomReel+' '+(p?.pays||''))}`,cls:'bbl-tt',sub:'Vidéos virales'},
     {n:'YouTube',ic:'▶️',u:`https://www.youtube.com/results?search_query=${q}+review`,cls:'bbl-yt',sub:'Reviews'},
     {n:'Pinterest Vidéos',ic:'📌',u:`https://www.pinterest.com/search/videos/?q=${q}`,cls:'bbl-pt',sub:'Inspiration'},
     {n:'Google Vidéos',ic:'🔎',u:`https://www.google.com/search?tbm=vid&q=${q}`,cls:'bbl-gg',sub:'Tous résultats'},
@@ -1655,6 +1685,78 @@ function rHist(){
   }).join('');
   return`<div class="rh afu"><div><h2>📊 Historique</h2><div class="rp">${S.history.length} produit${S.history.length>1?'s':''} analysé${S.history.length>1?'s':''}</div></div></div>
   <div class="htbl afu2"><div class="hth"><span>Produit</span><span>Date</span><span>Score</span><span>Prix reco.</span><span></span></div>${rows}</div>`;
+}
+
+
+// ══ FOURNISSEURS ══
+// Pays + capitales + plateformes locales
+var PAYS_FOURNIS = [
+  {pays:'Togo', flag:'🇹🇬', capitale:'Lome', capitaleFr:'Lomé', lang:'fr'},
+  {pays:"Cote d'Ivoire", flag:'🇨🇮', capitale:'Abidjan', capitaleFr:'Abidjan', lang:'fr'},
+  {pays:'Senegal', flag:'🇸🇳', capitale:'Dakar', capitaleFr:'Dakar', lang:'fr'},
+  {pays:'Cameroun', flag:'🇨🇲', capitale:'Douala', capitaleFr:'Douala', lang:'fr'},
+  {pays:'Benin', flag:'🇧🇯', capitale:'Cotonou', capitaleFr:'Cotonou', lang:'fr'},
+  {pays:'Burkina Faso', flag:'🇧🇫', capitale:'Ouagadougou', capitaleFr:'Ouagadougou', lang:'fr'},
+  {pays:'Mali', flag:'🇲🇱', capitale:'Bamako', capitaleFr:'Bamako', lang:'fr'},
+  {pays:'Guinee', flag:'🇬🇳', capitale:'Conakry', capitaleFr:'Conakry', lang:'fr'},
+  {pays:'Niger', flag:'🇳🇪', capitale:'Niamey', capitaleFr:'Niamey', lang:'fr'},
+  {pays:'Gabon', flag:'🇬🇦', capitale:'Libreville', capitaleFr:'Libreville', lang:'fr'},
+  {pays:'Congo', flag:'🇨🇬', capitale:'Brazzaville', capitaleFr:'Brazzaville', lang:'fr'},
+  {pays:'RD Congo', flag:'🇨🇩', capitale:'Kinshasa', capitaleFr:'Kinshasa', lang:'fr'},
+  {pays:'Madagascar', flag:'🇲🇬', capitale:'Antananarivo', capitaleFr:'Antananarivo', lang:'fr'},
+  {pays:'Nigeria', flag:'🇳🇬', capitale:'Lagos', capitaleFr:'Lagos', lang:'en'},
+  {pays:'Ghana', flag:'🇬🇭', capitale:'Accra', capitaleFr:'Accra', lang:'en'},
+  {pays:'Kenya', flag:'🇰🇪', capitale:'Nairobi', capitaleFr:'Nairobi', lang:'en'},
+];
+
+function rFournisseurs(){
+  var p = S.product;
+  var r = S.results;
+  var nomReel = r && r.nom_reel ? r.nom_reel : (p ? p.nom : '');
+  var nomReelEn = r && r.nom_reel_en ? r.nom_reel_en : nomReel;
+
+  var paysCards = PAYS_FOURNIS.map(function(pf, i){
+    var nom = pf.lang === 'en' ? nomReelEn : nomReel;
+    var q = encodeURIComponent(nom);
+    var qPays = encodeURIComponent(nom + ' ' + pf.capitaleFr);
+    var qPaysEn = encodeURIComponent(nom + ' ' + pf.capitale);
+
+    // Plateformes
+    var platforms = [
+      {n:'Facebook Marketplace', ic:'🔵', u:'https://www.facebook.com/marketplace/category/search/?query=' + qPays, color:'rgba(24,119,242,.15)', border:'rgba(24,119,242,.4)'},
+      {n:'TikTok', ic:'🎵', u:'https://www.tiktok.com/search?q=' + qPays, color:'rgba(255,255,255,.05)', border:'rgba(255,255,255,.2)'},
+      {n:'Jumia', ic:'🛒', u:'https://www.jumia.com.gh/catalog/?q=' + q, color:'rgba(255,107,26,.1)', border:'rgba(255,107,26,.3)'},
+      {n:'Jiji', ic:'🏪', u:'https://jiji.com.gh/search?query=' + q, color:'rgba(255,184,0,.1)', border:'rgba(255,184,0,.3)'},
+      {n:'Google Local', ic:'🔎', u:'https://www.google.com/search?q=' + qPays + '+fournisseur+grossiste', color:'rgba(234,67,53,.1)', border:'rgba(234,67,53,.3)'},
+      {n:'WhatsApp Groups', ic:'📱', u:'https://www.google.com/search?q=whatsapp+groupe+' + qPays + '+fournisseur', color:'rgba(37,211,102,.1)', border:'rgba(37,211,102,.3)'},
+    ];
+
+    var platformLinks = platforms.map(function(pl){
+      return '<a href="' + pl.u + '" target="_blank" style="display:flex;align-items:center;gap:.5rem;background:' + pl.color + ';border:1px solid ' + pl.border + ';border-radius:9px;padding:.55rem .8rem;text-decoration:none;color:var(--text);font-size:.78rem;font-weight:600;transition:all .2s">' + pl.ic + ' ' + pl.n + '</a>';
+    }).join('');
+
+    var delayStyle = 'animation-delay:' + (i * 0.05) + 's';
+    return '<div class="ic" style="' + delayStyle + '">' +
+      '<div class="ich"><h4>' + pf.flag + ' ' + (pf.pays === "Cote d'Ivoire" ? "Côte d'Ivoire" : pf.pays) + ' — ' + pf.capitaleFr + '</h4></div>' +
+      '<p style="font-size:.73rem;color:var(--muted);margin-bottom:.7rem">Cherche des fournisseurs de <strong style="color:var(--text)">' + nom + '</strong> à ' + pf.capitaleFr + '</p>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem">' + platformLinks + '</div>' +
+      '</div>';
+  }).join('');
+
+  var notAnalyzed = !nomReel ? '<div class="tip"><div class="tip-i">ℹ️</div><div><p>Analyse un produit dabord pour avoir les vrais noms optimisés dans les recherches.</p></div></div>' : '';
+
+  return '<div class="rh afu"><div><h2>🏭 Fournisseurs</h2><div class="rp">' + (nomReel || 'Cherche des fournisseurs locaux') + '</div></div></div>' +
+
+    notAnalyzed +
+
+    '<div class="tip afu2"><div class="tip-i">💡</div><div><h4>Comment trouver un fournisseur local</h4>' +
+    '<p>1. Clique sur <strong style="color:var(--text)">Facebook Marketplace</strong> → cherche des vendeurs dans la ville → contacte-les en message privé pour négocier le prix de gros.<br>' +
+    '2. Sur <strong style="color:var(--text)">TikTok</strong> → cherche le produit + ville → les vendeurs qui postent du contenu sont souvent des fournisseurs locaux.<br>' +
+    '3. Sur <strong style="color:var(--text)">WhatsApp</strong> → rejoins des groupes de revendeurs dans le pays ciblé.</p>' +
+    '</div></div>' +
+
+    '<div class="section-subtitle" style="margin-top:1.2rem">Chercher par pays</div>' +
+    '<div style="display:flex;flex-direction:column;gap:.75rem">' + paysCards + '</div>';
 }
 
 // ══ IMAGES IA ══
