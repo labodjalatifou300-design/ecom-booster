@@ -436,6 +436,136 @@ body.light .crit{box-shadow:0 1px 6px rgba(0,0,0,.05);}
 .chat-suggestions{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.6rem;flex-shrink:0;}
 .chat-sug{background:var(--bg3);border:1px solid var(--bd2);border-radius:20px;padding:.3rem .75rem;font-size:.72rem;color:var(--soft);cursor:pointer;transition:all .15s;white-space:nowrap;}
 .chat-sug:hover{border-color:var(--or);color:var(--or);}
+
+/* ═══ MÉTRIQUES FB ADS ═══ */
+.met-import-zone{background:var(--bg2);border:2px dashed rgba(255,107,26,.3);border-radius:14px;padding:2rem 1.5rem;text-align:center;margin-bottom:1.2rem;}
+.met-import-ico{font-size:2.2rem;margin-bottom:.6rem;}
+.met-import-title{font-size:1rem;font-weight:800;margin-bottom:.35rem;}
+.met-import-sub{font-size:.78rem;color:var(--muted);line-height:1.6;margin-bottom:1.1rem;}
+.met-import-btn{display:inline-block;background:linear-gradient(135deg,var(--or),#FF8C42);color:#fff;border-radius:9px;padding:.7rem 1.6rem;font-size:.85rem;font-weight:700;cursor:pointer;transition:transform .2s;box-shadow:0 6px 18px rgba(255,107,26,.28);}
+.met-import-btn:hover{transform:translateY(-2px);}
+.met-import-hint{font-size:.71rem;color:var(--muted);margin-top:.9rem;line-height:1.75;}
+.met-resume{background:var(--bg2);border:1px solid var(--bd);border-radius:13px;padding:1.2rem;margin-bottom:.9rem;}
+.met-res-title{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--or);margin-bottom:.8rem;}
+.met-res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;}
+@media(max-width:500px){.met-res-grid{grid-template-columns:repeat(2,1fr);}}
+.met-res-kpi{background:var(--bg3);border-radius:10px;padding:.8rem .85rem;border:1px solid var(--bd);}
+.met-res-lbl{font-size:.6rem;color:var(--muted);margin-bottom:.2rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+.met-res-val{font-size:1.1rem;font-weight:900;letter-spacing:-.3px;}
+.met-table{background:var(--bg2);border:1px solid var(--bd);border-radius:12px;overflow:hidden;overflow-x:auto;margin-bottom:.5rem;}
+.met-head{display:grid;grid-template-columns:2.2fr 1fr .7fr 1.1fr .9fr .7fr .7fr 1fr;background:var(--bg3);padding:.5rem .9rem;font-size:.57rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);min-width:680px;gap:.3rem;}
+.met-row{display:grid;grid-template-columns:2.2fr 1fr .7fr 1.1fr .9fr .7fr .7fr 1fr;padding:.65rem .9rem;border-top:1px solid var(--bd);font-size:.75rem;align-items:center;gap:.3rem;min-width:680px;transition:background .12s;}
+.met-row:hover{background:rgba(255,255,255,.025);}
+.met-name{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+/* ═══ FOURNISSEURS ═══ */
+.four-noprod{background:var(--bg2);border:1px solid var(--bd);border-radius:14px;padding:2rem 1.5rem;text-align:center;margin-bottom:1.2rem;}
+.four-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem;}
+@media(max-width:500px){.four-grid{grid-template-columns:1fr;}}
+.four-card{background:var(--bg2);border:1px solid var(--bd);border-radius:14px;overflow:hidden;transition:transform .22s,border-color .22s;animation:fadeUp .38s ease both;}
+.four-card:hover{transform:translateY(-3px);border-color:var(--bd2);}
+.four-header{display:flex;align-items:center;gap:.7rem;padding:.9rem 1rem;background:var(--bg3);border-bottom:1px solid var(--bd);}
+.four-flag{font-size:1.5rem;flex-shrink:0;}
+.four-pays{font-size:.88rem;font-weight:800;}
+.four-ville{font-size:.68rem;color:var(--muted);margin-top:.05rem;}
+.four-prod-badge{margin-left:auto;font-size:.65rem;font-weight:700;background:rgba(255,107,26,.12);color:var(--or);border:1px solid rgba(255,107,26,.25);padding:.15rem .52rem;border-radius:999px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100px;}
+.four-links{padding:.6rem;}
+.four-link{display:flex;align-items:center;gap:.65rem;padding:.55rem .7rem;border-radius:9px;text-decoration:none;color:var(--text);transition:background .15s;margin-bottom:.28rem;border:1px solid transparent;}
+.four-link:hover{border-color:var(--bd2);}
+.four-link-ico{font-size:1.1rem;flex-shrink:0;width:24px;text-align:center;}
+.four-link-name{font-size:.78rem;font-weight:700;line-height:1.2;}
+.four-link-sub{font-size:.64rem;color:var(--muted);margin-top:.08rem;}
+.four-link-arr{margin-left:auto;color:var(--muted);font-size:.82rem;flex-shrink:0;}
+.four-fb{background:rgba(24,119,242,.06);}
+.four-fb:hover{background:rgba(24,119,242,.12);}
+.four-tt{background:rgba(255,255,255,.03);}
+.four-tt:hover{background:rgba(255,255,255,.07);}
+.four-gg{background:rgba(234,67,53,.05);}
+.four-gg:hover{background:rgba(234,67,53,.1);}
+.four-wa{background:rgba(37,211,102,.05);}
+.four-wa:hover{background:rgba(37,211,102,.1);}
+.four-ju{background:rgba(255,107,26,.05);}
+.four-ju:hover{background:rgba(255,107,26,.1);}
+
+/* ═══ COMPTABILITÉ AMÉLIORÉE ═══ */
+.compta-wrap{max-width:820px;margin:0 auto;}
+.compta-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;flex-wrap:wrap;gap:.5rem;}
+.compta-date{font-size:.78rem;font-weight:600;color:var(--muted);background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:.38rem .75rem;}
+.compta-form-card{background:var(--bg2);border:1px solid var(--bd);border-radius:15px;padding:1.4rem;margin-bottom:1rem;}
+.compta-form-title{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--or);margin-bottom:.9rem;}
+.compta-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:1rem;}
+@media(max-width:480px){.compta-grid{grid-template-columns:1fr;}}
+.compta-field label{display:block;font-size:.68rem;font-weight:600;color:var(--soft);margin-bottom:.3rem;}
+.compta-input{width:100%;background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:.62rem .85rem;color:var(--text);font-family:var(--font);font-size:.84rem;outline:none;transition:border-color .2s,box-shadow .2s;}
+.compta-input:focus{border-color:var(--or);box-shadow:0 0 0 3px rgba(255,107,26,.1);}
+.compta-btn{width:100%;background:linear-gradient(135deg,var(--or),#FF8C42);color:#fff;border:none;border-radius:10px;padding:.8rem;font-family:var(--font);font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:0 6px 20px rgba(255,107,26,.25);transition:transform .2s;}
+.compta-btn:hover{transform:translateY(-2px);}
+.compta-btn-sec{background:var(--bg3);border:1px solid var(--bd2);color:var(--soft);border-radius:9px;padding:.6rem 1rem;font-family:var(--font);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .16s;}
+.compta-btn-sec:hover{color:var(--text);border-color:var(--or);}
+.compta-btn-danger{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);color:#F87171;border-radius:9px;padding:.6rem 1rem;font-family:var(--font);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .16s;}
+.cr-result{background:var(--bg2);border:2px solid;border-radius:14px;padding:1.2rem;margin-bottom:1rem;}
+.cr-badge{display:inline-block;font-size:.72rem;font-weight:800;padding:.25rem .75rem;border-radius:999px;margin-bottom:.85rem;}
+.cr-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;}
+@media(max-width:480px){.cr-grid{grid-template-columns:1fr;}}
+.cr-stat{background:var(--bg3);border-radius:9px;padding:.75rem .9rem;}
+.cr-sl{font-size:.62rem;color:var(--muted);margin-bottom:.18rem;font-weight:600;}
+.cr-sv{font-size:1.05rem;font-weight:900;letter-spacing:-.3px;}
+.compta-chart-card{background:var(--bg2);border:1px solid var(--bd);border-radius:14px;padding:1.2rem;margin-bottom:1rem;}
+.cbar-chart{display:flex;align-items:flex-end;gap:.5rem;height:100px;padding:.5rem 0;}
+.cbar-col{display:flex;flex-direction:column;align-items:center;flex:1;gap:.28rem;}
+.cbar-val{font-size:.6rem;font-weight:700;white-space:nowrap;}
+.cbar{width:100%;max-width:36px;border-radius:4px 4px 0 0;min-height:4px;transition:height .6s ease;}
+.cbar-date{font-size:.58rem;color:var(--muted);white-space:nowrap;}
+.compta-gsheet-card{background:var(--bg2);border:1px solid var(--bd);border-radius:14px;padding:1.2rem;margin-bottom:1rem;}
+
+
+/* ═══ FB ADS LIBRARY CARDS ═══ */
+.fb-pays-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.75rem;margin-top:.75rem;}
+@media(max-width:480px){.fb-pays-grid{grid-template-columns:1fr 1fr;gap:.5rem;}}
+.fb-pays-card{background:var(--bg2);border:1px solid var(--bd);border-radius:12px;padding:.85rem 1rem;text-decoration:none;color:var(--text);transition:transform .22s,border-color .22s,box-shadow .22s;display:block;animation:fadeUp .35s ease both;}
+.fb-pays-card:hover{transform:translateY(-3px);border-color:rgba(24,119,242,.5);box-shadow:0 8px 24px rgba(24,119,242,.15);}
+.fb-pays-card-top{display:flex;align-items:center;gap:.5rem;margin-bottom:.55rem;}
+.fb-pays-flag{font-size:1.3rem;line-height:1;}
+.fb-pays-name{font-size:.85rem;font-weight:800;}
+.fb-pays-lang{font-size:.55rem;font-weight:700;padding:.07rem .3rem;border-radius:3px;margin-left:.2rem;}
+.fb-pays-lang.en{background:rgba(59,130,246,.18);color:#60A5FA;}
+.fb-pays-lang.fr{background:rgba(255,107,26,.12);color:var(--or);}
+.fb-pays-row{display:flex;align-items:flex-start;gap:.35rem;margin-bottom:.28rem;}
+.fb-pays-lbl{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);min-width:55px;margin-top:.05rem;flex-shrink:0;}
+.fb-pays-val{font-size:.72rem;color:var(--soft);line-height:1.35;}
+.fb-pays-kw{font-size:.72rem;font-weight:700;color:var(--text);}
+.fb-pays-arrow{display:flex;align-items:center;justify-content:flex-end;margin-top:.5rem;}
+.fb-pays-btn{font-size:.66rem;font-weight:700;color:rgba(24,119,242,.9);background:rgba(24,119,242,.08);border-radius:6px;padding:.2rem .6rem;}
+
+
+/* ═══ THÈME CLAIR ═══ */
+body.light{
+  --bg:#F0F2F8;--bg2:#FFFFFF;--bg3:#E8EBF4;--bg4:#DDE1EF;
+  --text:#1A1D2E;--muted:#6B7094;--soft:#4A4F6E;
+  --bd:rgba(0,0,0,0.09);--bd2:rgba(0,0,0,0.15);
+}
+body.light .sb{background:var(--bg2);}
+body.light .topbar{background:var(--bg2);}
+body.light .ucard{background:var(--bg3);}
+body.light .ni:hover{background:rgba(0,0,0,.04);}
+body.light .ni.active{background:rgba(255,107,26,.1);}
+body.light .fg input,body.light .fg select,body.light .fg textarea{background:var(--bg3);color:var(--text);}
+body.light .compta-input{background:var(--bg3);color:var(--text);}
+body.light .met-resume{background:var(--bg2);}
+body.light .met-res-kpi{background:var(--bg3);}
+body.light .met-table{background:var(--bg2);}
+body.light .met-head{background:var(--bg3);}
+body.light .met-import-zone{background:var(--bg2);}
+body.light .four-card{background:var(--bg2);}
+body.light .four-header{background:var(--bg3);}
+body.light .fb-pays-card{background:var(--bg2);}
+body.light .compta-form-card,.light .compta-chart-card,.light .compta-gsheet-card,.light .cr-stat{background:var(--bg2);}
+body.light .four-fb{background:rgba(24,119,242,.08);}
+body.light .four-tt{background:rgba(0,0,0,.04);}
+body.light .four-gg{background:rgba(234,67,53,.06);}
+body.light .four-wa{background:rgba(37,211,102,.06);}
+body.light .four-ju{background:rgba(255,107,26,.06);}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -460,36 +590,40 @@ body.light .crit{box-shadow:0 1px 6px rgba(0,0,0,.05);}
   </div>
   <div class="nav-sc">
     <div style="padding:.3rem 0">
-      <div class="nlbl">Analyse</div>
-      <div class="ni active" id="nav-prix" onclick="navTo('prix')"><span class="ico">💰</span>Prix &amp; Gains</div>
-      <div class="ni" id="nav-score" onclick="navTo('score')"><span class="ico">⭐</span>Score Produit</div>
-      <div class="ni" id="nav-offres" onclick="navTo('offres')"><span class="ico">🎁</span>Offres</div>
+      <div class="nlbl">Analyse produit</div>
+      <div class="ni" id="nav-prix"        onclick="navTo('prix')"><span class="ico">💰</span>Prix &amp; Gains</div>
+      <div class="ni" id="nav-score"       onclick="navTo('score')"><span class="ico">⭐</span>Score Produit</div>
+      <div class="ni" id="nav-offres"      onclick="navTo('offres')"><span class="ico">🎁</span>Offres</div>
+      <div class="ni" id="nav-concurrence" onclick="navTo('concurrence')"><span class="ico">🔍</span>Concurrence</div>
     </div>
     <div style="padding:.3rem 0">
       <div class="nlbl">Contenu IA</div>
-      <div class="ni" id="nav-shopify" onclick="navTo('shopify')"><span class="ico">🛍️</span>Page Shopify</div>
+      <div class="ni" id="nav-shopify"  onclick="navTo('shopify')"><span class="ico">🛍️</span>Page Shopify</div>
       <div class="ni" id="nav-facebook" onclick="navTo('facebook')"><span class="ico">📣</span>Facebook Ads</div>
-      <div class="ni" id="nav-voixoff" onclick="navTo('voixoff')"><span class="ico">🎙️</span>Voix Off</div>
-      <div class="ni" id="nav-avatar" onclick="navTo('avatar')"><span class="ico">👤</span>Avatar Client</div>
-      <div class="ni" id="nav-concurrence" onclick="navTo('concurrence')"><span class="ico">🔍</span>Concurrence</div>
-      <div class="ni" id="nav-chat" onclick="navTo('chat')"><span class="ico">💬</span>Chat IA Produit</div>
+      <div class="ni" id="nav-voixoff"  onclick="navTo('voixoff')"><span class="ico">🎙️</span>Voix Off</div>
+      <div class="ni" id="nav-avatar"   onclick="navTo('avatar')"><span class="ico">👤</span>Avatar Client</div>
+      <div class="ni" id="nav-chat"     onclick="navTo('chat')"><span class="ico">💬</span>Chat IA</div>
+      <div class="ni" id="nav-images"   onclick="navTo('images')"><span class="ico">🖼️</span>Images IA</div>
+      <div class="ni" id="nav-videos"   onclick="navTo('videos')"><span class="ico">🎬</span>Vidéos</div>
     </div>
     <div style="padding:.3rem 0">
-      <div class="nlbl">Médias</div>
-      <div class="ni" id="nav-images" onclick="navTo('images')"><span class="ico">🖼️</span>Images</div>
-      <div class="ni" id="nav-videos" onclick="navTo('videos')"><span class="ico">🎬</span>Vidéos</div>
-      <div class="ni" id="nav-fournisseurs" onclick="navTo('fournisseurs')"><span class="ico">🏭</span>Fournisseurs</div>
+      <div class="nlbl">Outils indépendants</div>
+      <div class="ni" id="nav-metriques_fb"  onclick="showPage('metriques_fb');closeSidebar()"><span class="ico">📊</span>Métriques FB</div>
+      <div class="ni" id="nav-fournisseurs"  onclick="showPage('fournisseurs');closeSidebar()"><span class="ico">🏪</span>Fournisseurs</div>
+      <div class="ni" id="nav-comptabilite"  onclick="showPage('comptabilite');closeSidebar()"><span class="ico">📈</span>Comptabilité</div>
+      <div class="ni" id="nav-historique"    onclick="showPage('historique');closeSidebar()"><span class="ico">🕐</span>Historique<span class="nbadge" id="hcount">0</span></div>
     </div>
-    <div style="padding:.3rem 0">
-      <div class="nlbl">Compte</div>
-      <div class="ni" id="nav-shopify_connect" onclick="showPage('shopify_connect');closeSidebar()"><span class="ico">🛍️</span>Connecter Shopify</div>
-      <div class="ni" id="nav-comptabilite" onclick="showPage('comptabilite');closeSidebar()"><span class="ico">📈</span>Comptabilité</div>
-      <div class="ni" id="nav-historique" onclick="showPage('historique');closeSidebar()"><span class="ico">📊</span>Historique<span class="nbadge" id="hcount">3</span></div>
+  </div>
+  <div class="api-sw">
+    <div class="api-lbl">Moteur IA</div>
+    <div class="api-btns">
+      <div class="api-btn active-api" id="btn-claude" onclick="setAPI('claude')">Claude</div>
+      <div class="api-btn" id="btn-grok" onclick="setAPI('grok')">Grok</div>
     </div>
   </div>
   <div class="sb-bot">
     <div style="display:flex;gap:.4rem;margin-bottom:.5rem;">
-      <button onclick="allerAccueil()" style="flex:1;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;padding:.38rem .5rem;font-size:.68rem;color:var(--muted);cursor:pointer;font-family:var(--font);transition:all .18s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">🏠 Accueil</button>
+      
       <button onclick="toggleTheme()" id="theme-btn" style="flex:1;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;padding:.38rem .5rem;font-size:.68rem;color:var(--muted);cursor:pointer;font-family:var(--font);transition:all .18s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">☀️ Thème clair</button>
       <button onclick="deconnexion()" style="flex:1;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;padding:.38rem .5rem;font-size:.68rem;color:var(--muted);cursor:pointer;font-family:var(--font);transition:all .18s;" onmouseover="this.style.color='#F87171'" onmouseout="this.style.color='var(--muted)'">⏻</button>
     </div>
@@ -545,7 +679,7 @@ try{
 async function initAuth(){
   if(!sb)return;
   const {data:{session}}=await sb.auth.getSession();
-  if(!session){window.location.href='/eb2-login.html';return;}
+  if(!session){ console.log('Mode standalone — pas de session'); return; }
   const u=session.user;
   const meta=u.user_metadata||{};
   const prenom=meta.prenom||meta.full_name?.split(' ')[0]||u.email?.split('@')[0]||'';
@@ -601,7 +735,14 @@ async function sauvegarderProduit(product,results){
 
 // ══ STATE ══
 const S={product:null,results:null,imgs:[],apiMode:'claude',
-  history:[]
+  history:[],
+  fbMetrics: JSON.parse(localStorage.getItem('eb2_fbMetrics')||'[]'),
+  compta:    JSON.parse(localStorage.getItem('eb2_compta')||'{}'),
+  comptaGSheet: localStorage.getItem('eb2_gsheet')||'',
+  _fourProdManuel: '',
+  _fbTab: 'ads',
+  generatedImages: [],
+  chatHistory: []
 };
 
 const PAYS=['Togo','Bénin','Burkina Faso',"Côte d'Ivoire",'Guinée','Guinée-Bissau','Mali','Mauritanie','Niger','Sénégal','Cameroun','Congo (Brazzaville)','RD Congo','Gabon','République Centrafricaine','Tchad','Rwanda','Burundi','Djibouti','Comores','Madagascar','Maurice','Seychelles'];
@@ -626,7 +767,7 @@ const ALL_PAYS_FB=[
   {pays:'Ethiopia 🇬🇧',code:'ET',flag:'🇪🇹',lang:'en'},{pays:'Zambia 🇬🇧',code:'ZM',flag:'🇿🇲',lang:'en'},
   {pays:'World EN 🇬🇧',code:'ALL',flag:'🌍',lang:'en'},
 ];
-const TITLES={form:'Nouveau Produit',prix:'Prix & Gains',score:'Score Produit',offres:'Offres',shopify:'Page Shopify',facebook:'Facebook Ads',voixoff:'Voix Off',avatar:'Avatar Client',concurrence:'Concurrence',chat:'Chat IA Produit',images:'Images',videos:'Vidéos',fournisseurs:'Fournisseurs',historique:'Historique',comptabilite:'Comptabilité',shopify_connect:'Connecter Shopify'};
+const TITLES={form:'Nouveau Produit',metriques_fb:'Métriques Facebook Ads',fournisseurs:'Fournisseurs Locaux',prix:'Prix & Gains',score:'Score Produit',offres:'Offres',shopify:'Page Shopify',facebook:'Facebook Ads',voixoff:'Voix Off',avatar:'Avatar Client',concurrence:'Concurrence',chat:'Chat IA Produit',images:'Images',videos:'Vidéos',historique:'Historique',comptabilite:'Comptabilité',shopify_connect:'Connecter Shopify'};
 
 // ══ THÈME CLAIR/SOMBRE ══
 let _darkMode = localStorage.getItem('eb2_theme') !== 'light';
@@ -665,7 +806,7 @@ function showPage(p){
   else tp.style.display='none';
   const rs={form:rForm,prix:rPrix,score:rScore,offres:rOffres,shopify:rShopify,
     facebook:rFacebook,voixoff:rVoixOff,avatar:rAvatar,concurrence:rConc,
-    chat:rChat,images:rImages,videos:rVideos,fournisseurs:rFournisseurs,historique:rHist,comptabilite:rCompta,shopify_connect:rShopifyConnect};
+    chat:rChat,images:rImages,videos:rVideos,historique:rHist,comptabilite:rCompta,shopify_connect:rShopifyConnect,metriques_fb:rMetriquesFb,fournisseurs:rFournisseurs};
   const c=document.getElementById('content');
   c.innerHTML=rs[p]?rs[p]():'';
   c.scrollTop=0;
@@ -1403,36 +1544,109 @@ function rFacebook(){
   }).join('');
   return`<div class="rh afu"><div><h2>📣 Facebook Ads</h2><div class="rp">${S.product.nom} · 3 angles</div></div></div>
   ${ads}
-  <div class="ic afu3" style="margin-top:1.2rem">
-    <div class="ich"><h4>📊 Guide Métriques Facebook — Ce que ça veut dire</h4></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.5rem">
-      <div style="background:var(--bg3);border-radius:10px;padding:.9rem;border-left:3px solid var(--green)">
-        <div style="font-size:.72rem;font-weight:700;color:var(--green);margin-bottom:.4rem">✅ CTR > 2% — BON</div>
-        <div style="font-size:.75rem;color:var(--muted);line-height:1.6">Ton texte accroche. Augmente le budget de 20% tous les 2 jours. Ne touche rien tant que les ventes suivent.</div>
-      </div>
-      <div style="background:var(--bg3);border-radius:10px;padding:.9rem;border-left:3px solid var(--gold)">
-        <div style="font-size:.72rem;font-weight:700;color:var(--gold);margin-bottom:.4rem">⚠️ CTR 1-2% — MOYEN</div>
-        <div style="font-size:.75rem;color:var(--muted);line-height:1.6">Change la 1ère ligne. Le problème vient de l'accroche — essaie une question directe ou une situation africaine concrète.</div>
-      </div>
-      <div style="background:var(--bg3);border-radius:10px;padding:.9rem;border-left:3px solid #F87171">
-        <div style="font-size:.72rem;font-weight:700;color:#F87171;margin-bottom:.4rem">❌ CTR < 1% — MAUVAIS</div>
-        <div style="font-size:.75rem;color:var(--muted);line-height:1.6">Coupe après 2 jours et 5$. Ton texte ne touche pas la bonne douleur. Teste un autre angle parmi les 3 ci-dessus.</div>
-      </div>
-      <div style="background:var(--bg3);border-radius:10px;padding:.9rem;border-left:3px solid var(--blue)">
-        <div style="font-size:.72rem;font-weight:700;color:var(--blue);margin-bottom:.4rem">💰 CPM élevé (> 5$)</div>
-        <div style="font-size:.75rem;color:var(--muted);line-height:1.6">Audience trop restreinte. Élargis le ciblage ou essaie un autre pays francophone moins saturé.</div>
-      </div>
-      <div style="background:var(--bg3);border-radius:10px;padding:.9rem;border-left:3px solid var(--purple)">
-        <div style="font-size:.72rem;font-weight:700;color:var(--purple);margin-bottom:.4rem">📱 Clics mais 0 vente</div>
-        <div style="font-size:.75rem;color:var(--muted);line-height:1.6">Problème sur ta page produit. Vérifie la vitesse, le prix, simplifie la commande au maximum.</div>
-      </div>
-      <div style="background:var(--bg3);border-radius:10px;padding:.9rem;border-left:3px solid var(--or)">
-        <div style="font-size:.72rem;font-weight:700;color:var(--or);margin-bottom:.4rem">🚀 Budget optimal</div>
-        <div style="font-size:.75rem;color:var(--muted);line-height:1.6">3-5$/jour par pub. Attends 3 jours avant de juger. Le pixel a besoin de temps pour optimiser.</div>
+  <div class="tip"><div class="tip-i">💡</div><div><h4>Comment tester ces textes</h4><p>Lance les 3 textes avec <strong style="color:var(--text)">5$/jour chacun</strong> pendant 3 jours. Celui qui génère le plus de clics — garde-le, coupe les autres. Scale à 10-15$/jour.</p></div></div>`;
+}
+
+function rMetriquesFb(){
+  const rows=(S.fbMetrics||[]).map((m,i)=>{
+    const roas=m.depense>0?(m.achat_valeur/m.depense).toFixed(2):'—';
+    const cpa=m.achats>0?Math.round(m.depense/m.achats).toLocaleString():'—';
+    const ctrVal=parseFloat(m.ctr)||0;
+    const roasVal=parseFloat(roas)||0;
+    const ctrCol=ctrVal>=2?'var(--green)':ctrVal>=1?'var(--gold)':'#F87171';
+    const roasCol=roasVal>=3?'var(--green)':roasVal>=2?'var(--gold)':'#F87171';
+    return`<div class="met-row">
+      <span class="met-name" title="${m.nom_pub||''}">${(m.nom_pub||'Camp.'+(i+1)).substring(0,24)}</span>
+      <span>${(m.depense||0).toLocaleString()} F</span>
+      <span style="color:${ctrCol}">${m.ctr}%</span>
+      <span>${(m.impressions||0).toLocaleString()}</span>
+      <span>${(m.clics||0).toLocaleString()}</span>
+      <span>${m.achats||'—'}</span>
+      <span style="color:${roasCol};font-weight:800">${roas}x</span>
+      <span style="color:#22C55E">${cpa} F</span>
+    </div>`;
+  }).join('');
+
+  let resumeHtml='';
+  if(S.fbMetrics&&S.fbMetrics.length>0){
+    const td=S.fbMetrics.reduce((s,m)=>s+(parseFloat(m.depense)||0),0);
+    const ta=S.fbMetrics.reduce((s,m)=>s+(parseFloat(m.achats)||0),0);
+    const tv=S.fbMetrics.reduce((s,m)=>s+(parseFloat(m.achat_valeur)||0),0);
+    const ti=S.fbMetrics.reduce((s,m)=>s+(parseFloat(m.impressions)||0),0);
+    const tc=S.fbMetrics.reduce((s,m)=>s+(parseFloat(m.clics)||0),0);
+    const rg=td>0?(tv/td).toFixed(2):'—';
+    const cpa=ta>0?Math.round(td/ta).toLocaleString():'—';
+    const ctr=ti>0?((tc/ti)*100).toFixed(2):'—';
+    const rc=parseFloat(rg)>=3?'#22C55E':parseFloat(rg)>=2?'#FFB800':'#F87171';
+    const cc=parseFloat(ctr)>=2?'#22C55E':parseFloat(ctr)>=1?'#FFB800':'#F87171';
+    resumeHtml=`
+    <div class="met-resume afu2">
+      <div class="met-res-title">📊 Résumé global — ${S.fbMetrics.length} campagne${S.fbMetrics.length>1?'s':''}</div>
+      <div class="met-res-grid">
+        <div class="met-res-kpi"><div class="met-res-lbl">Dépense totale</div><div class="met-res-val">${td.toLocaleString()} FCFA</div></div>
+        <div class="met-res-kpi"><div class="met-res-lbl">CTR moyen</div><div class="met-res-val" style="color:${cc}">${ctr}%</div></div>
+        <div class="met-res-kpi"><div class="met-res-lbl">Total achats</div><div class="met-res-val">${ta}</div></div>
+        <div class="met-res-kpi"><div class="met-res-lbl">ROAS global</div><div class="met-res-val" style="color:${rc}">${rg}x</div></div>
+        <div class="met-res-kpi"><div class="met-res-lbl">CPA moyen</div><div class="met-res-val">${cpa} FCFA</div></div>
+        <div class="met-res-kpi"><div class="met-res-lbl">Valeur achats</div><div class="met-res-val">${tv.toLocaleString()} FCFA</div></div>
       </div>
     </div>
+    <div class="met-table afu3">
+      <div class="met-head"><span>Campagne</span><span>Dépense</span><span>CTR</span><span>Impressions</span><span>Clics</span><span>Achats</span><span>ROAS</span><span>CPA</span></div>
+      ${rows}
+    </div>
+    <button onclick="S.fbMetrics=[];localStorage.removeItem('eb2_fbMetrics');showPage('metriques_fb')" style="margin-top:.8rem;background:none;border:1px solid rgba(239,68,68,.3);color:#F87171;border-radius:7px;padding:.38rem .9rem;font-size:.72rem;font-weight:600;cursor:pointer;font-family:var(--font)">🗑️ Effacer les données</button>`;
+  }
+
+  return`
+  <div class="rh afu"><div><h2>📊 Métriques Facebook Ads</h2><div class="rp">Import CSV depuis Meta Ads Manager</div></div></div>
+  <div class="met-import-zone afu2">
+    <div class="met-import-ico">📥</div>
+    <div class="met-import-title">Importe ton rapport publicitaire</div>
+    <div class="met-import-sub">Exporte un rapport CSV depuis le Gestionnaire de Publicités Meta → importe-le ici → les métriques s'affichent automatiquement.</div>
+    <label class="met-import-btn">
+      📂 Choisir un fichier CSV
+      <input type="file" accept=".csv" style="display:none" onchange="parseFbMetrics(this)">
+    </label>
+    <div class="met-import-hint">💡 <strong>Comment exporter ?</strong><br>Gestionnaire de pub → <strong>Rapports</strong> → <strong>Exporter</strong> → Format <strong>CSV</strong><br>Colonnes détectées : Dépense · CTR · Impressions · Clics · Achats · ROAS · CPA</div>
   </div>
-  <div class="tip"><div class="tip-i">💡</div><div><h4>Comment tester ces textes</h4><p>Lance les 3 textes avec <strong style="color:var(--text)">5$/jour chacun</strong> pendant 3 jours. Celui qui génère le plus de clics — garde-le, coupe les autres. Scale à 10-15$/jour.</p></div></div>`;
+  ${resumeHtml}`;
+}
+
+async function parseFbMetrics(input){
+  const file=input.files[0];
+  if(!file){toast('⚠️ Aucun fichier',false);return;}
+  const text=await file.text();
+  parseFbCSV(text);
+}
+
+function parseFbCSV(text){
+  const sep=(text.split('\n')[0]||'').includes(';')?';':',';
+  const lines=text.trim().split('\n').filter(l=>l.trim());
+  if(lines.length<2){toast('⚠️ Fichier vide ou invalide',false);return;}
+  const headers=lines[0].split(sep).map(h=>h.replace(/"/g,'').trim().toLowerCase());
+  const find=(keys)=>{for(const k of keys){const idx=headers.findIndex(h=>h.includes(k));if(idx>-1)return idx;}return -1;};
+  const iNom  =find(["nom de la pub","nom de l'annonce","ad name","campaign name","nom"]);
+  const iDep  =find(["montant dépensé","montant depense","amount spent","dépense","spend"]);
+  const iCtr  =find(["ctr","taux de clics"]);
+  const iImp  =find(["impressions"]);
+  const iClics=find(["clics sur le lien","link clicks","clics","clicks"]);
+  const iAchat=find(["achats","purchases","résultats"]);
+  const iVal  =find(["valeur de conversion","purchase value","valeur des achats"]);
+  const data=[];
+  for(let i=1;i<lines.length;i++){
+    const cols=lines[i].split(sep).map(c=>c.replace(/"/g,'').trim());
+    if(cols.length<3)continue;
+    const num=(idx)=>idx>-1?parseFloat((cols[idx]||'0').replace(/\s/g,'').replace(',','.'))||0:0;
+    const str=(idx)=>idx>-1?cols[idx]:'';
+    const row={nom_pub:str(iNom)||'Camp.'+(i),depense:num(iDep),ctr:num(iCtr).toFixed(2),impressions:num(iImp),clics:num(iClics),achats:num(iAchat),achat_valeur:num(iVal)};
+    if(row.depense>0||row.impressions>0)data.push(row);
+  }
+  if(data.length===0){toast('⚠️ Aucune donnée trouvée',false);return;}
+  S.fbMetrics=data;
+  localStorage.setItem('eb2_fbMetrics', JSON.stringify(data));
+  showPage('metriques_fb');
+  toast(`✅ ${data.length} campagne${data.length>1?'s':''} importée${data.length>1?'s':''} !`,true);
 }
 
 function rVoixOff(){
@@ -1556,31 +1770,26 @@ function rConc(){
   const nomReel = r.nom_reel || p.nom;
   const nomReelEn = r.nom_reel_en || nomReel;
 
-  // Mots-clés optimisés générés par l'IA
-  const motsClesFr = r.mots_cles_fb?.fr || [nomReel];
-  const motsClesEn = r.mots_cles_fb?.en || [nomReelEn];
-
-  // Suggestions de mots-clés cliquables
-  const sugFr = motsClesFr.map(mc=>{
-    const qmc = encodeURIComponent(mc);
-    return `<a class="chat-sug" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=${qmc}&media_type=all" target="_blank" style="text-decoration:none">🔵 ${mc}</a>`;
-  }).join('');
-  const sugEn = motsClesEn.map(mc=>{
-    const qmc = encodeURIComponent(mc);
-    return `<a class="chat-sug" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=${qmc}&media_type=all" target="_blank" style="text-decoration:none;border-color:rgba(59,130,246,.3);color:#60A5FA">🌍 ${mc}</a>`;
-  }).join('');
-
-  // Liens par pays — lien correct FB Ads Library
-  const fbBubbles = ALL_PAYS_FB.map(({pays,code,flag,lang},i)=>{
-    const keywords = lang==='en' ? motsClesEn : motsClesFr;
-    const kw = encodeURIComponent(keywords[0] || (lang==='en' ? nomReelEn : nomReel));
-    // URL Facebook Ads Library correcte : pays + toutes les pubs + mot-clé optimisé
-    const url = `https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=${code}&q=${kw}&media_type=all`;
-    const langBadge = lang==='en' ? '<span style="font-size:.55rem;background:rgba(59,130,246,.2);color:#60A5FA;padding:.06rem .25rem;border-radius:3px;margin-left:.2rem">EN</span>' : '';
-    return `<a class="pbbl" href="${url}" target="_blank" style="animation-delay:${i*.04}s"><span class="flag">${flag}</span><span>${pays}${langBadge}</span></a>`;
-  }).join('');
-
+  // Recherche uniquement par nom du produit
   const q = encodeURIComponent(nomReel);
+
+  // FB Ads Library par pays — cartes détaillées FR/EN
+  const fbBubbles = ALL_PAYS_FB.map(({pays,code,flag,lang},i)=>{
+    const kw = lang==='en' ? encodeURIComponent(nomReelEn) : encodeURIComponent(nomReel);
+    const kwDisplay = lang==='en' ? nomReelEn : nomReel;
+    const url = `https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=${code}&q=${kw}&media_type=all`;
+    return `<a class="fb-pays-card" href="${url}" target="_blank" style="animation-delay:${i*.04}s">
+      <div class="fb-pays-card-top">
+        <span class="fb-pays-flag">${flag}</span>
+        <span class="fb-pays-name">${pays}</span>
+        <span class="fb-pays-lang ${lang}">${lang.toUpperCase()}</span>
+      </div>
+      <div class="fb-pays-row"><span class="fb-pays-lbl">Catégorie</span><span class="fb-pays-val">Toutes les publicités</span></div>
+      <div class="fb-pays-row"><span class="fb-pays-lbl">Mot-clé</span><span class="fb-pays-kw">${kwDisplay}</span></div>
+      <div class="fb-pays-arrow"><span class="fb-pays-btn">Voir les pubs →</span></div>
+    </a>`;
+  }).join('');
+
   const shopBubbles=[
     {n:'Google Shopping',ic:'🛒',u:`https://www.google.com/search?tbm=shop&q=${q}`,cls:'bbl-gg'},
     {n:'Google Search',ic:'🔎',u:`https://www.google.com/search?q=${q}+acheter+afrique`,cls:'bbl-gg'},
@@ -1596,17 +1805,10 @@ function rConc(){
   <div class="ic afu2"><div class="ich"><h4>Analyse du marché</h4></div><p>${r.concurrence.analyse}</p></div>
   <div class="tip afu3"><div class="tip-i">💡</div><div><h4>Conseil stratégique</h4><p>${r.concurrence.conseil}</p></div></div>
 
-  <div class="bubbles-section afu3">
-    <div class="section-subtitle">🔵 Mots-clés optimisés pour FB Ads Library</div>
-    <p style="font-size:.73rem;color:var(--muted);margin-bottom:.6rem">Clique sur un mot-clé pour voir toutes les pubs actives — Monde entier</p>
-    <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.5rem">${sugFr}</div>
-    <div style="display:flex;flex-wrap:wrap;gap:.4rem">${sugEn}</div>
-  </div>
-
   <div class="bubbles-section afu4">
     <div class="section-subtitle">🌍 FB Ads Library — Pubs actives par pays</div>
     <p style="font-size:.73rem;color:var(--muted);margin-bottom:.65rem">Catégorie : <strong style="color:var(--text)">Toutes les publicités</strong> · Mot-clé optimisé par l'IA</p>
-    <div class="pays-grid">${fbBubbles}</div>
+    <div class="fb-pays-grid">${fbBubbles}</div>
   </div>
 
   <div class="bubbles-section">
@@ -1621,33 +1823,27 @@ function rVideos(){
   const nomReel = r?.nom_reel || p?.nom || '';
   const nomReelEn = r?.nom_reel_en || nomReel;
 
-  // Mots-clés optimisés
-  const motsClesFr = r?.mots_cles_fb?.fr || [nomReel];
-  const motsClesEn = r?.mots_cles_fb?.en || [nomReelEn];
-
-  // Suggestions mots-clés cliquables — videos uniquement
-  const sugFr = motsClesFr.map(mc=>{
-    const qmc = encodeURIComponent(mc);
-    return `<a class="chat-sug" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=video&country=ALL&q=${qmc}&media_type=video" target="_blank" style="text-decoration:none">🎬 ${mc}</a>`;
-  }).join('');
-  const sugEn = motsClesEn.map(mc=>{
-    const qmc = encodeURIComponent(mc);
-    return `<a class="chat-sug" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=video&country=ALL&q=${qmc}&media_type=video" target="_blank" style="text-decoration:none;border-color:rgba(59,130,246,.3);color:#60A5FA">🌍 ${mc}</a>`;
-  }).join('');
-
-  // Liens par pays — vidéos pub uniquement
+  // FB Ads Library vidéos — cartes détaillées FR/EN
   const fbVids = ALL_PAYS_FB.map(({pays,code,flag,lang},i)=>{
-    const keywords = lang==='en' ? motsClesEn : motsClesFr;
-    const kw = encodeURIComponent(keywords[0] || (lang==='en' ? nomReelEn : nomReel));
+    const kw = lang==='en' ? encodeURIComponent(nomReelEn) : encodeURIComponent(nomReel);
+    const kwDisplay = lang==='en' ? nomReelEn : nomReel;
     const url = `https://www.facebook.com/ads/library/?active_status=active&ad_type=video&country=${code}&q=${kw}&media_type=video`;
-    const langBadge = lang==='en' ? '<span style="font-size:.55rem;background:rgba(59,130,246,.2);color:#60A5FA;padding:.06rem .25rem;border-radius:3px;margin-left:.2rem">EN</span>' : '';
-    return `<a class="pbbl" href="${url}" target="_blank" style="animation-delay:${i*.04}s"><span class="flag">${flag}</span><span>${pays}${langBadge}</span></a>`;
+    return `<a class="fb-pays-card" href="${url}" target="_blank" style="animation-delay:${i*.04}s">
+      <div class="fb-pays-card-top">
+        <span class="fb-pays-flag">${flag}</span>
+        <span class="fb-pays-name">${pays}</span>
+        <span class="fb-pays-lang ${lang}">${lang.toUpperCase()}</span>
+      </div>
+      <div class="fb-pays-row"><span class="fb-pays-lbl">Catégorie</span><span class="fb-pays-val">Toutes les publicités</span></div>
+      <div class="fb-pays-row"><span class="fb-pays-lbl">Mot-clé</span><span class="fb-pays-kw">${kwDisplay}</span></div>
+      <div class="fb-pays-arrow"><span class="fb-pays-btn">Voir les vidéos →</span></div>
+    </a>`;
   }).join('');
 
   const q = encodeURIComponent(nomReel);
   const qEn = encodeURIComponent(nomReelEn);
   const vidSrcs=[
-    {n:'TikTok',ic:'🎵',u:`https://www.tiktok.com/search?q=${encodeURIComponent(nomReel+' '+(p?.pays||''))}`,cls:'bbl-tt',sub:'Vidéos virales'},
+    {n:'TikTok',ic:'🎵',u:`https://www.tiktok.com/search?q=${q}`,cls:'bbl-tt',sub:'Vidéos virales'},
     {n:'YouTube',ic:'▶️',u:`https://www.youtube.com/results?search_query=${q}+review`,cls:'bbl-yt',sub:'Reviews'},
     {n:'Pinterest Vidéos',ic:'📌',u:`https://www.pinterest.com/search/videos/?q=${q}`,cls:'bbl-pt',sub:'Inspiration'},
     {n:'Google Vidéos',ic:'🔎',u:`https://www.google.com/search?tbm=vid&q=${q}`,cls:'bbl-gg',sub:'Tous résultats'},
@@ -1658,16 +1854,9 @@ function rVideos(){
   return `<div class="rh afu"><div><h2>🎬 Vidéos</h2><div class="rp">${p?.nom||''}</div></div></div>
 
   <div class="bubbles-section afu2">
-    <div class="section-subtitle">🎯 Mots-clés optimisés pour FB Ads Library — Vidéos</div>
-    <p style="font-size:.73rem;color:var(--muted);margin-bottom:.6rem">Clique pour voir les vidéos publicitaires actives — Monde entier</p>
-    <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.5rem">${sugFr}</div>
-    <div style="display:flex;flex-wrap:wrap;gap:.4rem">${sugEn}</div>
-  </div>
-
-  <div class="bubbles-section afu3">
     <div class="section-subtitle">🔵 FB Ads Library — Vidéos pubs actives par pays</div>
     <p style="font-size:.73rem;color:var(--muted);margin-bottom:.65rem">Filtre : <strong style="color:var(--text)">Vidéos uniquement</strong> · Mot-clé optimisé</p>
-    <div class="pays-grid">${fbVids}</div>
+    <div class="fb-pays-grid">${fbVids}</div>
   </div>
 
   <div class="bubbles-section afu4">
@@ -1687,82 +1876,8 @@ function rHist(){
   <div class="htbl afu2"><div class="hth"><span>Produit</span><span>Date</span><span>Score</span><span>Prix reco.</span><span></span></div>${rows}</div>`;
 }
 
-
-// ══ FOURNISSEURS ══
-// Pays + capitales + plateformes locales
-var PAYS_FOURNIS = [
-  {pays:'Togo', flag:'🇹🇬', capitale:'Lome', capitaleFr:'Lomé', lang:'fr'},
-  {pays:"Cote d'Ivoire", flag:'🇨🇮', capitale:'Abidjan', capitaleFr:'Abidjan', lang:'fr'},
-  {pays:'Senegal', flag:'🇸🇳', capitale:'Dakar', capitaleFr:'Dakar', lang:'fr'},
-  {pays:'Cameroun', flag:'🇨🇲', capitale:'Douala', capitaleFr:'Douala', lang:'fr'},
-  {pays:'Benin', flag:'🇧🇯', capitale:'Cotonou', capitaleFr:'Cotonou', lang:'fr'},
-  {pays:'Burkina Faso', flag:'🇧🇫', capitale:'Ouagadougou', capitaleFr:'Ouagadougou', lang:'fr'},
-  {pays:'Mali', flag:'🇲🇱', capitale:'Bamako', capitaleFr:'Bamako', lang:'fr'},
-  {pays:'Guinee', flag:'🇬🇳', capitale:'Conakry', capitaleFr:'Conakry', lang:'fr'},
-  {pays:'Niger', flag:'🇳🇪', capitale:'Niamey', capitaleFr:'Niamey', lang:'fr'},
-  {pays:'Gabon', flag:'🇬🇦', capitale:'Libreville', capitaleFr:'Libreville', lang:'fr'},
-  {pays:'Congo', flag:'🇨🇬', capitale:'Brazzaville', capitaleFr:'Brazzaville', lang:'fr'},
-  {pays:'RD Congo', flag:'🇨🇩', capitale:'Kinshasa', capitaleFr:'Kinshasa', lang:'fr'},
-  {pays:'Madagascar', flag:'🇲🇬', capitale:'Antananarivo', capitaleFr:'Antananarivo', lang:'fr'},
-  {pays:'Nigeria', flag:'🇳🇬', capitale:'Lagos', capitaleFr:'Lagos', lang:'en'},
-  {pays:'Ghana', flag:'🇬🇭', capitale:'Accra', capitaleFr:'Accra', lang:'en'},
-  {pays:'Kenya', flag:'🇰🇪', capitale:'Nairobi', capitaleFr:'Nairobi', lang:'en'},
-];
-
-function rFournisseurs(){
-  var p = S.product;
-  var r = S.results;
-  var nomReel = r && r.nom_reel ? r.nom_reel : (p ? p.nom : '');
-  var nomReelEn = r && r.nom_reel_en ? r.nom_reel_en : nomReel;
-
-  var paysCards = PAYS_FOURNIS.map(function(pf, i){
-    var nom = pf.lang === 'en' ? nomReelEn : nomReel;
-    var q = encodeURIComponent(nom);
-    var qPays = encodeURIComponent(nom + ' ' + pf.capitaleFr);
-    var qPaysEn = encodeURIComponent(nom + ' ' + pf.capitale);
-
-    // Plateformes
-    var platforms = [
-      {n:'Facebook Marketplace', ic:'🔵', u:'https://www.facebook.com/marketplace/category/search/?query=' + qPays, color:'rgba(24,119,242,.15)', border:'rgba(24,119,242,.4)'},
-      {n:'TikTok', ic:'🎵', u:'https://www.tiktok.com/search?q=' + qPays, color:'rgba(255,255,255,.05)', border:'rgba(255,255,255,.2)'},
-      {n:'Jumia', ic:'🛒', u:'https://www.jumia.com.gh/catalog/?q=' + q, color:'rgba(255,107,26,.1)', border:'rgba(255,107,26,.3)'},
-      {n:'Jiji', ic:'🏪', u:'https://jiji.com.gh/search?query=' + q, color:'rgba(255,184,0,.1)', border:'rgba(255,184,0,.3)'},
-      {n:'Google Local', ic:'🔎', u:'https://www.google.com/search?q=' + qPays + '+fournisseur+grossiste', color:'rgba(234,67,53,.1)', border:'rgba(234,67,53,.3)'},
-      {n:'WhatsApp Groups', ic:'📱', u:'https://www.google.com/search?q=whatsapp+groupe+' + qPays + '+fournisseur', color:'rgba(37,211,102,.1)', border:'rgba(37,211,102,.3)'},
-    ];
-
-    var platformLinks = platforms.map(function(pl){
-      return '<a href="' + pl.u + '" target="_blank" style="display:flex;align-items:center;gap:.5rem;background:' + pl.color + ';border:1px solid ' + pl.border + ';border-radius:9px;padding:.55rem .8rem;text-decoration:none;color:var(--text);font-size:.78rem;font-weight:600;transition:all .2s">' + pl.ic + ' ' + pl.n + '</a>';
-    }).join('');
-
-    var delayStyle = 'animation-delay:' + (i * 0.05) + 's';
-    return '<div class="ic" style="' + delayStyle + '">' +
-      '<div class="ich"><h4>' + pf.flag + ' ' + (pf.pays === "Cote d'Ivoire" ? "Côte d'Ivoire" : pf.pays) + ' — ' + pf.capitaleFr + '</h4></div>' +
-      '<p style="font-size:.73rem;color:var(--muted);margin-bottom:.7rem">Cherche des fournisseurs de <strong style="color:var(--text)">' + nom + '</strong> à ' + pf.capitaleFr + '</p>' +
-      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem">' + platformLinks + '</div>' +
-      '</div>';
-  }).join('');
-
-  var notAnalyzed = !nomReel ? '<div class="tip"><div class="tip-i">ℹ️</div><div><p>Analyse un produit dabord pour avoir les vrais noms optimisés dans les recherches.</p></div></div>' : '';
-
-  return '<div class="rh afu"><div><h2>🏭 Fournisseurs</h2><div class="rp">' + (nomReel || 'Cherche des fournisseurs locaux') + '</div></div></div>' +
-
-    notAnalyzed +
-
-    '<div class="tip afu2"><div class="tip-i">💡</div><div><h4>Comment trouver un fournisseur local</h4>' +
-    '<p>1. Clique sur <strong style="color:var(--text)">Facebook Marketplace</strong> → cherche des vendeurs dans la ville → contacte-les en message privé pour négocier le prix de gros.<br>' +
-    '2. Sur <strong style="color:var(--text)">TikTok</strong> → cherche le produit + ville → les vendeurs qui postent du contenu sont souvent des fournisseurs locaux.<br>' +
-    '3. Sur <strong style="color:var(--text)">WhatsApp</strong> → rejoins des groupes de revendeurs dans le pays ciblé.</p>' +
-    '</div></div>' +
-
-    '<div class="section-subtitle" style="margin-top:1.2rem">Chercher par pays</div>' +
-    '<div style="display:flex;flex-direction:column;gap:.75rem">' + paysCards + '</div>';
-}
-
 // ══ IMAGES IA ══
 // État des images générées
-if(!window.S) window.S = {};
-S.generatedImages = S.generatedImages || [];
 
 async function genImage(type, extraData={}) {
   const p = S.product;
@@ -1824,8 +1939,6 @@ function modifyImage(type, imageUrl) {
 }
 
 // ══ CHAT IA PRODUIT ══
-if(!window.S) window.S = {};
-S.chatHistory = S.chatHistory || [];
 
 function rChat(){
   const p = S.product;
@@ -2008,8 +2121,6 @@ function rImages() {
 
 // ══ COMPTABILITÉ ══
 // Données stockées localement par date
-if(!S.compta) S.compta = {};
-if(!S.comptaGSheet) S.comptaGSheet = localStorage.getItem('eb2_gsheet') || '';
 
 function rCompta() {
   const today = new Date().toISOString().split('T')[0];
@@ -2137,6 +2248,7 @@ function calculerCompta() {
   const benefice = (vente * cmd) - (achat * cmd) - (pub) - (liv * cmd) - (clo * cmd);
 
   S.compta[today] = { prix_achat: achat, prix_vente: vente, commandes: cmd, pub, livraison: liv, closing: clo, _benefice: benefice };
+  localStorage.setItem('eb2_compta', JSON.stringify(S.compta));
 
   showPage('comptabilite');
   toast('✅ Calcul enregistré !', true);
@@ -2190,28 +2302,150 @@ async function exporterGSheet() {
 }
 
 
+
+// ══ FOURNISSEURS LOCAUX ══
+const FOURNISSEURS_PAYS = [
+  {pays:'Togo',          flag:'🇹🇬', ville:'Lomé',           fbId:'108250365876988'},
+  {pays:"Côte d'Ivoire", flag:'🇨🇮', ville:'Abidjan',        fbId:'110175095659870'},
+  {pays:'Sénégal',       flag:'🇸🇳', ville:'Dakar',          fbId:'106742839351695'},
+  {pays:'Cameroun',      flag:'🇨🇲', ville:'Douala',         fbId:'107399135956694'},
+  {pays:'Bénin',         flag:'🇧🇯', ville:'Cotonou',        fbId:'108075989217436'},
+  {pays:'Burkina Faso',  flag:'🇧🇫', ville:'Ouagadougou',    fbId:'106893902682218'},
+  {pays:'Mali',          flag:'🇲🇱', ville:'Bamako',         fbId:'107430415951074'},
+  {pays:'Guinée',        flag:'🇬🇳', ville:'Conakry',        fbId:'107893565914753'},
+  {pays:'Niger',         flag:'🇳🇪', ville:'Niamey',         fbId:'108090879213983'},
+  {pays:'Gabon',         flag:'🇬🇦', ville:'Libreville',     fbId:'109882005706413'},
+  {pays:'Congo',         flag:'🇨🇬', ville:'Brazzaville',    fbId:'108045339211094'},
+  {pays:'RD Congo',      flag:'🇨🇩', ville:'Kinshasa',       fbId:'104903176221804'},
+  {pays:'Tchad',         flag:'🇹🇩', ville:"N'Djamena",      fbId:'108062512548977'},
+  {pays:'Madagascar',    flag:'🇲🇬', ville:'Antananarivo',   fbId:'108291139197344'},
+  {pays:'Rwanda',        flag:'🇷🇼', ville:'Kigali',         fbId:'109351572424397'},
+  {pays:'France',        flag:'🇫🇷', ville:'Paris',          fbId:'110774245616525'},
+];
+
+function rFournisseurs(){
+  // Priorité : produit analysé → sinon produit saisi manuellement → sinon vide
+  const prodNom = S.product?.nom || S._fourProdManuel || '';
+  const q = encodeURIComponent(prodNom);
+
+  // Si aucun produit : afficher uniquement le champ de saisie manuelle
+  if(!prodNom){
+    return `
+    <div class="rh afu"><div><h2>🏪 Fournisseurs Locaux</h2><div class="rp">Trouve tes fournisseurs par pays</div></div></div>
+    <div class="four-noprod afu2">
+      <div style="font-size:2rem;margin-bottom:.6rem">🏪</div>
+      <div style="font-size:.95rem;font-weight:800;margin-bottom:.3rem">Analyse un produit d'abord</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-bottom:1rem;line-height:1.6">Les liens fournisseurs s'affichent automatiquement<br>une fois ton produit analysé.</div>
+      <div style="border-top:1px solid var(--bd);padding-top:1rem;margin-top:.5rem">
+        <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem">Ou entre un nom de produit manuellement :</div>
+        <div style="display:flex;gap:.5rem;max-width:360px;margin:0 auto">
+          <input type="text" id="four-prod-input" placeholder="Ex: Prise intelligente..."
+            style="flex:1;background:var(--bg3);border:1px solid var(--bd2);border-radius:8px;padding:.6rem .9rem;color:var(--text);font-family:var(--font);font-size:.84rem;outline:none;transition:border-color .2s"
+            onfocus="this.style.borderColor='var(--or)'" onblur="this.style.borderColor='var(--bd2)'"
+            onkeydown="if(event.key==='Enter')setFourProd()">
+          <button onclick="setFourProd()" style="background:var(--or);color:#fff;border:none;border-radius:8px;padding:.6rem 1.1rem;font-size:.82rem;font-weight:700;cursor:pointer;font-family:var(--font);white-space:nowrap">Chercher</button>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  const cartes = FOURNISSEURS_PAYS.map((p,i)=>{
+    const nomProd = prodNom;
+    const qProd = encodeURIComponent(nomProd);
+
+    // ✅ Facebook Marketplace: ville pré-filtrée via l'ID de ville + nom produit dans query
+    const fbMkUrl = `https://www.facebook.com/marketplace/${p.fbId}/search/?query=${qProd}&exact=false`;
+
+    // TikTok: nom produit + ville dans recherche
+    const ttUrl = `https://www.tiktok.com/search?q=${qProd}+${encodeURIComponent(p.ville)}`;
+
+    // Google local: nom produit + ville
+    const ggUrl = `https://www.google.com/search?q=${qProd}+${encodeURIComponent(p.ville)}+acheter`;
+
+    // WhatsApp vendeurs via Google
+    const waUrl = `https://www.google.com/search?q=${qProd}+${encodeURIComponent(p.ville)}+whatsapp+vendeur`;
+
+    // Jumia par pays
+    const jumias = {"Togo":"https://www.jumia.com.gh","Côte d'Ivoire":"https://www.jumia.ci","Sénégal":"https://www.jumia.sn","Cameroun":"https://www.jumia.cm","Ghana":"https://www.jumia.com.gh"};
+    const jumiaBase = jumias[p.pays] || 'https://www.jumia.com';
+    const jumiaUrl = `${jumiaBase}/catalog/?q=${qProd}`;
+
+    return `
+    <div class="four-card afu" style="animation-delay:${i*.04}s">
+      <div class="four-header">
+        <span class="four-flag">${p.flag}</span>
+        <div>
+          <div class="four-pays">${p.pays}</div>
+          <div class="four-ville">📍 ${p.ville}</div>
+        </div>
+        <div class="four-prod-badge">${nomProd}</div>
+      </div>
+      <div class="four-links">
+        <a href="${fbMkUrl}" target="_blank" class="four-link four-fb">
+          <span class="four-link-ico">🛒</span>
+          <div>
+            <div class="four-link-name">Facebook Marketplace</div>
+            <div class="four-link-sub">${nomProd} · Filtre: ${p.ville}</div>
+          </div>
+          <span class="four-link-arr">→</span>
+        </a>
+        <a href="${ttUrl}" target="_blank" class="four-link four-tt">
+          <span class="four-link-ico">🎵</span>
+          <div>
+            <div class="four-link-name">TikTok</div>
+            <div class="four-link-sub">${nomProd} ${p.ville}</div>
+          </div>
+          <span class="four-link-arr">→</span>
+        </a>
+        <a href="${ggUrl}" target="_blank" class="four-link four-gg">
+          <span class="four-link-ico">🔎</span>
+          <div>
+            <div class="four-link-name">Google Local</div>
+            <div class="four-link-sub">Acheter ${nomProd} à ${p.ville}</div>
+          </div>
+          <span class="four-link-arr">→</span>
+        </a>
+        <a href="${waUrl}" target="_blank" class="four-link four-wa">
+          <span class="four-link-ico">💬</span>
+          <div>
+            <div class="four-link-name">WhatsApp Vendeurs</div>
+            <div class="four-link-sub">${nomProd} ${p.ville} WhatsApp</div>
+          </div>
+          <span class="four-link-arr">→</span>
+        </a>
+        <a href="${jumiaUrl}" target="_blank" class="four-link four-ju">
+          <span class="four-link-ico">🛍️</span>
+          <div>
+            <div class="four-link-name">Jumia</div>
+            <div class="four-link-sub">${nomProd} sur Jumia ${p.pays}</div>
+          </div>
+          <span class="four-link-arr">→</span>
+        </a>
+      </div>
+    </div>`;
+  }).join('');
+
+  const isManuel = !S.product?.nom && !!S._fourProdManuel;
+  return `
+  <div class="rh afu"><div><h2>🏪 Fournisseurs Locaux</h2><div class="rp">${prodNom} · ${FOURNISSEURS_PAYS.length} pays</div></div>
+    <div style="display:flex;gap:.4rem;align-items:center;flex-wrap:wrap">
+      ${isManuel ? `<span style="font-size:.68rem;color:var(--muted);background:var(--bg3);border:1px solid var(--bd);border-radius:5px;padding:.2rem .55rem">Saisie manuelle</span>` : `<span style="font-size:.68rem;color:var(--green);background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:5px;padding:.2rem .55rem">✓ Produit analysé</span>`}
+      ${isManuel ? `<button onclick="S._fourProdManuel='';showPage('fournisseurs')" style="font-size:.68rem;color:var(--muted);background:var(--bg3);border:1px solid var(--bd);border-radius:5px;padding:.2rem .55rem;cursor:pointer;font-family:var(--font)">✕ Changer</button>` : ''}
+    </div>
+  </div>
+  <div class="tip afu2"><div class="tip-i">💡</div><div><h4>Facebook Marketplace</h4><p style="font-size:.75rem;color:var(--muted)">La ville est pré-sélectionnée automatiquement — seul <strong style="color:var(--text)">${prodNom}</strong> apparaît dans la recherche.</p></div></div>
+  <div class="four-grid afu3">${cartes}</div>`;
+}
+
+function setFourProd(){
+  const v = document.getElementById('four-prod-input')?.value?.trim();
+  if(!v){toast('⚠️ Entre un nom de produit',false);return;}
+  S._fourProdManuel = v;
+  showPage('fournisseurs');
+}
+
+
 // ══ UTILITIES ══
-function esc(t){return(t||'').replace(/`/g,'\\`').replace(/\$/g,'\\$');}
-function cp(btn,txt){
-  const ok=()=>{
-    if(!btn)return;
-    const o=btn.textContent;
-    btn.textContent='✓ Copié !';btn.classList.add('ok');
-    setTimeout(()=>{btn.textContent=o;btn.classList.remove('ok');},2200);
-    toast('✅ Copié dans le presse-papiers !',true);
-  };
-  if(navigator.clipboard&&window.isSecureContext){
-    navigator.clipboard.writeText(txt).then(ok).catch(()=>fbCopy(txt,ok));
-  }else{fbCopy(txt,ok);}
-}
-function fbCopy(txt,cb){
-  const t=document.createElement('textarea');
-  t.value=txt;Object.assign(t.style,{position:'fixed',left:'-9999px',top:'-9999px',opacity:'0'});
-  document.body.appendChild(t);
-  try{t.focus();t.select();document.execCommand('copy');cb();}
-  catch(e){toast('Sélectionne le texte manuellement (appui long)',false);}
-  document.body.removeChild(t);
-}
 function showLov(t,s){document.getElementById('lov').classList.remove('hidden');document.getElementById('lt').textContent=t;document.getElementById('ls').textContent=s;}
 function hideLov(){document.getElementById('lov').classList.add('hidden');}
 function toast(msg,ok=true){
@@ -2229,15 +2463,12 @@ function loadH(i){
 }
 
 // ══ NAVIGATION ══
-function allerAccueil(){
-  // Ouvre la landing dans un nouvel onglet pour ne pas perdre la session
-  window.open('/index.html','_blank');
-}
+function allerAccueil(){ /* landing supprimée */ }
 
 async function deconnexion(){
   if(sb){ try{ await sb.auth.signOut(); }catch(e){} }
   // Redirection absolue pour éviter les 404 sur Vercel
-  window.location.replace('/eb2-login.html');
+  window.location.reload();
 }
 
 // INIT
