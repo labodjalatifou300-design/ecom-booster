@@ -59,7 +59,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
 .uav{width:28px;height:28px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--or),var(--gold));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.68rem;color:#fff;}
 .uname{font-size:.75rem;font-weight:700;}
 .uplan{font-size:.62rem;color:var(--green);}
-.trial-pill{font-size:.58rem;font-weight:700;background:rgba(34,197,94,.12);color:var(--green);border:1px solid rgba(34,197,94,.22);padding:.13rem .42rem;border-radius:999px;margin-left:auto;white-space:nowrap;}
+
 
 /* ═══ MAIN ═══ */
 .main{flex:1;display:flex;flex-direction:column;height:100vh;overflow:hidden;min-width:0;}
@@ -483,15 +483,29 @@ body.light .crit{box-shadow:0 1px 6px rgba(0,0,0,.05);}
 .four-ju:hover{background:rgba(255,107,26,.1);}
 
 /* ═══ COMPTABILITÉ AMÉLIORÉE ═══ */
-.compta-wrap{max-width:820px;margin:0 auto;}
+.compta-wrap{max-width:820px;margin:0 auto;background:#fff;min-height:100%;padding:1.5rem;border-radius:12px;}
+body.light .compta-wrap{background:#fff;}
+.compta-wrap *{color:#1A1D2E !important;}
+.compta-wrap .compta-btn{color:#fff !important;background:linear-gradient(135deg,#FF6B1A,#FF8C42) !important;}
+.compta-wrap .compta-btn-danger{color:#EF4444 !important;}
+.compta-wrap .compta-form-title{color:#FF6B1A !important;}
+.compta-wrap .compta-date{background:#F0F2F8;border-color:#dde1ef;color:#6B7094 !important;}
+.compta-wrap .compta-form-card,.compta-wrap .compta-chart-card,.compta-wrap .compta-gsheet-card{background:#F8F9FC;border-color:#e8ebf4;}
+.compta-wrap .compta-input{background:#fff;border-color:#d0d4e8;color:#1A1D2E !important;}
+.compta-wrap .compta-input:focus{border-color:#FF6B1A;box-shadow:0 0 0 3px rgba(255,107,26,.1);}
+.compta-wrap .cr-stat{background:#F0F2F8;}
+.compta-wrap .cr-sl{color:#6B7094 !important;}
+.compta-wrap .cbar-date{color:#6B7094 !important;}
+.compta-wrap .compta-btn-sec{background:#fff;border-color:#d0d4e8;color:#4A4F6E !important;}
+.compta-wrap label{color:#4A4F6E !important;}
 .compta-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;flex-wrap:wrap;gap:.5rem;}
-.compta-date{font-size:.78rem;font-weight:600;color:var(--muted);background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:.38rem .75rem;}
-.compta-form-card{background:var(--bg2);border:1px solid var(--bd);border-radius:15px;padding:1.4rem;margin-bottom:1rem;}
-.compta-form-title{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--or);margin-bottom:.9rem;}
+.compta-date{font-size:.78rem;font-weight:600;color:#555;background:#f4f5fb;border:1px solid #d0d3e8;border-radius:8px;padding:.38rem .75rem;}
+.compta-form-card{background:#ffffff;border:1px solid #e5e7f0;border-radius:15px;padding:1.4rem;margin-bottom:1rem;color:#1a1d2e;}
+.compta-form-title{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#FF6B1A;margin-bottom:.9rem;}
 .compta-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:1rem;}
 @media(max-width:480px){.compta-grid{grid-template-columns:1fr;}}
-.compta-field label{display:block;font-size:.68rem;font-weight:600;color:var(--soft);margin-bottom:.3rem;}
-.compta-input{width:100%;background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:.62rem .85rem;color:var(--text);font-family:var(--font);font-size:.84rem;outline:none;transition:border-color .2s,box-shadow .2s;}
+.compta-field label{display:block;font-size:.68rem;font-weight:600;color:#4a4f6e;margin-bottom:.3rem;}
+.compta-input{width:100%;background:#f4f5fb;border:1px solid #d0d3e8;border-radius:8px;padding:.62rem .85rem;color:#1a1d2e;font-family:var(--font);font-size:.84rem;outline:none;transition:border-color .2s,box-shadow .2s;}
 .compta-input:focus{border-color:var(--or);box-shadow:0 0 0 3px rgba(255,107,26,.1);}
 .compta-btn{width:100%;background:linear-gradient(135deg,var(--or),#FF8C42);color:#fff;border:none;border-radius:10px;padding:.8rem;font-family:var(--font);font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:0 6px 20px rgba(255,107,26,.25);transition:transform .2s;}
 .compta-btn:hover{transform:translateY(-2px);}
@@ -502,16 +516,16 @@ body.light .crit{box-shadow:0 1px 6px rgba(0,0,0,.05);}
 .cr-badge{display:inline-block;font-size:.72rem;font-weight:800;padding:.25rem .75rem;border-radius:999px;margin-bottom:.85rem;}
 .cr-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;}
 @media(max-width:480px){.cr-grid{grid-template-columns:1fr;}}
-.cr-stat{background:var(--bg3);border-radius:9px;padding:.75rem .9rem;}
+.cr-stat{background:#f4f5fb;border-radius:9px;padding:.75rem .9rem;}
 .cr-sl{font-size:.62rem;color:var(--muted);margin-bottom:.18rem;font-weight:600;}
 .cr-sv{font-size:1.05rem;font-weight:900;letter-spacing:-.3px;}
-.compta-chart-card{background:var(--bg2);border:1px solid var(--bd);border-radius:14px;padding:1.2rem;margin-bottom:1rem;}
+.compta-chart-card{background:#ffffff;border:1px solid #e5e7f0;border-radius:14px;padding:1.2rem;margin-bottom:1rem;}
 .cbar-chart{display:flex;align-items:flex-end;gap:.5rem;height:100px;padding:.5rem 0;}
 .cbar-col{display:flex;flex-direction:column;align-items:center;flex:1;gap:.28rem;}
 .cbar-val{font-size:.6rem;font-weight:700;white-space:nowrap;}
 .cbar{width:100%;max-width:36px;border-radius:4px 4px 0 0;min-height:4px;transition:height .6s ease;}
 .cbar-date{font-size:.58rem;color:var(--muted);white-space:nowrap;}
-.compta-gsheet-card{background:var(--bg2);border:1px solid var(--bd);border-radius:14px;padding:1.2rem;margin-bottom:1rem;}
+.compta-gsheet-card{background:#ffffff;border:1px solid #e5e7f0;border-radius:14px;padding:1.2rem;margin-bottom:1rem;}
 
 
 /* ═══ FB ADS LIBRARY CARDS ═══ */
@@ -560,6 +574,33 @@ body.light .four-tt{background:rgba(0,0,0,.04);}
 body.light .four-gg{background:rgba(234,67,53,.06);}
 body.light .four-wa{background:rgba(37,211,102,.06);}
 body.light .four-ju{background:rgba(255,107,26,.06);}
+
+
+/* ═══ MÉTRIQUES KPI ═══ */
+.met-kpi-title{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--or);margin-bottom:.75rem;margin-top:1rem;}
+.met-kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.65rem;margin-bottom:1rem;}
+@media(max-width:480px){.met-kpi-grid{grid-template-columns:repeat(2,1fr);}}
+.met-kpi-card{background:var(--bg2);border:1px solid var(--bd);border-radius:12px;padding:.85rem .9rem;}
+.met-kpi-lbl{font-size:.68rem;color:var(--muted);margin-bottom:.28rem;font-weight:500;}
+.met-kpi-val{font-size:1.25rem;font-weight:900;letter-spacing:-.5px;line-height:1;}
+.met-kpi-unit{font-size:.7rem;font-weight:600;opacity:.7;}
+.met-kpi-target{font-size:.6rem;color:var(--muted);margin-top:.3rem;}
+.met-video-section{background:var(--bg2);border:1px solid var(--bd);border-radius:12px;padding:1rem;margin-bottom:.8rem;}
+.met-video-bars{display:flex;gap:.8rem;align-items:flex-end;height:90px;padding:.3rem 0;}
+.met-vbar-col{display:flex;flex-direction:column;align-items:center;flex:1;gap:.25rem;}
+.met-vbar-val{font-size:.72rem;font-weight:700;}
+.met-vbar-bg{flex:1;width:100%;background:var(--bg3);border-radius:4px;display:flex;align-items:flex-end;overflow:hidden;min-height:40px;}
+.met-vbar-fill{width:100%;border-radius:4px;transition:height .8s ease;}
+.met-vbar-lbl{font-size:.65rem;color:var(--muted);font-weight:600;}
+.met-conseils-section{background:var(--bg2);border:1px solid var(--bd);border-radius:12px;padding:1rem;margin-bottom:.8rem;}
+.met-tip{display:flex;gap:.65rem;padding:.65rem .8rem;border-radius:9px;margin-bottom:.45rem;align-items:flex-start;}
+.met-tip-ok{background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.18);}
+.met-tip-bad{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.18);}
+.met-tip-warn{background:rgba(255,184,0,.07);border:1px solid rgba(255,184,0,.18);}
+.met-tip-ico{font-size:1.1rem;flex-shrink:0;margin-top:1px;}
+.met-tip-titre{font-size:.78rem;font-weight:700;margin-bottom:.2rem;}
+.met-tip-msg{font-size:.74rem;color:var(--muted);line-height:1.6;}
+.met-prix-card{background:var(--bg2);border:1px solid var(--bd);border-radius:12px;padding:1rem;margin-bottom:.8rem;}
 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -613,14 +654,12 @@ body.light .four-ju{background:rgba(255,107,26,.06);}
   </div>
   <div class="sb-bot">
     <div style="display:flex;gap:.4rem;margin-bottom:.5rem;">
-      
       <button onclick="toggleTheme()" id="theme-btn" style="flex:1;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;padding:.38rem .5rem;font-size:.68rem;color:var(--muted);cursor:pointer;font-family:var(--font);transition:all .18s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">☀️ Thème clair</button>
-      <button onclick="deconnexion()" style="flex:1;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;padding:.38rem .5rem;font-size:.68rem;color:var(--muted);cursor:pointer;font-family:var(--font);transition:all .18s;" onmouseover="this.style.color='#F87171'" onmouseout="this.style.color='var(--muted)'">⏻</button>
+      <button onclick="deconnexion()" style="flex:1;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;padding:.38rem .5rem;font-size:.68rem;color:var(--muted);cursor:pointer;font-family:var(--font);transition:all .18s;" onmouseover="this.style.color='#F87171'" onmouseout="this.style.color='var(--muted)'">⏻ Déconnexion</button>
     </div>
     <div class="ucard">
-      <div class="uav" id="uav">AK</div>
-      <div><div class="uname" id="uname">Ama Kofi</div><div class="uplan" id="trial-status">✓ Essai gratuit actif</div></div>
-      <div class="trial-pill">24h</div>
+      <div class="uav" id="uav">EB</div>
+      <div style="min-width:0"><div class="uname" id="uname" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px">Mon compte</div><div class="uplan" id="trial-status" style="color:var(--or)">Ecom Booster 2.0</div></div>
     </div>
   </div>
 </aside>
@@ -675,23 +714,13 @@ async function initAuth(){
   const prenom=meta.prenom||meta.full_name?.split(' ')[0]||u.email?.split('@')[0]||'';
   const nom=meta.nom||meta.full_name?.split(' ')[1]||'';
   const initiales=((prenom[0]||'U')+(nom[0]||prenom[1]||'S')).toUpperCase();
-  document.getElementById('uav').textContent=initiales;
-  document.getElementById('uname').textContent=(prenom+' '+nom).trim();
-  // Vérifier expiration essai
-  const {data:profil}=await sb.from('profils').select('plan,essai_expire,abonnement_expire').eq('id',u.id).single();
-  if(profil){
-    const now=new Date();const ee=new Date(profil.essai_expire);
-    const ae=profil.abonnement_expire?new Date(profil.abonnement_expire):null;
-    if(!ae&&ee<=now&&profil.plan==='gratuit'){
-      document.getElementById('trial-status').textContent='⚠️ Essai expiré';
-      document.getElementById('trial-status').style.color='#F87171';
-    }else if(ee>now){
-      const heures=Math.max(0,Math.round((ee-now)/3600000));
-      document.getElementById('trial-status').textContent=`⏰ ${heures}h restantes`;
-    }else{
-      document.getElementById('trial-status').textContent='✓ Plan Pro actif';
-    }
-  }
+  document.getElementById('uav').textContent=initiales||u.email?.[0]?.toUpperCase()||'U';
+  document.getElementById('uname').textContent=(prenom+' '+nom).trim()||u.email?.split('@')[0]||'Mon compte';
+  // Afficher email utilisateur
+  const emailDisplay = u.email || 'Connecté';
+  document.getElementById('trial-status').textContent = emailDisplay;
+  document.getElementById('trial-status').style.color = 'var(--muted)';
+  document.getElementById('trial-status').style.fontSize = '.6rem';
   // Charger historique
   await chargerHistoire();
 }
@@ -726,7 +755,7 @@ async function sauvegarderProduit(product,results){
 // ══ STATE ══
 const S={product:null,results:null,imgs:[],apiMode:'claude',
   history:[],
-  fbMetrics: JSON.parse(localStorage.getItem('eb2_fbMetrics')||'[]'),
+  fbMetrics: JSON.parse(localStorage.getItem('eb2_fbMetrics')||'{}'),
   compta:    JSON.parse(localStorage.getItem('eb2_compta')||'{}'),
   comptaGSheet: localStorage.getItem('eb2_gsheet')||'',
   _fourProdManuel: '',
@@ -936,8 +965,12 @@ DESCRIPTION: ${desc}
 PRIX ACHAT: ${prix} FCFA | PRIX VENTE: ${pR} FCFA | PAYS: ${pays} | CATÉGORIE: ${cat}
 PRODUIT MAINSTREAM: ${isMainstream ? 'OUI — hommes ET femmes' : 'NON — cible spécifique'}
 
-═══ IDENTIFIER LE VRAI PRODUIT ═══
-Identifie le vrai nom commercial. Stocke dans "nom_reel" (français) et "nom_reel_en" (anglais).
+═══ NOM DU PRODUIT — RÈGLE ABSOLUE ═══
+"nom_reel" = COPIER EXACTEMENT le nom donné par l'utilisateur, sans rien ajouter.
+Si l'utilisateur écrit "Beauty Milk" → tu mets "Beauty Milk". PAS "Beauty Milk boisson", PAS "Beauty Milk glutathion". RIEN D'AUTRE.
+Si l'utilisateur fait une faute d'orthographe, tu corriges uniquement l'orthographe. Jamais de mots supplémentaires.
+Maximum 3 mots. Zéro description, zéro ingrédient, zéro argument.
+"nom_reel_en" = traduction anglaise du nom uniquement, même règle stricte. Maximum 3 mots.
 
 ═══ FRUSTRATIONS RÉELLES ═══
 Ce que les vrais clients africains vivent AVANT d'acheter : problèmes concrets, honte, frustrations, ce qu'ils ont essayé sans succès. Ces frustrations servent pour TOUT le contenu.
@@ -1119,7 +1152,7 @@ function demo(nom,prix,pays,cat,desc,pM,pX,pR,pub,liv,clo,imageBase64){
       analyse:`Sur le marché de ${pays} et d'Afrique francophone, ${nom} opère dans un secteur avec des vendeurs locaux actifs sur Facebook, mais la plupart manquent de professionnalisme. La demande est bien présente mais sous-exploitée par des acteurs sérieux.`,
       conseil:`Différencie-toi avec une page produit soignée, des témoignages réels et une garantie claire. La confiance est la clé — 90% de tes concurrents ne l'offrent pas.`
     },
-    prixMin:pM,prixMax:pX,prixReco:pR,pub,livraison:liv,closing:clo,nom_reel:nom,nom_reel_en:nom
+    prixMin:pM,prixMax:pX,prixReco:pR,pub,livraison:liv,closing:clo,nom_reel:nom,nom_reel_en:nom  // nom exact utilisateur
   };
 }
 
@@ -1534,69 +1567,162 @@ function rFacebook(){
 }
 
 function rMetriquesFb(){
-  const rows=(S.fbMetrics||[]).map((m,i)=>{
-    const roas=m.depense>0?(m.achat_valeur/m.depense).toFixed(2):'—';
-    const cpa=m.achats>0?Math.round(m.depense/m.achats).toLocaleString():'—';
-    const ctrVal=parseFloat(m.ctr)||0;
-    const roasVal=parseFloat(roas)||0;
-    const ctrCol=ctrVal>=2?'var(--green)':ctrVal>=1?'var(--gold)':'#F87171';
-    const roasCol=roasVal>=3?'var(--green)':roasVal>=2?'var(--gold)':'#F87171';
-    return`<div class="met-row">
-      <span class="met-name" title="${m.nom_pub||''}">${(m.nom_pub||'Camp.'+(i+1)).substring(0,24)}</span>
-      <span>${(m.depense||0).toLocaleString()} F</span>
-      <span style="color:${ctrCol}">${m.ctr}%</span>
-      <span>${(m.impressions||0).toLocaleString()}</span>
-      <span>${(m.clics||0).toLocaleString()}</span>
-      <span>${m.achats||'—'}</span>
-      <span style="color:${roasCol};font-weight:800">${roas}x</span>
-      <span style="color:#22C55E">${cpa} F</span>
-    </div>`;
-  }).join('');
+  const d = S.fbMetrics || {};
+  const hasData = d.impressions || d.depense || d.clics;
+  const prixVente = S._metPrixVente || 0;
 
-  let resumeHtml='';
-  if(S.fbMetrics&&S.fbMetrics.length>0){
-    const td=S.fbMetrics.reduce((s,m)=>s+(parseFloat(m.depense)||0),0);
-    const ta=S.fbMetrics.reduce((s,m)=>s+(parseFloat(m.achats)||0),0);
-    const tv=S.fbMetrics.reduce((s,m)=>s+(parseFloat(m.achat_valeur)||0),0);
-    const ti=S.fbMetrics.reduce((s,m)=>s+(parseFloat(m.impressions)||0),0);
-    const tc=S.fbMetrics.reduce((s,m)=>s+(parseFloat(m.clics)||0),0);
-    const rg=td>0?(tv/td).toFixed(2):'—';
-    const cpa=ta>0?Math.round(td/ta).toLocaleString():'—';
-    const ctr=ti>0?((tc/ti)*100).toFixed(2):'—';
-    const rc=parseFloat(rg)>=3?'#22C55E':parseFloat(rg)>=2?'#FFB800':'#F87171';
-    const cc=parseFloat(ctr)>=2?'#22C55E':parseFloat(ctr)>=1?'#FFB800':'#F87171';
-    resumeHtml=`
-    <div class="met-resume afu2">
-      <div class="met-res-title">📊 Résumé global — ${S.fbMetrics.length} campagne${S.fbMetrics.length>1?'s':''}</div>
-      <div class="met-res-grid">
-        <div class="met-res-kpi"><div class="met-res-lbl">Dépense totale</div><div class="met-res-val">${td.toLocaleString()} FCFA</div></div>
-        <div class="met-res-kpi"><div class="met-res-lbl">CTR moyen</div><div class="met-res-val" style="color:${cc}">${ctr}%</div></div>
-        <div class="met-res-kpi"><div class="met-res-lbl">Total achats</div><div class="met-res-val">${ta}</div></div>
-        <div class="met-res-kpi"><div class="met-res-lbl">ROAS global</div><div class="met-res-val" style="color:${rc}">${rg}x</div></div>
-        <div class="met-res-kpi"><div class="met-res-lbl">CPA moyen</div><div class="met-res-val">${cpa} FCFA</div></div>
-        <div class="met-res-kpi"><div class="met-res-lbl">Valeur achats</div><div class="met-res-val">${tv.toLocaleString()} FCFA</div></div>
-      </div>
-    </div>
-    <div class="met-table afu3">
-      <div class="met-head"><span>Campagne</span><span>Dépense</span><span>CTR</span><span>Impressions</span><span>Clics</span><span>Achats</span><span>ROAS</span><span>CPA</span></div>
-      ${rows}
-    </div>
-    <button onclick="S.fbMetrics=[];localStorage.removeItem('eb2_fbMetrics');showPage('metriques_fb')" style="margin-top:.8rem;background:none;border:1px solid rgba(239,68,68,.3);color:#F87171;border-radius:7px;padding:.38rem .9rem;font-size:.72rem;font-weight:600;cursor:pointer;font-family:var(--font)">🗑️ Effacer les données</button>`;
+  // ── Calculs intelligents ──
+  let kpis = {};
+  if(hasData){
+    const imp   = parseFloat(d.impressions)||0;
+    const couv  = parseFloat(d.couverture)||0;
+    const dep   = parseFloat(d.depense)||0;
+    const clics = parseFloat(d.clics)||0;
+    const achats= parseFloat(d.achats)||0;
+    const v25   = parseFloat(d.vue25)||0;
+    const v50   = parseFloat(d.vue50)||0;
+    const v75   = parseFloat(d.vue75)||0;
+    const v95   = parseFloat(d.vue95)||0;
+    const freq  = imp > 0 && couv > 0 ? (imp/couv).toFixed(2) : (d.frequence||'—');
+    const cpm   = imp > 0 ? ((dep/imp)*1000).toFixed(2) : '—';
+    const cpc   = clics > 0 ? (dep/clics).toFixed(2) : '—';
+    const ctr   = imp > 0 ? ((clics/imp)*100).toFixed(2) : '—';
+    const cpa   = achats > 0 ? (dep/achats).toFixed(2) : '—';
+    const roas  = prixVente > 0 && achats > 0 ? ((prixVente*achats)/dep).toFixed(2) : '—';
+    kpis = {imp,couv,dep,clics,achats,freq,cpm,cpc,ctr,cpa,roas,v25,v50,v75,v95};
   }
 
-  return`
-  <div class="rh afu"><div><h2>📊 Métriques Facebook Ads</h2><div class="rp">Import CSV depuis Meta Ads Manager</div></div></div>
+  // ── Conseils intelligents par métrique ──
+  function conseil(kpis){
+    const tips = [];
+    const ctr = parseFloat(kpis.ctr);
+    const cpm = parseFloat(kpis.cpm);
+    const cpa = parseFloat(kpis.cpa);
+    const freq= parseFloat(kpis.freq);
+    const v25 = parseFloat(kpis.v25);
+    const v50 = parseFloat(kpis.v50);
+    const v75 = parseFloat(kpis.v75);
+    const v95 = parseFloat(kpis.v95);
+
+    if(ctr < 2 && !isNaN(ctr))
+      tips.push({icon:'⚠️',titre:'CTR faible ('+kpis.ctr+'%)',msg:'Ton accroche visuelle ne retient pas. Teste une nouvelle créative : montre le problème dès la 1ère seconde. Cible: CTR > 2%.'});
+    else if(ctr >= 2)
+      tips.push({icon:'✅',titre:'CTR bon ('+kpis.ctr+'%)',msg:'Ta créative capte l\'attention. Continue à scaler progressivement (+20% budget tous les 3 jours).'});
+
+    if(cpm > 2 && !isNaN(cpm))
+      tips.push({icon:'⚠️',titre:'CPM élevé ($'+kpis.cpm+')',msg:'Facebook dépense trop pour toucher 1 000 personnes. Élargis ton audience ou change la créative. Cible: CPM < $1.5.'});
+    else if(!isNaN(cpm))
+      tips.push({icon:'✅',titre:'CPM correct ($'+kpis.cpm+')',msg:'Bon coût pour 1 000 impressions. L\'audience est réceptive à ta publicité.'});
+
+    if(freq > 3 && !isNaN(freq))
+      tips.push({icon:'⚠️',titre:'Fréquence élevée ('+kpis.freq+'x)',msg:'Les mêmes personnes voient ta pub trop souvent. Élargis l\'audience ou crée une nouvelle créative pour éviter la fatigue publicitaire.'});
+
+    if(!isNaN(cpa) && cpa > 3)
+      tips.push({icon:'🔴',titre:'CPA trop élevé ($'+kpis.cpa+')',msg:'Tu paies trop cher par achat. Améliore ta page produit, ton offre ou ta créative. Cible: CPA < $1.5.'});
+    else if(!isNaN(cpa) && cpa <= 1.5)
+      tips.push({icon:'✅',titre:'CPA excellent ($'+kpis.cpa+')',msg:'Excellent coût par achat. Scale immédiatement — augmente le budget de 50% et mesure le ROAS.'});
+
+    // Lecture vidéo
+    if(v25 > 0){
+      if(v50 > 0 && v25 > 0){
+        const chute = ((v25-v50)/v25*100).toFixed(0);
+        if(chute > 40)
+          tips.push({icon:'🎬',titre:'Chute vidéo à 50% (-'+chute+'%)',msg:'Tu perds '+chute+'% des spectateurs entre 25% et 50% de la vidéo. Le problème est dans ce segment: change le rythme, la voix ou montre le produit plus tôt.'});
+      }
+      if(v75 > 0 && v50 > 0){
+        const chute = ((v50-v75)/v50*100).toFixed(0);
+        if(chute > 40)
+          tips.push({icon:'🎬',titre:'Chute vidéo à 75% (-'+chute+'%)',msg:'Chute importante entre 50% et 75%. Ton CTA ou ta démonstration produit doit venir plus tôt dans la vidéo.'});
+      }
+      if(v95 > 0)
+        tips.push({icon:'✅',titre:'Bonne rétention à 95% ('+v95+'%)',msg:v95+'% de tes spectateurs regardent ta vidéo jusqu\'à la fin. Excellent signe — ta créative engage bien. Utilise ce format pour le scaling.'});
+    }
+
+    return tips;
+  }
+
+  const tips = hasData ? conseil(kpis) : [];
+  const tipsHtml = tips.map(t=>`
+    <div class="met-tip met-tip-${t.icon==='✅'?'ok':t.icon==='🔴'?'bad':'warn'}">
+      <span class="met-tip-ico">${t.icon}</span>
+      <div><div class="met-tip-titre">${t.titre}</div><div class="met-tip-msg">${t.msg}</div></div>
+    </div>`).join('');
+
+  // ── KPI Cards ──
+  function kpiCard(label, value, unit, target, good){
+    const val = parseFloat(value);
+    const isGood = !isNaN(val) && (good ? val >= target : val <= target);
+    const isBad  = !isNaN(val) && (good ? val < target : val > target);
+    const col = isNaN(val) ? 'var(--muted)' : isGood ? '#22C55E' : isBad ? '#F87171' : '#FFB800';
+    return `<div class="met-kpi-card">
+      <div class="met-kpi-lbl">${label}</div>
+      <div class="met-kpi-val" style="color:${col}">${value||'—'}${unit&&value!='—'?'<span class="met-kpi-unit"> '+unit+'</span>':''}</div>
+      ${target?`<div class="met-kpi-target">Cible: ${good?'>':'<'} ${target}${unit||''}</div>`:''}
+    </div>`;
+  }
+
+  const kpiGrid = hasData ? `
+  <div class="met-kpi-grid">
+    ${kpiCard('💸 Dépense', kpis.dep?.toLocaleString(), 'FCFA', null, null)}
+    ${kpiCard('👁️ Impressions', kpis.imp?.toLocaleString(), '', null, null)}
+    ${kpiCard('👤 Couverture', kpis.couv?.toLocaleString(), '', null, null)}
+    ${kpiCard('🔁 Fréquence', kpis.freq, 'x', 3, false)}
+    ${kpiCard('📊 CPM', '$'+kpis.cpm, '', 2, false)}
+    ${kpiCard('🖱️ CPC', '$'+kpis.cpc, '', null, null)}
+    ${kpiCard('📈 CTR', kpis.ctr, '%', 2, true)}
+    ${kpiCard('🛒 Achats', kpis.achats, '', null, null)}
+    ${kpiCard('💰 CPA', '$'+kpis.cpa, '', 1.5, false)}
+    ${kpiCard('🚀 ROAS', kpis.roas+'x', '', 3, true)}
+  </div>
+  ${kpis.v25 > 0 ? `
+  <div class="met-video-section">
+    <div class="met-kpi-title">🎬 Lecture vidéo</div>
+    <div class="met-video-bars">
+      ${[['25%',kpis.v25],['50%',kpis.v50],['75%',kpis.v75],['95%',kpis.v95]].map(([lbl,val])=>{
+        const pct = val||0;
+        const col = pct >= 50?'#22C55E':pct >= 25?'#FFB800':'#F87171';
+        return `<div class="met-vbar-col">
+          <div class="met-vbar-val" style="color:${col}">${pct}%</div>
+          <div class="met-vbar-bg"><div class="met-vbar-fill" style="height:${pct}%;background:${col}"></div></div>
+          <div class="met-vbar-lbl">${lbl}</div>
+        </div>`;
+      }).join('')}
+    </div>
+  </div>` : ''}
+  <div class="met-conseils-section">
+    <div class="met-kpi-title">💡 Conseils personnalisés</div>
+    ${tipsHtml || '<div style="color:var(--muted);font-size:.78rem">Import des données pour avoir des conseils.</div>'}
+  </div>` : '';
+
+  return `
+  <div class="rh afu"><div><h2>📊 Métriques Facebook Ads</h2><div class="rp">${hasData?'Rapport importé':'Import CSV depuis Meta'}</div></div>
+    ${hasData?`<button onclick="S.fbMetrics={};localStorage.removeItem('eb2_fbMetrics');showPage('metriques_fb')" style="font-size:.7rem;color:#F87171;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);border-radius:6px;padding:.28rem .65rem;cursor:pointer;font-family:var(--font)">🗑️ Effacer</button>`:''}
+  </div>
+
+  ${!hasData ? `
   <div class="met-import-zone afu2">
     <div class="met-import-ico">📥</div>
     <div class="met-import-title">Importe ton rapport publicitaire</div>
-    <div class="met-import-sub">Exporte un rapport CSV depuis le Gestionnaire de Publicités Meta → importe-le ici → les métriques s'affichent automatiquement.</div>
-    <label class="met-import-btn">
-      📂 Choisir un fichier CSV
-      <input type="file" accept=".csv" style="display:none" onchange="parseFbMetrics(this)">
-    </label>
-    <div class="met-import-hint">💡 <strong>Comment exporter ?</strong><br>Gestionnaire de pub → <strong>Rapports</strong> → <strong>Exporter</strong> → Format <strong>CSV</strong><br>Colonnes détectées : Dépense · CTR · Impressions · Clics · Achats · ROAS · CPA</div>
-  </div>
-  ${resumeHtml}`;
+    <div class="met-import-sub">Exporte depuis le Gestionnaire de Pub Meta → importe ici → analyse instantanée avec conseils.</div>
+    <label class="met-import-btn">📂 Choisir un fichier CSV<input type="file" accept=".csv" style="display:none" onchange="parseFbMetrics(this)"></label>
+    <div class="met-import-hint">💡 Meta Ads Manager → <strong>Rapports</strong> → <strong>Exporter CSV</strong></div>
+  </div>` : `
+  <div class="met-prix-card afu2">
+    <div class="met-kpi-title">💰 Prix de vente du produit (pour calculer le ROAS réel)</div>
+    <div style="display:flex;gap:.5rem;align-items:center;margin-top:.5rem">
+      <input type="number" id="met-prix-input" placeholder="Ex: 15000" value="${prixVente||''}"
+        style="flex:1;background:var(--bg3);border:1px solid var(--bd2);border-radius:8px;padding:.55rem .8rem;color:var(--text);font-family:var(--font);font-size:.84rem;outline:none"
+        onfocus="this.style.borderColor='var(--or)'" onblur="this.style.borderColor='var(--bd2)'">
+      <span style="font-size:.78rem;color:var(--muted);white-space:nowrap">FCFA</span>
+      <button onclick="S._metPrixVente=parseFloat(document.getElementById('met-prix-input').value)||0;showPage('metriques_fb')"
+        style="background:var(--or);color:#fff;border:none;border-radius:8px;padding:.55rem 1rem;font-size:.78rem;font-weight:700;cursor:pointer;font-family:var(--font);white-space:nowrap">Calculer</button>
+    </div>
+    <div style="font-size:.68rem;color:var(--muted);margin-top:.3rem">Renseignes le prix de vente pour avoir le ROAS et la rentabilité réelle.</div>
+  </div>`}
+
+  ${hasData ? `<div class="met-kpi-title afu3">📈 Tableau de bord</div>${kpiGrid}` : ''}
+
+  ${!hasData ? `<div class="tip" style="margin-top:1rem"><div class="tip-i">📌</div><div><h4>Colonnes CSV reconnues</h4><p style="font-size:.75rem;color:var(--muted)">Impressions · Couverture · Fréquence · Montant dépensé · Clics · CTR · CPM · CPC · Achats · Vidéo vue à 25/50/75/95%</p></div></div>` : ''}`;
 }
 
 async function parseFbMetrics(input){
@@ -1607,32 +1733,109 @@ async function parseFbMetrics(input){
 }
 
 function parseFbCSV(text){
-  const sep=(text.split('\n')[0]||'').includes(';')?';':',';
-  const lines=text.trim().split('\n').filter(l=>l.trim());
+  // Détecter séparateur
+  const firstLine = (text.split('\n')[0]||'');
+  const sep = firstLine.split(';').length > firstLine.split(',').length ? ';' : ',';
+  const lines = text.trim().split('\n').filter(l=>l.trim());
   if(lines.length<2){toast('⚠️ Fichier vide ou invalide',false);return;}
-  const headers=lines[0].split(sep).map(h=>h.replace(/"/g,'').trim().toLowerCase());
-  const find=(keys)=>{for(const k of keys){const idx=headers.findIndex(h=>h.includes(k));if(idx>-1)return idx;}return -1;};
-  const iNom  =find(["nom de la pub","nom de l'annonce","ad name","campaign name","nom"]);
-  const iDep  =find(["montant dépensé","montant depense","amount spent","dépense","spend"]);
-  const iCtr  =find(["ctr","taux de clics"]);
-  const iImp  =find(["impressions"]);
-  const iClics=find(["clics sur le lien","link clicks","clics","clicks"]);
-  const iAchat=find(["achats","purchases","résultats"]);
-  const iVal  =find(["valeur de conversion","purchase value","valeur des achats"]);
-  const data=[];
+
+  // Nettoyer et normaliser les en-têtes
+  const headers = lines[0].split(sep).map(h=>h.replace(/"/g,'').trim().toLowerCase());
+
+  const find = (keys) => {
+    for(const k of keys){
+      const idx = headers.findIndex(h=>h.includes(k));
+      if(idx>-1) return idx;
+    }
+    return -1;
+  };
+
+  // Colonnes META (FR + EN)
+  const cols = {
+    iDep:   find(['montant dépensé','montant depense','amount spent','dépense','depense','spend']),
+    iImp:   find(['impressions']),
+    iCouv:  find(['couverture','portée','reach','coverage']),
+    iFreq:  find(['fréquence','frequence','frequency']),
+    iCpm:   find(['cpm','coût pour 1','cost per 1']),
+    iCpc:   find(['cpc','coût par clic','cost per click']),
+    iCtr:   find(['ctr','taux de clics','click-through']),
+    iClics: find(['clics sur le lien','link clicks','clics','clicks']),
+    iAchat: find(['achats','purchases','résultats','results']),
+    iVal:   find(['valeur de conversion','purchase value','valeur des achats','conversion value']),
+    iV25:   find(['vidéo vue à 25','video watched 25','vue 25','25%']),
+    iV50:   find(['vidéo vue à 50','video watched 50','vue 50','50%']),
+    iV75:   find(['vidéo vue à 75','video watched 75','vue 75','75%']),
+    iV95:   find(['vidéo vue à 95','video watched 95','vue 95','95%','thruplay']),
+  };
+
+  // Agréger toutes les lignes en un seul rapport
+  let agg = {depense:0,impressions:0,couverture:0,frequence:0,cpm:0,cpc:0,ctr:0,clics:0,achats:0,achat_valeur:0,vue25:0,vue50:0,vue75:0,vue95:0};
+  let rowCount = 0;
+
   for(let i=1;i<lines.length;i++){
-    const cols=lines[i].split(sep).map(c=>c.replace(/"/g,'').trim());
-    if(cols.length<3)continue;
-    const num=(idx)=>idx>-1?parseFloat((cols[idx]||'0').replace(/\s/g,'').replace(',','.'))||0:0;
-    const str=(idx)=>idx>-1?cols[idx]:'';
-    const row={nom_pub:str(iNom)||'Camp.'+(i),depense:num(iDep),ctr:num(iCtr).toFixed(2),impressions:num(iImp),clics:num(iClics),achats:num(iAchat),achat_valeur:num(iVal)};
-    if(row.depense>0||row.impressions>0)data.push(row);
+    const c2 = lines[i].split(sep).map(c=>c.replace(/"/g,'').trim());
+    if(c2.length<3) continue;
+    const num = (idx) => idx>-1 ? parseFloat((c2[idx]||'0').replace(/\s/g,'').replace(',','.'))||0 : 0;
+    if(num(cols.iDep)===0 && num(cols.iImp)===0) continue;
+    agg.depense      += num(cols.iDep);
+    agg.impressions  += num(cols.iImp);
+    agg.couverture   += num(cols.iCouv);
+    agg.clics        += num(cols.iClics);
+    agg.achats       += num(cols.iAchat);
+    agg.achat_valeur += num(cols.iVal);
+    agg.vue25        += num(cols.iV25);
+    agg.vue50        += num(cols.iV50);
+    agg.vue75        += num(cols.iV75);
+    agg.vue95        += num(cols.iV95);
+    // Fréquence et CTR : moyennes pondérées
+    agg.frequence    += num(cols.iFreq);
+    agg.ctr          += num(cols.iCtr);
+    agg.cpm          += num(cols.iCpm);
+    agg.cpc          += num(cols.iCpc);
+    rowCount++;
   }
-  if(data.length===0){toast('⚠️ Aucune donnée trouvée',false);return;}
-  S.fbMetrics=data;
-  localStorage.setItem('eb2_fbMetrics', JSON.stringify(data));
+
+  if(rowCount===0){toast('⚠️ Aucune donnée valide trouvée',false);return;}
+
+  // Calculer les moyennes pour fréquence, CTR, CPM, CPC
+  if(rowCount>1){
+    agg.frequence = (agg.frequence/rowCount).toFixed(2);
+    agg.ctr       = (agg.ctr/rowCount).toFixed(2);
+    agg.cpm       = (agg.cpm/rowCount).toFixed(2);
+    agg.cpc       = (agg.cpc/rowCount).toFixed(2);
+  } else {
+    // Calculer depuis les totaux si pas dans le CSV
+    if(!agg.cpm && agg.impressions>0) agg.cpm = ((agg.depense/agg.impressions)*1000).toFixed(2);
+    if(!agg.ctr && agg.impressions>0) agg.ctr = ((agg.clics/agg.impressions)*100).toFixed(2);
+    if(!agg.cpc && agg.clics>0) agg.cpc = (agg.depense/agg.clics).toFixed(2);
+    if(!agg.frequence && agg.couverture>0) agg.frequence = (agg.impressions/agg.couverture).toFixed(2);
+    agg.frequence = agg.frequence || '—';
+    agg.cpm = agg.cpm || '—';
+    agg.ctr = agg.ctr || '—';
+    agg.cpc = agg.cpc || '—';
+  }
+
+  // Convertir lectures vidéo en pourcentages si nécessaire
+  if(agg.vue25 > 100) agg.vue25 = Math.round((agg.vue25/agg.impressions)*100);
+  if(agg.vue50 > 100) agg.vue50 = Math.round((agg.vue50/agg.impressions)*100);
+  if(agg.vue75 > 100) agg.vue75 = Math.round((agg.vue75/agg.impressions)*100);
+  if(agg.vue95 > 100) agg.vue95 = Math.round((agg.vue95/agg.impressions)*100);
+
+  S.fbMetrics = agg;
+  localStorage.setItem('eb2_fbMetrics', JSON.stringify(agg));
+
+  // Sync automatique avec la comptabilité du jour
+  const today = new Date().toISOString().split('T')[0];
+  const existing = S.compta[today] || {};
+  S.compta[today] = Object.assign({}, existing, {
+    pub: agg.depense > 0 ? agg.depense : (existing.pub||0),
+    commandes: agg.achats > 0 ? agg.achats : (existing.commandes||0),
+    _fromMetrics: true
+  });
+  localStorage.setItem('eb2_compta', JSON.stringify(S.compta));
+
   showPage('metriques_fb');
-  toast(`✅ ${data.length} campagne${data.length>1?'s':''} importée${data.length>1?'s':''} !`,true);
+  toast('✅ Rapport importé — comptabilité mise à jour automatiquement !', true);
 }
 
 function rVoixOff(){
@@ -1793,7 +1996,7 @@ function rConc(){
 
   <div class="bubbles-section afu4">
     <div class="section-subtitle">🌍 FB Ads Library — Pubs actives par pays</div>
-    <p style="font-size:.73rem;color:var(--muted);margin-bottom:.65rem">Catégorie : <strong style="color:var(--text)">Toutes les publicités</strong> · Mot-clé optimisé par l'IA</p>
+    <p style="font-size:.73rem;color:var(--muted);margin-bottom:.65rem">Catégorie : <strong style="color:var(--text)">Toutes les publicités</strong> · Nom du produit uniquement</p>
     <div class="fb-pays-grid">${fbBubbles}</div>
   </div>
 
