@@ -52,12 +52,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15
 .ni.active{background:rgba(255,107,26,.09);color:var(--text);border-left-color:var(--or);}
 .ni .ico{font-size:.85rem;width:16px;text-align:center;flex-shrink:0;}
 .nbadge{margin-left:auto;font-size:.58rem;font-weight:700;background:var(--or);color:#fff;padding:.08rem .38rem;border-radius:999px;}
-/* API switcher */
-.api-sw{padding:.5rem .9rem;border-top:1px solid var(--bd);}
-.api-lbl{font-size:.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
-.api-btns{display:flex;gap:.35rem;}
-.api-btn{flex:1;padding:.38rem;border-radius:6px;font-size:.68rem;font-weight:700;cursor:pointer;font-family:var(--font);border:1px solid var(--bd);color:var(--muted);background:var(--bg3);transition:all .18s;text-align:center;}
-.api-btn.active-api{background:rgba(255,107,26,.15);color:var(--or);border-color:rgba(255,107,26,.4);}
+
 /* FIXED BOTTOM */
 .sb-bot{padding:.65rem .8rem;border-top:1px solid var(--bd);flex-shrink:0;background:var(--bg2);}
 .ucard{display:flex;align-items:center;gap:.55rem;background:var(--bg3);border-radius:8px;padding:.55rem .7rem;}
@@ -614,12 +609,7 @@ body.light .four-ju{background:rgba(255,107,26,.06);}
       <div class="ni" id="nav-historique"    onclick="showPage('historique');closeSidebar()"><span class="ico">🕐</span>Historique<span class="nbadge" id="hcount">0</span></div>
     </div>
   </div>
-  <div class="api-sw">
-    <div class="api-lbl">Moteur IA</div>
-    <div class="api-btns">
-      <div class="api-btn active-api" id="btn-claude" onclick="setAPI('claude')">Claude</div>
-      <div class="api-btn" id="btn-grok" onclick="setAPI('grok')">Grok</div>
-    </div>
+  
   </div>
   <div class="sb-bot">
     <div style="display:flex;gap:.4rem;margin-bottom:.5rem;">
@@ -786,11 +776,7 @@ applyTheme();
 // ══ MOBILE NAV ══
 function openSidebar(){document.getElementById('sb').classList.add('open');document.getElementById('overlay').classList.add('show');}
 function closeSidebar(){document.getElementById('sb').classList.remove('open');document.getElementById('overlay').classList.remove('show');}
-function setAPI(m){
-  S.apiMode=m;
-  document.getElementById('btn-grok').classList.toggle('active-api',m==='grok');
-  document.getElementById('btn-claude').classList.toggle('active-api',m==='claude');
-}
+
 
 // ══ NAV ══
 function navTo(p){
